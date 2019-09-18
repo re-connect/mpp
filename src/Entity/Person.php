@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * A book.
  *
  * @ORM\Entity
- * @ApiResource
+ * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"})
  *
  */
 class Person

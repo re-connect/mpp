@@ -12,7 +12,7 @@ class SecurityController extends AbstractController
 {
     /**
      * @param Request $request
-     * @Route("/login", name="login", methods={"POST"})
+     * @Route("/auth", name="login", methods={"POST"})
      * @return JsonResponse
      */
     public function login(Request $request)
