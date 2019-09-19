@@ -4,6 +4,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,16 +28,40 @@ class Person
     /**
      * @var string.
      *
-     * @ORM\Column(name="first_name")
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
     public $firstName;
 
     /**
      * @var string.
      *
-     * @ORM\Column(name="last_name")
+     * @ORM\Column(name="last_name", type="string", length=255)
      */
     public $lastName;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="person")
+     */
+    private $notes;
+
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -70,11 +95,44 @@ class Person
         $this->lastName = $lastName;
     }
 
+
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): ?int
+    public function getNotes()
     {
-        return $this->id;
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes): void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @param Note $note
+     *
+     * @return $this
+     */
+    public function addNote(Note $note)
+    {
+        $this->notes[] = $note;
+
+        return $this;
+    }
+
+    /**
+     * @param Note $note
+     *
+     * @return $this
+     */
+    public function removeNote(Note $note)
+    {
+        $this->notes->removeElement($note);
+
+        return $this;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,11 +21,13 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
+     * @var array
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -36,10 +39,26 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string
      * @ORM\Column(type="string", unique=true)
      */
     private $apiToken;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="author")
+     */
+    private $notes;
+
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->email;
+    }
 
     public function getId(): ?int
     {
@@ -134,5 +153,46 @@ class User implements UserInterface
     {
         $this->apiToken = $apiToken;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes): void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @param Note $note
+     *
+     * @return $this
+     */
+    public function addNote(Note $note)
+    {
+        $this->notes[] = $note;
+
+        return $this;
+    }
+
+    /**
+     * @param Note $note
+     *
+     * @return $this
+     */
+    public function removeNote(Note $note)
+    {
+        $this->notes->removeElement($note);
+
+        return $this;
+    }
+
 }
 
