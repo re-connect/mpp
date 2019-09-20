@@ -8,7 +8,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
-const notesEndpoint = 'http://localhost:8000/api/notes';
+import { notesEndpoint } from '../../../Services/requests';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;

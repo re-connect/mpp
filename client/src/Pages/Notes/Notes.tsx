@@ -5,9 +5,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
+import { notesEndpoint } from '../../Services/requests';
 import CreateNoteForm from './Components/CreateNoteForm';
-const apiEndpoint = 'http://localhost:8000/api';
-const notesEndpoint = '/notes';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -26,7 +25,7 @@ const Notes = withRouter(({ history, match }: any) => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .get(`${apiEndpoint}${notesEndpoint}?person=${personId}`)
+        .get(`${notesEndpoint}?person=${personId}`)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           setNotes(response.body);

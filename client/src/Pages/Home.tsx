@@ -5,9 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
-
-const apiEndpoint = 'http://localhost:8000/api';
-const userEndpoint = '/people';
+import { userEndpoint } from '../Services/requests';
 
 const StyledContent = styled.div`
   padding-top: 200px;
@@ -30,7 +28,7 @@ const Home = withRouter(({ history }: any) => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .get(`${apiEndpoint}${userEndpoint}`)
+        .get(userEndpoint)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           console.log(response);

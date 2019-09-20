@@ -6,8 +6,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
-
-const loginUrl = 'http://localhost:8000/authentication_token';
+import { loginEndpoint } from '../Services/requests';
 
 const StyledForm = styled.form`
   padding-top: 200px;
@@ -19,7 +18,7 @@ const StyledForm = styled.form`
 const Login: any = withRouter(({ history }: any) => {
   const login = (email: string, password: string) => {
     superagent
-      .post(loginUrl)
+      .post(loginEndpoint)
       .send({ email, password })
       .set('accept', 'json')
       .then((response: Response) => {
