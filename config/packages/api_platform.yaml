@@ -7,4 +7,9 @@ api_platform:
                 name: Authorization
                 type: header
     formats:
-        json: ['application/json']
+        json:     ['application/json']
+        xml:      ['application/xml', 'text/xml']
+        yaml:     ['application/x-yaml']
+        csv:      ['text/csv']
+        html:     ['text/html']
+        myformat: ['application/vnd.myformat']
