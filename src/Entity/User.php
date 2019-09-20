@@ -56,13 +56,19 @@ class User implements UserInterface
         $this->notes = new ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->email;
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getEmail(): ?string

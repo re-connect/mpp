@@ -3,15 +3,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * A Note
  *
  * @ORM\Entity
- * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"})
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_USER')"},
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ *     )
+ * @ApiFilter(SearchFilter::class, properties={"person": "exact"})
  *
  */
 class Note
@@ -27,21 +35,21 @@ class Note
 
     /**
      * @var string.
-     *
+     * @Groups({"read", "write"})
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var DateTime
-     *
+     * @Groups({"read", "write"})
      * @ORM\Column(name="date", type="date", nullable=true)
      */
     private $date;
 
     /**
      * @var string.
-     *
+     * @Groups({"read", "write"})
      * @ORM\Column(name="content", type="text")
      */
     private $content;
@@ -49,14 +57,13 @@ class Note
 
     /**
      * @var User
-     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notes")
      */
     private $author;
 
     /**
      * @var Person
-     *
+     * @Groups({"write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="notes")
      */
     private $person;
