@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import PersonIcon from '@material-ui/icons/Person';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -8,14 +8,15 @@ import superagent, { Response } from 'superagent';
 import { userEndpoint } from '../Services/requests';
 
 const StyledContent = styled.div`
-  padding-top: 200px;
-  margin-bottom: 200px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledListItemContent = styled.div`
-  background-color: whitesmoke;
+  background-color: #009688;
+  color: white;
+  cursor: pointer;
   border-radius: 12px;
   padding: 10px;
   flex: 1;
@@ -46,12 +47,15 @@ const Home = withRouter(({ history }: any) => {
   return (
     <Container maxWidth='sm'>
       <StyledContent>
+        <Typography variant='h3' component='h2' gutterBottom color='textSecondary'>
+          Ma petite maraude
+        </Typography>
         <List dense={false}>
           {people.map((person: any) => (
             <ListItem key={person.id} onClick={() => history.push(`/notes/${person.id}`)}>
               <StyledListItemContent>
                 <ListItemIcon>
-                  <PersonIcon />
+                  <PersonIcon htmlColor='white' />
                 </ListItemIcon>
                 <ListItemText primary={`${person.firstName} ${person.lastName}`} />
               </StyledListItemContent>

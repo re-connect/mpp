@@ -1,7 +1,20 @@
-import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  Typography,
+} from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import AddIcon from '@material-ui/icons/Add';
 import { format } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useBoolean } from 'react-hanger';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
@@ -18,7 +31,18 @@ const StyledCard = styled(Card)`
   margin-bottom: 10px;
 `;
 
+const Header = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+const NotesTitle = styled(Typography)`
+  flex: 1;
+`;
+
 const Notes = withRouter(({ history, match }: any) => {
+  const isModalOpen = useBoolean(false);
+
   const [notes, setNotes] = useState<any[]>([]);
   const { personId } = match.params;
   const fetchNotes = useCallback(() => {
@@ -38,15 +62,33 @@ const Notes = withRouter(({ history, match }: any) => {
   useEffect(() => {
     fetchNotes();
   }, [fetchNotes]);
-  console.log(notes);
 
   return (
     <Container maxWidth='sm'>
+      <Dialog fullScreen open={isModalOpen.value} onClose={isModalOpen.setFalse} aria-labelledby='form-dialog-title'>
+        <DialogTitle id='form-dialog-title'>Subscribe</DialogTitle>
+        <DialogContent>
+          <CreateNoteForm personId={personId} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={isModalOpen.setFalse} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={isModalOpen.setFalse} color='primary'>
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <StyledContent>
-        <Typography variant='h2' gutterBottom>
-          Notes
-        </Typography>
-        <CreateNoteForm personId={personId} />
+        <Header>
+          <NotesTitle variant='h2' gutterBottom color='textSecondary'>
+            Notes
+          </NotesTitle>
+          <Fab size='medium' color='primary' aria-label='add' onClick={isModalOpen.setTrue}>
+            <AddIcon />
+          </Fab>
+        </Header>
         {notes.map((note: any) => (
           <StyledCard key={note.id}>
             <CardContent>
