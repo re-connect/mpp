@@ -15,6 +15,7 @@ node_modules
 ###< frontend dependencies ###
 
 ###< symfony/framework-bundle ###
+composer.phar
 /public/bundles/
 /var/
 /vendor/
