@@ -13,11 +13,12 @@ import {
 import Container from '@material-ui/core/Container';
 import AddIcon from '@material-ui/icons/Add';
 import { format } from 'date-fns';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useBoolean } from 'react-hanger';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
+import NotesContext from '../../Context/NotesContext';
 import { notesEndpoint } from '../../Services/requests';
 import CreateNoteForm from './Components/CreateNoteForm';
 
@@ -43,7 +44,7 @@ const NotesTitle = styled(Typography)`
 const Notes = withRouter(({ history, match }: any) => {
   const isModalOpen = useBoolean(false);
 
-  const [notes, setNotes] = useState<any[]>([]);
+  const notesContext = useContext(NotesContext);
   const { personId } = match.params;
   const fetchNotes = useCallback(() => {
     const token = localStorage.getItem('token');
@@ -52,12 +53,12 @@ const Notes = withRouter(({ history, match }: any) => {
         .get(`${notesEndpoint}?person=${personId}`)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
-          setNotes(response.body);
+          notesContext.set(response.body);
         });
     } else {
       history.push('/login');
     }
-  }, [history, personId]);
+  }, [history, personId, notesContext]);
 
   useEffect(() => {
     fetchNotes();
@@ -66,20 +67,16 @@ const Notes = withRouter(({ history, match }: any) => {
   return (
     <Container maxWidth='sm'>
       <Dialog fullScreen open={isModalOpen.value} onClose={isModalOpen.setFalse} aria-labelledby='form-dialog-title'>
-        <DialogTitle id='form-dialog-title'>Subscribe</DialogTitle>
+        <DialogTitle id='form-dialog-title'>Créer une note</DialogTitle>
         <DialogContent>
-          <CreateNoteForm personId={personId} />
+          <CreateNoteForm personId={personId} closeModal={isModalOpen.setFalse} />
         </DialogContent>
         <DialogActions>
           <Button onClick={isModalOpen.setFalse} color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={isModalOpen.setFalse} color='primary'>
-            Subscribe
+            Annuler
           </Button>
         </DialogActions>
       </Dialog>
-
       <StyledContent>
         <Header>
           <NotesTitle variant='h2' gutterBottom color='textSecondary'>
@@ -89,7 +86,7 @@ const Notes = withRouter(({ history, match }: any) => {
             <AddIcon />
           </Fab>
         </Header>
-        {notes.map((note: any) => (
+        {notesContext.list.map((note: any) => (
           <StyledCard key={note.id}>
             <CardContent>
               <Typography color='textSecondary' gutterBottom>

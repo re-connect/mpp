@@ -8,6 +8,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
+import NotesContext from '../../../Context/NotesContext';
 import { notesEndpoint } from '../../../Services/requests';
 
 const StyledForm = styled.form`
@@ -23,7 +24,9 @@ interface NoteInterface {
   person: string;
 }
 
-const CreateNoteForm: any = withRouter(({ history, personId }: any) => {
+const CreateNoteForm: any = withRouter(({ history, personId, closeModal }: any) => {
+  const notesContext = React.useContext(NotesContext);
+
   const create = (note: NoteInterface) => {
     const token = localStorage.getItem('token');
     if (token !== null) {
@@ -32,7 +35,8 @@ const CreateNoteForm: any = withRouter(({ history, personId }: any) => {
         .send(note)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
-          console.log(response);
+          closeModal();
+          notesContext.set([response.body, ...notesContext.list]);
         });
     } else {
       alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');
@@ -54,7 +58,7 @@ const CreateNoteForm: any = withRouter(({ history, personId }: any) => {
           content: '',
         }}
         onSubmit={values => {
-          create({ ...values, date: selectedDate, person: '/api/people/1' });
+          create({ ...values, date: selectedDate, person: `/api/people/${personId}` });
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
