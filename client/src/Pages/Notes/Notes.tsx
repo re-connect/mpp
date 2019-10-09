@@ -1,8 +1,9 @@
 import {
+  Avatar,
   Button,
   Card,
-  CardActions,
   CardContent,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -41,16 +42,20 @@ const NotesTitle = styled(Typography)`
   flex: 1;
 `;
 
+const StyledChip = styled(Chip)`
+  margin: 8px;
+`;
+
 const Notes = withRouter(({ history, match }: any) => {
   const isModalOpen = useBoolean(false);
 
   const notesContext = useContext(NotesContext);
-  const { personId } = match.params;
+  const { centerId } = match.params;
   const fetchNotes = useCallback(() => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .get(`${notesEndpoint}?person=${personId}`)
+        .get(`${notesEndpoint}?center=${centerId}`)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           notesContext.set(response.body);
@@ -58,18 +63,18 @@ const Notes = withRouter(({ history, match }: any) => {
     } else {
       history.push('/login');
     }
-  }, [history, personId, notesContext]);
+  }, [history, centerId, notesContext]);
 
   useEffect(() => {
     fetchNotes();
-  }, [fetchNotes]);
+  }, []);
 
   return (
     <Container maxWidth='sm'>
       <Dialog fullScreen open={isModalOpen.value} onClose={isModalOpen.setFalse} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Créer une note</DialogTitle>
         <DialogContent>
-          <CreateNoteForm personId={personId} closeModal={isModalOpen.setFalse} />
+          <CreateNoteForm centerId={centerId} closeModal={isModalOpen.setFalse} />
         </DialogContent>
         <DialogActions>
           <Button onClick={isModalOpen.setFalse} color='primary'>
@@ -80,7 +85,7 @@ const Notes = withRouter(({ history, match }: any) => {
       <StyledContent>
         <Header>
           <NotesTitle variant='h2' gutterBottom color='textSecondary'>
-            Notes
+            Permanences
           </NotesTitle>
           <Fab size='medium' color='primary' aria-label='add' onClick={isModalOpen.setTrue}>
             <AddIcon />
@@ -90,19 +95,32 @@ const Notes = withRouter(({ history, match }: any) => {
           <StyledCard key={note.id}>
             <CardContent>
               <Typography color='textSecondary' gutterBottom>
-                {format(new Date(note.date), 'dd-MM-yyyy')}
+                Date : {format(new Date(note.date), 'dd-MM-yyyy')}
               </Typography>
-              <Typography variant='h5' component='h2'>
-                {note.title}
-              </Typography>
-              <Typography color='textSecondary'></Typography>
               <Typography variant='body2' component='p'>
-                {note.content}
+                Durée : {note.hours} h
+              </Typography>
+              <StyledChip avatar={<Avatar>{note.nbPros}</Avatar>} label='Professionnels rencontrés' />
+              <StyledChip avatar={<Avatar>{note.nbProAccounts}</Avatar>} label='Comptes pro crées' />
+              <StyledChip avatar={<Avatar>{note.nbBeneficiaries}</Avatar>} label='Bénéficiaires rencontrés' />
+              <StyledChip
+                avatar={<Avatar>{note.nbBeneficiariesAccounts}</Avatar>}
+                label='Comptes bénéficiaires crées'
+              />
+              <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés' />
+              <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
+              <Typography variant='body2' component='p'>
+                {note.beneficiariesNotes}
+              </Typography>
+              <Typography variant='subtitle1'>Remarques concernant les professionnels</Typography>
+              <Typography variant='body2' component='p'>
+                {note.proNotes}
+              </Typography>
+              <Typography variant='subtitle1'>Remarques concernant Reconnect</Typography>
+              <Typography variant='body2' component='p'>
+                {note.reconnectNotes}
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button size='small'>Actions</Button>
-            </CardActions>
           </StyledCard>
         ))}
       </StyledContent>

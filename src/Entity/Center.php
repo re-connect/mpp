@@ -1,5 +1,4 @@
 <?php
-// api/src/Entity/Book.php
 
 namespace App\Entity;
 
@@ -8,19 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A book.
+ * A Center
  *
  * @ORM\Entity
  * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"})
  *
  */
-class Person
+class Center
 {
     /**
      * @var int The id of this person.
      *
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -28,26 +27,19 @@ class Person
     /**
      * @var string.
      *
-     * @ORM\Column(name="first_name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    public $firstName;
-
-    /**
-     * @var string.
-     *
-     * @ORM\Column(name="last_name", type="string", length=255)
-     */
-    public $lastName;
+    public $name;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="center")
      */
     private $notes;
 
     public function __toString()
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->name;
     }
 
     public function __construct()
@@ -66,35 +58,18 @@ class Person
     /**
      * @return string
      */
-    public function getFirstName(): ?string
+    public function getName(): ?string
     {
-        return $this->firstName;
+        return $this->name;
     }
 
     /**
-     * @param string $firstName
+     * @param string $name
      */
-    public function setFirstName(string $firstName): void
+    public function setName(string $name = null): void
     {
-        $this->firstName = $firstName;
+        $this->name = $name;
     }
-
-    /**
-     * @return string
-     */
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
 
     /**
      * @return mixed

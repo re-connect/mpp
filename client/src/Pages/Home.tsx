@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
-import { userEndpoint } from '../Services/requests';
+import { centersEndpoint } from '../Services/requests';
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -24,16 +24,16 @@ const StyledListItemContent = styled.div`
 `;
 
 const Home = withRouter(({ history }: any) => {
-  const [people, setPeople] = useState<any[]>([]);
-  const fetchPersons = useCallback(() => {
+  const [centers, setCenters] = useState<any[]>([]);
+  const fetchCehters = useCallback(() => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .get(userEndpoint)
+        .get(centersEndpoint)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           console.log(response);
-          setPeople(response.body);
+          setCenters(response.body);
         });
     } else {
       history.push('/login');
@@ -41,23 +41,23 @@ const Home = withRouter(({ history }: any) => {
   }, [history]);
 
   useEffect(() => {
-    fetchPersons();
-  }, [fetchPersons]);
+    fetchCehters();
+  }, [fetchCehters]);
 
   return (
     <Container maxWidth='sm'>
       <StyledContent>
         <Typography variant='h3' component='h2' gutterBottom color='textSecondary'>
-          Ma petite maraude
+          Ma petite permanence
         </Typography>
         <List dense={false}>
-          {people.map((person: any) => (
-            <ListItem key={person.id} onClick={() => history.push(`/notes/${person.id}`)}>
+          {centers.map((center: any) => (
+            <ListItem key={center.id} onClick={() => history.push(`/notes/${center.id}`)}>
               <StyledListItemContent>
                 <ListItemIcon>
                   <PersonIcon htmlColor='white' />
                 </ListItemIcon>
-                <ListItemText primary={`${person.firstName} ${person.lastName}`} />
+                <ListItemText primary={`${center.name}`} />
               </StyledListItemContent>
             </ListItem>
           ))}

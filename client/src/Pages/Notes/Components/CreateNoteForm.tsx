@@ -18,13 +18,20 @@ const StyledForm = styled.form`
 `;
 
 interface NoteInterface {
-  content: string;
-  title: string;
   date: Date;
-  person: string;
+  center: string;
+  hours: number;
+  nbPros: number;
+  nbProAccounts: number;
+  nbBeneficiaries: number;
+  nbBeneficiariesAccounts: number;
+  nbStoredDocs: number;
+  beneficiariesNotes: string;
+  proNotes: string;
+  reconnectNotes: string;
 }
 
-const CreateNoteForm: any = withRouter(({ history, personId, closeModal }: any) => {
+const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) => {
   const notesContext = React.useContext(NotesContext);
 
   const create = (note: NoteInterface) => {
@@ -54,51 +61,147 @@ const CreateNoteForm: any = withRouter(({ history, personId, closeModal }: any) 
     <Container maxWidth='sm'>
       <Formik
         initialValues={{
-          title: '',
-          content: '',
+          date: new Date(),
+          center: '',
+          hours: 0,
+          nbPros: 0,
+          nbProAccounts: 0,
+          nbBeneficiaries: 0,
+          nbBeneficiariesAccounts: 0,
+          nbStoredDocs: 0,
+          beneficiariesNotes: '',
+          proNotes: '',
+          reconnectNotes: '',
         }}
-        onSubmit={values => {
-          create({ ...values, date: selectedDate, person: `/api/people/${personId}` });
+        onSubmit={(values: NoteInterface) => {
+          console.log(values);
+          create({ ...values, date: selectedDate, center: `/api/centers/${centerId}` });
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1 }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    format='dd/MM/yyyy'
+                    margin='normal'
+                    id='date-picker-inline'
+                    label='Date'
+                    onChange={handleDateChange}
+                    variant='inline'
+                    value={selectedDate}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='hours'
+                  label="Nombre d'heures"
+                  name='hours'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+            </div>
+            <div style={{ height: 16 }} />
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='nb-pros'
+                  label='Nb pros rencontrés'
+                  name='nbPros'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='nb-pro-accounts'
+                  label='Nb comptes pros crées'
+                  name='nbProAccounts'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+            </div>
+            <div style={{ height: 16 }} />
+            <div style={{ display: 'flex' }}>
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='nb-beneficiaries'
+                  label='Nb benefs rencontrés'
+                  name='nbBeneficiaries'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+              <div style={{ width: 8 }} />
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='nb-beneficiaries-accounts'
+                  label='Nb comptes benef crées'
+                  name='nbBeneficiariesAccounts'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+              <div style={{ width: 8 }} />
+              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+                <TextField
+                  id='nb-docs-stored'
+                  label='Nb doc stockés'
+                  name='nbStoredDocs'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+            </div>
             <TextField
-              id='title'
-              name='title'
+              id='beneficiaries-notes'
+              name='beneficiariesNotes'
               type='text'
-              label='title'
-              margin='normal'
-              variant='outlined'
-              onChange={props.handleChange}
-            />
-            {props.errors.title && <div id='feedback'>{props.errors.title}</div>}
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='date-picker-inline'
-                label='Date picker inline'
-                onChange={handleDateChange}
-                value={selectedDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
-            <TextField
-              id='content'
-              name='content'
-              type='text'
-              label='content'
+              label='Remarques en rapport avec les bénéficiaires'
               margin='normal'
               variant='outlined'
               multiline
               rows='4'
               onChange={props.handleChange}
             />
-            {props.errors.content && <div id='feedback'>{props.errors.content}</div>}
+            {props.errors.beneficiariesNotes && <div id='feedback'>{props.errors.beneficiariesNotes}</div>}
+            <TextField
+              id='pro-notes'
+              name='proNotes'
+              type='text'
+              label='Remarques en rapport avec les professionnels'
+              margin='normal'
+              variant='outlined'
+              multiline
+              rows='4'
+              onChange={props.handleChange}
+            />
+            {props.errors.proNotes && <div id='feedback'>{props.errors.proNotes}</div>}
+            <TextField
+              id='reconnect-notes'
+              name='reconnectNotes'
+              type='text'
+              label='Remarques en rapport avec Reconnect'
+              margin='normal'
+              variant='outlined'
+              multiline
+              rows='4'
+              onChange={props.handleChange}
+            />
+            {props.errors.reconnectNotes && <div id='feedback'>{props.errors.reconnectNotes}</div>}
             <Button variant='outlined' color='primary' type='submit'>
               Créer
             </Button>
