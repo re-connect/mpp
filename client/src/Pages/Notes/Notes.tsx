@@ -46,6 +46,17 @@ const StyledChip = styled(Chip)`
   margin: 8px;
 `;
 
+const HeaderContent = styled(Header)`
+  position: 'relative';
+  align-self: 'stretch';
+  flex: 1;
+`;
+
+const AddNoteIcon = styled(Fab)`
+  position: 'absolute';
+  right: 0;
+`;
+
 const Notes = withRouter(({ history, match }: any) => {
   const isModalOpen = useBoolean(false);
 
@@ -84,12 +95,14 @@ const Notes = withRouter(({ history, match }: any) => {
       </Dialog>
       <StyledContent>
         <Header>
-          <NotesTitle variant='h2' gutterBottom color='textSecondary'>
-            Permanences
-          </NotesTitle>
-          <Fab size='medium' color='primary' aria-label='add' onClick={isModalOpen.setTrue}>
-            <AddIcon />
-          </Fab>
+          <HeaderContent>
+            <NotesTitle variant='h4' gutterBottom color='textSecondary'>
+              Permanences
+            </NotesTitle>
+            <AddNoteIcon size='medium' color='primary' aria-label='add' onClick={isModalOpen.setTrue}>
+              <AddIcon />
+            </AddNoteIcon>
+          </HeaderContent>
         </Header>
         {notesContext.list.map((note: any) => (
           <StyledCard key={note.id}>
