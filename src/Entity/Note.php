@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -23,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class Note
 {
+    use TimestampableEntity;
     /**
      * @var int The id of this note.
      *
