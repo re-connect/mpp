@@ -1,11 +1,17 @@
-import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
-import PersonIcon from '@material-ui/icons/Person';
-import React, { useCallback, useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import superagent, { Response } from 'superagent';
-import { centersEndpoint } from '../Services/requests';
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
+} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import PersonIcon from "@material-ui/icons/Person";
+import React, { useCallback, useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+import superagent, { Response } from "superagent";
+import { centersEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -25,37 +31,49 @@ const StyledListItemContent = styled.div`
 
 const Home = withRouter(({ history }: any) => {
   const [centers, setCenters] = useState<any[]>([]);
-  const fetchCehters = useCallback(() => {
-    const token = localStorage.getItem('token');
+  const fetchCenters = useCallback(() => {
+    const token = localStorage.getItem("token");
     if (token !== null) {
       superagent
         .get(centersEndpoint)
-        .set('Authorization', `Bearer ${token}`)
+        .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          console.log(response);
+          console.log("response");
           setCenters(response.body);
+        })
+        .catch(error => {
+          history.push("/login");
         });
     } else {
-      history.push('/login');
+      console.log("no token");
+      history.push("/login");
     }
   }, [history]);
 
   useEffect(() => {
-    fetchCehters();
-  }, [fetchCehters]);
+    fetchCenters();
+  }, [fetchCenters]);
 
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth="sm">
       <StyledContent>
-        <Typography variant='h3' component='h2' gutterBottom color='textSecondary'>
+        <Typography
+          variant="h3"
+          component="h2"
+          gutterBottom
+          color="textSecondary"
+        >
           Ma petite permanence
         </Typography>
         <List dense={false}>
           {centers.map((center: any) => (
-            <ListItem key={center.id} onClick={() => history.push(`/notes/${center.id}`)}>
+            <ListItem
+              key={center.id}
+              onClick={() => history.push(`/notes/${center.id}`)}
+            >
               <StyledListItemContent>
                 <ListItemIcon>
-                  <PersonIcon htmlColor='white' />
+                  <PersonIcon htmlColor="white" />
                 </ListItemIcon>
                 <ListItemText primary={`${center.name}`} />
               </StyledListItemContent>
