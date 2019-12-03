@@ -1,4 +1,5 @@
 import {
+  Divider,
   List,
   ListItem,
   ListItemIcon,
@@ -11,12 +12,20 @@ import React, { useCallback, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import superagent, { Response } from "superagent";
+import logo from "../Images/logo.png";
 import { centersEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
   display: flex;
   flex-direction: column;
+`;
+
+const StyledImage = styled.img`
+  width: 140px;
+  height: 140px;
+  align-self: center;
+  margin-bottom: 50px;
 `;
 
 const StyledListItemContent = styled.div`
@@ -64,6 +73,16 @@ const Home = withRouter(({ history }: any) => {
           color="textSecondary"
         >
           Ma petite permanence
+        </Typography>
+        <StyledImage src={logo} alt="logo" />
+        <Divider style={{ marginBottom: 24 }} />
+        <Typography
+          variant="h4"
+          component="h4"
+          gutterBottom
+          color="textSecondary"
+        >
+          Centres
         </Typography>
         <List dense={false}>
           {centers.map((center: any) => (
