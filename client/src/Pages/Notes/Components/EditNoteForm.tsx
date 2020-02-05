@@ -2,10 +2,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider
-} from "@material-ui/pickers";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Formik, FormikProps } from "formik";
 import * as React from "react";
 import { withRouter } from "react-router-dom";
@@ -20,7 +17,7 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-interface NoteInterface {
+export interface NoteInterface {
   id: number;
   date: Date;
   center: string;

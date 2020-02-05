@@ -1,5 +1,6 @@
 import {
   Divider,
+  Fab,
   List,
   ListItem,
   ListItemIcon,
@@ -7,6 +8,7 @@ import {
   Typography
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
+import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
 import React, { useCallback, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
@@ -38,6 +40,14 @@ const StyledListItemContent = styled.div`
   display: flex;
 `;
 
+const ChartsButton = styled(Fab)`
+  position: absolute !important;
+  right: 10px;import { ChartIcon } from '@material-ui/icons/BarChartOutlined';
+import { ChartIcon } from '@material-ui/icons/BarChartOutlined';
+
+  top: 10px;
+`;
+
 const Home = withRouter(({ history }: any) => {
   const [centers, setCenters] = useState<any[]>([]);
   const fetchCenters = useCallback(() => {
@@ -66,6 +76,14 @@ const Home = withRouter(({ history }: any) => {
   return (
     <Container maxWidth="sm">
       <StyledContent>
+        <ChartsButton
+          size="small"
+          color="primary"
+          aria-label="add"
+          onClick={() => history.push("/charts")}
+        >
+          <ChartIcon />
+        </ChartsButton>
         <Typography
           variant="h3"
           component="h2"
