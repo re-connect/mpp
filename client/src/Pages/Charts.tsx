@@ -42,12 +42,15 @@ const Charts = withRouter(({ history, match }: any) => {
   let nbStoredDocsData = {};
 
   notesContext.list.forEach((note: any, index: number) => {
-    nbProAccountsData = { ...nbProAccountsData, [index]: note.nbProAccounts };
+    nbProAccountsData = {
+      ...nbProAccountsData,
+      [note.date]: note.nbProAccounts
+    };
     nbBeneficiariesAccountsData = {
       ...nbBeneficiariesAccountsData,
-      [index]: note.nbBeneficiariesAccounts
+      [note.date]: note.nbBeneficiariesAccounts
     };
-    nbStoredDocsData = { ...nbStoredDocsData, [index]: note.nbStoredDocs };
+    nbStoredDocsData = { ...nbStoredDocsData, [note.date]: note.nbStoredDocs };
   });
 
   return (
