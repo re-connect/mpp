@@ -1,8 +1,10 @@
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
+import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
@@ -27,6 +29,8 @@ const Login: any = withRouter(({ history }: any) => {
       });
   };
 
+  const [snackOpen, setSnackOpen] = useState<boolean>(false);
+
   return (
     <Container maxWidth='sm'>
       <Formik
@@ -37,6 +41,32 @@ const Login: any = withRouter(({ history }: any) => {
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
+            <Button
+              color='primary'
+              variant='contained'
+              onClick={() => setSnackOpen(true)}
+              style={{ marginTop: 50 }}
+            >
+              Whaou, est-ce qu'on a des nouvelles fonctionnalités sur MPP ?
+            </Button>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              open={snackOpen}
+              autoHideDuration={6000}
+              onClose={() => setSnackOpen(false)}
+              message={
+                <React.Fragment>
+                  <b>Bien vu, maintenant, tu peux: </b>
+                  <ul>
+                    <li>Voir les statistiques des permanences en haut à droite</li>
+                    <li>Renseigner qui a assisté à la permanence</li>
+                  </ul>
+                </React.Fragment>
+              }
+            />
             <TextField
               id='email'
               name='email'
