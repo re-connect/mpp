@@ -64,6 +64,7 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
           date: new Date(),
           center: '',
           hours: 0,
+          attendees: '',
           nbPros: 0,
           nbProAccounts: 0,
           nbBeneficiaries: 0,
@@ -97,7 +98,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                   />
                 </MuiPickersUtilsProvider>
               </div>
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='hours'
                   label="Nombre d'heures"
@@ -110,7 +113,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
             </div>
             <div style={{ height: 16 }} />
             <div style={{ display: 'flex' }}>
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='nb-pros'
                   label='Nb pros rencontrés'
@@ -120,7 +125,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                   variant='outlined'
                 />
               </div>
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='nb-pro-accounts'
                   label='Nb comptes pros crées'
@@ -133,7 +140,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
             </div>
             <div style={{ height: 16 }} />
             <div style={{ display: 'flex' }}>
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='nb-beneficiaries'
                   label='Nb benefs rencontrés'
@@ -144,7 +153,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 />
               </div>
               <div style={{ width: 8 }} />
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='nb-beneficiaries-accounts'
                   label='Nb comptes benef crées'
@@ -155,7 +166,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 />
               </div>
               <div style={{ width: 8 }} />
-              <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+              <div
+                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+              >
                 <TextField
                   id='nb-docs-stored'
                   label='Nb doc stockés'
@@ -167,6 +180,16 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
               </div>
             </div>
             <TextField
+              id='attendees'
+              name='attendees'
+              type='text'
+              label='Qui a fait la perm'
+              margin='normal'
+              variant='outlined'
+              onChange={props.handleChange}
+            />
+            {props.errors.attendees && <div id='feedback'>{props.errors.attendees}</div>}
+            <TextField
               id='beneficiaries-notes'
               name='beneficiariesNotes'
               type='text'
@@ -177,7 +200,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
               rows='4'
               onChange={props.handleChange}
             />
-            {props.errors.beneficiariesNotes && <div id='feedback'>{props.errors.beneficiariesNotes}</div>}
+            {props.errors.beneficiariesNotes && (
+              <div id='feedback'>{props.errors.beneficiariesNotes}</div>
+            )}
             <TextField
               id='pro-notes'
               name='proNotes'

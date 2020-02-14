@@ -104,6 +104,13 @@ class Note
     private $reconnectNotes;
 
     /**
+     * @var string
+     * @Groups({"read", "write"})
+     * @ORM\Column(name="attendees", type="string", length=255, nullable=true)
+     */
+    private $attendees;
+
+    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notes")
      */
@@ -314,5 +321,21 @@ class Note
     public function setReconnectNotes(string $reconnectNotes = null): void
     {
         $this->reconnectNotes = $reconnectNotes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttendees(): ?string
+    {
+        return $this->attendees;
+    }
+
+    /**
+     * @param string $attendees
+     */
+    public function setAttendees(?string $attendees = null): void
+    {
+        $this->attendees = $attendees;
     }
 }
