@@ -1,4 +1,5 @@
 import {
+  Button,
   Divider,
   Fab,
   List,
@@ -42,9 +43,13 @@ const StyledListItemContent = styled.div`
 
 const ChartsButton = styled(Fab)`
   position: absolute !important;
-  right: 10px;import { ChartIcon } from '@material-ui/icons/BarChartOutlined';
-import { ChartIcon } from '@material-ui/icons/BarChartOutlined';
+  right: 10px;
+  top: 10px;
+`;
 
+const Logout = styled(Button)`
+  position: absolute !important;
+  right: 100px;
   top: 10px;
 `;
 
@@ -76,6 +81,14 @@ const Home = withRouter(({ history }: any) => {
   return (
     <Container maxWidth="sm">
       <StyledContent>
+        <Logout
+          onClick={() => {
+            localStorage.removeItem("token");
+            history.push("/login");
+          }}
+        >
+          Déconnexion
+        </Logout>
         <ChartsButton
           size="small"
           color="primary"

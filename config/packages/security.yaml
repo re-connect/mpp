@@ -14,6 +14,12 @@ security:
         dev:
             pattern: ^/_(profiler|wdt)
             security: false
+        oauth_check:
+            pattern: ^/oauth/check
+            security: false
+        oauth_trigger:
+            pattern: ^/oauth/trigger
+            security: false
         api:
             pattern: ^/api/
             stateless: true
@@ -34,4 +40,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/check,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/trigger,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin,       roles: ROLE_ADMIN }
