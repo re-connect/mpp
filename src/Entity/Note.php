@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Note
 {
     use TimestampableEntity;
+
     /**
      * @var int The id of this note.
      *
@@ -122,6 +123,11 @@ class Note
      * @ORM\ManyToOne(targetEntity="App\Entity\Center", inversedBy="notes")
      */
     private $center;
+
+    public function __toString()
+    {
+        return $this->date->format('m/d/Y');
+    }
 
     /**
      * @return int

@@ -1,22 +1,13 @@
-import {
-  Button,
-  Divider,
-  Fab,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography
-} from "@material-ui/core";
+import {Button, Divider, Fab, List, ListItem, ListItemIcon, ListItemText, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
-import React, { useCallback, useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import React, {useCallback, useEffect, useState} from "react";
+import {withRouter} from "react-router-dom";
 import styled from "styled-components";
-import superagent, { Response } from "superagent";
+import superagent, {Response} from "superagent";
 import logo from "../Images/logo.png";
-import { centersEndpoint } from "../Services/requests";
+import {adminLoginEndpoint, centersEndpoint} from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -53,7 +44,13 @@ const Logout = styled(Button)`
   top: 10px;
 `;
 
-const Home = withRouter(({ history }: any) => {
+const Admin = styled(Button)`
+  position: absolute !important;
+  left: 50px;
+  top: 10px;
+`;
+
+const Home = withRouter(({history}: any) => {
   const [centers, setCenters] = useState<any[]>([]);
   const fetchCenters = useCallback(() => {
     const token = localStorage.getItem("token");
@@ -89,13 +86,21 @@ const Home = withRouter(({ history }: any) => {
         >
           Déconnexion
         </Logout>
+        <Admin
+          onClick={() => {
+            const token = localStorage.getItem("token");
+            window.location.replace(`${adminLoginEndpoint}?token=${token}`);
+          }}
+        >
+          Admin
+        </Admin>
         <ChartsButton
           size="small"
           color="primary"
           aria-label="add"
           onClick={() => history.push("/charts")}
         >
-          <ChartIcon />
+          <ChartIcon/>
         </ChartsButton>
         <Typography
           variant="h3"
@@ -105,8 +110,8 @@ const Home = withRouter(({ history }: any) => {
         >
           Ma petite permanence
         </Typography>
-        <StyledImage src={logo} alt="logo" />
-        <Divider style={{ marginBottom: 24 }} />
+        <StyledImage src={logo} alt="logo"/>
+        <Divider style={{marginBottom: 24}}/>
         <Typography
           variant="h4"
           component="h4"
@@ -123,9 +128,9 @@ const Home = withRouter(({ history }: any) => {
             >
               <StyledListItemContent>
                 <ListItemIcon>
-                  <PersonIcon htmlColor="white" />
+                  <PersonIcon htmlColor="white"/>
                 </ListItemIcon>
-                <ListItemText primary={`${center.name}`} />
+                <ListItemText primary={`${center.name}`}/>
               </StyledListItemContent>
             </ListItem>
           ))}
