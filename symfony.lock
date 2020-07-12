@@ -198,6 +198,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
@@ -252,9 +255,6 @@
             "bin/console",
             "config/bootstrap.php"
         ]
-    },
-    "symfony/debug": {
-        "version": "v4.3.4"
     },
     "symfony/dependency-injection": {
         "version": "v4.3.4"
@@ -347,22 +347,19 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
-    "symfony/mime": {
-        "version": "v4.3.4"
-    },
     "symfony/options-resolver": {
         "version": "v4.3.4"
+    },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.17.1"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.12.0"
     },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.12.0"
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.17.1"
     },
     "symfony/polyfill-mbstring": {
-        "version": "v1.12.0"
-    },
-    "symfony/polyfill-php72": {
         "version": "v1.12.0"
     },
     "symfony/polyfill-php73": {
@@ -398,9 +395,6 @@
             "config/routes.yaml"
         ]
     },
-    "symfony/security": {
-        "version": "v4.3.4"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -413,6 +407,15 @@
             "config/packages/security.yaml"
         ]
     },
+    "symfony/security-core": {
+        "version": "v5.0.10"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.0.10"
+    },
+    "symfony/security-guard": {
+        "version": "v5.0.10"
+    },
     "symfony/security-http": {
         "version": "v4.3.4"
     },
@@ -424,6 +427,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.3.4"
+    },
+    "symfony/string": {
+        "version": "v5.1.2"
     },
     "symfony/translation": {
         "version": "3.3",
