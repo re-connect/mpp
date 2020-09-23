@@ -46,7 +46,6 @@ class SecurityController extends AbstractController
                 'main'
             );
         } catch (Exception $exception) {
-            dd($exception);
             throw $this->createAccessDeniedException();
         }
     }
