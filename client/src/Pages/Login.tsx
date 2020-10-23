@@ -3,14 +3,14 @@ import Container from "@material-ui/core/Container";
 import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import LinkIcon from "@material-ui/icons/Link";
-import { Formik, FormikProps } from "formik";
+import {Formik, FormikProps} from "formik";
 import queryString from "query-string";
 import * as React from "react";
-import { useState } from "react";
-import { withRouter } from "react-router-dom";
+import {useState} from "react";
+import {withRouter} from "react-router-dom";
 import styled from "styled-components";
-import superagent, { Response } from "superagent";
-import { backendUrl, loginEndpoint } from "../Services/requests";
+import superagent, {Response} from "superagent";
+import {backendUrl, loginEndpoint} from "../Services/requests";
 
 const StyledForm = styled.form`
   padding-top: 100px;
@@ -19,7 +19,7 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const Login: any = withRouter(({ history, location }: any) => {
+const Login: any = withRouter(({history, location}: any) => {
   let params = queryString.parse(location.search);
   if (params && params.token && typeof params.token === "string") {
     localStorage.setItem("token", params.token.toString());
@@ -29,7 +29,7 @@ const Login: any = withRouter(({ history, location }: any) => {
   const login = (email: string, password: string) => {
     superagent
       .post(loginEndpoint)
-      .send({ email, password })
+      .send({email, password})
       .set("accept", "json")
       .then((response: Response) => {
         localStorage.setItem("token", response.body.token);
@@ -42,7 +42,7 @@ const Login: any = withRouter(({ history, location }: any) => {
   return (
     <Container maxWidth="sm">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{email: "", password: ""}}
         onSubmit={values => {
           console.log(values);
           login(values.email, values.password);
@@ -53,7 +53,7 @@ const Login: any = withRouter(({ history, location }: any) => {
               color="primary"
               variant="contained"
               onClick={() => setSnackOpen(true)}
-              style={{ marginTop: 50, marginBottom: 100 }}
+              style={{marginTop: 50, marginBottom: 100}}
             >
               Whaou, est-ce qu'on a des nouvelles fonctionnalités sur MPP ?
             </Button>
@@ -107,16 +107,15 @@ const Login: any = withRouter(({ history, location }: any) => {
             <Button
               color="primary"
               variant="contained"
-              style={{ marginTop: 50, marginBottom: 100, fontSize: 20 }}
+              style={{marginTop: 50, marginBottom: 100, fontSize: 20}}
               href={`${backendUrl}/oauth/trigger`}
             >
-              <LinkIcon style={{ marginRight: 20 }} />
+              <LinkIcon style={{marginRight: 20}}/>
               Me connecter avec Reconnect Pro
             </Button>
           </StyledForm>
         )}
       />
-      )}
     </Container>
   );
 });
