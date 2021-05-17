@@ -11,7 +11,7 @@
     "doctrine/doctrine-migrations-bundle": "3.0.*",
     "easycorp/easyadmin-bundle": "3.1.*",
     "firebase/php-jwt": "5.2.*",
-    "lexik/jwt-authentication-bundle": "2.8.*",
+    "lexik/jwt-authentication-bundle": "2.10.*",
     "phpdocumentor/reflection-common": "2.2.*",
     "stof/doctrine-extensions-bundle": "1.4.*",
     "symfony/apache-pack": "1.0.*",
