@@ -10,6 +10,7 @@ import {useState} from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import superagent, {Response} from "superagent";
+import axios from "axios";
 import {backendUrl, loginEndpoint} from "../Services/requests";
 
 const StyledForm = styled.form`
@@ -27,12 +28,10 @@ const Login: any = withRouter(({history, location}: any) => {
   }
 
   const login = (email: string, password: string) => {
-    superagent
-      .post(loginEndpoint)
-      .send({email, password})
-      .set("accept", "json")
-      .then((response: Response) => {
-        localStorage.setItem("token", response.body.token);
+    axios
+      .post(loginEndpoint, {email, password})
+      .then((response) => {
+        localStorage.setItem("token", response.data.token);
         history.push("/");
       });
   };
@@ -44,7 +43,6 @@ const Login: any = withRouter(({history, location}: any) => {
       <Formik
         initialValues={{email: "", password: ""}}
         onSubmit={values => {
-          console.log(values);
           login(values.email, values.password);
         }}
         render={(props: FormikProps<any>) => (
