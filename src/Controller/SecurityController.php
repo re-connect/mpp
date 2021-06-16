@@ -86,7 +86,7 @@ class SecurityController extends AbstractController
      * @param AuthenticationSuccessHandler $handler
      * @return RedirectResponse
      */
-    public function oauthCheck(Request $request, UserRepository $userRepository, AuthenticationSuccessHandler $handler)
+    public function oauthCheck(Request $request, UserRepository $userRepository, AuthenticationSuccessHandler $handler): RedirectResponse
     {
         $token = $request->get('code');
         $key = file_get_contents(dirname(__DIR__).'/../var/oauth/public.key');
@@ -95,6 +95,9 @@ class SecurityController extends AbstractController
         $email = $tokenArray['user_id'];
         $user = $userRepository->findOneBy(['email' => $email]);
 
+        if (null === $user) {
+            return new RedirectResponse($_ENV['FRONTEND_URL']);
+        }
         $response = $handler->handleAuthenticationSuccess($user);
         $responseData = (array) json_decode($response->getContent());
         $token = $responseData['token'];
