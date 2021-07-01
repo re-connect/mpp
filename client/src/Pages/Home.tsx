@@ -1,4 +1,4 @@
-import {Button, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
+import {Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
@@ -6,12 +6,19 @@ import React, {useCallback, useEffect, useState} from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import superagent, {Response} from "superagent";
-import {adminLoginEndpoint, centersEndpoint} from "../Services/requests";
+import {adminLoginEndpoint, centersEndpoint, tagsEndpoint} from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
   display: flex;
   flex-direction: column;
+`;
+
+const StyledChipsContainer = styled.div`
+  display: flex;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  justify-content: space-around;
 `;
 
 
@@ -45,6 +52,7 @@ const Admin = styled(Button)`
 
 const Home = withRouter(({history}: any) => {
   const [centers, setCenters] = useState<any[]>([]);
+  const [tags, setTags] = useState<any[]>([]);
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
 
   const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,12 @@ const Home = withRouter(({history}: any) => {
     setFilteredCenters(centers.filter((center: any) =>
       center.name.toLowerCase().includes(search.toLowerCase())
     ));
+  }
+
+  const onClickTag = (id: number) => {
+    setFilteredCenters(centers.filter((center) =>
+      center.tags.includes(`/api/tags/${id}`)
+    ))
   }
 
   const fetchCenters = useCallback(() => {
@@ -72,9 +86,25 @@ const Home = withRouter(({history}: any) => {
     }
   }, [history]);
 
+  const fetchTags = useCallback(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      superagent
+        .get(tagsEndpoint)
+        .set("Authorization", `Bearer ${token}`)
+        .then((response: Response) => {
+          setTags(response.body);
+        })
+    }
+  }, [history]);
+
   useEffect(() => {
     fetchCenters();
   }, [fetchCenters]);
+
+  useEffect(() => {
+    fetchTags();
+  }, [fetchTags]);
 
 
   return (
@@ -112,6 +142,16 @@ const Home = withRouter(({history}: any) => {
         >
           Centres
         </Typography>
+        <StyledChipsContainer>
+          {tags.map((tag: any) => (
+            <Chip
+              label={tag.name}
+              clickable
+              color="secondary"
+              onClick={() => onClickTag(tag.id)}
+            />
+          ))}
+        </StyledChipsContainer>
         <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
           {filteredCenters.map((center: any) => (

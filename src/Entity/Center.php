@@ -8,11 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A Center
- *
  * @ORM\Entity
  * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"})
- *
  */
 class Center
 {
