@@ -49,9 +49,9 @@ const Home = withRouter(({history}: any) => {
 
   const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
-    setFilteredCenters(centers.filter((center: any) => {
-      return center.name.toLowerCase().includes(search.toLowerCase())
-    }));
+    setFilteredCenters(centers.filter((center: any) =>
+      center.name.toLowerCase().includes(search.toLowerCase())
+    ));
   }
 
   const fetchCenters = useCallback(() => {
@@ -68,7 +68,6 @@ const Home = withRouter(({history}: any) => {
           history.push("/login");
         });
     } else {
-      console.log("no token");
       history.push("/login");
     }
   }, [history]);

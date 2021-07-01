@@ -37,6 +37,11 @@ class Center
      */
     private $notes;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $association;
+
     public function __toString()
     {
         return $this->name;
@@ -107,6 +112,18 @@ class Center
     public function removeNote(Note $note)
     {
         $this->notes->removeElement($note);
+
+        return $this;
+    }
+
+    public function getAssociation(): ?string
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?string $association): self
+    {
+        $this->association = $association;
 
         return $this;
     }
