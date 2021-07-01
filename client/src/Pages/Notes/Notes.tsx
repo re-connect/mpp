@@ -14,15 +14,15 @@ import {
 import Container from '@material-ui/core/Container';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import { format } from 'date-fns';
-import React, { useCallback, useContext, useEffect } from 'react';
-import { useBoolean } from 'react-hanger';
-import { useNumber } from 'react-hanger/array';
-import { withRouter } from 'react-router-dom';
+import {format} from 'date-fns';
+import React, {useCallback, useContext, useEffect} from 'react';
+import {useBoolean} from 'react-hanger';
+import {useNumber} from 'react-hanger/array';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, { Response } from 'superagent';
+import superagent, {Response} from 'superagent';
 import NotesContext from '../../Context/NotesContext';
-import { notesEndpoint } from '../../Services/requests';
+import {notesEndpoint} from '../../Services/requests';
 import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
 
@@ -66,13 +66,13 @@ const AddNoteIcon = styled(Fab)`
   right: 0;
 `;
 
-const Notes = withRouter(({ history, match }: any) => {
+const Notes = withRouter(({history, match}: any) => {
   const isModalOpen = useBoolean(false);
   const isEditModalOpen = useBoolean(false);
   const [idNoteBeingEdited, noteIdActions] = useNumber(0);
-
   const notesContext = useContext(NotesContext);
-  const { centerId } = match.params;
+  console.log(notesContext.list);
+  const {centerId} = match.params;
   const fetchNotes = useCallback(() => {
     const token = localStorage.getItem('token');
     if (token !== null) {
@@ -106,7 +106,7 @@ const Notes = withRouter(({ history, match }: any) => {
       >
         <DialogTitle id='form-dialog-title'>Créer une note</DialogTitle>
         <DialogContent>
-          <CreateNoteForm centerId={centerId} closeModal={isModalOpen.setFalse} />
+          <CreateNoteForm centerId={centerId} closeModal={isModalOpen.setFalse}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={isModalOpen.setFalse} color='primary'>
@@ -146,20 +146,20 @@ const Notes = withRouter(({ history, match }: any) => {
               aria-label='add'
               onClick={isModalOpen.setTrue}
             >
-              <AddIcon />
+              <AddIcon/>
             </AddNoteIcon>
           </HeaderContent>
         </Header>
         {notesContext.list.map((note: any) => (
           <StyledCard key={note.id}>
-            <CardContent style={{ position: 'relative' }}>
+            <CardContent style={{position: 'relative'}}>
               <EditNote
                 size='small'
                 color='primary'
                 aria-label='add'
                 onClick={() => editNote(note.id)}
               >
-                <EditIcon />
+                <EditIcon/>
               </EditNote>
               <Typography color='textSecondary' gutterBottom>
                 Date : {format(new Date(note.date), 'dd-MM-yyyy')}
@@ -188,7 +188,7 @@ const Notes = withRouter(({ history, match }: any) => {
                 avatar={<Avatar>{note.nbBeneficiariesAccounts}</Avatar>}
                 label='Comptes bénéficiaires crées'
               />
-              <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés' />
+              <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés'/>
               <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
               <Typography variant='body2' component='p'>
                 {note.beneficiariesNotes}

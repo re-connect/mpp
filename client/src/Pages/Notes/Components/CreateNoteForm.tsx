@@ -2,14 +2,14 @@ import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { Formik, FormikProps } from 'formik';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {Formik, FormikProps} from 'formik';
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, { Response } from 'superagent';
+import superagent, {Response} from 'superagent';
 import NotesContext from '../../../Context/NotesContext';
-import { notesEndpoint } from '../../../Services/requests';
+import {notesEndpoint} from '../../../Services/requests';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -31,7 +31,7 @@ interface NoteInterface {
   reconnectNotes: string;
 }
 
-const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) => {
+const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) => {
   const notesContext = React.useContext(NotesContext);
 
   const create = (note: NoteInterface) => {
@@ -65,6 +65,7 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
           center: '',
           hours: 0,
           attendees: '',
+          place: '',
           nbPros: 0,
           nbProAccounts: 0,
           nbBeneficiaries: 0,
@@ -75,13 +76,12 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
           reconnectNotes: '',
         }}
         onSubmit={(values: NoteInterface) => {
-          console.log(values);
-          create({ ...values, date: selectedDate, center: `/api/centers/${centerId}` });
+          create({...values, date: selectedDate, center: `/api/centers/${centerId}`});
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
-            <div style={{ display: 'flex' }}>
-              <div style={{ flex: 1 }}>
+            <div style={{display: 'flex'}}>
+              <div style={{flex: 1}}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -99,7 +99,7 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 </MuiPickersUtilsProvider>
               </div>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='hours'
@@ -111,10 +111,10 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 />
               </div>
             </div>
-            <div style={{ height: 16 }} />
-            <div style={{ display: 'flex' }}>
+            <div style={{height: 16}}/>
+            <div style={{display: 'flex'}}>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='nb-pros'
@@ -126,7 +126,7 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 />
               </div>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='nb-pro-accounts'
@@ -138,10 +138,10 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                 />
               </div>
             </div>
-            <div style={{ height: 16 }} />
-            <div style={{ display: 'flex' }}>
+            <div style={{height: 16}}/>
+            <div style={{display: 'flex'}}>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='nb-beneficiaries'
@@ -152,9 +152,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                   variant='outlined'
                 />
               </div>
-              <div style={{ width: 8 }} />
+              <div style={{width: 8}}/>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='nb-beneficiaries-accounts'
@@ -165,9 +165,9 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
                   variant='outlined'
                 />
               </div>
-              <div style={{ width: 8 }} />
+              <div style={{width: 8}}/>
               <div
-                style={{ flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex' }}
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
                   id='nb-docs-stored'
@@ -189,6 +189,17 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
               onChange={props.handleChange}
             />
             {props.errors.attendees && <div id='feedback'>{props.errors.attendees}</div>}
+            <TextField
+              id='place'
+              name='place'
+              type='text'
+              label='Lieu (optionnel)'
+              margin='normal'
+              variant='outlined'
+              value={props.values.place}
+              onChange={props.handleChange}
+            />
+            {props.errors.place && <div id='feedback'>{props.errors.place}</div>}
             <TextField
               id='beneficiaries-notes'
               name='beneficiariesNotes'
@@ -227,7 +238,7 @@ const CreateNoteForm: any = withRouter(({ history, centerId, closeModal }: any) 
               onChange={props.handleChange}
             />
             {props.errors.reconnectNotes && <div id='feedback'>{props.errors.reconnectNotes}</div>}
-            <Button variant='outlined' color='primary' type='submit'>
+            <Button variant='contained' color='primary' type='submit'>
               Créer
             </Button>
           </StyledForm>

@@ -124,6 +124,12 @@ class Note
      */
     private $center;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read", "write"})
+     */
+    private $place;
+
     public function __toString()
     {
         return $this->date->format('m/d/Y');
@@ -343,5 +349,17 @@ class Note
     public function setAttendees(?string $attendees = null): void
     {
         $this->attendees = $attendees;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
+
+        return $this;
     }
 }

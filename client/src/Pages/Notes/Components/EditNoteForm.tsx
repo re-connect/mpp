@@ -2,14 +2,14 @@ import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { Formik, FormikProps } from 'formik';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import {Formik, FormikProps} from 'formik';
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, { Response } from 'superagent';
+import superagent, {Response} from 'superagent';
 import NotesContext from '../../../Context/NotesContext';
-import { notesEndpoint } from '../../../Services/requests';
+import {notesEndpoint} from '../../../Services/requests';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -22,6 +22,8 @@ export interface NoteInterface {
   date: Date;
   center: string;
   hours: number;
+  attendees: string;
+  place: string;
   nbPros: number;
   nbProAccounts: number;
   nbBeneficiaries: number;
@@ -32,11 +34,10 @@ export interface NoteInterface {
   reconnectNotes: string;
 }
 
-const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: any) => {
+const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any) => {
   const notesContext = React.useContext(NotesContext);
 
   const update = (note: NoteInterface) => {
-    console.log(note);
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
@@ -58,7 +59,6 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
   function handleDateChange(date: any) {
     setSelectedDate(date);
   }
-  console.log(note);
 
   return (
     <Container maxWidth='sm'>
@@ -76,8 +76,8 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
         {(props: FormikProps<any>) => {
           return (
             <StyledForm onSubmit={props.handleSubmit}>
-              <div style={{ display: 'flex' }}>
-                <div style={{ flex: 1 }}>
+              <div style={{display: 'flex'}}>
+                <div style={{flex: 1}}>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                       disableToolbar
@@ -113,8 +113,8 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
                   />
                 </div>
               </div>
-              <div style={{ height: 16 }} />
-              <div style={{ display: 'flex' }}>
+              <div style={{height: 16}}/>
+              <div style={{display: 'flex'}}>
                 <div
                   style={{
                     flex: 1,
@@ -152,8 +152,8 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
                   />
                 </div>
               </div>
-              <div style={{ height: 16 }} />
-              <div style={{ display: 'flex' }}>
+              <div style={{height: 16}}/>
+              <div style={{display: 'flex'}}>
                 <div
                   style={{
                     flex: 1,
@@ -172,7 +172,7 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
                     variant='outlined'
                   />
                 </div>
-                <div style={{ width: 8 }} />
+                <div style={{width: 8}}/>
                 <div
                   style={{
                     flex: 1,
@@ -191,7 +191,7 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
                     variant='outlined'
                   />
                 </div>
-                <div style={{ width: 8 }} />
+                <div style={{width: 8}}/>
                 <div
                   style={{
                     flex: 1,
@@ -222,6 +222,17 @@ const EditNoteForm: any = withRouter(({ history, centerId, closeModal, note }: a
                 onChange={props.handleChange}
               />
               {props.errors.attendees && <div id='feedback'>{props.errors.attendees}</div>}
+              <TextField
+                id='place'
+                name='place'
+                type='text'
+                label='Lieu (optionnel)'
+                margin='normal'
+                variant='outlined'
+                value={props.values.place}
+                onChange={props.handleChange}
+              />
+              {props.errors.place && <div id='feedback'>{props.errors.place}</div>}
               <TextField
                 id='beneficiaries-notes'
                 name='beneficiariesNotes'
