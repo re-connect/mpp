@@ -28,17 +28,17 @@ class CenterCrudController extends AbstractCrudController
     {
         $name = TextField::new('name');
         $notes = AssociationField::new('notes');
-        $association = TextField::new('association');
+        $tags = AssociationField::new('tags')->setFormTypeOption('by_reference', false);
         $id = IntegerField::new('id', 'ID');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $name, $notes, $association];
+            return [$id, $name, $notes, $tags];
         } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $notes, $association];
+            return [$id, $name, $notes, $tags];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$name, $notes, $association];
+            return [$name, $tags];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$name, $notes, $association];
+            return [$name, $tags];
         }
     }
 }

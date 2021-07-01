@@ -31,6 +31,11 @@ class CenterTag
      */
     private $centers;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->centers = new ArrayCollection();
