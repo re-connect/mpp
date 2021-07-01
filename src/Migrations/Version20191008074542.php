@@ -43,7 +43,6 @@ final class Version20191008074542 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE note DROP CONSTRAINT FK_CFBDFA14F675F31B');
         $this->addSql('ALTER TABLE note DROP CONSTRAINT FK_CFBDFA14217BBB47');
         $this->addSql('DROP SEQUENCE note_id_seq CASCADE');
