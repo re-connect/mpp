@@ -9,6 +9,21 @@ import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import {backendUrl, loginEndpoint} from "../Services/requests";
+import logo from "../Images/logo.png";
+import {Typography} from "@material-ui/core";
+
+const StyledImage = styled.img`
+  width: 140px;
+  height: 140px;
+  align-self: center;
+`;
+
+const StyledImageContainer = styled.div`
+  padding-top: 50px
+  display: flex;
+  flex-direction: column
+  align-items: center;
+`;
 
 const StyledForm = styled.form`
   padding-top: 100px;
@@ -35,6 +50,17 @@ const Login: any = withRouter(({history, location}: any) => {
 
   return (
     <Container maxWidth="sm">
+      <StyledImageContainer>
+        <Typography
+          variant="h3"
+          component="h2"
+          gutterBottom
+          color="textSecondary"
+        >
+          Ma petite permanence
+        </Typography>
+        <StyledImage src={logo} alt="logo"/>
+      </StyledImageContainer>
       <Formik
         initialValues={{email: "", password: ""}}
         onSubmit={values => {

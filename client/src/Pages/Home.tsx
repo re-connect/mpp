@@ -1,4 +1,4 @@
-import {Button, Divider, Fab, List, ListItem, ListItemIcon, ListItemText, Typography} from "@material-ui/core";
+import {Button, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
@@ -6,7 +6,6 @@ import React, {useCallback, useEffect, useState} from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import superagent, {Response} from "superagent";
-import logo from "../Images/logo.png";
 import {adminLoginEndpoint, centersEndpoint} from "../Services/requests";
 
 const StyledContent = styled.div`
@@ -15,12 +14,6 @@ const StyledContent = styled.div`
   flex-direction: column;
 `;
 
-const StyledImage = styled.img`
-  width: 140px;
-  height: 140px;
-  align-self: center;
-  margin-bottom: 50px;
-`;
 
 const StyledListItemContent = styled.div`
   background-color: #009688;
@@ -52,6 +45,15 @@ const Admin = styled(Button)`
 
 const Home = withRouter(({history}: any) => {
   const [centers, setCenters] = useState<any[]>([]);
+  const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
+
+  const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const search = event.target.value;
+    setFilteredCenters(centers.filter((center: any) => {
+      return center.name.toLowerCase().includes(search.toLowerCase())
+    }));
+  }
+
   const fetchCenters = useCallback(() => {
     const token = localStorage.getItem("token");
     if (token !== null) {
@@ -59,8 +61,8 @@ const Home = withRouter(({history}: any) => {
         .get(centersEndpoint)
         .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          console.log("response");
           setCenters(response.body);
+          setFilteredCenters(response.body);
         })
         .catch(error => {
           history.push("/login");
@@ -74,6 +76,7 @@ const Home = withRouter(({history}: any) => {
   useEffect(() => {
     fetchCenters();
   }, [fetchCenters]);
+
 
   return (
     <Container maxWidth="sm">
@@ -103,25 +106,16 @@ const Home = withRouter(({history}: any) => {
           <ChartIcon/>
         </ChartsButton>
         <Typography
-          variant="h3"
+          variant="h2"
           component="h2"
-          gutterBottom
-          color="textSecondary"
-        >
-          Ma petite permanence
-        </Typography>
-        <StyledImage src={logo} alt="logo"/>
-        <Divider style={{marginBottom: 24}}/>
-        <Typography
-          variant="h4"
-          component="h4"
           gutterBottom
           color="textSecondary"
         >
           Centres
         </Typography>
+        <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
-          {centers.map((center: any) => (
+          {filteredCenters.map((center: any) => (
             <ListItem
               key={center.id}
               onClick={() => history.push(`/notes/${center.id}`)}
