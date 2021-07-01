@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Center;
+use App\Entity\CenterTag;
 use App\Entity\Note;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -41,5 +42,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Center', 'fas fa-folder-open', Center::class);
         yield MenuItem::linkToCrud('User', 'fas fa-folder-open', User::class);
         yield MenuItem::linkToCrud('Note', 'fas fa-folder-open', Note::class);
+        yield MenuItem::linkToCrud('Tag', 'fas fa-tags', CenterTag::class);
     }
 }

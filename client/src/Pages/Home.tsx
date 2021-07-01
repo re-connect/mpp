@@ -1,4 +1,4 @@
-import {Button, Divider, Fab, List, ListItem, ListItemIcon, ListItemText, Typography} from "@material-ui/core";
+import {Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
@@ -6,8 +6,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import superagent, {Response} from "superagent";
-import logo from "../Images/logo.png";
-import {adminLoginEndpoint, centersEndpoint} from "../Services/requests";
+import {adminLoginEndpoint, centersEndpoint, tagsEndpoint} from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -15,12 +14,13 @@ const StyledContent = styled.div`
   flex-direction: column;
 `;
 
-const StyledImage = styled.img`
-  width: 140px;
-  height: 140px;
-  align-self: center;
-  margin-bottom: 50px;
+const StyledChipsContainer = styled.div`
+  display: flex;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  justify-content: space-around;
 `;
+
 
 const StyledListItemContent = styled.div`
   background-color: #009688;
@@ -52,6 +52,22 @@ const Admin = styled(Button)`
 
 const Home = withRouter(({history}: any) => {
   const [centers, setCenters] = useState<any[]>([]);
+  const [tags, setTags] = useState<any[]>([]);
+  const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
+
+  const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const search = event.target.value;
+    setFilteredCenters(centers.filter((center: any) =>
+      center.name.toLowerCase().includes(search.toLowerCase())
+    ));
+  }
+
+  const onClickTag = (id: number) => {
+    setFilteredCenters(centers.filter((center) =>
+      center.tags.includes(`/api/tags/${id}`)
+    ))
+  }
+
   const fetchCenters = useCallback(() => {
     const token = localStorage.getItem("token");
     if (token !== null) {
@@ -59,21 +75,37 @@ const Home = withRouter(({history}: any) => {
         .get(centersEndpoint)
         .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          console.log("response");
           setCenters(response.body);
+          setFilteredCenters(response.body);
         })
         .catch(error => {
           history.push("/login");
         });
     } else {
-      console.log("no token");
       history.push("/login");
+    }
+  }, [history]);
+
+  const fetchTags = useCallback(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      superagent
+        .get(tagsEndpoint)
+        .set("Authorization", `Bearer ${token}`)
+        .then((response: Response) => {
+          setTags(response.body);
+        })
     }
   }, [history]);
 
   useEffect(() => {
     fetchCenters();
   }, [fetchCenters]);
+
+  useEffect(() => {
+    fetchTags();
+  }, [fetchTags]);
+
 
   return (
     <Container maxWidth="sm">
@@ -103,25 +135,26 @@ const Home = withRouter(({history}: any) => {
           <ChartIcon/>
         </ChartsButton>
         <Typography
-          variant="h3"
+          variant="h2"
           component="h2"
-          gutterBottom
-          color="textSecondary"
-        >
-          Ma petite permanence
-        </Typography>
-        <StyledImage src={logo} alt="logo"/>
-        <Divider style={{marginBottom: 24}}/>
-        <Typography
-          variant="h4"
-          component="h4"
           gutterBottom
           color="textSecondary"
         >
           Centres
         </Typography>
+        <StyledChipsContainer>
+          {tags.map((tag: any) => (
+            <Chip
+              label={tag.name}
+              clickable
+              color="secondary"
+              onClick={() => onClickTag(tag.id)}
+            />
+          ))}
+        </StyledChipsContainer>
+        <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
-          {centers.map((center: any) => (
+          {filteredCenters.map((center: any) => (
             <ListItem
               key={center.id}
               onClick={() => history.push(`/notes/${center.id}`)}

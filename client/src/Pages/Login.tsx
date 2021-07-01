@@ -1,17 +1,29 @@
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
 import LinkIcon from "@material-ui/icons/Link";
 import {Formik, FormikProps} from "formik";
 import queryString from "query-string";
 import * as React from "react";
-import {useState} from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
-import superagent, {Response} from "superagent";
 import axios from "axios";
 import {backendUrl, loginEndpoint} from "../Services/requests";
+import logo from "../Images/logo.png";
+import {Typography} from "@material-ui/core";
+
+const StyledImage = styled.img`
+  width: 140px;
+  height: 140px;
+  align-self: center;
+`;
+
+const StyledImageContainer = styled.div`
+  padding-top: 50px
+  display: flex;
+  flex-direction: column
+  align-items: center;
+`;
 
 const StyledForm = styled.form`
   padding-top: 100px;
@@ -36,10 +48,19 @@ const Login: any = withRouter(({history, location}: any) => {
       });
   };
 
-  const [snackOpen, setSnackOpen] = useState<boolean>(false);
-
   return (
     <Container maxWidth="sm">
+      <StyledImageContainer>
+        <Typography
+          variant="h3"
+          component="h2"
+          gutterBottom
+          color="textSecondary"
+        >
+          Ma petite permanence
+        </Typography>
+        <StyledImage src={logo} alt="logo"/>
+      </StyledImageContainer>
       <Formik
         initialValues={{email: "", password: ""}}
         onSubmit={values => {
@@ -47,34 +68,6 @@ const Login: any = withRouter(({history, location}: any) => {
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => setSnackOpen(true)}
-              style={{marginTop: 50, marginBottom: 100}}
-            >
-              Whaou, est-ce qu'on a des nouvelles fonctionnalités sur MPP ?
-            </Button>
-            <Snackbar
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "center"
-              }}
-              open={snackOpen}
-              autoHideDuration={6000}
-              onClose={() => setSnackOpen(false)}
-              message={
-                <React.Fragment>
-                  <b>Bien vu, maintenant, tu peux: </b>
-                  <ul>
-                    <li>
-                      Voir les statistiques des permanences en haut à droite
-                    </li>
-                    <li>Renseigner qui a assisté à la permanence</li>
-                  </ul>
-                </React.Fragment>
-              }
-            />
             <TextField
               id="email"
               name="email"
