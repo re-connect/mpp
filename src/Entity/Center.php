@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +43,11 @@ class Center
      */
     private $association;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
+     */
+    private $tags;
+
     public function __toString()
     {
         return $this->name;
@@ -50,6 +56,7 @@ class Center
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -124,6 +131,33 @@ class Center
     public function setAssociation(?string $association): self
     {
         $this->association = $association;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CenterTag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(CenterTag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addCenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(CenterTag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeCenter($this);
+        }
 
         return $this;
     }
