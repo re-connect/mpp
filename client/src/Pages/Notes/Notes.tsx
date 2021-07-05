@@ -172,6 +172,11 @@ const Notes = withRouter(({history, match}: any) => {
                   Participants : {note.attendees}
                 </Typography>
               )}
+              {!note.place ? null : (
+                <Typography variant='body2' component='p'>
+                  Lieu : {note.place}
+                </Typography>
+              )}
               <StyledChip
                 avatar={<Avatar>{note.nbPros}</Avatar>}
                 label='Professionnels rencontrés'
