@@ -276,7 +276,7 @@ const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any
               {props.errors.reconnectNotes && (
                 <div id='feedback'>{props.errors.reconnectNotes}</div>
               )}
-              <Button variant='outlined' color='primary' type='submit'>
+              <Button variant='contained' color='primary' type='submit'>
                 Mettre à jour
               </Button>
             </StyledForm>

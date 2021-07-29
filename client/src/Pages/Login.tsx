@@ -19,9 +19,9 @@ const StyledImage = styled.img`
 `;
 
 const StyledImageContainer = styled.div`
-  padding-top: 50px
+  padding-top: 50px;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
   align-items: center;
 `;
 

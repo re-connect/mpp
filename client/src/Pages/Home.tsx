@@ -23,7 +23,7 @@ const StyledChipsContainer = styled.div`
 
 
 const StyledListItemContent = styled.div`
-  background-color: #009688;
+  background-color: #212121;
   color: white;
   cursor: pointer;
   border-radius: 12px;

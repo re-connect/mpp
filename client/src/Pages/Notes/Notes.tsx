@@ -152,7 +152,7 @@ const Notes = withRouter(({history, match}: any) => {
         </Header>
         {notesContext.list.map((note: any) => (
           <StyledCard key={note.id}>
-            <CardContent style={{position: 'relative'}}>
+            <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
               <EditNote
                 size='small'
                 color='primary'
