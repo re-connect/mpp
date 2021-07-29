@@ -8,6 +8,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   Fab,
   Typography,
 } from '@material-ui/core';
@@ -22,7 +23,7 @@ import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, {Response} from 'superagent';
 import NotesContext from '../../Context/NotesContext';
-import {notesEndpoint} from '../../Services/requests';
+import {centersEndpoint, notesEndpoint} from '../../Services/requests';
 import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
 
@@ -30,6 +31,7 @@ const StyledContent = styled.div`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  color: whitesmoke;
 `;
 
 const StyledCard = styled(Card)`
@@ -66,13 +68,22 @@ const AddNoteIcon = styled(Fab)`
   right: 0;
 `;
 
+const initialCenter = {
+  name: '',
+  notes: [],
+  beneficiaryCount: '',
+  createdBeneficiaryCount: '',
+  documentsCount: '',
+};
+
 const Notes = withRouter(({history, match}: any) => {
   const isModalOpen = useBoolean(false);
   const isEditModalOpen = useBoolean(false);
   const [idNoteBeingEdited, noteIdActions] = useNumber(0);
+  const [center, setCenter] = React.useState(initialCenter);
   const notesContext = useContext(NotesContext);
-  console.log(notesContext.list);
   const {centerId} = match.params;
+
   const fetchNotes = useCallback(() => {
     const token = localStorage.getItem('token');
     if (token !== null) {
@@ -85,11 +96,29 @@ const Notes = withRouter(({history, match}: any) => {
     } else {
       history.push('/login');
     }
-  }, [centerId]);
+  }, [history, centerId]);
 
   useEffect(() => {
     fetchNotes();
-  }, [fetchNotes]);
+  }, [fetchNotes, centerId]);
+
+  const fetchCenter = useCallback(() => {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      superagent
+        .get(`${centersEndpoint}/${centerId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .then((response: Response) => {
+          setCenter(response.body);
+        });
+    } else {
+      history.push('/login');
+    }
+  }, [history, centerId]);
+
+  useEffect(() => {
+    fetchCenter();
+  }, [fetchCenter, centerId]);
 
   const editNote = (id: number) => {
     noteIdActions.setValue(id);
@@ -135,8 +164,18 @@ const Notes = withRouter(({history, match}: any) => {
         </DialogActions>
       </Dialog>
       <StyledContent>
+        <NotesTitle variant='h4' gutterBottom color='textSecondary'>
+          {center.name}
+        </NotesTitle>
+        <Typography>Nb permanences: {center.notes.length}</Typography>
+        <Typography>Nb bénef rencontrés: {center.beneficiaryCount}</Typography>
+        <Typography>Nb CFN crées: {center.createdBeneficiaryCount}</Typography>
+        <Typography>Nb docs stockés: {center.documentsCount}</Typography>
+        <br/>
         <Header>
+          <Divider/>
           <HeaderContent>
+            <Divider/>
             <NotesTitle variant='h4' gutterBottom color='textSecondary'>
               Permanences
             </NotesTitle>

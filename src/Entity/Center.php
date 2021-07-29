@@ -6,6 +6,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
@@ -19,12 +21,13 @@ class Center
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+     * @Groups({"read", "write"})
      */
     private $id;
 
     /**
      * @var string.
-     *
+     * @Groups({"read", "write"})
      * @ORM\Column(name="name", type="string", length=255)
      */
     public $name;
@@ -32,16 +35,19 @@ class Center
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="center")
+     * @Groups({"read", "write"})
      */
     private $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read", "write"})
      */
     private $association;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
+     * @Groups({"read", "write"})
      */
     private $tags;
 
@@ -157,5 +163,47 @@ class Center
         }
 
         return $this;
+    }
+
+    /**
+     * @Groups({"read", "write"})
+     * @SerializedName("beneficiaryCount")
+     */
+    public function getBeneficiariesMeetCount(): int
+    {
+        $total = 0;
+        /** @var Note $note */
+        foreach ($this->notes as $note) {
+            $total += $note->getNbBeneficiaries();
+        }
+        return $total;
+    }
+
+    /**
+     * @Groups({"read", "write"})
+     * @SerializedName("createdBeneficiaryCount")
+     */
+    public function getBeneficiariesCreatedCount(): int
+    {
+        $total = 0;
+        /** @var Note $note */
+        foreach ($this->notes as $note) {
+            $total += $note->getNbBeneficiariesAccounts();
+        }
+        return $total;
+    }
+
+    /**
+     * @Groups({"read", "write"})
+     * @SerializedName("documentsCount")
+     */
+    public function getStoredDocuments(): int
+    {
+        $total = 0;
+        /** @var Note $note */
+        foreach ($this->notes as $note) {
+            $total += $note->getNbStoredDocs();
+        }
+        return $total;
     }
 }
