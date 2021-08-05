@@ -166,7 +166,7 @@ class Center
     }
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      * @SerializedName("beneficiaryCount")
      */
     public function getBeneficiariesMeetCount(): int
@@ -180,7 +180,7 @@ class Center
     }
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      * @SerializedName("createdBeneficiaryCount")
      */
     public function getBeneficiariesCreatedCount(): int
@@ -194,7 +194,7 @@ class Center
     }
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      * @SerializedName("documentsCount")
      */
     public function getStoredDocuments(): int
