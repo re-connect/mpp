@@ -35,19 +35,19 @@ class Center
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="center")
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      */
     private $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      */
     private $association;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
-     * @Groups({"read", "write"})
+     * @Groups({"read"})
      */
     private $tags;
 
