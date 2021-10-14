@@ -144,6 +144,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "laminas/laminas-code": {
+        "version": "4.4.0"
+    },
     "lcobucci/clock": {
         "version": "2.0.0"
     },
