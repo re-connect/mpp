@@ -13,6 +13,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationFailureRespon
 use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,7 @@ class AuthenticationFailHandler extends AuthenticationFailureHandler
     protected $dispatcher;
     protected $jwtManager;
     protected $userRepository;
+    protected $logger;
 
 
     /**
@@ -33,10 +35,15 @@ class AuthenticationFailHandler extends AuthenticationFailureHandler
      * @param EventDispatcherInterface $dispatcher
      * @param UserRepository           $userRepository
      */
-    public function __construct(JWTTokenManagerInterface $jwtManager, EventDispatcherInterface $dispatcher, UserRepository $userRepository)
-    {
+    public function __construct(
+        JWTTokenManagerInterface $jwtManager,
+        EventDispatcherInterface $dispatcher,
+        UserRepository $userRepository,
+        LoggerInterface $logger
+    ) {
         $this->jwtManager = $jwtManager;
         $this->userRepository = $userRepository;
+        $this->logger = $logger;
         parent::__construct($dispatcher);
     }
 
@@ -87,8 +94,13 @@ class AuthenticationFailHandler extends AuthenticationFailureHandler
                 return $event->getResponse();
             }
         } catch (Exception $exception) {
+            $this->logger->info($exception->getMessage());
+
             return false;
+
         } catch (TransportExceptionInterface $exception) {
+            $this->logger->info($exception->getMessage());
+
             return false;
         }
     }
