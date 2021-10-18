@@ -55,7 +55,7 @@ const Login: any = withRouter(({history, location}: any) => {
           variant="h3"
           component="h2"
           gutterBottom
-          color="textSecondary"
+          color="textPrimary"
         >
           Ma petite permanence
         </Typography>

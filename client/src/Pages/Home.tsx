@@ -138,7 +138,7 @@ const Home = withRouter(({history}: any) => {
           variant="h2"
           component="h2"
           gutterBottom
-          color="textSecondary"
+          color="textPrimary"
         >
           Centres
         </Typography>

@@ -164,7 +164,7 @@ const Notes = withRouter(({history, match}: any) => {
         </DialogActions>
       </Dialog>
       <StyledContent>
-        <NotesTitle variant='h4' gutterBottom color='textSecondary'>
+        <NotesTitle variant='h4' gutterBottom color='textPrimary'>
           {center.name}
         </NotesTitle>
         <Typography>Nb permanences: {center.notes.length}</Typography>
@@ -176,7 +176,7 @@ const Notes = withRouter(({history, match}: any) => {
           <Divider/>
           <HeaderContent>
             <Divider/>
-            <NotesTitle variant='h4' gutterBottom color='textSecondary'>
+            <NotesTitle variant='h4' gutterBottom color='textPrimary'>
               Permanences
             </NotesTitle>
             <AddNoteIcon
@@ -200,7 +200,7 @@ const Notes = withRouter(({history, match}: any) => {
               >
                 <EditIcon/>
               </EditNote>
-              <Typography color='textSecondary' gutterBottom>
+              <Typography color='textPrimary' gutterBottom>
                 Date : {format(new Date(note.date), 'dd-MM-yyyy')}
               </Typography>
               <Typography variant='body2' component='p'>

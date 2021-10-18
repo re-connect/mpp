@@ -67,19 +67,19 @@ const Charts = withRouter(({ history, match }: any) => {
         variant="h3"
         component="h2"
         gutterBottom
-        color="textSecondary"
+        color="textPrimary"
       >
         Statistiques
       </Typography>
-      <Typography variant="h5" gutterBottom color="textSecondary">
+      <Typography variant="h5" gutterBottom color="textPrimary">
         Nombre de comptes bénéficiaires crées par permanence
       </Typography>
       <LineChart data={nbBeneficiariesAccountsData} colors={["#27ae60"]} />
-      <Typography variant="h5" gutterBottom color="textSecondary">
+      <Typography variant="h5" gutterBottom color="textPrimary">
         Nombre de comptes pros crées par permanence
       </Typography>
       <LineChart data={nbProAccountsData} colors={["#d35400"]} />
-      <Typography variant="h5" gutterBottom color="textSecondary">
+      <Typography variant="h5" gutterBottom color="textPrimary">
         Nombre de documents stockés par permanence
       </Typography>
       <LineChart data={nbStoredDocsData} colors={["#8e44ad"]} />
