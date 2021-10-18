@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -24,22 +25,16 @@ use function json_decode;
 
 class AuthenticationFailHandler extends AuthenticationFailureHandler
 {
+    protected JWTTokenManagerInterface $jwtManager;
     protected $dispatcher;
-    protected $jwtManager;
-    protected $userRepository;
-    protected $logger;
+    protected UserRepository $userRepository;
+    protected LoggerInterface $logger;
 
-
-    /**
-     * @param JWTTokenManagerInterface $jwtManager
-     * @param EventDispatcherInterface $dispatcher
-     * @param UserRepository           $userRepository
-     */
     public function __construct(
         JWTTokenManagerInterface $jwtManager,
         EventDispatcherInterface $dispatcher,
-        UserRepository $userRepository,
-        LoggerInterface $logger
+        UserRepository           $userRepository,
+        LoggerInterface          $logger
     ) {
         $this->jwtManager = $jwtManager;
         $this->userRepository = $userRepository;
@@ -94,14 +89,10 @@ class AuthenticationFailHandler extends AuthenticationFailureHandler
                 return $event->getResponse();
             }
         } catch (Exception $exception) {
-            $this->logger->info($exception->getMessage());
-
-            return false;
+            return new Response($exception->getMessage(), 500);
 
         } catch (TransportExceptionInterface $exception) {
-            $this->logger->info($exception->getMessage());
-
-            return false;
+            return new Response($exception->getMessage(), 500);
         }
     }
 }
