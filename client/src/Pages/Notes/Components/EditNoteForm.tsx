@@ -46,7 +46,9 @@ const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
-          notesContext.set([response.body, ...notesContext.list]);
+          notesContext.set(notesContext.list.map((note: any) => {
+            return note.id === response.body.id ? response.body : note;
+          }))
         });
     } else {
       alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');

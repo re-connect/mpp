@@ -1,18 +1,7 @@
 api_platform:
-    collection:
-        pagination:
-            items_per_page: 100
     mapping:
-        paths: [ '%kernel.project_dir%/src/Entity' ]
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        json: ['application/merge-patch+json']
     swagger:
-        api_keys:
-            apiKey:
-                name: Authorization
-                type: header
-    formats:
-        json: [ 'application/json' ]
-        xml: [ 'application/xml', 'text/xml' ]
-        yaml: [ 'application/x-yaml' ]
-        csv: [ 'text/csv' ]
-        html: [ 'text/html' ]
-        myformat: [ 'application/vnd.myformat' ]
+        versions: [3]

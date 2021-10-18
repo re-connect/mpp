@@ -1,11 +1,11 @@
-import {createMuiTheme} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/styles';
+import {createTheme} from '@material-ui/core/styles';
 import * as React from 'react';
 import NotesContext from './Context/NotesContext';
 import Routes from './Routes';
 import {Note} from './Types/Notes';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     type: 'dark',
     background: {
@@ -14,6 +14,7 @@ const theme = createMuiTheme({
     },
     text: {
       primary: '#eff1f7',
+      secondary: '#eff1f7',
     },
     primary: {
       main: '#eff1f7',
@@ -21,8 +22,6 @@ const theme = createMuiTheme({
     },
   },
 });
-
-console.log(theme);
 
 const App = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
