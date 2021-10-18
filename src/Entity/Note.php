@@ -11,8 +11,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * A Note
- *
  * @ORM\Entity
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},

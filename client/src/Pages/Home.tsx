@@ -75,8 +75,8 @@ const Home = withRouter(({history}: any) => {
         .get(centersEndpoint)
         .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          setCenters(response.body);
-          setFilteredCenters(response.body);
+          setCenters(response.body['hydra:member']);
+          setFilteredCenters(response.body['hydra:member']);
         })
         .catch(error => {
           history.push("/login");
@@ -93,10 +93,10 @@ const Home = withRouter(({history}: any) => {
         .get(tagsEndpoint)
         .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          setTags(response.body);
+          setTags(response.body['hydra:member']);
         })
     }
-  }, [history]);
+  }, []);
 
   useEffect(() => {
     fetchCenters();

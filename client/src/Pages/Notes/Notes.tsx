@@ -1,21 +1,16 @@
 import {
-  Avatar,
   Button,
-  Card,
-  CardContent,
-  Chip,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
   Fab,
-  Typography,
+  Typography
 } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
+import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import {format} from 'date-fns';
 import React, {useCallback, useContext, useEffect} from 'react';
 import {useBoolean} from 'react-hanger';
 import {useNumber} from 'react-hanger/array';
@@ -23,9 +18,10 @@ import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, {Response} from 'superagent';
 import NotesContext from '../../Context/NotesContext';
-import {centersEndpoint, notesEndpoint} from '../../Services/requests';
+import {centersEndpoint, notesEndpoint, paginationCount} from '../../Services/requests';
 import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
+import Note from './Note';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -34,8 +30,11 @@ const StyledContent = styled.div`
   color: whitesmoke;
 `;
 
-const StyledCard = styled(Card)`
-  margin-bottom: 10px;
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
 `;
 
 const Header = styled.div`
@@ -45,16 +44,6 @@ const Header = styled.div`
 
 const NotesTitle = styled(Typography)`
   flex: 1;
-`;
-
-const EditNote = styled(Fab)`
-  position: absolute !important;
-  right: 10px;
-  top: 10px;
-`;
-
-const StyledChip = styled(Chip)`
-  margin: 8px;
 `;
 
 const HeaderContent = styled(Header)`
@@ -80,23 +69,26 @@ const Notes = withRouter(({history, match}: any) => {
   const isModalOpen = useBoolean(false);
   const isEditModalOpen = useBoolean(false);
   const [idNoteBeingEdited, noteIdActions] = useNumber(0);
+  const [notesCount, notesCountActions] = useNumber(0);
+  const [currentPage, currentPageActions] = useNumber(1);
   const [center, setCenter] = React.useState(initialCenter);
-  const notesContext = useContext(NotesContext);
   const {centerId} = match.params;
+  const notesContext = useContext(NotesContext);
 
-  const fetchNotes = useCallback(() => {
+  const fetchNotes = useCallback((page: number = 1) => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .get(`${notesEndpoint}?center=${centerId}`)
+        .get(`${notesEndpoint}?center=${centerId}&page=${page}`)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
-          notesContext.set(response.body);
+          notesCountActions.setValue(response.body['hydra:totalItems'])
+          notesContext.set(response.body['hydra:member']);
         });
     } else {
       history.push('/login');
     }
-  }, [history, centerId]);
+  }, [centerId, history]);
 
   useEffect(() => {
     fetchNotes();
@@ -124,6 +116,11 @@ const Notes = withRouter(({history, match}: any) => {
     noteIdActions.setValue(id);
     isEditModalOpen.setTrue();
   };
+
+  const changePage = (event: any, value: any) => {
+    currentPageActions.setValue(value);
+    fetchNotes(value);
+  }
 
   return (
     <Container maxWidth='sm'>
@@ -189,64 +186,15 @@ const Notes = withRouter(({history, match}: any) => {
             </AddNoteIcon>
           </HeaderContent>
         </Header>
+        <PaginationContainer>
+          <Pagination
+            count={Math.ceil(notesCount / paginationCount)}
+            variant="outlined"
+            page={currentPage} onChange={changePage}
+          />
+        </PaginationContainer>
         {notesContext.list.map((note: any) => (
-          <StyledCard key={note.id}>
-            <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
-              <EditNote
-                size='small'
-                color='primary'
-                aria-label='add'
-                onClick={() => editNote(note.id)}
-              >
-                <EditIcon/>
-              </EditNote>
-              <Typography color='textPrimary' gutterBottom>
-                Date : {format(new Date(note.date), 'dd-MM-yyyy')}
-              </Typography>
-              <Typography variant='body2' component='p'>
-                Durée : {note.hours} h
-              </Typography>
-              {!note.attendees ? null : (
-                <Typography variant='body2' component='p'>
-                  Participants : {note.attendees}
-                </Typography>
-              )}
-              {!note.place ? null : (
-                <Typography variant='body2' component='p'>
-                  Lieu : {note.place}
-                </Typography>
-              )}
-              <StyledChip
-                avatar={<Avatar>{note.nbPros}</Avatar>}
-                label='Professionnels rencontrés'
-              />
-              <StyledChip
-                avatar={<Avatar>{note.nbProAccounts}</Avatar>}
-                label='Comptes pro crées'
-              />
-              <StyledChip
-                avatar={<Avatar>{note.nbBeneficiaries}</Avatar>}
-                label='Bénéficiaires rencontrés'
-              />
-              <StyledChip
-                avatar={<Avatar>{note.nbBeneficiariesAccounts}</Avatar>}
-                label='Comptes bénéficiaires crées'
-              />
-              <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés'/>
-              <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
-              <Typography variant='body2' component='p'>
-                {note.beneficiariesNotes}
-              </Typography>
-              <Typography variant='subtitle1'>Remarques concernant les professionnels</Typography>
-              <Typography variant='body2' component='p'>
-                {note.proNotes}
-              </Typography>
-              <Typography variant='subtitle1'>Remarques concernant Reconnect</Typography>
-              <Typography variant='body2' component='p'>
-                {note.reconnectNotes}
-              </Typography>
-            </CardContent>
-          </StyledCard>
+          <Note note={note} key={note.id} editNote={editNote}/>
         ))}
       </StyledContent>
     </Container>
