@@ -24,6 +24,8 @@ To create a user, you can use the `symfony consoleapp:create-user ${email} ${pas
 Don't forget to build your bundle's assets with `symfony console assets:install`.
 You can now browse the [swagger API here](https://127.0.0.1:8000/api/)
 
+You'll need to generate jwt SLL keys with `php bin/console lexik:jwt:generate-keypair`.
+
 #### Frontend
 
 It is a React application, so you need:
