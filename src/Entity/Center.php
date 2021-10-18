@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
- * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"})
+ * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"}, order={"name": "ASC"})
  */
 class Center
 {
