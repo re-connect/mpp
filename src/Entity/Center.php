@@ -11,7 +11,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
- * @ApiResource(attributes={"access_control"="is_granted('ROLE_USER')"}, order={"name": "ASC"})
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
+ *     order={"name": "ASC"})
  */
 class Center
 {
