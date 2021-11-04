@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Note;
+use App\Entity\Permanence;
 use App\Service\ExportService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -43,7 +43,7 @@ class NoteCrudController extends ExportableCrudController
 
     public static function getEntityFqcn(): string
     {
-        return Note::class;
+        return Permanence::class;
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -71,9 +71,9 @@ class NoteCrudController extends ExportableCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Note/index.html.twig')
-            ->setEntityLabelInSingular('Note')
-            ->setEntityLabelInPlural('Note')
+            ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Permanence/index.html.twig')
+            ->setEntityLabelInSingular('Permanence')
+            ->setEntityLabelInPlural('Permanence')
             ->setSearchFields(['id', 'hours', 'nbPros', 'nbProAccounts', 'nbBeneficiaries', 'nbBeneficiariesAccounts', 'nbStoredDocs', 'beneficiariesNotes', 'proNotes', 'reconnectNotes', 'attendees']);
     }
 
