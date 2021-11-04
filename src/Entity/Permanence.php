@@ -12,15 +12,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="note")
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},
  *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"write"}},
+ *     shortName="notes"
  *     )
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
  *
  */
-class Note
+class Permanence
 {
     use TimestampableEntity;
 

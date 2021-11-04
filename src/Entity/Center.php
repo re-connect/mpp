@@ -36,7 +36,7 @@ class Center
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="center")
+     * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
      * @Groups({"read"})
      */
     private $notes;
@@ -105,11 +105,11 @@ class Center
     }
 
     /**
-     * @param Note $note
+     * @param Permanence $note
      *
      * @return $this
      */
-    public function addNote(Note $note)
+    public function addNote(Permanence $note)
     {
         $this->notes[] = $note;
 
@@ -117,11 +117,11 @@ class Center
     }
 
     /**
-     * @param Note $note
+     * @param Permanence $note
      *
      * @return $this
      */
-    public function removeNote(Note $note)
+    public function removeNote(Permanence $note)
     {
         $this->notes->removeElement($note);
 
@@ -174,7 +174,7 @@ class Center
     public function getBeneficiariesMeetCount(): int
     {
         $total = 0;
-        /** @var Note $note */
+        /** @var Permanence $note */
         foreach ($this->notes as $note) {
             $total += $note->getNbBeneficiaries();
         }
@@ -188,7 +188,7 @@ class Center
     public function getBeneficiariesCreatedCount(): int
     {
         $total = 0;
-        /** @var Note $note */
+        /** @var Permanence $note */
         foreach ($this->notes as $note) {
             $total += $note->getNbBeneficiariesAccounts();
         }
@@ -202,7 +202,7 @@ class Center
     public function getStoredDocuments(): int
     {
         $total = 0;
-        /** @var Note $note */
+        /** @var Permanence $note */
         foreach ($this->notes as $note) {
             $total += $note->getNbStoredDocs();
         }

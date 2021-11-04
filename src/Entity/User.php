@@ -47,7 +47,7 @@ class User implements UserInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
      */
     private $notes;
 
@@ -195,11 +195,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param Note $note
+     * @param Permanence $note
      *
      * @return $this
      */
-    public function addNote(Note $note)
+    public function addNote(Permanence $note)
     {
         $this->notes[] = $note;
 
@@ -207,11 +207,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param Note $note
+     * @param Permanence $note
      *
      * @return $this
      */
-    public function removeNote(Note $note)
+    public function removeNote(Permanence $note)
     {
         $this->notes->removeElement($note);
 
