@@ -59,6 +59,11 @@ class Workshop
      */
     private ?Collection $skills;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $topicPrecision;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
@@ -161,6 +166,18 @@ class Workshop
     public function removeSkill(skill $skill): self
     {
         $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getTopicPrecision(): ?string
+    {
+        return $this->topicPrecision;
+    }
+
+    public function setTopicPrecision(?string $topicPrecision): self
+    {
+        $this->topicPrecision = $topicPrecision;
 
         return $this;
     }
