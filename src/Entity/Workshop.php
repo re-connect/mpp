@@ -37,7 +37,7 @@ class Workshop
     private ?string $globalReport;
 
     /**
-     * @ORM\ManyToOne(targetEntity=topic::class, inversedBy="workshops")
+     * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Topic $topic;
@@ -49,13 +49,13 @@ class Workshop
     private ?ParticipantKind $participantKind;
 
     /**
-     * @ORM\ManyToOne(targetEntity=project::class, inversedBy="workshops")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Project $project;
 
     /**
-     * @ORM\ManyToMany(targetEntity=skill::class, inversedBy="workshops")
+     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
      */
     private ?Collection $skills;
 
