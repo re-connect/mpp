@@ -65,6 +65,12 @@ class Center
      */
     private $workshop;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
+     */
+    private $workshops;
+
     public function __toString()
     {
         return $this->name;
@@ -74,6 +80,7 @@ class Center
     {
         $this->notes = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->workshops = new ArrayCollection();
     }
 
     /**
@@ -241,6 +248,36 @@ class Center
     public function setWorkshop(?bool $workshop): self
     {
         $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workshop[]
+     */
+    public function getWorkshops(): Collection
+    {
+        return $this->workshops;
+    }
+
+    public function addWorkshop(Workshop $workshop): self
+    {
+        if (!$this->workshops->contains($workshop)) {
+            $this->workshops[] = $workshop;
+            $workshop->setCenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshop(Workshop $workshop): self
+    {
+        if ($this->workshops->removeElement($workshop)) {
+            // set the owning side to null (unless already changed)
+            if ($workshop->getCenter() === $this) {
+                $workshop->setCenter(null);
+            }
+        }
 
         return $this;
     }
