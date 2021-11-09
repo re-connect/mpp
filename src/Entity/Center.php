@@ -54,12 +54,12 @@ class Center
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private ?bool $permanence;
+    private ?bool $permanence = true;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private ?bool $workshop;
+    private ?bool $workshop = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
