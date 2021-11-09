@@ -20,45 +20,39 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
-     * @var array
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private ?array $roles = [];
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password;
 
     /**
-     * @var string
      * @ORM\Column(type="string", unique=true)
      */
-    private $apiToken;
+    private ?string $apiToken;
 
     /**
-     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
      */
-    private $notes;
+    private ?Collection $notes;
 
     private $plainPassword;
 
     /**
-     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="author")
      */
-    private $workshops;
+    private ?Collection $workshops;
 
     /**
      * @return mixed
