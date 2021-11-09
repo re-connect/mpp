@@ -59,7 +59,7 @@ class Center
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private ?Collection $workshop;
+    private ?bool $workshop;
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")

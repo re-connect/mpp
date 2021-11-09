@@ -27,108 +27,97 @@ class Permanence
     use TimestampableEntity;
 
     /**
-     * @var int The id of this note.
+     * The id of this note.
      *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @var DateTime
      * @Groups({"read", "write"})
      * @ORM\Column(name="date", type="date", nullable=true)
      */
-    private $date;
+    private ?\DateTimeInterface $date;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="hours", type="integer")
      */
-    private $hours;
+    private ?int $hours;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="nb_pros", type="integer")
      */
-    private $nbPros;
+    private ?int $nbPros;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="nb_pro_accounts", type="integer")
      */
-    private $nbProAccounts;
+    private ?int $nbProAccounts;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="nb_beneficiaries", type="integer")
      */
-    private $nbBeneficiaries;
+    private ?int $nbBeneficiaries;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="nb_beneficiaries_accounts", type="integer")
      */
-    private $nbBeneficiariesAccounts;
+    private ?int $nbBeneficiariesAccounts;
 
     /**
-     * @var integer
      * @Groups({"read", "write"})
      * @ORM\Column(name="nb_stored_docs", type="integer")
      */
-    private $nbStoredDocs;
+    private ?int $nbStoredDocs;
 
     /**
-     * @var string
      * @Groups({"read", "write"})
      * @ORM\Column(name="beneficiaries_notes", type="text")
      */
-    private $beneficiariesNotes;
+    private ?string $beneficiariesNotes;
+
     /**
-     * @var string
      * @Groups({"read", "write"})
      * @ORM\Column(name="pro_notes", type="text")
      */
-    private $proNotes;
+    private ?string $proNotes;
+
     /**
-     * @var string
      * @Groups({"read", "write"})
      * @ORM\Column(name="reconnect_notes", type="text")
      */
-    private $reconnectNotes;
+    private ?string $reconnectNotes;
 
     /**
-     * @var string
      * @Groups({"read", "write"})
      * @ORM\Column(name="attendees", type="string", length=255, nullable=true)
      */
-    private $attendees;
+    private ?string $attendees;
 
     /**
-     * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notes")
      */
-    private $author;
+    private ?User $author;
 
     /**
-     * @var Center
      * @Groups({"write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Center", inversedBy="notes")
      */
-    private $center;
+    private ?Center $center;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read", "write"})
      */
-    private $place;
+    private ?string $place;
 
     public function __toString()
     {
@@ -146,7 +135,7 @@ class Permanence
     /**
      * @return DateTime
      */
-    public function getDate(): ?DateTime
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
@@ -184,7 +173,7 @@ class Permanence
     }
 
     /**
-     * @param Center $center
+     * @param ?Center $center
      */
     public function setCenter(Center $center = null): void
     {
@@ -200,7 +189,7 @@ class Permanence
     }
 
     /**
-     * @param int $hours
+     * @param ?int $hours
      */
     public function setHours(int $hours = null): void
     {
@@ -216,7 +205,7 @@ class Permanence
     }
 
     /**
-     * @param int $nbPros
+     * @param ?int $nbPros
      */
     public function setNbPros(int $nbPros = null): void
     {
@@ -232,7 +221,7 @@ class Permanence
     }
 
     /**
-     * @param int $nbProAccounts
+     * @param ?int $nbProAccounts
      */
     public function setNbProAccounts(int $nbProAccounts = null): void
     {
@@ -248,7 +237,7 @@ class Permanence
     }
 
     /**
-     * @param int $nbBeneficiaries
+     * @param ?int $nbBeneficiaries
      */
     public function setNbBeneficiaries(int $nbBeneficiaries = null): void
     {
@@ -264,7 +253,7 @@ class Permanence
     }
 
     /**
-     * @param int $nbBeneficiariesAccounts
+     * @param ?int $nbBeneficiariesAccounts
      */
     public function setNbBeneficiariesAccounts(int $nbBeneficiariesAccounts = null): void
     {
@@ -280,7 +269,7 @@ class Permanence
     }
 
     /**
-     * @param int $nbStoredDocs
+     * @param ?int $nbStoredDocs
      */
     public function setNbStoredDocs(int $nbStoredDocs = null): void
     {
@@ -296,7 +285,7 @@ class Permanence
     }
 
     /**
-     * @param string $beneficiariesNotes
+     * @param ?string $beneficiariesNotes
      */
     public function setBeneficiariesNotes(string $beneficiariesNotes = null): void
     {
@@ -312,7 +301,7 @@ class Permanence
     }
 
     /**
-     * @param string $proNotes
+     * @param ?string $proNotes
      */
     public function setProNotes(string $proNotes = null): void
     {
@@ -328,7 +317,7 @@ class Permanence
     }
 
     /**
-     * @param string $reconnectNotes
+     * @param ?string $reconnectNotes
      */
     public function setReconnectNotes(string $reconnectNotes = null): void
     {
@@ -344,7 +333,7 @@ class Permanence
     }
 
     /**
-     * @param string $attendees
+     * @param ?string $attendees
      */
     public function setAttendees(?string $attendees = null): void
     {
