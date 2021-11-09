@@ -18,58 +18,53 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Center
 {
     /**
-     * @var int The id of this person.
+     * The id of this person.
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      * @Groups({"read", "write"})
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @var string.
      * @Groups({"read", "write"})
      * @ORM\Column(name="name", type="string", length=255)
      */
-    public $name;
+    public ?string $name;
 
     /**
-     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
      * @Groups({"read"})
      */
-    private $notes;
+    private ?Collection $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read"})
      */
-    private $association;
+    private ?string $association;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
      * @Groups({"read"})
      */
-    private $tags;
+    private ?Collection $tags;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $permanence;
+    private ?bool $permanence;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $workshop;
+    private ?Collection $workshop;
 
     /**
-     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
      */
-    private $workshops;
+    private ?Collection $workshops;
 
     public function __toString()
     {
