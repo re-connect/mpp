@@ -53,6 +53,18 @@ class Center
      */
     private $tags;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $permanence;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $workshop;
+
     public function __toString()
     {
         return $this->name;
@@ -207,5 +219,29 @@ class Center
             $total += $note->getNbStoredDocs();
         }
         return $total;
+    }
+
+    public function hasPermanence(): ?bool
+    {
+        return $this->permanence;
+    }
+
+    public function setPermanence(?bool $permanence): self
+    {
+        $this->permanence = $permanence;
+
+        return $this;
+    }
+
+    public function hasWorkshop(): ?bool
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?bool $workshop): self
+    {
+        $this->workshop = $workshop;
+
+        return $this;
     }
 }
