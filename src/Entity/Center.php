@@ -52,12 +52,12 @@ class Center
     private ?Collection $tags;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":"1"})
      */
     private ?bool $permanence = true;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default":"0"})
      */
     private ?bool $workshop = false;
 
