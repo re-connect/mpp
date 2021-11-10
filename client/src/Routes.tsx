@@ -12,7 +12,7 @@ const Routes = () => (
     <Route path="/login" exact component={Login} />
     <Route path="/charts" exact component={Charts} />
     <Route path="/notes/:centerId" component={Notes} />
-    <Route path="/workshops" component={Workshops} />
+    <Route path="/workshops/:centerId" component={Workshops} />
   </Router>
 );
 
