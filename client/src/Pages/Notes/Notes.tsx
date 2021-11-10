@@ -22,6 +22,7 @@ import {centersEndpoint, notesEndpoint, paginationCount} from '../../Services/re
 import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
 import Note from './Note';
+import useFetchCenter from "../../Services/useFetchCenter";
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -71,9 +72,9 @@ const Notes = withRouter(({history, match}: any) => {
   const [idNoteBeingEdited, noteIdActions] = useNumber(0);
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
-  const [center, setCenter] = React.useState(initialCenter);
   const {centerId} = match.params;
   const notesContext = useContext(NotesContext);
+  const center = useFetchCenter({initialCenter, centerId, history});
 
   const fetchNotes = useCallback((page: number = 1) => {
     const token = localStorage.getItem('token');
@@ -93,24 +94,6 @@ const Notes = withRouter(({history, match}: any) => {
   useEffect(() => {
     fetchNotes();
   }, [fetchNotes, centerId]);
-
-  const fetchCenter = useCallback(() => {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
-      superagent
-        .get(`${centersEndpoint}/${centerId}`)
-        .set('Authorization', `Bearer ${token}`)
-        .then((response: Response) => {
-          setCenter(response.body);
-        });
-    } else {
-      history.push('/login');
-    }
-  }, [history, centerId]);
-
-  useEffect(() => {
-    fetchCenter();
-  }, [fetchCenter, centerId]);
 
   const editNote = (id: number) => {
     noteIdActions.setValue(id);
