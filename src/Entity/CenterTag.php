@@ -19,17 +19,17 @@ class CenterTag
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\ManyToMany(targetEntity=Center::class, inversedBy="tags")
      */
-    private $centers;
+    private ?Collection $centers;
 
     public function __toString()
     {

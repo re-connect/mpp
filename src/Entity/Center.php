@@ -18,40 +18,53 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Center
 {
     /**
-     * @var int The id of this person.
+     * The id of this person.
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      * @Groups({"read", "write"})
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @var string.
      * @Groups({"read", "write"})
      * @ORM\Column(name="name", type="string", length=255)
      */
-    public $name;
+    public ?string $name;
 
     /**
-     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
      * @Groups({"read"})
      */
-    private $notes;
+    private ?Collection $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read"})
      */
-    private $association;
+    private ?string $association;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
      * @Groups({"read"})
      */
-    private $tags;
+    private ?Collection $tags;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default":"1"})
+     */
+    private ?bool $permanence = true;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default":"0"})
+     */
+    private ?bool $workshop = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
+     */
+    private ?Collection $workshops;
 
     public function __toString()
     {
@@ -62,6 +75,7 @@ class Center
     {
         $this->notes = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->workshops = new ArrayCollection();
     }
 
     /**
@@ -207,5 +221,59 @@ class Center
             $total += $note->getNbStoredDocs();
         }
         return $total;
+    }
+
+    public function hasPermanence(): ?bool
+    {
+        return $this->permanence;
+    }
+
+    public function setPermanence(?bool $permanence): self
+    {
+        $this->permanence = $permanence;
+
+        return $this;
+    }
+
+    public function hasWorkshop(): ?bool
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?bool $workshop): self
+    {
+        $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workshop[]
+     */
+    public function getWorkshops(): Collection
+    {
+        return $this->workshops;
+    }
+
+    public function addWorkshop(Workshop $workshop): self
+    {
+        if (!$this->workshops->contains($workshop)) {
+            $this->workshops[] = $workshop;
+            $workshop->setCenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshop(Workshop $workshop): self
+    {
+        if ($this->workshops->removeElement($workshop)) {
+            // set the owning side to null (unless already changed)
+            if ($workshop->getCenter() === $this) {
+                $workshop->setCenter(null);
+            }
+        }
+
+        return $this;
     }
 }

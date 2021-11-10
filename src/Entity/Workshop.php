@@ -67,6 +67,18 @@ class Workshop
      */
     private ?string $topicPrecision;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="workshops")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?User $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Center::class, inversedBy="workshops")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Center $center;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
@@ -181,6 +193,30 @@ class Workshop
     public function setTopicPrecision(?string $topicPrecision): self
     {
         $this->topicPrecision = $topicPrecision;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCenter(): ?Center
+    {
+        return $this->center;
+    }
+
+    public function setCenter(?Center $center): self
+    {
+        $this->center = $center;
 
         return $this;
     }
