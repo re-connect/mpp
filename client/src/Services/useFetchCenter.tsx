@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect} from "react";
-import superagent, {Response} from "superagent";
-import {centersEndpoint} from "./requests";
+import React, {useCallback, useEffect} from 'react';
+import superagent, {Response} from 'superagent';
+import {centersEndpoint} from './requests';
 
 function useFetchCenterTest({initialCenter, centerId, history}: any){
     const [center, setCenter] = React.useState(initialCenter);

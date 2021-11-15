@@ -22,7 +22,7 @@ import {centersEndpoint, notesEndpoint, paginationCount} from '../../Services/re
 import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
 import Note from './Note';
-import useFetchCenter from "../../Services/useFetchCenter";
+import useFetchCenter from '../../Services/useFetchCenter';
 
 const StyledContent = styled.div`
   margin-top: 50px;

@@ -1,5 +1,5 @@
-import React from "react";
-import useFetchCenter from "../../Services/useFetchCenter";
+import React from 'react';
+import useFetchCenter from '../../Services/useFetchCenter';
 
 const initialCenter = {
     name: '',
