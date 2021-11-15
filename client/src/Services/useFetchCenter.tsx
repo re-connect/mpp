@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
 import {centersEndpoint} from './requests';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
-function useFetchCenterTest({initialCenter, centerId}: any){
+function useFetchCenterTest(initialCenter: any){
     const [center, setCenter] = React.useState(initialCenter);
-    let history = useHistory();
+    const history = useHistory();
+    const centerId = useParams().centerId;
 
-    const fetchCenter = useCallback(() => {
+    const fetchCenter = useCallback((centerId) => {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
@@ -23,7 +24,7 @@ function useFetchCenterTest({initialCenter, centerId}: any){
     }, [history, centerId]);
 
     useEffect(() => {
-        fetchCenter();
+        fetchCenter(centerId);
     }, [fetchCenter, centerId]);
 
     return center;
