@@ -12,7 +12,7 @@ const initialCenter = {
     documentsCount: '',
 };
 
-function useFetchCenterTest(){
+function useFetchCenter(){
     const [center, setCenter] = React.useState(initialCenter);
     const history = useHistory();
     const centerId = useParams().centerId;
@@ -39,4 +39,4 @@ function useFetchCenterTest(){
     return center;
 };
 
-export default useFetchCenterTest;
+export default useFetchCenter;
