@@ -58,14 +58,6 @@ const AddNoteIcon = styled(Fab)`
   right: 0;
 `;
 
-const initialCenter = {
-  name: '',
-  notes: [],
-  beneficiaryCount: '',
-  createdBeneficiaryCount: '',
-  documentsCount: '',
-};
-
 const Notes = withRouter(({history, match}: any) => {
   const isModalOpen = useBoolean(false);
   const isEditModalOpen = useBoolean(false);
@@ -74,7 +66,7 @@ const Notes = withRouter(({history, match}: any) => {
   const [currentPage, currentPageActions] = useNumber(1);
   const {centerId} = match.params;
   const notesContext = useContext(NotesContext);
-  const center = useFetchCenter(initialCenter);
+  const center = useFetchCenter();
 
   const fetchNotes = useCallback((page: number = 1) => {
     const token = localStorage.getItem('token');

@@ -1,13 +1,8 @@
 import React from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 
-const initialCenter = {
-    name: '',
-    workshops: [],
-};
-
 const Workshops = () => {
-    const center = useFetchCenter(initialCenter);
+    const center = useFetchCenter();
 
     return (
         <h1>{center.name}</h1>
