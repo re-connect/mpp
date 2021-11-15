@@ -6,9 +6,9 @@ const initialCenter = {
     workshops: [],
 };
 
-const Workshops = ({history, match}: any) => {
+const Workshops = ({match}: any) => {
     const {centerId} = match.params;
-    const center = useFetchCenter({initialCenter, centerId, history});
+    const center = useFetchCenter({initialCenter, centerId});
 
     return (
         <h1>{center.name}</h1>

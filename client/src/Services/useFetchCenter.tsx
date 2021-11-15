@@ -1,9 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
 import {centersEndpoint} from './requests';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
-function useFetchCenterTest({initialCenter, centerId, history}: any){
+function useFetchCenterTest({initialCenter, centerId}: any){
     const [center, setCenter] = React.useState(initialCenter);
+    let history = useHistory();
 
     const fetchCenter = useCallback(() => {
         const token = localStorage.getItem('token');
