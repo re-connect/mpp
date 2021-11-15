@@ -5,7 +5,10 @@ const Workshops = () => {
     const center = useFetchCenter();
 
     return (
-        <h1>{center.name}</h1>
+        <div>
+            <h1>{center.name}</h1>
+            <h2>Nombre d'ateliers : {center.workshops.length}</h2>
+        </div>
     );
 };
 
