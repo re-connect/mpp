@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\WorkshopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
+ * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
  */
 class Workshop
 {
