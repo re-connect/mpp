@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect} from 'react';
 import {notesEndpoint, workshopsEndpoint} from './requests';
-import {useHistory, useParams} from "react-router-dom";
+import {useHistory, useParams} from 'react-router-dom';
 import NotesContext from '../Context/NotesContext';
 import WorkshopsContext from '../Context/WorkshopsContext';
 import axios from 'axios';
@@ -14,7 +14,7 @@ function useFetchActivities() {
     const endpoint = pathName.includes('workshops') ? workshopsEndpoint : notesEndpoint;
     const activitiesContext = pathName.includes('workshops') ? workshopsContext : notesContext;
 
-    const fetchActivities = useCallback(() => {
+    const fetchActivities = useCallback((centerId) => {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
@@ -30,7 +30,7 @@ function useFetchActivities() {
     }, [centerId, history]);
 
     useEffect(() => {
-        fetchActivities();
+        fetchActivities(centerId);
     }, [fetchActivities, centerId]);
 }
 
