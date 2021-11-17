@@ -1,13 +1,12 @@
-import {useCallback, useContext, useEffect} from 'react';
+import {useCallback, useContext} from 'react';
 import {workshopsEndpoint} from './requests';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import WorkshopsContext from '../Context/WorkshopsContext';
 import axios from 'axios';
 
 function useFetchWorkshops() {
     const {setWorkshops} = useContext(WorkshopsContext);
     const history = useHistory();
-    const centerId = useParams().centerId;
 
     const fetchWorkshops = useCallback((centerId) => {
         const token = localStorage.getItem('token');
@@ -22,11 +21,9 @@ function useFetchWorkshops() {
         } else {
             history.push('/login');
         }
-    }, [centerId, history]);
+    }, [history]);
 
-    useEffect(() => {
-        fetchWorkshops(centerId);
-    }, [fetchWorkshops, centerId]);
+    return fetchWorkshops;
 }
 
 export default useFetchWorkshops;

@@ -8,11 +8,15 @@ const Workshops = () => {
     const centerId = useParams().centerId;
     const {list} = useContext(WorkshopsContext);
     const {center, fetchCenter} = useFetchCenter();
-    useFetchWorkshops();
+    const fetchWorkshops = useFetchWorkshops();
 
     useEffect(() => {
         fetchCenter(centerId)
     }, [fetchCenter, centerId]);
+
+    useEffect(() => {
+        fetchWorkshops(centerId);
+    }, [fetchWorkshops, centerId]);
 
     return (
         <div>
