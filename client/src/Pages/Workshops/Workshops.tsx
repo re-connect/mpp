@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
-import useFetchActivities from '../../Services/useFetchActivities';
+import useFetchWorkshops from '../../Services/useFetchWorkshops';
 
 const Workshops = () => {
     const center = useFetchCenter();
     const workshopsContext = useContext(WorkshopsContext);
-    useFetchActivities();
+    useFetchWorkshops();
 
     return (
         <div>

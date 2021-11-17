@@ -5,7 +5,7 @@ import NotesContext from '../Context/NotesContext';
 import WorkshopsContext from '../Context/WorkshopsContext';
 import axios from 'axios';
 
-function useFetchActivities() {
+function useFetchWorkshops() {
     const notesContext = useContext(NotesContext);
     const workshopsContext = useContext(WorkshopsContext);
     const centerId = useParams().centerId;
@@ -14,7 +14,7 @@ function useFetchActivities() {
     const endpoint = pathName.includes('workshops') ? workshopsEndpoint : notesEndpoint;
     const activitiesContext = pathName.includes('workshops') ? workshopsContext : notesContext;
 
-    const fetchActivities = useCallback((centerId) => {
+    const fetchWorkshops = useCallback((centerId) => {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
@@ -29,8 +29,8 @@ function useFetchActivities() {
     }, [centerId, history]);
 
     useEffect(() => {
-        fetchActivities(centerId);
-    }, [fetchActivities, centerId]);
+        fetchWorkshops(centerId);
+    }, [fetchWorkshops, centerId]);
 }
 
-export default useFetchActivities;
+export default useFetchWorkshops;
