@@ -7,5 +7,6 @@ export const tagsEndpoint = `${apiEndpoint}/tags`;
 export const loginEndpoint = `${backendUrl}/login`;
 export const adminLoginEndpoint = `${backendUrl}/admin_login`;
 export const notesEndpoint = `${apiEndpoint}/notes`;
+export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 
 export const paginationCount = 30;

@@ -4,6 +4,8 @@ import * as React from 'react';
 import NotesContext from './Context/NotesContext';
 import Routes from './Routes';
 import {Note} from './Types/Notes';
+import {Workshop} from './Types/Workshops';
+import WorkshopsContext from './Context/WorkshopsContext';
 
 const theme = createTheme({
   palette: {
@@ -25,12 +27,15 @@ const theme = createTheme({
 
 const App = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
+  const [workshops, setWorkshops] = React.useState<Workshop[]>([]);
 
   return (
     <ThemeProvider theme={theme}>
-      <NotesContext.Provider value={{list: notes, set: setNotes}}>
-        <Routes/>
-      </NotesContext.Provider>
+          <WorkshopsContext.Provider value={{list: workshops, setWorkshops: setWorkshops}}>
+              <NotesContext.Provider value={{list: notes, set: setNotes}}>
+                  <Routes/>
+              </NotesContext.Provider>
+          </WorkshopsContext.Provider>
     </ThemeProvider>
   );
 };
