@@ -1,12 +1,18 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
+import {useParams} from 'react-router-dom';
 
 const Workshops = () => {
-    const center = useFetchCenter();
+    const centerId = useParams().centerId;
     const {list} = useContext(WorkshopsContext);
+    const {center, fetchCenter} = useFetchCenter();
     useFetchWorkshops();
+
+    useEffect(() => {
+        fetchCenter(centerId)
+    }, [fetchCenter, centerId]);
 
     return (
         <div>
