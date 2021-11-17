@@ -22,7 +22,6 @@ function useFetchActivities() {
                     headers: {Authorization: `Bearer ${token}`}
                 })
                 .then((response) => {
-                    activitiesContext.set(response.data['hydra:member']);
                 });
         } else {
             history.push('/login');

@@ -3,12 +3,12 @@ import {createContext} from 'react';
 
 interface WorkshopsContext {
     list: Workshop[];
-    set: (workshops: Workshop[]) => void;
+    setWorkshops: (workshops: Workshop[]) => void;
 }
 
 const defaultValues = {
     list: [],
-    set: () => {},
+    setWorkshops: () => {},
 };
 
 const WorkshopsContext = createContext<WorkshopsContext>(defaultValues);
