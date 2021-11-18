@@ -25,9 +25,9 @@ const Workshop = ({workshop}: any) => {
             </Typography>
             <Typography variant='body2' component='p'>
                 Compétences :
-                    {workshop.skills.map((skill: any) => {
-                        return <span> [{skill.name}]</span>
-                    })}
+                    {workshop.skills.map((skill: any) => (
+                        <span> [{skill.name}]</span>
+                    ))};
             </Typography>
             <Typography variant='body2' component='p'>
                 Nombre de participants : {workshop.nbParticipants}
