@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {centersEndpoint} from './requests';
 import axios from 'axios';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const initialCenter = {
     name: '',
@@ -12,10 +12,9 @@ const initialCenter = {
     documentsCount: '',
 };
 
-function useFetchCenter(){
+function useFetchCenter() {
     const [center, setCenter] = React.useState(initialCenter);
     const history = useHistory();
-    const centerId = useParams().centerId;
 
     const fetchCenter = useCallback((centerId) => {
         const token = localStorage.getItem('token');
@@ -30,13 +29,9 @@ function useFetchCenter(){
         } else {
             history.push('/login');
         }
-    }, [history, centerId]);
+    }, [history]);
 
-    useEffect(() => {
-        fetchCenter(centerId);
-    }, [fetchCenter, centerId]);
-
-    return center;
+    return {center, fetchCenter};
 };
 
 export default useFetchCenter;

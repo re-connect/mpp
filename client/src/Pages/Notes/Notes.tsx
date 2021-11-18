@@ -66,7 +66,11 @@ const Notes = withRouter(({history, match}: any) => {
   const [currentPage, currentPageActions] = useNumber(1);
   const {centerId} = match.params;
   const notesContext = useContext(NotesContext);
-  const center = useFetchCenter();
+  const {center, fetchCenter} = useFetchCenter();
+
+  useEffect(() => {
+    fetchCenter(centerId)
+  }, [fetchCenter, centerId]);
 
   const fetchNotes = useCallback((page: number = 1) => {
     const token = localStorage.getItem('token');
