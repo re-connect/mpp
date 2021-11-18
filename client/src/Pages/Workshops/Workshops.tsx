@@ -3,6 +3,7 @@ import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
 import {useParams} from 'react-router-dom';
+import Workshop from './Workshop';
 
 const Workshops = () => {
     const centerId = useParams().centerId;
@@ -24,7 +25,7 @@ const Workshops = () => {
             <h2>Nombre d'ateliers : {center.workshops.length}</h2>
             <ul>
                 {list.map((workshop: any) => (
-                    <li key={workshop.id}>Atelier n° {workshop.id}</li>
+                    <Workshop key={workshop.id} workshop={workshop}/>
                 ))}
             </ul>
         </div>
