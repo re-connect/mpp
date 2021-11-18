@@ -4,3 +4,4 @@ easy_admin:
         - App\Entity\Center
         - App\Entity\User
         - App\Entity\Note
+        - App\Entity\Workshop
