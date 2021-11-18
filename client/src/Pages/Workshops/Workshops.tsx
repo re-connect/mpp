@@ -3,6 +3,20 @@ import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
 import {useParams} from 'react-router-dom';
+import Workshop from './Workshop';
+import {Container, Typography} from '@material-ui/core';
+import styled from 'styled-components';
+
+const StyledContent = styled.div`
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  color: whitesmoke;
+`;
+
+const WorkshopsTitle = styled(Typography)`
+  flex: 1;
+`;
 
 const Workshops = () => {
     const centerId = useParams().centerId;
@@ -19,15 +33,20 @@ const Workshops = () => {
     }, [fetchWorkshops, centerId]);
 
     return (
-        <div>
-            <h1>{center.name}</h1>
-            <h2>Nombre d'ateliers : {center.workshops.length}</h2>
-            <ul>
-                {list.map((workshop: any) => (
-                    <li key={workshop.id}>Atelier n° {workshop.id}</li>
-                ))}
-            </ul>
-        </div>
+        <Container maxWidth='sm'>
+            <StyledContent>
+                <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
+                    {center.name}
+                </WorkshopsTitle>
+                <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
+            </StyledContent>
+            <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
+                Ateliers
+            </WorkshopsTitle>
+            {list.map((workshop: any) => (
+                <Workshop key={workshop.id} workshop={workshop}/>
+            ))}
+        </Container>
     );
 };
 

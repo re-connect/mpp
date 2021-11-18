@@ -10,9 +10,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}}
+ * )
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
  */
@@ -24,49 +27,58 @@ class Workshop
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"read"})
      */
     private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private ?int $nbParticipants;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read"})
      */
     private ?string $globalReport;
 
     /**
      * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read"})
      */
     private ?Topic $topic;
 
     /**
      * @ORM\ManyToOne(targetEntity=ParticipantKind::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read"})
      */
     private ?ParticipantKind $participantKind;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read"})
      */
     private ?Project $project;
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
+     * @Groups({"read"})
      */
     private ?Collection $skills;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read"})
      */
     private ?string $topicPrecision;
 
