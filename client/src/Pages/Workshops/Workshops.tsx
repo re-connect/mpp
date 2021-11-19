@@ -27,60 +27,60 @@ const AddNoteIcon = styled(Fab)`
 `;
 
 const Workshops = () => {
-    const isModalOpen = useBoolean(false);
-    const centerId = useParams().centerId;
-    const {workshops} = useContext(WorkshopsContext);
-    const {center, fetchCenter} = useFetchCenter();
-    const fetchWorkshops = useFetchWorkshops();
+  const isModalOpen = useBoolean(false);
+  const centerId = useParams().centerId;
+  const {workshops} = useContext(WorkshopsContext);
+  const {center, fetchCenter} = useFetchCenter();
+  const fetchWorkshops = useFetchWorkshops();
 
-    useEffect(() => {
-        fetchCenter(centerId)
-    }, [fetchCenter, centerId]);
+  useEffect(() => {
+    fetchCenter(centerId)
+  }, [fetchCenter, centerId]);
 
-    useEffect(() => {
-        fetchWorkshops(centerId);
-    }, [fetchWorkshops, centerId]);
+  useEffect(() => {
+    fetchWorkshops(centerId);
+  }, [fetchWorkshops, centerId]);
 
-    return (
-        <Container maxWidth='sm'>
-            <Dialog
-                fullScreen
-                open={isModalOpen.value}
-                onClose={isModalOpen.setFalse}
-                aria-labelledby='form-dialog-title'
-            >
-                <DialogTitle id='form-dialog-title'>Créer un atelier</DialogTitle>
-                <DialogContent>
-                    <CreateWorkshopForm/>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={isModalOpen.setFalse} color='primary'>
-                        Annuler
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            <StyledContent>
-                <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
-                    {center.name}
-                </WorkshopsTitle>
-                <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
-            </StyledContent>
-            <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
-                Ateliers
-            </WorkshopsTitle>
-            <AddNoteIcon
-                size='medium'
-                color='primary'
-                aria-label='add'
-                onClick={isModalOpen.setTrue}
-            >
-                <AddIcon/>
-            </AddNoteIcon>
-            {workshops.map((workshop: any) => (
-                <Workshop key={workshop.id} workshop={workshop}/>
-            ))}
-        </Container>
-    );
+  return (
+    <Container maxWidth='sm'>
+      <Dialog
+        fullScreen
+        open={isModalOpen.value}
+        onClose={isModalOpen.setFalse}
+        aria-labelledby='form-dialog-title'
+      >
+        <DialogTitle id='form-dialog-title'>Créer un atelier</DialogTitle>
+        <DialogContent>
+          <CreateWorkshopForm/>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={isModalOpen.setFalse} color='primary'>
+            Annuler
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <StyledContent>
+        <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
+          {center.name}
+        </WorkshopsTitle>
+        <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
+      </StyledContent>
+      <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
+        Ateliers
+      </WorkshopsTitle>
+      <AddNoteIcon
+        size='medium'
+        color='primary'
+        aria-label='add'
+        onClick={isModalOpen.setTrue}
+      >
+        <AddIcon/>
+      </AddNoteIcon>
+      {workshops.map((workshop: any) => (
+        <Workshop key={workshop.id} workshop={workshop}/>
+      ))}
+    </Container>
+  );
 };
 
 export default Workshops;
