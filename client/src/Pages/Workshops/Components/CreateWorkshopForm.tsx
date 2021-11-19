@@ -8,7 +8,7 @@ const CreateWorkshopForm = () => {
     const topicsContext = useContext(TopicsContext);
     const history = useHistory();
 
-    if (topicsContext.listTopics.length === 0) {
+    if (topicsContext.topics.length === 0) {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
@@ -27,7 +27,7 @@ const CreateWorkshopForm = () => {
         <div>
             <div>Topics list</div>
             <ul>
-                {topicsContext.listTopics.map((topic: any) => (
+                {topicsContext.topics.map((topic: any) => (
                     <li>{topic.name}</li>
                 ))}
             </ul>

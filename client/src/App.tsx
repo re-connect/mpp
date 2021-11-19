@@ -36,7 +36,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <WorkshopsContext.Provider value={{list: workshops, setWorkshops: setWorkshops}}>
                 <NotesContext.Provider value={{ notes, setNotes }}>
-                    <TopicsContext.Provider value={{listTopics: topics, setTopics: setTopics}}>
+                    <TopicsContext.Provider value={{ topics, setTopics }}>
                         <Routes/>
                     </TopicsContext.Provider>
                 </NotesContext.Provider>

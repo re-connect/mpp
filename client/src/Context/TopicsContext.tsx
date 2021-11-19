@@ -2,12 +2,12 @@ import * as React from 'react';
 import {Topic} from '../Types/Topics';
 
 interface TopicsContext {
-    listTopics: Topic[];
+    topics: Topic[];
     setTopics: (topics: Topic[]) => void;
 }
 
 const defaultValues = {
-    listTopics: [],
+    topics: [],
     setTopics: () => {},
 };
 
