@@ -22,8 +22,8 @@ class WorkshopCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Workshop')
-            ->setEntityLabelInPlural('Workshop')
-            ->setSearchFields(['id', 'name']);
+            ->setEntityLabelInPlural('Workshops')
+            ->setSearchFields(['id', 'project', 'skills', 'participantKind']);
     }
 
     public function configureFields(string $pageName): iterable
@@ -36,19 +36,20 @@ class WorkshopCrudController extends AbstractCrudController
         $nbParticipants = IntegerField::new('nbParticipants');
         $participantKind = AssociationField::new('participantKind');
         $globalReport = TextField::new('globalReport');
-        $center = AssociationField::new('center');
         $project = AssociationField::new('project');
+        $author = AssociationField::new('author');
         $createdAt = DateTimeField::new('createdAt');
         $updatedAt = DateTimeField::new('updatedAt');
+        $center = AssociationField::new('center');
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $createdAt, $updatedAt];
+            return [$id, $date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $createdAt, $updatedAt];
+            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $createdAt, $updatedAt];
+            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
         }
 
-        return [$id, $date, $topic, $topicPrecision, $nbParticipants];
+        return [$id, $date, $topic, $skills, $participantKind];
     }
 }
