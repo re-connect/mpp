@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Note } from '../Types/Notes';
 
 interface NotesContext {
-  list: Note[];
-  set: (notes: Note[]) => void;
+  notes: Note[];
+  setNotes: (notes: Note[]) => void;
 }
 
 const defaultValues = {
-  list: [],
-  set: () => {},
+  notes: [],
+  setNotes: () => {},
 };
 
 const NotesContext = React.createContext<NotesContext>(defaultValues);

@@ -26,7 +26,7 @@ const Charts = withRouter(({history, match}: any) => {
         .get(`${notesEndpoint}`)
         .set("Authorization", `Bearer ${token}`)
         .then((response: Response) => {
-          notesContext.set(response.body['hydra:member']);
+          notesContext.setNotes(response.body['hydra:member']);
         });
     } else {
       history.push("/login");
@@ -41,7 +41,7 @@ const Charts = withRouter(({history, match}: any) => {
   let nbBeneficiariesAccountsData = {};
   let nbStoredDocsData = {};
 
-  notesContext.list.forEach((note: any, index: number) => {
+  notesContext.notes.forEach((note: any, index: number) => {
     nbProAccountsData = {
       ...nbProAccountsData,
       [note.date]: note.nbProAccounts

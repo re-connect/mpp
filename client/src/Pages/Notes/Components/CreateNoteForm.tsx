@@ -43,7 +43,7 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
-          notesContext.set([response.body, ...notesContext.list]);
+          notesContext.setNotes([response.body, ...notesContext.notes]);
         });
     } else {
       alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');
