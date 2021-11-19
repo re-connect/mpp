@@ -17,7 +17,6 @@ const CreateWorkshopForm = () => {
                 })
                 .then((response) => {
                     topicsContext.setTopics(response.data['hydra:member']);
-                    console.log(response.data['hydra:member'])
                 });
         } else {
             history.push('/login');
