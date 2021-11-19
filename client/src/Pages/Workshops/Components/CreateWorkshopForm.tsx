@@ -7,20 +7,18 @@ import {useHistory} from 'react-router-dom';
 const CreateWorkshopForm = () => {
   const topicsContext = useContext(TopicsContext);
   const history = useHistory();
+  const token = localStorage.getItem('token');
 
-  if (topicsContext.topics.length === 0) {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
-      axios
-        .get(`${topicsEndpoint}`, {
-          headers: {Authorization: `Bearer ${token}`}
-        })
-        .then((response) => {
-          topicsContext.setTopics(response.data['hydra:member']);
-        });
-    } else {
-      history.push('/login');
-    }
+  if (token !== null) {
+    axios
+      .get(`${topicsEndpoint}`, {
+        headers: {Authorization: `Bearer ${token}`}
+      })
+      .then((response) => {
+        topicsContext.setTopics(response.data['hydra:member']);
+      });
+  } else {
+    history.push('/login');
   }
 
   return (
