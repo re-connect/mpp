@@ -29,7 +29,7 @@ const AddNoteIcon = styled(Fab)`
 const Workshops = () => {
     const isModalOpen = useBoolean(false);
     const centerId = useParams().centerId;
-    const {list} = useContext(WorkshopsContext);
+    const {workshops} = useContext(WorkshopsContext);
     const {center, fetchCenter} = useFetchCenter();
     const fetchWorkshops = useFetchWorkshops();
 
@@ -76,7 +76,7 @@ const Workshops = () => {
             >
                 <AddIcon/>
             </AddNoteIcon>
-            {list.map((workshop: any) => (
+            {workshops.map((workshop: any) => (
                 <Workshop key={workshop.id} workshop={workshop}/>
             ))}
         </Container>
