@@ -1,13 +1,25 @@
 Attendees: Participants
 Author: Créateur
+attendees: Participants
+author: Créateur
 Beneficiaries Notes: Remarques concernant les bénéficiaires
 BeneficiariesNotes: Remarques concernant les bénéficiaires
+beneficiariesNotes: Remarques concernant les bénéficiaires
 Center: Centres
+CenterTag: Label
 Created At: Date de création
 CreatedAt: Date de création
+center: Centre
+createdAt: Date de création
 Date: Date
+date: Date
+export: Exporter
+field_format_unknown: Format du champ inconnu
+Global Report: Bilan global
 Hours: Heures
+hours: Heures
 ID: Id
+id: Id
 Name: Nom
 Nb Beneficiaries Accounts: Nb Comptes Bénef
 Nb Beneficiaries: Nb Bénef
@@ -17,33 +29,31 @@ Nb Stored Docs: Nb docs stockés
 NbStoredDocs: Nombre de documents stockés
 Note: Notes
 Notes: Notes
-Password: Mot de passe
-Pro Notes: Remarques concernant les bénéficiaires
-ProNotes: Remarques concernant les bénéficiaires
-Reconnect Notes: Remarques concernant Reconnect
-ReconnectNotes: Remarques concernant Reconnect
-Updated At: Date de dernière mise à jour
-UpdatedAt: Date de mise à jour
-User: Utilisateurs
-attendees: Participants
-author: Créateur
-beneficiariesNotes: Remarques concernant les bénéficiaires
-center: Centre
-createdAt: Date de création
-date: Date
-export: Exporter
-field_format_unknown: Format du champ inconnu
-hours: Heurs
-id: Id
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
 nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés
 nbStoredDocs: Nombre de documents stockés
+Participant Kind: Type de participants
+ParticipantKind: Type de participants
 proNotes: Remarques concernant les bénéficiaires
+Password: Mot de passe
+Project: Projet
+Pro Notes: Remarques concernant les bénéficiaires
+ProNotes: Remarques concernant les bénéficiaires
+Reconnect Notes: Remarques concernant Reconnect
+ReconnectNotes: Remarques concernant Reconnect
 reconnectNotes: Remarques concernant Reconnect
-unfilled: Non renseigné
-updatedAt: Date de mise à jour
+Skill: Compétence
+Skills: Compétences
 Tag: Label
 Tags: Labels
-CenterTag: Label
+Topic: Thème
+Topic Precision: Précisions sur le thème
+Updated At: Date de dernière mise à jour
+UpdatedAt: Date de mise à jour
+User: Utilisateurs
+unfilled: Non renseigné
+updatedAt: Date de mise à jour
+Workshop: Atelier
+Workshops: Ateliers
