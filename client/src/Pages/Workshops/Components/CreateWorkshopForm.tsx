@@ -5,7 +5,7 @@ import TopicsContext from '../../../Context/TopicsContext';
 import {useHistory} from 'react-router-dom';
 
 const CreateWorkshopForm = () => {
-  const topicsContext = useContext(TopicsContext);
+  const {topics, setTopics} = useContext(TopicsContext);
   const history = useHistory();
   const token = localStorage.getItem('token');
 
@@ -15,7 +15,7 @@ const CreateWorkshopForm = () => {
         headers: {Authorization: `Bearer ${token}`}
       })
       .then((response) => {
-        topicsContext.setTopics(response.data['hydra:member']);
+        setTopics(response.data['hydra:member']);
       });
   } else {
     history.push('/login');
@@ -25,7 +25,7 @@ const CreateWorkshopForm = () => {
     <div>
       <div>Topics list</div>
       <ul>
-        {topicsContext.topics.map((topic: any) => (
+        {topics.map((topic: any) => (
           <li>{topic.name}</li>
         ))}
       </ul>
