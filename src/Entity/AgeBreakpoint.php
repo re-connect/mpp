@@ -3,19 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ParticipantKindRepository;
+use App\Repository\AgeBreakpointRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"read"}}
- * )
- * @ORM\Entity(repositoryClass=ParticipantKindRepository::class)
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass=AgeBreakpointRepository::class)
  */
-class ParticipantKind
+class AgeBreakpoint
 {
     /**
      * @ORM\Id
@@ -26,12 +23,11 @@ class ParticipantKind
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read"})
      */
-    private ?string $name;
+    private ?string $range;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="participantKind")
+     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="ageBreakpoints")
      */
     private ?Collection $workshops;
 
@@ -40,24 +36,19 @@ class ParticipantKind
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getRange(): ?string
     {
-        return $this->name;
+        return $this->range;
     }
 
-    public function setName(string $name): self
+    public function setRange(string $range): self
     {
-        $this->name = $name;
+        $this->range = $range;
 
         return $this;
     }
@@ -74,7 +65,7 @@ class ParticipantKind
     {
         if (!$this->workshops->contains($workshop)) {
             $this->workshops[] = $workshop;
-            $workshop->addParticipantKind($this);
+            $workshop->addAgeBreakpoint($this);
         }
 
         return $this;
@@ -83,7 +74,7 @@ class ParticipantKind
     public function removeWorkshop(Workshop $workshop): self
     {
         if ($this->workshops->removeElement($workshop)) {
-            $workshop->removeParticipantKind($this);
+            $workshop->removeAgeBreakpoint($this);
         }
 
         return $this;

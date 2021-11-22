@@ -3,19 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ParticipantKindRepository;
+use App\Repository\UsedEquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"read"}}
- * )
- * @ORM\Entity(repositoryClass=ParticipantKindRepository::class)
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass=UsedEquipmentRepository::class)
  */
-class ParticipantKind
+class UsedEquipment
 {
     /**
      * @ORM\Id
@@ -26,23 +23,17 @@ class ParticipantKind
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read"})
      */
     private ?string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="participantKind")
+     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="usedEquipments")
      */
     private ?Collection $workshops;
 
     public function __construct()
     {
         $this->workshops = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 
     public function getId(): ?int
@@ -74,7 +65,7 @@ class ParticipantKind
     {
         if (!$this->workshops->contains($workshop)) {
             $this->workshops[] = $workshop;
-            $workshop->addParticipantKind($this);
+            $workshop->addUsedEquipment($this);
         }
 
         return $this;
@@ -83,7 +74,7 @@ class ParticipantKind
     public function removeWorkshop(Workshop $workshop): self
     {
         if ($this->workshops->removeElement($workshop)) {
-            $workshop->removeParticipantKind($this);
+            $workshop->removeUsedEquipment($this);
         }
 
         return $this;

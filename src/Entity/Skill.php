@@ -31,14 +31,9 @@ class Skill
     private ?string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="skills")
+     * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="skills")
      */
-    private ?Collection $workshops;
-
-    public function __construct()
-    {
-        $this->workshops = new ArrayCollection();
-    }
+    private ?Topic $topic;
 
     public function __toString()
     {
@@ -62,29 +57,14 @@ class Skill
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
-    public function getWorkshops(): Collection
+    public function getTopic(): ?Topic
     {
-        return $this->workshops;
+        return $this->topic;
     }
 
-    public function addWorkshop(Workshop $workshop): self
+    public function setTopic(?Topic $topic): self
     {
-        if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
-            $workshop->addSkill($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWorkshop(Workshop $workshop): self
-    {
-        if ($this->workshops->removeElement($workshop)) {
-            $workshop->removeSkill($this);
-        }
+        $this->topic = $topic;
 
         return $this;
     }
