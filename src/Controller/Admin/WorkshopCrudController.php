@@ -36,18 +36,17 @@ class WorkshopCrudController extends AbstractCrudController
         $nbParticipants = IntegerField::new('nbParticipants');
         $participantKind = AssociationField::new('participantKind');
         $globalReport = TextField::new('globalReport');
-        $project = AssociationField::new('project');
         $author = AssociationField::new('author');
         $createdAt = DateTimeField::new('createdAt');
         $updatedAt = DateTimeField::new('updatedAt');
         $center = AssociationField::new('center');
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
+            return [$id, $date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $globalReport, $center, $author, $createdAt, $updatedAt];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
+            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $globalReport, $center, $author, $createdAt, $updatedAt];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $project, $globalReport, $center, $author, $createdAt, $updatedAt];
+            return [$date, $topic, $topicPrecision, $skills, $nbParticipants, $participantKind, $globalReport, $center, $author, $createdAt, $updatedAt];
         }
 
         return [$id, $date, $topic, $skills, $participantKind];

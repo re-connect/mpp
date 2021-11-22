@@ -64,13 +64,6 @@ class Workshop
     private ?ParticipantKind $participantKind;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="workshops")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
-     */
-    private ?Project $project;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
      * @Groups({"read"})
      */
@@ -160,18 +153,6 @@ class Workshop
     public function setParticipantKind(?ParticipantKind $participantKind): self
     {
         $this->participantKind = $participantKind;
-
-        return $this;
-    }
-
-    public function getProject(): ?project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?project $project): self
-    {
-        $this->project = $project;
 
         return $this;
     }
