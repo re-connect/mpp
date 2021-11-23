@@ -65,7 +65,7 @@ const Notes = withRouter(({history, match}: any) => {
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
   const {centerId} = match.params;
-  const notesContext = useContext(NotesContext);
+  const {notes, setNotes} = useContext(NotesContext);
   const {center, fetchCenter} = useFetchCenter();
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const Notes = withRouter(({history, match}: any) => {
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           notesCountActions.setValue(response.body['hydra:totalItems'])
-          notesContext.set(response.body['hydra:member']);
+          setNotes(response.body['hydra:member']);
         });
     } else {
       history.push('/login');
@@ -129,7 +129,7 @@ const Notes = withRouter(({history, match}: any) => {
         <DialogContent>
           <EditNoteForm
             centerId={centerId}
-            note={notesContext.list.find(note => note.id === idNoteBeingEdited)}
+            note={notes.find(note => note.id === idNoteBeingEdited)}
             closeModal={isEditModalOpen.setFalse}
           />
         </DialogContent>
@@ -172,7 +172,7 @@ const Notes = withRouter(({history, match}: any) => {
             page={currentPage} onChange={changePage}
           />
         </PaginationContainer>
-        {notesContext.list.map((note: any) => (
+        {notes.map((note: any) => (
           <Note note={note} key={note.id} editNote={editNote}/>
         ))}
       </StyledContent>

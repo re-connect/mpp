@@ -1,15 +1,15 @@
-import DateFnsUtils from '@date-io/date-fns';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {Formik, FormikProps} from 'formik';
-import * as React from 'react';
-import {withRouter} from 'react-router-dom';
-import styled from 'styled-components';
+import React, {useContext} from 'react';
 import superagent, {Response} from 'superagent';
-import NotesContext from '../../../Context/NotesContext';
-import {notesEndpoint} from '../../../Services/requests';
+import {workshopsEndpoint} from '../../../Services/requests';
+import WorkshopsContext from '../../../Context/WorkshopsContext';
+import {useHistory} from "react-router-dom";
+import {Formik, FormikProps} from "formik";
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import styled from "styled-components";
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -17,36 +17,36 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-interface NoteInterface {
+interface WorkshopInterface {
   date: Date;
   center: string;
-  hours: number;
-  nbPros: number;
-  nbProAccounts: number;
-  nbBeneficiaries: number;
+  globalReport: string;
+  nbParticipants: number;
   nbBeneficiariesAccounts: number;
   nbStoredDocs: number;
-  beneficiariesNotes: string;
-  proNotes: string;
-  reconnectNotes: string;
+  nbCreatedEvents: number;
+  nbCreatedContacts: number;
+  nbCreatedNotes: number;
+  author: string;
 }
 
-const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) => {
-  const {notes, setNotes} = React.useContext(NotesContext);
+const CreateWorkshopForm = ({centerId, closeModal}: any) => {
+  const {workshops, setWorkshops} = useContext(WorkshopsContext);
+  const history = useHistory();
 
-  const create = (note: NoteInterface) => {
+  const create = (workshop: WorkshopInterface) => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
-        .post(notesEndpoint)
-        .send(note)
+        .post(workshopsEndpoint)
+        .send(workshop)
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
-          setNotes([response.body, ...notes]);
+          setWorkshops([response.body, ...workshops]);
         });
     } else {
-      alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');
+      alert('Il semble que vous ne soyez pas connecté, veuillez vous reconnecter');
       history.push('/login');
     }
   };
@@ -63,25 +63,24 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
         initialValues={{
           date: new Date(),
           center: '',
-          hours: 0,
-          attendees: '',
-          place: '',
-          nbPros: 0,
-          nbProAccounts: 0,
-          nbBeneficiaries: 0,
+          globalReport: '',
+          nbParticipants: 0,
           nbBeneficiariesAccounts: 0,
           nbStoredDocs: 0,
-          beneficiariesNotes: '',
-          proNotes: '',
-          reconnectNotes: '',
+          nbCreatedEvents: 0,
+          nbCreatedContacts: 0,
+          nbCreatedNotes: 0,
+          author: 'moi'
         }}
-        onSubmit={(values: NoteInterface) => {
+        onSubmit={(values: WorkshopInterface) => {
           create({...values, date: selectedDate, center: `/api/centers/${centerId}`});
         }}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
             <div style={{display: 'flex'}}>
-              <div style={{flex: 1}}>
+              <div
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
+              >
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -103,8 +102,8 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
               >
                 <TextField
                   id='hours'
-                  label="Nombre d'heures"
-                  name='hours'
+                  label="Nombre de participants"
+                  name='nbParticipants'
                   onChange={props.handleChange}
                   type='number'
                   variant='outlined'
@@ -117,61 +116,20 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='nb-pros'
-                  label='Nb pros rencontrés'
-                  name='nbPros'
-                  onChange={props.handleChange}
-                  type='number'
-                  variant='outlined'
-                />
-              </div>
-              <div
-                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
-              >
-                <TextField
-                  id='nb-pro-accounts'
-                  label='Nb comptes pros crées'
-                  name='nbProAccounts'
-                  onChange={props.handleChange}
-                  type='number'
-                  variant='outlined'
-                />
-              </div>
-            </div>
-            <div style={{height: 16}}/>
-            <div style={{display: 'flex'}}>
-              <div
-                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
-              >
-                <TextField
-                  id='nb-beneficiaries'
-                  label='Nb benefs rencontrés'
-                  name='nbBeneficiaries'
-                  onChange={props.handleChange}
-                  type='number'
-                  variant='outlined'
-                />
-              </div>
-              <div style={{width: 8}}/>
-              <div
-                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
-              >
-                <TextField
-                  id='nb-beneficiaries-accounts'
-                  label='Nb comptes benef crées'
+                  id='hours'
+                  label="Nombre de cfn crées"
                   name='nbBeneficiariesAccounts'
                   onChange={props.handleChange}
                   type='number'
                   variant='outlined'
                 />
               </div>
-              <div style={{width: 8}}/>
               <div
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='nb-docs-stored'
-                  label='Nb doc stockés'
+                  id='hours'
+                  label="Nombre de documents stockés"
                   name='nbStoredDocs'
                   onChange={props.handleChange}
                   type='number'
@@ -179,65 +137,59 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
                 />
               </div>
             </div>
+            <div style={{height: 16}}/>
+            <div style={{display: 'flex'}}>
+              <div
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
+              >
+                <TextField
+                  id='hours'
+                  label="Nombre d'évènements créés"
+                  name='nbCreatedEvents'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+              <div style={{width: 8}}/>
+              <div
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
+              >
+                <TextField
+                  id='hours'
+                  label="Nombre de contacts ajoutées"
+                  name='nbCreatedContacts'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+              <div style={{width: 8}}/>
+              <div
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
+              >
+                <TextField
+                  id='hours'
+                  label="Nombre de notes ajoutées"
+                  name='nbCreatedNotes'
+                  onChange={props.handleChange}
+                  type='number'
+                  variant='outlined'
+                />
+              </div>
+            </div>
+            <div style={{height: 16}}/>
             <TextField
-              id='attendees'
-              name='attendees'
+              id='hours'
+              label="Bilan global"
+              name='globalReport'
               type='text'
-              label='Qui a fait la perm'
-              margin='normal'
-              variant='outlined'
-              onChange={props.handleChange}
-            />
-            {props.errors.attendees && <div id='feedback'>{props.errors.attendees}</div>}
-            <TextField
-              id='place'
-              name='place'
-              type='text'
-              label='Lieu (optionnel)'
-              margin='normal'
-              variant='outlined'
-              value={props.values.place}
-              onChange={props.handleChange}
-            />
-            {props.errors.place && <div id='feedback'>{props.errors.place}</div>}
-            <TextField
-              id='beneficiaries-notes'
-              name='beneficiariesNotes'
-              type='text'
-              label='Remarques en rapport avec les bénéficiaires'
-              margin='normal'
-              variant='outlined'
-              multiline
-              rows='4'
-              onChange={props.handleChange}
-            />
-            {props.errors.beneficiariesNotes && (
-              <div id='feedback'>{props.errors.beneficiariesNotes}</div>
-            )}
-            <TextField
-              id='pro-notes'
-              name='proNotes'
-              type='text'
-              label='Remarques en rapport avec les professionnels'
-              margin='normal'
-              variant='outlined'
-              multiline
-              rows='4'
-              onChange={props.handleChange}
-            />
-            {props.errors.proNotes && <div id='feedback'>{props.errors.proNotes}</div>}
-            <TextField
-              id='reconnect-notes'
-              name='reconnectNotes'
-              type='text'
-              label='Remarques en rapport avec Reconnect'
-              margin='normal'
               variant='outlined'
               multiline
               rows='4'
               onChange={props.handleChange}
             />
-            {props.errors.reconnectNotes && <div id='feedback'>{props.errors.reconnectNotes}</div>}
+            <div style={{height: 16}}/>
             <Button variant='contained' color='primary' type='submit'>
               Créer
             </Button>
@@ -246,6 +198,6 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
       />
     </Container>
   );
-});
+}
 
-export default CreateNoteForm;
+export default CreateWorkshopForm;

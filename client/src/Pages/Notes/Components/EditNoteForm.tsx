@@ -35,7 +35,7 @@ export interface NoteInterface {
 }
 
 const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any) => {
-  const notesContext = React.useContext(NotesContext);
+  const {setNotes, notes} = React.useContext(NotesContext);
 
   const update = (note: NoteInterface) => {
     const token = localStorage.getItem('token');
@@ -46,7 +46,7 @@ const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
-          notesContext.set(notesContext.list.map((note: any) => {
+          setNotes(notes.map((note: any) => {
             return note.id === response.body.id ? response.body : note;
           }))
         });

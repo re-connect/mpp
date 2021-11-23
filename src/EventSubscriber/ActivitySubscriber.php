@@ -5,13 +5,14 @@ namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\Permanence;
+use App\Entity\Workshop;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
-final class NoteSubscriber implements EventSubscriberInterface
+final class ActivitySubscriber implements EventSubscriberInterface
 {
     private $security;
 
@@ -30,14 +31,14 @@ final class NoteSubscriber implements EventSubscriberInterface
     public function setAuthor(ViewEvent $event)
     {
 
-        $note = $event->getControllerResult();
+        $activity = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$note instanceof Permanence || Request::METHOD_POST !== $method) {
+        if ((!$activity instanceof Permanence && !$activity instanceof Workshop) || Request::METHOD_POST !== $method) {
             return;
         }
         $user = $this->security->getUser();
 
-        $note->setAuthor($user);
+        $activity->setAuthor($user);
     }
 }
