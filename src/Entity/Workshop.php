@@ -50,33 +50,6 @@ class Workshop
     private ?string $globalReport;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="workshops")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
-     */
-    private ?Topic $topic;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=ParticipantKind::class, inversedBy="workshops")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
-     */
-    private ?ParticipantKind $participantKind;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="workshops")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read"})
-     */
-    private ?Project $project;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
-     * @Groups({"read"})
-     */
-    private ?Collection $skills;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"read"})
      */
@@ -94,9 +67,68 @@ class Workshop
      */
     private ?Center $center;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
+     */
+    private ?Collection $participantKind;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
+     */
+    private ?Collection $topics;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=AgeBreakpoint::class, inversedBy="workshops")
+     */
+    private ?Collection $ageBreakpoints;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=EquipmentSupplier::class, inversedBy="workshops")
+     */
+    private ?Collection $equipmentSuppliers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=UsedEquipment::class, inversedBy="workshops")
+     */
+    private ?Collection $usedEquipments;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private ?bool $usedVault = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private ?int $nbBeneficiariesAccounts;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private ?int $nbStoredDocs;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private ?int $nbCreatedEvents;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private ?int $nbCreatedContacts;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private ?int $nbCreatedNotes;
+
     public function __construct()
     {
-        $this->skills = new ArrayCollection();
+        $this->participantKind = new ArrayCollection();
+        $this->topics = new ArrayCollection();
+        $this->ageBreakpoints = new ArrayCollection();
+        $this->equipmentSuppliers = new ArrayCollection();
+        $this->usedEquipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,66 +172,6 @@ class Workshop
         return $this;
     }
 
-    public function getTopic(): ?topic
-    {
-        return $this->topic;
-    }
-
-    public function setTopic(?topic $topic): self
-    {
-        $this->topic = $topic;
-
-        return $this;
-    }
-
-    public function getParticipantKind(): ?ParticipantKind
-    {
-        return $this->participantKind;
-    }
-
-    public function setParticipantKind(?ParticipantKind $participantKind): self
-    {
-        $this->participantKind = $participantKind;
-
-        return $this;
-    }
-
-    public function getProject(): ?project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|skill[]
-     */
-    public function getSkills(): Collection
-    {
-        return $this->skills;
-    }
-
-    public function addSkill(skill $skill): self
-    {
-        if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
-        }
-
-        return $this;
-    }
-
-    public function removeSkill(skill $skill): self
-    {
-        $this->skills->removeElement($skill);
-
-        return $this;
-    }
-
     public function getTopicPrecision(): ?string
     {
         return $this->topicPrecision;
@@ -232,6 +204,201 @@ class Workshop
     public function setCenter(?Center $center): self
     {
         $this->center = $center;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ParticipantKind[]
+     */
+    public function getParticipantKind(): Collection
+    {
+        return $this->participantKind;
+    }
+
+    public function addParticipantKind(ParticipantKind $participantKind): self
+    {
+        if (!$this->participantKind->contains($participantKind)) {
+            $this->participantKind[] = $participantKind;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipantKind(ParticipantKind $participantKind): self
+    {
+        $this->participantKind->removeElement($participantKind);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Topic[]
+     */
+    public function getTopics(): Collection
+    {
+        return $this->topics;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topics->contains($topic)) {
+            $this->topics[] = $topic;
+            $topic->addWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        if ($this->topics->removeElement($topic)) {
+            $topic->removeWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AgeBreakpoint[]
+     */
+    public function getAgeBreakpoints(): Collection
+    {
+        return $this->ageBreakpoints;
+    }
+
+    public function addAgeBreakpoint(AgeBreakpoint $ageBreakpoint): self
+    {
+        if (!$this->ageBreakpoints->contains($ageBreakpoint)) {
+            $this->ageBreakpoints[] = $ageBreakpoint;
+        }
+
+        return $this;
+    }
+
+    public function removeAgeBreakpoint(AgeBreakpoint $ageBreakpoint): self
+    {
+        $this->ageBreakpoints->removeElement($ageBreakpoint);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EquipmentSupplier[]
+     */
+    public function getEquipmentSuppliers(): Collection
+    {
+        return $this->equipmentSuppliers;
+    }
+
+    public function addEquipmentSupplier(EquipmentSupplier $equipmentSupplier): self
+    {
+        if (!$this->equipmentSuppliers->contains($equipmentSupplier)) {
+            $this->equipmentSuppliers[] = $equipmentSupplier;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipmentSupplier(EquipmentSupplier $equipmentSupplier): self
+    {
+        $this->equipmentSuppliers->removeElement($equipmentSupplier);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsedEquipment[]
+     */
+    public function getUsedEquipments(): Collection
+    {
+        return $this->usedEquipments;
+    }
+
+    public function addUsedEquipment(UsedEquipment $usedEquipment): self
+    {
+        if (!$this->usedEquipments->contains($usedEquipment)) {
+            $this->usedEquipments[] = $usedEquipment;
+        }
+
+        return $this;
+    }
+
+    public function removeUsedEquipment(UsedEquipment $usedEquipment): self
+    {
+        $this->usedEquipments->removeElement($usedEquipment);
+
+        return $this;
+    }
+
+    public function hasUsedVault(): ?bool
+    {
+        return $this->usedVault;
+    }
+
+    public function setUsedVault(bool $usedVault): self
+    {
+        $this->usedVault = $usedVault;
+
+        return $this;
+    }
+
+    public function getNbBeneficiariesAccounts(): ?int
+    {
+        return $this->nbBeneficiariesAccounts;
+    }
+
+    public function setNbBeneficiariesAccounts(int $nbBeneficiariesAccounts): self
+    {
+        $this->nbBeneficiariesAccounts = $nbBeneficiariesAccounts;
+
+        return $this;
+    }
+
+    public function getNbStoredDocs(): ?int
+    {
+        return $this->nbStoredDocs;
+    }
+
+    public function setNbStoredDocs(int $nbStoredDocs): self
+    {
+        $this->nbStoredDocs = $nbStoredDocs;
+
+        return $this;
+    }
+
+    public function getNbCreatedEvents(): ?int
+    {
+        return $this->nbCreatedEvents;
+    }
+
+    public function setNbCreatedEvents(int $nbCreatedEvents): self
+    {
+        $this->nbCreatedEvents = $nbCreatedEvents;
+
+        return $this;
+    }
+
+    public function getNbCreatedContacts(): ?int
+    {
+        return $this->nbCreatedContacts;
+    }
+
+    public function setNbCreatedContacts(int $nbCreatedContacts): self
+    {
+        $this->nbCreatedContacts = $nbCreatedContacts;
+
+        return $this;
+    }
+
+    public function getNbCreatedNotes(): ?int
+    {
+        return $this->nbCreatedNotes;
+    }
+
+    public function setNbCreatedNotes(int $nbCreatedNotes): self
+    {
+        $this->nbCreatedNotes = $nbCreatedNotes;
 
         return $this;
     }

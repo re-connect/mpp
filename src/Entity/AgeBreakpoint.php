@@ -3,19 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProjectRepository;
+use App\Repository\AgeBreakpointRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"read"}}
- * )
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass=AgeBreakpointRepository::class)
  */
-class Project
+class AgeBreakpoint
 {
     /**
      * @ORM\Id
@@ -26,12 +23,11 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read"})
      */
-    private ?string $name;
+    private ?string $range;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="project")
+     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="ageBreakpoints")
      */
     private ?Collection $workshops;
 
@@ -40,24 +36,19 @@ class Project
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getRange(): ?string
     {
-        return $this->name;
+        return $this->range;
     }
 
-    public function setName(string $name): self
+    public function setRange(string $range): self
     {
-        $this->name = $name;
+        $this->range = $range;
 
         return $this;
     }
@@ -74,7 +65,7 @@ class Project
     {
         if (!$this->workshops->contains($workshop)) {
             $this->workshops[] = $workshop;
-            $workshop->setProject($this);
+            $workshop->addAgeBreakpoint($this);
         }
 
         return $this;
@@ -83,10 +74,7 @@ class Project
     public function removeWorkshop(Workshop $workshop): self
     {
         if ($this->workshops->removeElement($workshop)) {
-            // set the owning side to null (unless already changed)
-            if ($workshop->getProject() === $this) {
-                $workshop->setProject(null);
-            }
+            $workshop->removeAgeBreakpoint($this);
         }
 
         return $this;

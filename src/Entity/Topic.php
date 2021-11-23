@@ -31,12 +31,18 @@ class Topic
     private ?string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="topic")
+     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
+     */
+    private ?Collection $skills;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Workshop::class, inversedBy="topics")
      */
     private ?Collection $workshops;
 
     public function __construct()
     {
+        $this->skills = new ArrayCollection();
         $this->workshops = new ArrayCollection();
     }
 
@@ -63,6 +69,36 @@ class Topic
     }
 
     /**
+     * @return Collection|Skill[]
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills[] = $skill;
+            $skill->setTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        if ($this->skills->removeElement($skill)) {
+            // set the owning side to null (unless already changed)
+            if ($skill->getTopic() === $this) {
+                $skill->setTopic(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Workshop[]
      */
     public function getWorkshops(): Collection
@@ -74,7 +110,6 @@ class Topic
     {
         if (!$this->workshops->contains($workshop)) {
             $this->workshops[] = $workshop;
-            $workshop->setTopic($this);
         }
 
         return $this;
@@ -82,12 +117,7 @@ class Topic
 
     public function removeWorkshop(Workshop $workshop): self
     {
-        if ($this->workshops->removeElement($workshop)) {
-            // set the owning side to null (unless already changed)
-            if ($workshop->getTopic() === $this) {
-                $workshop->setTopic(null);
-            }
-        }
+        $this->workshops->removeElement($workshop);
 
         return $this;
     }
