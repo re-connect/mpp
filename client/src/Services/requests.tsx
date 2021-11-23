@@ -8,5 +8,6 @@ export const loginEndpoint = `${backendUrl}/login`;
 export const adminLoginEndpoint = `${backendUrl}/admin_login`;
 export const notesEndpoint = `${apiEndpoint}/notes`;
 export const workshopsEndpoint = `${apiEndpoint}/workshops`;
+export const topicsEndpoint = `${apiEndpoint}/topics`;
 
 export const paginationCount = 30;
