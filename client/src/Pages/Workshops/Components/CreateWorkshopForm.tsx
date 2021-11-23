@@ -20,6 +20,7 @@ const StyledForm = styled.form`
 interface WorkshopInterface {
   date: Date;
   center: string;
+  globalReport: string;
   nbParticipants: number;
   nbBeneficiariesAccounts: number;
   nbStoredDocs: number;
@@ -62,6 +63,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
         initialValues={{
           date: new Date(),
           center: '',
+          globalReport: '',
           nbParticipants: 0,
           nbBeneficiariesAccounts: 0,
           nbStoredDocs: 0,
@@ -76,7 +78,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
             <div style={{display: 'flex'}}>
-              <div style={{flex: 1}}>
+              <div
+                style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
+              >
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -147,6 +151,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                   variant='outlined'
                 />
               </div>
+              <div style={{width: 8}}/>
               <div
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
@@ -159,9 +164,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                   variant='outlined'
                 />
               </div>
-            </div>
-            <div style={{height: 16}}/>
-            <div style={{display: 'flex'}}>
+              <div style={{width: 8}}/>
               <div
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
@@ -175,6 +178,18 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 />
               </div>
             </div>
+            <div style={{height: 16}}/>
+            <TextField
+              id='hours'
+              label="Bilan global"
+              name='globalReport'
+              type='text'
+              variant='outlined'
+              multiline
+              rows='4'
+              onChange={props.handleChange}
+            />
+            <div style={{height: 16}}/>
             <Button variant='contained' color='primary' type='submit'>
               Créer
             </Button>
