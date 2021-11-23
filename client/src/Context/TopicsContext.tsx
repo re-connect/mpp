@@ -1,5 +1,5 @@
 import {createContext} from 'react';
-import {Topic} from "../Types/Topics";
+import {Topic} from '../Types/Topics';
 
 interface TopicsContext {
   topics: Topic[];
