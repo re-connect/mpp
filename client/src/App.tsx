@@ -6,6 +6,8 @@ import Routes from './Routes';
 import {Note} from './Types/Notes';
 import {Workshop} from './Types/Workshops';
 import WorkshopsContext from './Context/WorkshopsContext';
+import {Topic} from './Types/Topics';
+import TopicsContext from './Context/TopicsContext';
 
 const theme = createTheme({
   palette: {
@@ -28,14 +30,17 @@ const theme = createTheme({
 const App = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
   const [workshops, setWorkshops] = React.useState<Workshop[]>([]);
+  const [topics, setTopics] = React.useState<Topic[]>([]);
 
   return (
     <ThemeProvider theme={theme}>
-          <WorkshopsContext.Provider value={{workshops, setWorkshops}}>
-              <NotesContext.Provider value={{notes, setNotes}}>
-                  <Routes/>
-              </NotesContext.Provider>
-          </WorkshopsContext.Provider>
+      <WorkshopsContext.Provider value={{workshops, setWorkshops}}>
+        <NotesContext.Provider value={{notes, setNotes}}>
+          <TopicsContext.Provider value={{topics, setTopics}}>
+            <Routes/>
+          </TopicsContext.Provider>
+        </NotesContext.Provider>
+      </WorkshopsContext.Provider>
     </ThemeProvider>
   );
 };

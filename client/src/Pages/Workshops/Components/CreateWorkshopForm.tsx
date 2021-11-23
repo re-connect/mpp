@@ -1,15 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import superagent, {Response} from 'superagent';
-import {workshopsEndpoint} from '../../../Services/requests';
+import {topicsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import {useHistory} from "react-router-dom";
-import {Formik, FormikProps} from "formik";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import styled from "styled-components";
+import {useHistory} from 'react-router-dom';
+import {Formik, FormikProps} from 'formik';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
+import axios from 'axios';
+import TopicsContext from '../../../Context/TopicsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -31,11 +33,29 @@ interface WorkshopInterface {
 }
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
+  const {topics, setTopics} = useContext(TopicsContext);
+  const token = localStorage.getItem('token');
   const history = useHistory();
 
+  useEffect(() => {
+    if (0 === topics.length) {
+      if (token !== null) {
+        axios
+          .get(`${topicsEndpoint}`, {
+            headers: {Authorization: `Bearer ${token}`}
+          })
+          .then((response) => {
+            setTopics(response.data['hydra:member']);
+          });
+      } else {
+        history.push('/login');
+      }
+    }
+  }, []);
+
   const create = (workshop: WorkshopInterface) => {
-    const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)
@@ -50,8 +70,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
       history.push('/login');
     }
   };
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   function handleDateChange(date: any) {
     setSelectedDate(date);
@@ -101,7 +119,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbParticipants'
                   label="Nombre de participants"
                   name='nbParticipants'
                   onChange={props.handleChange}
@@ -116,7 +134,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbBeneficiariesAccounts'
                   label="Nombre de cfn crées"
                   name='nbBeneficiariesAccounts'
                   onChange={props.handleChange}
@@ -128,7 +146,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbStoredDocs'
                   label="Nombre de documents stockés"
                   name='nbStoredDocs'
                   onChange={props.handleChange}
@@ -143,7 +161,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedEvents'
                   label="Nombre d'évènements créés"
                   name='nbCreatedEvents'
                   onChange={props.handleChange}
@@ -156,7 +174,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedContacts'
                   label="Nombre de contacts ajoutées"
                   name='nbCreatedContacts'
                   onChange={props.handleChange}
@@ -169,7 +187,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedNotes'
                   label="Nombre de notes ajoutées"
                   name='nbCreatedNotes'
                   onChange={props.handleChange}
@@ -180,7 +198,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
             </div>
             <div style={{height: 16}}/>
             <TextField
-              id='hours'
+              id='globalReport'
               label="Bilan global"
               name='globalReport'
               type='text'
