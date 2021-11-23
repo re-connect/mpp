@@ -1,12 +1,12 @@
-import {Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
+import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
-import React, {useCallback, useEffect, useState} from "react";
-import {withRouter} from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import superagent, {Response} from "superagent";
-import {adminLoginEndpoint, centersEndpoint, tagsEndpoint} from "../Services/requests";
+import superagent, { Response } from "superagent";
+import { adminLoginEndpoint, centersEndpoint, makeRequest, tagsEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -68,20 +68,12 @@ const Home = withRouter(({history}: any) => {
     ))
   }
 
-  const fetchCenters = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      superagent
-        .get(centersEndpoint)
-        .set("Authorization", `Bearer ${token}`)
-        .then((response: Response) => {
-          setCenters(response.body['hydra:member']);
-          setFilteredCenters(response.body['hydra:member']);
-        })
-        .catch(error => {
-          history.push("/login");
-        });
-    } else {
+  const fetchCenters = useCallback(async () => {
+    try {
+      const { data } = await makeRequest(history, centersEndpoint);
+      setCenters(data['hydra:member']);
+      setFilteredCenters(data['hydra:member']);
+    } catch (e) {
       history.push("/login");
     }
   }, [history]);

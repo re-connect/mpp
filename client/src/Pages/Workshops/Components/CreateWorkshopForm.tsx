@@ -67,16 +67,16 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
           <StyledForm onSubmit={props.handleSubmit}>
             <FormRow>
                 <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-                <NumberField id='nbParticipants' label="Nombre de participants" />
+                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={props.handleChange}/>
               </FormRow>
             <FormRow>
-              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" />
-              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"/>
+              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={props.handleChange}/>
+              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
-              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" />
-              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" />
-              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" />
+              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={props.handleChange}/>
+              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={props.handleChange}/>
+              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
