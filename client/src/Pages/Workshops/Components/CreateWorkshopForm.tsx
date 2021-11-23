@@ -33,6 +33,7 @@ interface WorkshopInterface {
 }
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const {topics, setTopics} = useContext(TopicsContext);
   const token = localStorage.getItem('token');
@@ -69,8 +70,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
       history.push('/login');
     }
   };
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   function handleDateChange(date: any) {
     setSelectedDate(date);
@@ -120,7 +119,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbParticipants'
                   label="Nombre de participants"
                   name='nbParticipants'
                   onChange={props.handleChange}
@@ -135,7 +134,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbBeneficiariesAccounts'
                   label="Nombre de cfn crées"
                   name='nbBeneficiariesAccounts'
                   onChange={props.handleChange}
@@ -147,7 +146,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbStoredDocs'
                   label="Nombre de documents stockés"
                   name='nbStoredDocs'
                   onChange={props.handleChange}
@@ -162,7 +161,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedEvents'
                   label="Nombre d'évènements créés"
                   name='nbCreatedEvents'
                   onChange={props.handleChange}
@@ -175,7 +174,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedContacts'
                   label="Nombre de contacts ajoutées"
                   name='nbCreatedContacts'
                   onChange={props.handleChange}
@@ -188,7 +187,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1, alignItems: 'center', justifyContent: 'center', display: 'flex'}}
               >
                 <TextField
-                  id='hours'
+                  id='nbCreatedNotes'
                   label="Nombre de notes ajoutées"
                   name='nbCreatedNotes'
                   onChange={props.handleChange}
@@ -199,7 +198,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
             </div>
             <div style={{height: 16}}/>
             <TextField
-              id='hours'
+              id='globalReport'
               label="Bilan global"
               name='globalReport'
               type='text'
