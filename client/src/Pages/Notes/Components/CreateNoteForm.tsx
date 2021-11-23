@@ -32,7 +32,7 @@ interface NoteInterface {
 }
 
 const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) => {
-  const notesContext = React.useContext(NotesContext);
+  const {notes, setNotes} = React.useContext(NotesContext);
 
   const create = (note: NoteInterface) => {
     const token = localStorage.getItem('token');
@@ -43,7 +43,7 @@ const CreateNoteForm: any = withRouter(({history, centerId, closeModal}: any) =>
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
-          notesContext.set([response.body, ...notesContext.list]);
+          setNotes([response.body, ...notes]);
         });
     } else {
       alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');

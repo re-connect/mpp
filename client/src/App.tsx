@@ -32,7 +32,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
           <WorkshopsContext.Provider value={{list: workshops, setWorkshops: setWorkshops}}>
-              <NotesContext.Provider value={{list: notes, set: setNotes}}>
+              <NotesContext.Provider value={{notes, setNotes}}>
                   <Routes/>
               </NotesContext.Provider>
           </WorkshopsContext.Provider>
