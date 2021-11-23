@@ -3,9 +3,8 @@ import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
 import React, { useCallback, useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import superagent, { Response } from "superagent";
 import { adminLoginEndpoint, centersEndpoint, makeRequest, tagsEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
@@ -50,7 +49,8 @@ const Admin = styled(Button)`
   top: 10px;
 `;
 
-const Home = withRouter(({history}: any) => {
+const Home = () => {
+  const history = useHistory();
   const [centers, setCenters] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
@@ -78,17 +78,14 @@ const Home = withRouter(({history}: any) => {
     }
   }, [history]);
 
-  const fetchTags = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      superagent
-        .get(tagsEndpoint)
-        .set("Authorization", `Bearer ${token}`)
-        .then((response: Response) => {
-          setTags(response.body['hydra:member']);
-        })
+  const fetchTags = useCallback(async () => {
+    try {
+      const { data } = await makeRequest(history, tagsEndpoint);
+      setTags(data['hydra:member']);
+    } catch (e) {
+      history.push("/login");
     }
-  }, []);
+  }, [history]);
 
   useEffect(() => {
     fetchCenters();
@@ -163,6 +160,6 @@ const Home = withRouter(({history}: any) => {
       </StyledContent>
     </Container>
   );
-});
+};
 
 export default Home;
