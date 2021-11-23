@@ -111,14 +111,18 @@ const Home = () => {
                   <HotelIcon htmlColor="white"/>
                 </ListItemIcon>
                 <ListItemText secondary={center.name}/>
-              <StyledListItemContent style={{textAlign: 'center'}} onClick={() => history.push(`/notes/${center.id}`)}>
-                  <PeopleIcon htmlColor="white"/>
-                <ListItemText primary="Permanences"/>
-              </StyledListItemContent>
-              <StyledListItemContent style={{marginLeft: 8, textAlign: 'center'}} onClick={() => history.push(`/workshops/${center.id}`)}>
-                  <HomeWorkIcon htmlColor="white"/>
-                <ListItemText primary="Ateliers" />
-              </StyledListItemContent>
+              {!center.permanence ? null :
+                <StyledListItemContent style={{textAlign: 'center'}} onClick={() => history.push(`/notes/${center.id}`)}>
+                    <PeopleIcon htmlColor="white"/>
+                  <ListItemText primary="Permanences"/>
+                </StyledListItemContent>
+              }
+              {!center.workshop ? null :
+                <StyledListItemContent style={{marginLeft: 8, textAlign: 'center'}} onClick={() => history.push(`/workshops/${center.id}`)}>
+                    <HomeWorkIcon htmlColor="white"/>
+                  <ListItemText primary="Ateliers" />
+                </StyledListItemContent>
+              }
             </ListItem>
           ))}
         </List>
