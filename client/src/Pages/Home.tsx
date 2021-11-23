@@ -2,10 +2,11 @@ import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextFiel
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { adminLoginEndpoint, centersEndpoint, makeRequest, tagsEndpoint } from "../Services/requests";
+import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
+import { adminLoginEndpoint, centersEndpoint, tagsEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -55,6 +56,12 @@ const Home = () => {
   const [tags, setTags] = useState<any[]>([]);
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
 
+  UseFetchDataEffect(centersEndpoint, (centers: any) => {
+    setCenters(centers);
+    setFilteredCenters(centers)
+  });
+  UseFetchDataEffect(tagsEndpoint, setTags);
+
   const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     setFilteredCenters(centers.filter((center: any) =>
@@ -67,34 +74,6 @@ const Home = () => {
       center.tags.includes(`/api/tags/${id}`)
     ))
   }
-
-  const fetchCenters = useCallback(async () => {
-    try {
-      const { data } = await makeRequest(history, centersEndpoint);
-      setCenters(data['hydra:member']);
-      setFilteredCenters(data['hydra:member']);
-    } catch (e) {
-      history.push("/login");
-    }
-  }, [history]);
-
-  const fetchTags = useCallback(async () => {
-    try {
-      const { data } = await makeRequest(history, tagsEndpoint);
-      setTags(data['hydra:member']);
-    } catch (e) {
-      history.push("/login");
-    }
-  }, [history]);
-
-  useEffect(() => {
-    fetchCenters();
-  }, [fetchCenters]);
-
-  useEffect(() => {
-    fetchTags();
-  }, [fetchTags]);
-
 
   return (
     <Container maxWidth="sm">
