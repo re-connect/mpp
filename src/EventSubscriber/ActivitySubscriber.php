@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 
-final class NoteSubscriber implements EventSubscriberInterface
+final class ActivitySubscriber implements EventSubscriberInterface
 {
     private $security;
 
