@@ -1,15 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import superagent, {Response} from 'superagent';
-import {workshopsEndpoint} from '../../../Services/requests';
+import {topicsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import {useHistory} from "react-router-dom";
-import {Formik, FormikProps} from "formik";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import styled from "styled-components";
+import {useHistory} from 'react-router-dom';
+import {Formik, FormikProps} from 'formik';
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
+import axios from 'axios';
+import TopicsContext from '../../../Context/TopicsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -32,10 +34,27 @@ interface WorkshopInterface {
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
+  const {topics, setTopics} = useContext(TopicsContext);
+  const token = localStorage.getItem('token');
   const history = useHistory();
 
+  useEffect(() => {
+    if (0 === topics.length) {
+      if (token !== null) {
+        axios
+          .get(`${topicsEndpoint}`, {
+            headers: {Authorization: `Bearer ${token}`}
+          })
+          .then((response) => {
+            setTopics(response.data['hydra:member']);
+          });
+      } else {
+        history.push('/login');
+      }
+    }
+  }, []);
+
   const create = (workshop: WorkshopInterface) => {
-    const token = localStorage.getItem('token');
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)
