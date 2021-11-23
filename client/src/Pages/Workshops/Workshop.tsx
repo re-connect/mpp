@@ -17,6 +17,9 @@ const Workshop = ({workshop}: any) => {
         <Typography variant='body2' component='p'>
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
+        <Typography variant='body2' component='p'>
+          Bilan global : {workshop.globalReport}
+        </Typography>
       </CardContent>
     </StyledCard>
   );
