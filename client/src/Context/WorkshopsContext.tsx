@@ -2,12 +2,12 @@ import {Workshop} from '../Types/Workshops';
 import {createContext} from 'react';
 
 interface WorkshopsContext {
-    list: Workshop[];
+    workshops: Workshop[];
     setWorkshops: (workshops: Workshop[]) => void;
 }
 
 const defaultValues = {
-    list: [],
+    workshops: [],
     setWorkshops: () => {},
 };
 

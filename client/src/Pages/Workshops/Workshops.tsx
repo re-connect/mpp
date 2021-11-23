@@ -20,7 +20,7 @@ const WorkshopsTitle = styled(Typography)`
 
 const Workshops = () => {
     const centerId = useParams().centerId;
-    const {list} = useContext(WorkshopsContext);
+    const {workshops} = useContext(WorkshopsContext);
     const {center, fetchCenter} = useFetchCenter();
     const fetchWorkshops = useFetchWorkshops();
 
@@ -43,7 +43,7 @@ const Workshops = () => {
             <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
                 Ateliers
             </WorkshopsTitle>
-            {list.map((workshop: any) => (
+            {workshops.map((workshop: any) => (
                 <Workshop key={workshop.id} workshop={workshop}/>
             ))}
         </Container>
