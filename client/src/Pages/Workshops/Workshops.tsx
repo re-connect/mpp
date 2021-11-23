@@ -51,7 +51,7 @@ const Workshops = () => {
       >
         <DialogTitle id='form-dialog-title'>Créer un atelier</DialogTitle>
         <DialogContent>
-          <CreateWorkshopForm/>
+          <CreateWorkshopForm centerId={centerId} closeModal={isModalOpen.setFalse}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={isModalOpen.setFalse} color='primary'>
