@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import React from 'react';
 
-const MultiSelectField = ({id, label, value, setFieldValue}: any) => (
+const MultiSelectField = ({id, label, value, setFieldValue, options}: any) => (
   <FormControl style={{flex: 1}}>
     <InputLabel id={id}>{label}</InputLabel>
     <Select
@@ -26,9 +26,9 @@ const MultiSelectField = ({id, label, value, setFieldValue}: any) => (
         </div>
       )}
     >
-      {['sujet1', 'sujet2', 'sujet3'].map((name) => (
-        <MenuItem key={name} value={name}>
-          {name}
+      {options.map((option: any) => (
+        <MenuItem key={option.name} value={option.name}>
+          {option.name}
         </MenuItem>
       ))}
     </Select>
