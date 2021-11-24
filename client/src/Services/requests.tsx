@@ -1,3 +1,5 @@
+import axios, { Method } from 'axios';
+
 export const backendUrl =
   process.env.NODE_ENV === 'production' ? 'https://api.mpp.reconnect.fr' : 'https://localhost:8000';
 export const apiEndpoint = `${backendUrl}/api`;
@@ -11,3 +13,13 @@ export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 export const topicsEndpoint = `${apiEndpoint}/topics`;
 
 export const paginationCount = 30;
+
+export const makeRequest = async (history: any, url:string, method:Method = 'get'): Promise<any> => {
+  const token = localStorage.getItem("token");
+  if (null === token) {
+    history.push("/login");
+  }
+  const headers = { Authorization: `Bearer ${token}` };
+
+  return axios({ method, url, headers });
+}

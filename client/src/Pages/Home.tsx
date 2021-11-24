@@ -1,12 +1,12 @@
-import {Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography} from "@material-ui/core";
+import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChartTwoTone";
 import PersonIcon from "@material-ui/icons/Person";
-import React, {useCallback, useEffect, useState} from "react";
-import {withRouter} from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import superagent, {Response} from "superagent";
-import {adminLoginEndpoint, centersEndpoint, tagsEndpoint} from "../Services/requests";
+import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
+import { adminLoginEndpoint, centersEndpoint, tagsEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -50,10 +50,17 @@ const Admin = styled(Button)`
   top: 10px;
 `;
 
-const Home = withRouter(({history}: any) => {
+const Home = () => {
+  const history = useHistory();
   const [centers, setCenters] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
+
+  UseFetchDataEffect(centersEndpoint, (centers: any) => {
+    setCenters(centers);
+    setFilteredCenters(centers)
+  });
+  UseFetchDataEffect(tagsEndpoint, setTags);
 
   const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
@@ -67,45 +74,6 @@ const Home = withRouter(({history}: any) => {
       center.tags.includes(`/api/tags/${id}`)
     ))
   }
-
-  const fetchCenters = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      superagent
-        .get(centersEndpoint)
-        .set("Authorization", `Bearer ${token}`)
-        .then((response: Response) => {
-          setCenters(response.body['hydra:member']);
-          setFilteredCenters(response.body['hydra:member']);
-        })
-        .catch(error => {
-          history.push("/login");
-        });
-    } else {
-      history.push("/login");
-    }
-  }, [history]);
-
-  const fetchTags = useCallback(() => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      superagent
-        .get(tagsEndpoint)
-        .set("Authorization", `Bearer ${token}`)
-        .then((response: Response) => {
-          setTags(response.body['hydra:member']);
-        })
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCenters();
-  }, [fetchCenters]);
-
-  useEffect(() => {
-    fetchTags();
-  }, [fetchTags]);
-
 
   return (
     <Container maxWidth="sm">
@@ -171,6 +139,6 @@ const Home = withRouter(({history}: any) => {
       </StyledContent>
     </Container>
   );
-});
+};
 
 export default Home;
