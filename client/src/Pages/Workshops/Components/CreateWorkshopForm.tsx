@@ -39,6 +39,7 @@ const initialWorkshop: WorkshopInterface = {
     nbCreatedNotes: 0,
     author: '',
     participantKind: [],
+    equipmentSuppliers: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -91,6 +92,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
             </FormRow>
             <FormRow>
               <MultiSelectField id="participantKind" label="Types de participants" value={props.values.participantKind} setFieldValue={props.setFieldValue} options={participantKinds}/>
+            </FormRow>
+            <FormRow>
+              <MultiSelectField id="equipmentSuppliers" label="Equipement fourni par" value={props.values.equipmentSuppliers} setFieldValue={props.setFieldValue} options={equipmentSuppliers}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
