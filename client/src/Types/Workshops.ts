@@ -1,3 +1,5 @@
+import {ParticipantKind} from './ParticipantKinds';
+
 export interface Workshop {
   id: number;
   content: string;
@@ -15,5 +17,5 @@ export interface WorkshopInterface {
   nbCreatedContacts: number;
   nbCreatedNotes: number;
   author: string;
-  participantKinds: any[];
+  participantKind: ParticipantKind[];
 }
