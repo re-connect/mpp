@@ -10,8 +10,10 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import { workshopsEndpoint } from '../../../Services/requests';
+import {participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
+import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
+import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -34,8 +36,8 @@ const initialWorkshop: WorkshopInterface = {
     nbCreatedEvents: 0,
     nbCreatedContacts: 0,
     nbCreatedNotes: 0,
-    author: 'moi',
-    topics: [],
+    author: '',
+    participantKinds: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -43,6 +45,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const token = localStorage.getItem('token');
   const history = useHistory();
+  const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
+
+  UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
@@ -82,7 +87,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
-              <MultiSelectField id="topics" label="Thèmes" value={props.values.topics} setFieldValue={props.setFieldValue}  />
+              <MultiSelectField id="participantKinds" label="Types de participants" value={props.values.participantKinds} setFieldValue={props.setFieldValue} options={participantKinds}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>

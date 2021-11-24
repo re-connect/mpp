@@ -8,6 +8,8 @@ import {Workshop} from './Types/Workshops';
 import WorkshopsContext from './Context/WorkshopsContext';
 import {Topic} from './Types/Topics';
 import TopicsContext from './Context/TopicsContext';
+import {ParticipantKind} from './Types/ParticipantKinds';
+import ParticipantKindsContext from './Context/ParticipantKindsContext';
 
 const theme = createTheme({
   palette: {
@@ -31,13 +33,16 @@ const App = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
   const [workshops, setWorkshops] = React.useState<Workshop[]>([]);
   const [topics, setTopics] = React.useState<Topic[]>([]);
+  const [participantKinds, setParticipantKinds] = React.useState<ParticipantKind[]>([]);
 
   return (
     <ThemeProvider theme={theme}>
       <WorkshopsContext.Provider value={{workshops, setWorkshops}}>
         <NotesContext.Provider value={{notes, setNotes}}>
           <TopicsContext.Provider value={{topics, setTopics}}>
-            <Routes/>
+            <ParticipantKindsContext.Provider value={{participantKinds, setParticipantKinds}}>
+              <Routes/>
+            </ParticipantKindsContext.Provider>
           </TopicsContext.Provider>
         </NotesContext.Provider>
       </WorkshopsContext.Provider>
