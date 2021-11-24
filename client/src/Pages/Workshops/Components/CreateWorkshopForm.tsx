@@ -10,8 +10,10 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import { workshopsEndpoint } from '../../../Services/requests';
+import {participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
+import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
+import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -34,7 +36,7 @@ const initialWorkshop: WorkshopInterface = {
     nbCreatedEvents: 0,
     nbCreatedContacts: 0,
     nbCreatedNotes: 0,
-    author: 'moi',
+    author: '',
     topics: [],
 };
 
@@ -43,6 +45,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const token = localStorage.getItem('token');
   const history = useHistory();
+  const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
+
+  UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
