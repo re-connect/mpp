@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Center;
 use App\Entity\CenterTag;
+use App\Entity\EquipmentSupplier;
 use App\Entity\ParticipantKind;
 use App\Entity\Permanence;
 use App\Entity\Project;
@@ -57,5 +58,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Topic', 'fas fa-tags', Topic::class);
         yield MenuItem::linkToCrud('Skill', 'fas fa-tags', Skill::class);
         yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-tags', ParticipantKind::class);
+        yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-tags', EquipmentSupplier::class);
     }
 }
