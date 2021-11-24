@@ -18,6 +18,6 @@ export interface WorkshopInterface {
   nbCreatedContacts: number;
   nbCreatedNotes: number;
   author: string;
-  participantKind: ParticipantKind[];
+  participantKinds: ParticipantKind[];
   equipmentSuppliers: EquipmentSupplier[];
 }

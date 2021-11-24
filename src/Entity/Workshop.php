@@ -73,7 +73,7 @@ class Workshop
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
      * @Groups({"write"})
      */
-    private ?Collection $participantKind;
+    private ?Collection $participantKinds;
 
     /**
      * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
@@ -133,7 +133,7 @@ class Workshop
 
     public function __construct()
     {
-        $this->participantKind = new ArrayCollection();
+        $this->participantKinds = new ArrayCollection();
         $this->topics = new ArrayCollection();
         $this->ageBreakpoints = new ArrayCollection();
         $this->equipmentSuppliers = new ArrayCollection();
@@ -220,15 +220,15 @@ class Workshop
     /**
      * @return Collection|ParticipantKind[]
      */
-    public function getParticipantKind(): Collection
+    public function getParticipantKinds(): Collection
     {
-        return $this->participantKind;
+        return $this->participantKinds;
     }
 
     public function addParticipantKind(ParticipantKind $participantKind): self
     {
-        if (!$this->participantKind->contains($participantKind)) {
-            $this->participantKind[] = $participantKind;
+        if (!$this->participantKinds->contains($participantKind)) {
+            $this->participantKinds[] = $participantKind;
         }
 
         return $this;
@@ -236,7 +236,7 @@ class Workshop
 
     public function removeParticipantKind(ParticipantKind $participantKind): self
     {
-        $this->participantKind->removeElement($participantKind);
+        $this->participantKinds->removeElement($participantKind);
 
         return $this;
     }
