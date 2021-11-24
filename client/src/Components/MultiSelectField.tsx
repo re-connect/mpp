@@ -17,17 +17,23 @@ const MultiSelectField = ({id, label, value, setFieldValue, options}: any) => (
       onChange={(event) => {
         setFieldValue(id, event.target.value);
       }}
-      input={<Input id={id} />}
+      input={<Input id={id}/>}
       renderValue={(selected: any) => (
         <div>
-          {selected.map((value: any) => (
-            <Chip key={value} label={value}/>
-          ))}
+          {selected.map((value: any) => {
+            const selectedOption = options.find((option: any) => {
+              return option['@id'] === value;
+            });
+
+            return (
+              <Chip key={value} label={selectedOption.name}/>
+            );
+          })}
         </div>
       )}
     >
       {options.map((option: any) => (
-        <MenuItem key={option.name} value={option.name}>
+        <MenuItem key={option['@id']} value={option['@id']}>
           {option.name}
         </MenuItem>
       ))}
