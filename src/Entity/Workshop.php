@@ -14,7 +14,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}}
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
  * )
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
@@ -33,25 +34,25 @@ class Workshop
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"read"})
+     * @Groups({"read", "write"})
      */
     private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbParticipants;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"read", "write"})
      */
     private ?string $globalReport;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"read", "write"})
      */
     private ?string $topicPrecision;
 
@@ -64,11 +65,13 @@ class Workshop
     /**
      * @ORM\ManyToOne(targetEntity=Center::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"write"})
      */
     private ?Center $center;
 
     /**
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
+     * @Groups({"write"})
      */
     private ?Collection $participantKind;
 
@@ -99,26 +102,31 @@ class Workshop
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"write"})
      */
     private ?int $nbBeneficiariesAccounts;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"write"})
      */
     private ?int $nbStoredDocs;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"write"})
      */
     private ?int $nbCreatedEvents;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"write"})
      */
     private ?int $nbCreatedContacts;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"write"})
      */
     private ?int $nbCreatedNotes;
 
