@@ -10,10 +10,11 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import {participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
+import {equipmentSuppliersEndpoint, participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
 import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
+import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -46,8 +47,10 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const token = localStorage.getItem('token');
   const history = useHistory();
   const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
+  const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
+  UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
