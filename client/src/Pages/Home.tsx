@@ -1,7 +1,9 @@
 import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import ChartIcon from "@material-ui/icons/BarChartTwoTone";
-import PersonIcon from "@material-ui/icons/Person";
+import ChartIcon from "@material-ui/icons/BarChart";
+import HotelIcon from "@material-ui/icons/House";
+import PeopleIcon from "@material-ui/icons/PeopleAlt";
+import HomeWorkIcon from "@material-ui/icons/Work";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -22,7 +24,7 @@ const StyledChipsContainer = styled.div`
 `;
 
 
-const StyledListItemContent = styled.div`
+const StyledListItemContent = styled.a`
   background-color: #212121;
   color: white;
   cursor: pointer;
@@ -47,6 +49,7 @@ const Logout = styled(Button)`
 const Admin = styled(Button)`
   position: absolute !important;
   left: 50px;
+
   top: 10px;
 `;
 
@@ -76,14 +79,9 @@ const Home = () => {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <StyledContent>
-        <Logout
-          onClick={() => {
-            localStorage.removeItem("token");
-            history.push("/login");
-          }}
-        >
+        <Logout onClick={() => { localStorage.removeItem("token"); history.push("/login") }}>
           Déconnexion
         </Logout>
         <Admin
@@ -94,45 +92,37 @@ const Home = () => {
         >
           Admin
         </Admin>
-        <ChartsButton
-          size="small"
-          color="primary"
-          aria-label="add"
-          onClick={() => history.push("/charts")}
-        >
+        <ChartsButton size="small" color="primary" aria-label="add" onClick={() => history.push("/charts")}>
           <ChartIcon/>
         </ChartsButton>
-        <Typography
-          variant="h2"
-          component="h2"
-          gutterBottom
-          color="textPrimary"
-        >
+        <Typography variant="h2" component="h2" gutterBottom color="textPrimary">
           Centres
         </Typography>
         <StyledChipsContainer>
           {tags.map((tag: any) => (
-            <Chip
-              label={tag.name}
-              clickable
-              color="secondary"
-              onClick={() => onClickTag(tag.id)}
-            />
+            <Chip label={tag.name} clickable color="secondary" onClick={() => onClickTag(tag.id)} />
           ))}
         </StyledChipsContainer>
         <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
           {filteredCenters.map((center: any) => (
-            <ListItem
-              key={center.id}
-              onClick={() => history.push(`/notes/${center.id}`)}
-            >
-              <StyledListItemContent>
+            <ListItem key={center.id}>
                 <ListItemIcon>
-                  <PersonIcon htmlColor="white"/>
+                  <HotelIcon htmlColor="white"/>
                 </ListItemIcon>
-                <ListItemText primary={`${center.name}`}/>
-              </StyledListItemContent>
+                <ListItemText secondary={center.name}/>
+              {!center.permanence ? null :
+                <StyledListItemContent style={{textAlign: 'center'}} onClick={() => history.push(`/notes/${center.id}`)}>
+                    <PeopleIcon htmlColor="white"/>
+                  <ListItemText primary="Permanences"/>
+                </StyledListItemContent>
+              }
+              {!center.workshop ? null :
+                <StyledListItemContent style={{marginLeft: 8, textAlign: 'center'}} onClick={() => history.push(`/workshops/${center.id}`)}>
+                    <HomeWorkIcon htmlColor="white"/>
+                  <ListItemText primary="Ateliers" />
+                </StyledListItemContent>
+              }
             </ListItem>
           ))}
         </List>
