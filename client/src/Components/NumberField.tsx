@@ -1,7 +1,6 @@
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 
-
 const NumberField = ({id, label, handleChange}: any) => (
     <TextField
         id={id}

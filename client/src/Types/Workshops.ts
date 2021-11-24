@@ -15,4 +15,5 @@ export interface WorkshopInterface {
     nbCreatedContacts: number;
     nbCreatedNotes: number;
     author: string;
+    topics: any[];
   }
