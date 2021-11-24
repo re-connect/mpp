@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
 import DatePickerField from '../../../Components/DatePickerField';
+import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
 import { workshopsEndpoint } from '../../../Services/requests';
@@ -33,7 +34,8 @@ const initialWorkshop: WorkshopInterface = {
     nbCreatedEvents: 0,
     nbCreatedContacts: 0,
     nbCreatedNotes: 0,
-    author: 'moi'
+    author: 'moi',
+    topics: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -43,6 +45,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const history = useHistory();
 
   const create = (workshop: WorkshopInterface) => {
+    console.log(workshop);
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)
@@ -77,6 +80,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={props.handleChange}/>
               <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={props.handleChange}/>
               <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
+            </FormRow>
+            <FormRow>
+              <MultiSelectField id="topics" label="Thèmes" value={props.values.topics} setFieldValue={props.setFieldValue}  />
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
