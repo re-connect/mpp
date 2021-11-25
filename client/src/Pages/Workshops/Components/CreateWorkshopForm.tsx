@@ -14,6 +14,7 @@ import {
   ageBreakpointsEndpoint,
   equipmentSuppliersEndpoint,
   participantKindsEndpoint,
+  usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
@@ -21,6 +22,7 @@ import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
 import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
+import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -57,10 +59,12 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
   const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
+  const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
   UseFetchDataEffect(ageBreakpointsEndpoint, setAgeBreakpoints);
+  UseFetchDataEffect(usedEquipmentsEndpoint, setUsedEquipments);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);

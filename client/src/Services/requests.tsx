@@ -14,6 +14,7 @@ export const topicsEndpoint = `${apiEndpoint}/topics`;
 export const participantKindsEndpoint = `${apiEndpoint}/participant_kinds`;
 export const equipmentSuppliersEndpoint = `${apiEndpoint}/equipment_suppliers`;
 export const ageBreakpointsEndpoint = `${apiEndpoint}/age_breakpoints`;
+export const usedEquipmentsEndpoint = `${apiEndpoint}/used_equipments`;
 
 export const paginationCount = 30;
 
