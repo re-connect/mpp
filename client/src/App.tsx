@@ -14,6 +14,8 @@ import {EquipmentSupplier} from './Types/EquipmentSuppliers';
 import EquipmentSuppliersContext from './Context/EquipmentSuppliersContext';
 import {AgeBreakpoint} from './Types/AgeBreakpoints';
 import AgeBreakpointsContext from './Context/AgeBreakpointsContext';
+import {UsedEquipment} from './Types/UsedEquipments';
+import UsedEquipmentsContext from './Context/UsedEquipmentsContext';
 
 const theme = createTheme({
   palette: {
@@ -40,6 +42,7 @@ const App = () => {
   const [participantKinds, setParticipantKinds] = React.useState<ParticipantKind[]>([]);
   const [equipmentSuppliers, setEquipmentSuppliers] = React.useState<EquipmentSupplier[]>([]);
   const [ageBreakpoints, setAgeBreakpoints] = React.useState<AgeBreakpoint[]>([]);
+  const [usedEquipments, setUsedEquipments] = React.useState<UsedEquipment[]>([]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,7 +52,9 @@ const App = () => {
             <ParticipantKindsContext.Provider value={{participantKinds, setParticipantKinds}}>
               <EquipmentSuppliersContext.Provider value={{equipmentSuppliers, setEquipmentSuppliers}}>
                 <AgeBreakpointsContext.Provider value={{ageBreakpoints, setAgeBreakpoints}}>
-                  <Routes/>
+                  <UsedEquipmentsContext.Provider value={{usedEquipments, setUsedEquipments}}>
+                    <Routes/>
+                  </UsedEquipmentsContext.Provider>
                 </AgeBreakpointsContext.Provider>
               </EquipmentSuppliersContext.Provider>
             </ParticipantKindsContext.Provider>
