@@ -52,6 +52,7 @@ const initialWorkshop: WorkshopInterface = {
     equipmentSuppliers: [],
     ageBreakpoints: [],
     usedEquipments: [],
+    topics: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -109,16 +110,19 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
+              <MultiSelectField id="topics" label="Thèmes" value={props.values.topics} setFieldValue={props.setFieldValue} options={topics}/>
+            </FormRow>
+            <FormRow>
               <MultiSelectField id="participantKinds" label="Types de participants" value={props.values.participantKinds} setFieldValue={props.setFieldValue} options={participantKinds}/>
+            </FormRow>
+            <FormRow>
+              <MultiSelectField id="ageBreakpoints" label="Tranches d'âge" value={props.values.ageBreakpoints} setFieldValue={props.setFieldValue} options={ageBreakpoints}/>
             </FormRow>
             <FormRow>
               <MultiSelectField id="usedEquipments" label="Outils utilisés" value={props.values.usedEquipments} setFieldValue={props.setFieldValue} options={usedEquipments}/>
             </FormRow>
             <FormRow>
               <MultiSelectField id="equipmentSuppliers" label="Equipement fourni par" value={props.values.equipmentSuppliers} setFieldValue={props.setFieldValue} options={equipmentSuppliers}/>
-            </FormRow>
-            <FormRow>
-              <MultiSelectField id="ageBreakpoints" label="Tranche d'âge" value={props.values.ageBreakpoints} setFieldValue={props.setFieldValue} options={ageBreakpoints}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport' label="Bilan global" name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
