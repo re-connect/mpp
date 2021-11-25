@@ -1,5 +1,6 @@
 import {ParticipantKind} from './ParticipantKinds';
 import {EquipmentSupplier} from './EquipmentSuppliers';
+import {AgeBreakpoint} from './AgeBreakpoints';
 
 export interface Workshop {
   id: number;
@@ -20,4 +21,5 @@ export interface WorkshopInterface {
   author: string;
   participantKinds: ParticipantKind[];
   equipmentSuppliers: EquipmentSupplier[];
+  ageBreakpoints: AgeBreakpoint[];
 }
