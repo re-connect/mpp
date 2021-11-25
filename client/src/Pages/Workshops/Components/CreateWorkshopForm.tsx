@@ -14,6 +14,7 @@ import {
   ageBreakpointsEndpoint,
   equipmentSuppliersEndpoint,
   participantKindsEndpoint,
+  topicsEndpoint,
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
@@ -23,6 +24,7 @@ import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
 import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
 import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
+import TopicsContext from '../../../Context/TopicsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -36,20 +38,21 @@ const FormRow = styled.div`
 `;
 
 const initialWorkshop: WorkshopInterface = {
-    date: new Date(),
-    center: '',
-    globalReport: '',
-    nbParticipants: 0,
-    nbBeneficiariesAccounts: 0,
-    nbStoredDocs: 0,
-    nbCreatedEvents: 0,
-    nbCreatedContacts: 0,
-    nbCreatedNotes: 0,
-    author: '',
-    participantKinds: [],
-    equipmentSuppliers: [],
-    ageBreakpoints: [],
-    usedEquipments: [],
+  date: new Date(),
+  center: '',
+  globalReport: '',
+  nbParticipants: 0,
+  nbBeneficiariesAccounts: 0,
+  nbStoredDocs: 0,
+  nbCreatedEvents: 0,
+  nbCreatedContacts: 0,
+  nbCreatedNotes: 0,
+  author: '',
+  participantKinds: [],
+  equipmentSuppliers: [],
+  ageBreakpoints: [],
+  usedEquipments: [],
+  topics: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -61,11 +64,13 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
   const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
+  const {topics, setTopics} = useContext(TopicsContext);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
   UseFetchDataEffect(ageBreakpointsEndpoint, setAgeBreakpoints);
   UseFetchDataEffect(usedEquipmentsEndpoint, setUsedEquipments);
+  UseFetchDataEffect(topicsEndpoint, setTopics);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
@@ -105,19 +110,61 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
-              <MultiSelectField id="participantKinds" label="Types de participants" value={props.values.participantKinds} setFieldValue={props.setFieldValue} options={participantKinds}/>
+              <MultiSelectField
+                id="topics"
+                label="Thèmes"
+                value={props.values.topics}
+                setFieldValue={props.setFieldValue}
+                options={topics}
+              />
             </FormRow>
             <FormRow>
-              <MultiSelectField id="usedEquipments" label="Outils utilisés" value={props.values.usedEquipments} setFieldValue={props.setFieldValue} options={usedEquipments}/>
+              <MultiSelectField
+                id="participantKinds"
+                label="Types de participants"
+                value={props.values.participantKinds}
+                setFieldValue={props.setFieldValue}
+                options={participantKinds}
+              />
             </FormRow>
             <FormRow>
-              <MultiSelectField id="equipmentSuppliers" label="Equipement fourni par" value={props.values.equipmentSuppliers} setFieldValue={props.setFieldValue} options={equipmentSuppliers}/>
+              <MultiSelectField
+                id="ageBreakpoints"
+                label="Tranches d'âge"
+                value={props.values.ageBreakpoints}
+                setFieldValue={props.setFieldValue}
+                options={ageBreakpoints}
+              />
             </FormRow>
             <FormRow>
-              <MultiSelectField id="ageBreakpoints" label="Tranche d'âge" value={props.values.ageBreakpoints} setFieldValue={props.setFieldValue} options={ageBreakpoints}/>
+              <MultiSelectField
+                id="usedEquipments"
+                label="Outils utilisés"
+                value={props.values.usedEquipments}
+                setFieldValue={props.setFieldValue}
+                options={usedEquipments}
+              />
             </FormRow>
             <FormRow>
-              <TextField id='globalReport' label="Bilan global" name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
+              <MultiSelectField
+                id="equipmentSuppliers"
+                label="Equipement fourni par"
+                value={props.values.equipmentSuppliers}
+                setFieldValue={props.setFieldValue}
+                options={equipmentSuppliers}
+              />
+            </FormRow>
+            <FormRow>
+              <TextField
+                id='globalReport'
+                label="Bilan global"
+                name='globalReport'
+                type='text'
+                variant='outlined'
+                multiline rows='4'
+                onChange={props.handleChange}
+                style={{flex: 1}}
+              />
             </FormRow>
             <FormRow>
               <Button variant='contained' color='primary' type='submit'>Créer</Button>

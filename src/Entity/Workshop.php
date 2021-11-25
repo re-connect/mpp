@@ -77,6 +77,7 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
+     * @Groups({"write"})
      */
     private ?Collection $topics;
 
