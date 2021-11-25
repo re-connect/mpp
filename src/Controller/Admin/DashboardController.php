@@ -11,6 +11,7 @@ use App\Entity\Permanence;
 use App\Entity\Project;
 use App\Entity\Skill;
 use App\Entity\Topic;
+use App\Entity\UsedEquipment;
 use App\Entity\User;
 use App\Entity\Workshop;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -61,5 +62,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-tags', ParticipantKind::class);
         yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-tags', EquipmentSupplier::class);
         yield MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-tags', AgeBreakpoint::class);
+        yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tags', UsedEquipment::class);
     }
 }
