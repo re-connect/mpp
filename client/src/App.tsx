@@ -10,6 +10,8 @@ import {Topic} from './Types/Topics';
 import TopicsContext from './Context/TopicsContext';
 import {ParticipantKind} from './Types/ParticipantKinds';
 import ParticipantKindsContext from './Context/ParticipantKindsContext';
+import {EquipmentSupplier} from './Types/EquipmentSuppliers';
+import EquipmentSuppliersContext from './Context/EquipmentSuppliersContext';
 
 const theme = createTheme({
   palette: {
@@ -34,6 +36,7 @@ const App = () => {
   const [workshops, setWorkshops] = React.useState<Workshop[]>([]);
   const [topics, setTopics] = React.useState<Topic[]>([]);
   const [participantKinds, setParticipantKinds] = React.useState<ParticipantKind[]>([]);
+  const [equipmentSuppliers, setEquipmentSuppliers] = React.useState<EquipmentSupplier[]>([]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,7 +44,9 @@ const App = () => {
         <NotesContext.Provider value={{notes, setNotes}}>
           <TopicsContext.Provider value={{topics, setTopics}}>
             <ParticipantKindsContext.Provider value={{participantKinds, setParticipantKinds}}>
-              <Routes/>
+              <EquipmentSuppliersContext.Provider value={{equipmentSuppliers, setEquipmentSuppliers}}>
+                <Routes/>
+              </EquipmentSuppliersContext.Provider>
             </ParticipantKindsContext.Provider>
           </TopicsContext.Provider>
         </NotesContext.Provider>

@@ -10,10 +10,11 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import {participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
+import {equipmentSuppliersEndpoint, participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
 import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
+import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -37,7 +38,8 @@ const initialWorkshop: WorkshopInterface = {
     nbCreatedContacts: 0,
     nbCreatedNotes: 0,
     author: '',
-    participantKind: [],
+    participantKinds: [],
+    equipmentSuppliers: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -46,8 +48,10 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const token = localStorage.getItem('token');
   const history = useHistory();
   const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
+  const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
+  UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
@@ -87,7 +91,10 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
             </FormRow>
             <FormRow>
-              <MultiSelectField id="participantKind" label="Types de participants" value={props.values.participantKind} setFieldValue={props.setFieldValue} options={participantKinds}/>
+              <MultiSelectField id="participantKinds" label="Types de participants" value={props.values.participantKinds} setFieldValue={props.setFieldValue} options={participantKinds}/>
+            </FormRow>
+            <FormRow>
+              <MultiSelectField id="equipmentSuppliers" label="Equipement fourni par" value={props.values.equipmentSuppliers} setFieldValue={props.setFieldValue} options={equipmentSuppliers}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>

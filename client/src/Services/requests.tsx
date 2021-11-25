@@ -12,6 +12,7 @@ export const notesEndpoint = `${apiEndpoint}/notes`;
 export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 export const topicsEndpoint = `${apiEndpoint}/topics`;
 export const participantKindsEndpoint = `${apiEndpoint}/participant_kinds`;
+export const equipmentSuppliersEndpoint = `${apiEndpoint}/equipment_suppliers`;
 
 export const paginationCount = 30;
 
