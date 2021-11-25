@@ -10,11 +10,17 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import {equipmentSuppliersEndpoint, participantKindsEndpoint, workshopsEndpoint} from '../../../Services/requests';
+import {
+  ageBreakpointsEndpoint,
+  equipmentSuppliersEndpoint,
+  participantKindsEndpoint,
+  workshopsEndpoint
+} from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
 import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
+import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -40,6 +46,7 @@ const initialWorkshop: WorkshopInterface = {
     author: '',
     participantKinds: [],
     equipmentSuppliers: [],
+    ageBreakpoints: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
@@ -49,9 +56,11 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const history = useHistory();
   const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
   const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
+  const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
+  UseFetchDataEffect(ageBreakpointsEndpoint, setAgeBreakpoints);
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
@@ -95,6 +104,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
             </FormRow>
             <FormRow>
               <MultiSelectField id="equipmentSuppliers" label="Equipement fourni par" value={props.values.equipmentSuppliers} setFieldValue={props.setFieldValue} options={equipmentSuppliers}/>
+            </FormRow>
+            <FormRow>
+              <MultiSelectField id="ageBreakpoints" label="Tranche d'âge" value={props.values.ageBreakpoints} setFieldValue={props.setFieldValue} options={ageBreakpoints}/>
             </FormRow>
             <FormRow>
               <TextField id='globalReport'label="Bilan global"name='globalReport' type='text' variant='outlined' multiline rows='4' onChange={props.handleChange} style={{flex: 1}}/>
