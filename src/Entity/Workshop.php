@@ -94,6 +94,7 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=UsedEquipment::class, inversedBy="workshops")
+     * @Groups({"write"})
      */
     private ?Collection $usedEquipments;
 
