@@ -13,6 +13,7 @@ center: Centre
 createdAt: Date de création
 Date: Date
 date: Date
+EquipmentSupplier: Equipement fourni par
 export: Exporter
 field_format_unknown: Format du champ inconnu
 Global Report: Bilan global
