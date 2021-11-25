@@ -82,6 +82,7 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=AgeBreakpoint::class, inversedBy="workshops")
+     * @Groups({"write"})
      */
     private ?Collection $ageBreakpoints;
 
