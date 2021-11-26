@@ -25,6 +25,7 @@ import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContex
 import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
 import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 import TopicsContext from '../../../Context/TopicsContext';
+import {Chip} from '@material-ui/core';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -118,6 +119,26 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 setFieldValue={props.setFieldValue}
                 options={topics}
               />
+            </FormRow>
+            <FormRow>
+              {props.values.topics.map((iri: any) => {
+                const values = topics.find((topic: any) => {
+                  return iri === topic['@id'];
+                })
+                if (undefined !== values) {
+                  const addSkill = (skill: any) => {
+                    return initialWorkshop.skills.push(skill);
+                  };
+
+                  return values.skills.map((skill: any) => {
+                    addSkill(skill['@id']);
+
+                    return (
+                      <Chip key={skill['@id']} label={skill.name} variant="outlined"/>
+                    );
+                  })
+                }
+              })}
             </FormRow>
             <FormRow>
               <MultiSelectField
