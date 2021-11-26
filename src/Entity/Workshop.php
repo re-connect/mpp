@@ -136,6 +136,7 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
+     * @Groups({"write"})
      */
     private ?Collection $skills;
 

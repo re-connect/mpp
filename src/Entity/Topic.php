@@ -34,6 +34,7 @@ class Topic
 
     /**
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
+     * @Groups({"read", "write"})
      */
     private ?Collection $skills;
 
