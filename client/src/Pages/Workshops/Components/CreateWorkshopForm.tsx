@@ -53,6 +53,7 @@ const initialWorkshop: WorkshopInterface = {
   ageBreakpoints: [],
   usedEquipments: [],
   topics: [],
+  skills: [],
 };
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
