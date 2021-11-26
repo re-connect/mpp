@@ -1,3 +1,4 @@
+import { Chip } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,13 @@ import superagent, { Response } from 'superagent';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
+import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
+import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
+import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
+import TopicsContext from '../../../Context/TopicsContext';
+import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
+import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 import {
   ageBreakpointsEndpoint,
   equipmentSuppliersEndpoint,
@@ -19,13 +26,6 @@ import {
   workshopsEndpoint
 } from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
-import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
-import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
-import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
-import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
-import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
-import TopicsContext from '../../../Context/TopicsContext';
-import {Chip} from '@material-ui/core';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;

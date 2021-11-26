@@ -30,8 +30,6 @@ const StyledListItemContent = styled.a`
   cursor: pointer;
   border-radius: 12px;
   padding: 10px;
-  flex: 1;
-  display: flex;
 `;
 
 const ChartsButton = styled(Fab)`
@@ -112,13 +110,20 @@ const Home = () => {
                 </ListItemIcon>
                 <ListItemText secondary={center.name}/>
               {!center.permanence ? null :
-                <StyledListItemContent style={{textAlign: 'center'}} onClick={() => history.push(`/notes/${center.id}`)}>
+                <StyledListItemContent style={{
+                  textAlign: 'center',
+                  width: 200,
+                  }} onClick={() => history.push(`/notes/${center.id}`)}>
                     <PeopleIcon htmlColor="white"/>
                   <ListItemText primary="Permanences"/>
                 </StyledListItemContent>
               }
               {!center.workshop ? null :
-                <StyledListItemContent style={{marginLeft: 8, textAlign: 'center'}} onClick={() => history.push(`/workshops/${center.id}`)}>
+                <StyledListItemContent style={{
+                  marginLeft: 8,
+                  textAlign: 'center',
+                  width: 200,
+                  }} onClick={() => history.push(`/workshops/${center.id}`)}>
                     <HomeWorkIcon htmlColor="white"/>
                   <ListItemText primary="Ateliers" />
                 </StyledListItemContent>

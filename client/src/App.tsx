@@ -1,28 +1,28 @@
-import {ThemeProvider} from '@material-ui/styles';
-import {createTheme} from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import * as React from 'react';
-import NotesContext from './Context/NotesContext';
-import Routes from './Routes';
-import {Note} from './Types/Notes';
-import {Workshop} from './Types/Workshops';
-import WorkshopsContext from './Context/WorkshopsContext';
-import {Topic} from './Types/Topics';
-import TopicsContext from './Context/TopicsContext';
-import {ParticipantKind} from './Types/ParticipantKinds';
-import ParticipantKindsContext from './Context/ParticipantKindsContext';
-import {EquipmentSupplier} from './Types/EquipmentSuppliers';
-import EquipmentSuppliersContext from './Context/EquipmentSuppliersContext';
-import {AgeBreakpoint} from './Types/AgeBreakpoints';
 import AgeBreakpointsContext from './Context/AgeBreakpointsContext';
-import {UsedEquipment} from './Types/UsedEquipments';
+import EquipmentSuppliersContext from './Context/EquipmentSuppliersContext';
+import NotesContext from './Context/NotesContext';
+import ParticipantKindsContext from './Context/ParticipantKindsContext';
+import TopicsContext from './Context/TopicsContext';
 import UsedEquipmentsContext from './Context/UsedEquipmentsContext';
+import WorkshopsContext from './Context/WorkshopsContext';
+import Routes from './Routes';
+import { AgeBreakpoint } from './Types/AgeBreakpoints';
+import { EquipmentSupplier } from './Types/EquipmentSuppliers';
+import { Note } from './Types/Notes';
+import { ParticipantKind } from './Types/ParticipantKinds';
+import { Topic } from './Types/Topics';
+import { UsedEquipment } from './Types/UsedEquipments';
+import { Workshop } from './Types/Workshops';
 
 const theme = createTheme({
   palette: {
     type: 'dark',
     background: {
-      default: '#28ad7a',
-      paper: '#28ad7a',
+      default: '#203468',
+      paper: '#203468',
     },
     text: {
       primary: '#eff1f7',
