@@ -1,3 +1,4 @@
+import { Chip } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,13 @@ import superagent, { Response } from 'superagent';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
+import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
+import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
+import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
+import TopicsContext from '../../../Context/TopicsContext';
+import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
+import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
 import {
   ageBreakpointsEndpoint,
   equipmentSuppliersEndpoint,
@@ -18,13 +25,9 @@ import {
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
+import { Skill } from '../../../Types/Skills';
+import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
-import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
-import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
-import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
-import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
-import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
-import TopicsContext from '../../../Context/TopicsContext';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -53,7 +56,17 @@ const initialWorkshop: WorkshopInterface = {
   ageBreakpoints: [],
   usedEquipments: [],
   topics: [],
+  skills: [],
 };
+
+const getSkillsFromTopic = (topic: Topic|undefined) => undefined !== topic ? topic['skills'] : [];
+const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) =>  iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
+const removeSkillFromList = (list: Skill[], removedSkill: Skill) => list.filter((skill: Skill) => removedSkill['@id'] !== skill['@id']);
+
+const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
+  setFieldValue('topics', newValue);
+  setFieldValue('skills', getSkillsFromTopicIris(topics, newValue));
+}
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -77,7 +90,12 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)
-        .send({...workshop, date: selectedDate, center: `/api/centers/${centerId}`})
+        .send({
+          ...workshop,
+          date: selectedDate,
+          center: `/api/centers/${centerId}`,
+          skills: workshop.skills.map(skill => skill['@id'])
+        })
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
@@ -94,36 +112,43 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
       <Formik
         initialValues={initialWorkshop}
         onSubmit={create}
-        render={(props: FormikProps<any>) => (
-          <StyledForm onSubmit={props.handleSubmit}>
+        render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
+          <StyledForm onSubmit={handleSubmit}>
             <FormRow>
                 <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={props.handleChange}/>
+                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
               </FormRow>
             <FormRow>
-              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={props.handleChange}/>
-              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={props.handleChange}/>
+              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
+              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
             </FormRow>
             <FormRow>
-              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={props.handleChange}/>
-              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={props.handleChange}/>
-              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
+              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
+              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
+              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
             </FormRow>
             <FormRow>
               <MultiSelectField
                 id="topics"
                 label="Thèmes"
-                value={props.values.topics}
-                setFieldValue={props.setFieldValue}
+                value={values.topics}
+                setFieldValue={updateTopics(setFieldValue, topics)}
                 options={topics}
               />
+            </FormRow>
+            <FormRow>
+              {values.skills.map((skill: Skill) => (
+                <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
+                  setFieldValue('skills', removeSkillFromList(values.skills, skill))}
+                />
+              ))}
             </FormRow>
             <FormRow>
               <MultiSelectField
                 id="participantKinds"
                 label="Types de participants"
-                value={props.values.participantKinds}
-                setFieldValue={props.setFieldValue}
+                value={values.participantKinds}
+                setFieldValue={setFieldValue}
                 options={participantKinds}
               />
             </FormRow>
@@ -131,8 +156,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="ageBreakpoints"
                 label="Tranches d'âge"
-                value={props.values.ageBreakpoints}
-                setFieldValue={props.setFieldValue}
+                value={values.ageBreakpoints}
+                setFieldValue={setFieldValue}
                 options={ageBreakpoints}
               />
             </FormRow>
@@ -140,8 +165,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="usedEquipments"
                 label="Outils utilisés"
-                value={props.values.usedEquipments}
-                setFieldValue={props.setFieldValue}
+                value={values.usedEquipments}
+                setFieldValue={setFieldValue}
                 options={usedEquipments}
               />
             </FormRow>
@@ -149,8 +174,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="equipmentSuppliers"
                 label="Equipement fourni par"
-                value={props.values.equipmentSuppliers}
-                setFieldValue={props.setFieldValue}
+                value={values.equipmentSuppliers}
+                setFieldValue={setFieldValue}
                 options={equipmentSuppliers}
               />
             </FormRow>
@@ -162,7 +187,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 type='text'
                 variant='outlined'
                 multiline rows='4'
-                onChange={props.handleChange}
+                onChange={handleChange}
                 style={{flex: 1}}
               />
             </FormRow>

@@ -45,7 +45,7 @@ class AuthenticationFailHandler extends AuthenticationFailureHandler
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $credentials = json_decode($request->getContent(), true);
 
