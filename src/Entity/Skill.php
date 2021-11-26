@@ -35,6 +35,16 @@ class Skill
      */
     private ?Topic $topic;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="skills")
+     */
+    private ?Collection $workshops;
+
+    public function __construct()
+    {
+        $this->workshops = new ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->name;
@@ -65,6 +75,33 @@ class Skill
     public function setTopic(?Topic $topic): self
     {
         $this->topic = $topic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workshop[]
+     */
+    public function getWorkshops(): Collection
+    {
+        return $this->workshops;
+    }
+
+    public function addWorkshop(Workshop $workshop): self
+    {
+        if (!$this->workshops->contains($workshop)) {
+            $this->workshops[] = $workshop;
+            $workshop->addSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshop(Workshop $workshop): self
+    {
+        if ($this->workshops->removeElement($workshop)) {
+            $workshop->removeSkill($this);
+        }
 
         return $this;
     }
