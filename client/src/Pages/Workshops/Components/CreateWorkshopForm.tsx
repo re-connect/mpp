@@ -61,6 +61,7 @@ const initialWorkshop: WorkshopInterface = {
 
 const getSkillsFromTopic = (topic: Topic|undefined) => undefined !== topic ? topic['skills'] : [];
 const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) =>  iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
+const removeSkillFromList = (list: Skill[], removedSkill: Skill) => list.filter((skill: Skill) => removedSkill['@id'] !== skill['@id']);
 
 const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
   setFieldValue('topics', newValue);
@@ -111,32 +112,32 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
       <Formik
         initialValues={initialWorkshop}
         onSubmit={create}
-        render={(props: FormikProps<any>) => (
-          <StyledForm onSubmit={props.handleSubmit}>
+        render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
+          <StyledForm onSubmit={handleSubmit}>
             <FormRow>
                 <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={props.handleChange}/>
+                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
               </FormRow>
             <FormRow>
-              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={props.handleChange}/>
-              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={props.handleChange}/>
+              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
+              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
             </FormRow>
             <FormRow>
-              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={props.handleChange}/>
-              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={props.handleChange}/>
-              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={props.handleChange}/>
+              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
+              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
+              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
             </FormRow>
             <FormRow>
               <MultiSelectField
                 id="topics"
                 label="Thèmes"
-                value={props.values.topics}
-                setFieldValue={updateTopics(props.setFieldValue, topics)}
+                value={values.topics}
+                setFieldValue={updateTopics(setFieldValue, topics)}
                 options={topics}
               />
             </FormRow>
             <FormRow>
-              {props.values.skills.map((skill: Skill) => (
+              {values.skills.map((skill: Skill) => (
                 <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
                   props.setFieldValue('skills', props.values.skills.filter((currentSkill: Skill) => skill['@id'] !== currentSkill['@id']))}
                 />
@@ -146,8 +147,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="participantKinds"
                 label="Types de participants"
-                value={props.values.participantKinds}
-                setFieldValue={props.setFieldValue}
+                value={values.participantKinds}
+                setFieldValue={setFieldValue}
                 options={participantKinds}
               />
             </FormRow>
@@ -155,8 +156,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="ageBreakpoints"
                 label="Tranches d'âge"
-                value={props.values.ageBreakpoints}
-                setFieldValue={props.setFieldValue}
+                value={values.ageBreakpoints}
+                setFieldValue={setFieldValue}
                 options={ageBreakpoints}
               />
             </FormRow>
@@ -164,8 +165,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="usedEquipments"
                 label="Outils utilisés"
-                value={props.values.usedEquipments}
-                setFieldValue={props.setFieldValue}
+                value={values.usedEquipments}
+                setFieldValue={setFieldValue}
                 options={usedEquipments}
               />
             </FormRow>
@@ -173,8 +174,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <MultiSelectField
                 id="equipmentSuppliers"
                 label="Equipement fourni par"
-                value={props.values.equipmentSuppliers}
-                setFieldValue={props.setFieldValue}
+                value={values.equipmentSuppliers}
+                setFieldValue={setFieldValue}
                 options={equipmentSuppliers}
               />
             </FormRow>
@@ -186,7 +187,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 type='text'
                 variant='outlined'
                 multiline rows='4'
-                onChange={props.handleChange}
+                onChange={handleChange}
                 style={{flex: 1}}
               />
             </FormRow>
