@@ -3,6 +3,7 @@ import {EquipmentSupplier} from './EquipmentSuppliers';
 import {AgeBreakpoint} from './AgeBreakpoints';
 import {UsedEquipment} from './UsedEquipments';
 import {Topic} from './Topics';
+import {Skill} from './Skills';
 
 export interface Workshop {
   id: number;
@@ -26,4 +27,5 @@ export interface WorkshopInterface {
   ageBreakpoints: AgeBreakpoint[];
   usedEquipments: UsedEquipment[];
   topics: Topic[];
+  skills: Skill[];
 }
