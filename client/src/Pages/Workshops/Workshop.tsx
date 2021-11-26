@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Card, CardContent, Chip, Typography} from '@material-ui/core';
 import {format} from 'date-fns';
+import ChipList from '../../Components/ChipList';
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
@@ -18,9 +19,7 @@ const Workshop = ({workshop}: any) => {
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
         <Typography>
-          Thèmes : {workshop.topics.map((topic: any) => (
-          <Chip key={topic.id} label={topic.name} variant='outlined'/>
-        ))}
+          Thèmes : <ChipList list={workshop.topics}/>
         </Typography>
         {!workshop.topicPrecision ? null : (
           <Typography variant='body2' component='p'>
@@ -28,29 +27,19 @@ const Workshop = ({workshop}: any) => {
           </Typography>
         )}
         {/*<Typography>*/}
-        {/*  Compétences : {workshop.skills.map((skill: any) => (*/}
-        {/*  <Chip key={skill.id} label={skill.name}/>*/}
-        {/*))}*/}
+        {/*  Compétences : <ChipList list={workshop.skills}/>*/}
         {/*</Typography>*/}
         <Typography>
-          Types de participants : {workshop.participantKinds.map((participantKind: any) => (
-          <Chip key={participantKind.id} label={participantKind.name} variant='outlined'/>
-        ))}
+          Types de participants : <ChipList list={workshop.participantKinds}/>
         </Typography>
         <Typography>
-          Tranches d'âge : {workshop.ageBreakpoints.map((ageBreakpoint: any) => (
-          <Chip key={ageBreakpoint.id} label={ageBreakpoint.name} variant='outlined'/>
-        ))}
+          Tranches d'âge : <ChipList list={workshop.ageBreakpoints}/>
         </Typography>
         <Typography>
-          Outils utilisés : {workshop.usedEquipments.map((usedEquipment: any) => (
-          <Chip key={usedEquipment.id} label={usedEquipment.name} variant='outlined'/>
-        ))}
+          Outils utilisés : <ChipList list={workshop.usedEquipments}/>
         </Typography>
         <Typography>
-          Equipement fourni par : {workshop.equipmentSuppliers.map((equipmentSupplier: any) => (
-          <Chip key={equipmentSupplier.id} label={equipmentSupplier.name} variant='outlined'/>
-        ))}
+          Equipement fourni par : <ChipList list={workshop.equipmentSuppliers}/>
         </Typography>
         {!workshop.usedVault ? null : (
           <div>
