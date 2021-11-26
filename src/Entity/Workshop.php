@@ -71,66 +71,67 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $participantKinds;
 
     /**
      * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $topics;
 
     /**
      * @ORM\ManyToMany(targetEntity=AgeBreakpoint::class, inversedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $ageBreakpoints;
 
     /**
      * @ORM\ManyToMany(targetEntity=EquipmentSupplier::class, inversedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $equipmentSuppliers;
 
     /**
      * @ORM\ManyToMany(targetEntity=UsedEquipment::class, inversedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $usedEquipments;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
+     * @Groups({"read", "write"})
      */
     private ?bool $usedVault = false;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbBeneficiariesAccounts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbStoredDocs;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbCreatedEvents;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbCreatedContacts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?int $nbCreatedNotes;
 
