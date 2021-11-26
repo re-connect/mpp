@@ -134,6 +134,11 @@ class Workshop
      */
     private ?int $nbCreatedNotes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
+     */
+    private ?Collection $skills;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -141,6 +146,7 @@ class Workshop
         $this->ageBreakpoints = new ArrayCollection();
         $this->equipmentSuppliers = new ArrayCollection();
         $this->usedEquipments = new ArrayCollection();
+        $this->skills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -411,6 +417,30 @@ class Workshop
     public function setNbCreatedNotes(int $nbCreatedNotes): self
     {
         $this->nbCreatedNotes = $nbCreatedNotes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Skill[]
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills[] = $skill;
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        $this->skills->removeElement($skill);
 
         return $this;
     }
