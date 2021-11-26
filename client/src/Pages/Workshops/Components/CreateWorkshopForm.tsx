@@ -25,6 +25,7 @@ import {
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
+import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
 
 const StyledForm = styled.form`
@@ -56,6 +57,14 @@ const initialWorkshop: WorkshopInterface = {
   topics: [],
   skills: [],
 };
+
+const getSkillsFromTopic = (topic: Topic|undefined) => undefined !== topic ? topic['skills'] : [];
+const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) =>  iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
+
+const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
+  setFieldValue('topics', newValue);
+  setFieldValue('skills', getSkillsFromTopicIris(topics, newValue));
+}
 
 const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -116,7 +125,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 id="topics"
                 label="Thèmes"
                 value={props.values.topics}
-                setFieldValue={props.setFieldValue}
+                setFieldValue={updateTopics(props.setFieldValue, topics)}
                 options={topics}
               />
             </FormRow>
