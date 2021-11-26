@@ -25,6 +25,7 @@ import {
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
+import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
 
@@ -88,7 +89,12 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)
-        .send({...workshop, date: selectedDate, center: `/api/centers/${centerId}`})
+        .send({
+          ...workshop,
+          date: selectedDate,
+          center: `/api/centers/${centerId}`,
+          skills: workshop.skills.map(skill => skill['@id'])
+        })
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
           closeModal();
@@ -130,24 +136,11 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               />
             </FormRow>
             <FormRow>
-              {props.values.topics.map((iri: any) => {
-                const values = topics.find((topic: any) => {
-                  return iri === topic['@id'];
-                })
-                if (undefined !== values) {
-                  const addSkill = (skill: any) => {
-                    return initialWorkshop.skills.push(skill);
-                  };
-
-                  return values.skills.map((skill: any) => {
-                    addSkill(skill['@id']);
-
-                    return (
-                      <Chip key={skill['@id']} label={skill.name} variant="outlined"/>
-                    );
-                  })
-                }
-              })}
+              {props.values.skills.map((skill: Skill) => (
+                <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
+                  props.setFieldValue('skills', props.values.skills.filter((currentSkill: Skill) => skill['@id'] !== currentSkill['@id']))}
+                />
+              ))}
             </FormRow>
             <FormRow>
               <MultiSelectField
