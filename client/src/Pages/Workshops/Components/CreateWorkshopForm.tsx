@@ -139,7 +139,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
             <FormRow>
               {values.skills.map((skill: Skill) => (
                 <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
-                  props.setFieldValue('skills', props.values.skills.filter((currentSkill: Skill) => skill['@id'] !== currentSkill['@id']))}
+                  setFieldValue('skills', removeSkillFromList(values.skills, skill))}
                 />
               ))}
             </FormRow>
