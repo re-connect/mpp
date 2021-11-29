@@ -1,12 +1,12 @@
-import {Chip, FormControlLabel, Checkbox, FormGroup} from '@material-ui/core';
+import { Chip, FormControlLabel, Checkbox, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import {Formik, FormikProps} from 'formik';
+import { Formik, FormikProps } from 'formik';
 import React, {useContext} from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, {Response} from 'superagent';
+import superagent, { Response } from 'superagent';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
@@ -25,10 +25,10 @@ import {
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
-import {Skill} from '../../../Types/Skills';
-import {Topic} from '../../../Types/Topics';
-import {WorkshopInterface} from '../../../Types/Workshops';
-import {useBoolean} from 'react-hanger';
+import { Skill } from '../../../Types/Skills';
+import { Topic } from '../../../Types/Topics';
+import { WorkshopInterface } from '../../../Types/Workshops';
+import { useBoolean } from 'react-hanger';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;

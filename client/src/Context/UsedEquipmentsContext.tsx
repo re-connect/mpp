@@ -1,5 +1,5 @@
-import {createContext} from 'react';
-import {UsedEquipment} from '../Types/UsedEquipments';
+import { createContext } from 'react';
+import { UsedEquipment } from '../Types/UsedEquipments';
 
 interface UsedEquipmentsContext {
   usedEquipments: UsedEquipment[];

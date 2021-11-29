@@ -1,14 +1,14 @@
-import {Fab, Typography} from "@material-ui/core";
+import { Fab, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import HomeIcon from "@material-ui/icons/Home";
 import "chart.js";
 import React, {useCallback, useContext, useEffect} from "react";
-import {LineChart} from "react-chartkick";
-import {withRouter} from "react-router-dom";
+import { LineChart } from "react-chartkick";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import superagent, {Response} from "superagent";
 import NotesContext from "../Context/NotesContext";
-import {notesEndpoint} from "../Services/requests";
+import { notesEndpoint } from "../Services/requests";
 
 const HomeButton = styled(Fab)`
   position: absolute !important;

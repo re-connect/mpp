@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Card, CardContent, Chip, Typography} from '@material-ui/core';
-import {format} from 'date-fns';
+import { Card, CardContent, Chip, Typography } from '@material-ui/core';
+import { format } from 'date-fns';
 import ChipList from '../../Components/ChipList';
 
 const StyledCard = styled(Card)`

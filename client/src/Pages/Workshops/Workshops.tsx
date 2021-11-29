@@ -1,13 +1,13 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Workshop from './Workshop';
 import {Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography} from '@material-ui/core';
 import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
-import {useBoolean} from 'react-hanger';
+import { useBoolean } from 'react-hanger';
 import CreateWorkshopForm from './Components/CreateWorkshopForm';
 
 const StyledContent = styled.div`
