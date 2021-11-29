@@ -199,18 +199,18 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                     inputProps={{ 'aria-label': 'controlled' }}
                     color='primary'
                   />
-                } label='Coffre fort numérique'/>
+                } label='Coffre-fort numérique'/>
             </FormRow>
             {!isUsingVault.value ? null : (
               <FormGroup>
                 <FormRow>
                   <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
-                  <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
+                  <NumberField id='nbStoredDocs' label="Nombre de documents stockés" handleChange={handleChange}/>
                 </FormRow>
                 <FormRow>
-                  <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
-                  <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
-                  <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedEvents' label="Évènements ajoutés" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedContacts' label="Contacts ajoutés" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedNotes' label="Notes ajoutées" handleChange={handleChange}/>
                 </FormRow>
               </FormGroup>
             )}

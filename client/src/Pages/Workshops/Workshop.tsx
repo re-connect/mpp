@@ -41,8 +41,14 @@ const Workshop = ({workshop}: any) => {
         <Typography>
           Equipement fourni par : <ChipList list={workshop.equipmentSuppliers}/>
         </Typography>
+        <Typography>
+          Bilan global : {workshop.globalReport}
+        </Typography>
         {!workshop.usedVault ? null : (
           <div>
+            <Typography>
+              Coffre-fort numérique
+            </Typography>
             <Typography variant='body2' component='p'>
               Nb CFN créés : {workshop.nbBeneficiariesAccounts}
             </Typography>
@@ -60,9 +66,6 @@ const Workshop = ({workshop}: any) => {
             </Typography>
           </div>
         )}
-        <Typography>
-          Bilan global : {workshop.globalReport}
-        </Typography>
       </CardContent>
     </StyledCard>
   );
