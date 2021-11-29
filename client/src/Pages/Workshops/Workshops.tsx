@@ -9,6 +9,9 @@ import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
 import { useBoolean } from 'react-hanger';
 import CreateWorkshopForm from './Components/CreateWorkshopForm';
+import { useNumber } from 'react-hanger/array';
+import Pagination from '@material-ui/lab/Pagination';
+import { paginationCount } from '../../Services/requests';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -26,20 +29,34 @@ const AddNoteIcon = styled(Fab)`
   right: 0;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+`;
+
 const Workshops = () => {
   const isModalOpen = useBoolean(false);
   const centerId = useParams().centerId;
   const {workshops} = useContext(WorkshopsContext);
   const {center, fetchCenter} = useFetchCenter();
   const fetchWorkshops = useFetchWorkshops();
+  const [workshopsCount, workshopsCountActions] = useNumber(0);
+  const [currentPage, currentPageActions] = useNumber(1);
 
   useEffect(() => {
     fetchCenter(centerId)
   }, [fetchCenter, centerId]);
 
   useEffect(() => {
-    fetchWorkshops(centerId);
+    fetchWorkshops(centerId, workshopsCountActions);
   }, [fetchWorkshops, centerId]);
+
+  const changePage = (event: any, value: any) => {
+    currentPageActions.setValue(value);
+    fetchWorkshops(centerId, workshopsCountActions, value);
+  }
 
   return (
     <Container maxWidth='sm'>
@@ -76,6 +93,13 @@ const Workshops = () => {
       >
         <AddIcon/>
       </AddNoteIcon>
+      <PaginationContainer>
+        <Pagination
+          count={Math.ceil(workshopsCount / paginationCount)}
+          variant="outlined"
+          page={currentPage} onChange={changePage}
+        />
+      </PaginationContainer>
       {workshops.map((workshop: any) => (
         <Workshop key={workshop.id} workshop={workshop}/>
       ))}

@@ -8,15 +8,16 @@ function useFetchWorkshops() {
     const {setWorkshops} = useContext(WorkshopsContext);
     const history = useHistory();
 
-    const fetchWorkshops = useCallback((centerId) => {
+    const fetchWorkshops = useCallback((centerId, workshopsCountAction, page = 1) => {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
-                .get(`${workshopsEndpoint}?center=${centerId}`, {
+                .get(`${workshopsEndpoint}?center=${centerId}&page=${page}`, {
                     headers: {Authorization: `Bearer ${token}`}
                 })
                 .then((response) => {
                     setWorkshops(response.data['hydra:member']);
+                    workshopsCountAction.setValue(response.data['hydra:totalItems'])
                 });
         } else {
             history.push('/login');
