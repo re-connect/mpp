@@ -26,9 +26,9 @@ const Workshop = ({workshop}: any) => {
             Précisions sur le thème : {workshop.topicPrecision}
           </Typography>
         )}
-        {/*<Typography>*/}
-        {/*  Compétences : <ChipList list={workshop.skills}/>*/}
-        {/*</Typography>*/}
+        <Typography>
+          Compétences : <ChipList list={workshop.skills}/>
+        </Typography>
         <Typography>
           Types de participants : <ChipList list={workshop.participantKinds}/>
         </Typography>
