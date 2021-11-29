@@ -28,7 +28,7 @@ import {
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
-import { useBoolean } from 'react-hanger';
+import { useBoolean } from 'react-hanger/array';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -80,7 +80,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
   const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
   const {topics, setTopics} = useContext(TopicsContext);
-  const isUsingVault = useBoolean(initialWorkshop.usedVault);
+  const [isUsingVault, isUsingVaultActions] = useBoolean(initialWorkshop.usedVault);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
@@ -98,7 +98,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
           date: selectedDate,
           center: `/api/centers/${centerId}`,
           skills: workshop.skills.map(skill => skill['@id']),
-          usedVault: isUsingVault.value
+          usedVault: isUsingVault
         })
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
@@ -192,14 +192,14 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={isUsingVault.value}
-                    onChange={isUsingVault.toggle}
+                    checked={isUsingVault}
+                    onChange={isUsingVaultActions.toggle}
                     inputProps={{'aria-label': 'controlled'}}
                     color='primary'
                   />
                 } label='Coffre-fort numérique'/>
             </FormRow>
-            {!isUsingVault.value ? null : (
+            {!isUsingVault ? null : (
               <FormGroup>
                 <FormRow>
                   <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
