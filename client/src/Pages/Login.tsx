@@ -2,15 +2,15 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import LinkIcon from "@material-ui/icons/Link";
-import {Formik, FormikProps} from "formik";
+import { Formik, FormikProps } from "formik";
 import queryString from "query-string";
 import * as React from "react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import {backendUrl, loginEndpoint} from "../Services/requests";
+import { backendUrl, loginEndpoint } from "../Services/requests";
 import logo from "../Images/logo.png";
-import {Typography} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 const StyledImage = styled.img`
   width: 140px;

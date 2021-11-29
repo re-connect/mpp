@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react';
-import {centersEndpoint} from './requests';
+import React, { useCallback } from 'react';
+import { centersEndpoint } from './requests';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const initialCenter = {
     name: '',

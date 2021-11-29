@@ -1,5 +1,5 @@
-import {createContext} from 'react';
-import {AgeBreakpoint} from '../Types/AgeBreakpoints';
+import { createContext } from 'react';
+import { AgeBreakpoint } from '../Types/AgeBreakpoints';
 
 interface AgeBreakpointsContext {
   ageBreakpoints: AgeBreakpoint[];

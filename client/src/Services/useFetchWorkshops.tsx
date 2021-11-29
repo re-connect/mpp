@@ -1,6 +1,6 @@
-import {useCallback, useContext} from 'react';
-import {workshopsEndpoint} from './requests';
-import {useHistory} from 'react-router-dom';
+import { useCallback, useContext } from 'react';
+import { workshopsEndpoint } from './requests';
+import { useHistory } from 'react-router-dom';
 import WorkshopsContext from '../Context/WorkshopsContext';
 import axios from 'axios';
 

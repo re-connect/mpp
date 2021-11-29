@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Card, CardContent, Chip, Typography} from '@material-ui/core';
-import {format} from 'date-fns';
+import { Card, CardContent, Chip, Typography } from '@material-ui/core';
+import { format } from 'date-fns';
 import ChipList from '../../Components/ChipList';
 
 const StyledCard = styled(Card)`
@@ -26,9 +26,9 @@ const Workshop = ({workshop}: any) => {
             Précisions sur le thème : {workshop.topicPrecision}
           </Typography>
         )}
-        {/*<Typography>*/}
-        {/*  Compétences : <ChipList list={workshop.skills}/>*/}
-        {/*</Typography>*/}
+        <Typography>
+          Compétences : <ChipList list={workshop.skills}/>
+        </Typography>
         <Typography>
           Types de participants : <ChipList list={workshop.participantKinds}/>
         </Typography>
@@ -41,8 +41,14 @@ const Workshop = ({workshop}: any) => {
         <Typography>
           Equipement fourni par : <ChipList list={workshop.equipmentSuppliers}/>
         </Typography>
+        <Typography>
+          Bilan global : {workshop.globalReport}
+        </Typography>
         {!workshop.usedVault ? null : (
           <div>
+            <Typography>
+              Coffre-fort numérique
+            </Typography>
             <Typography variant='body2' component='p'>
               Nb CFN créés : {workshop.nbBeneficiariesAccounts}
             </Typography>
@@ -60,9 +66,6 @@ const Workshop = ({workshop}: any) => {
             </Typography>
           </div>
         )}
-        <Typography>
-          Bilan global : {workshop.globalReport}
-        </Typography>
       </CardContent>
     </StyledCard>
   );

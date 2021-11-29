@@ -1,4 +1,4 @@
-import {Chip} from '@material-ui/core';
+import { Chip } from '@material-ui/core';
 import React from 'react';
 
 const ChipList = ({list}: any) => {

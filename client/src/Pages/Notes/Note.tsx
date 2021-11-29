@@ -1,8 +1,8 @@
-import {Avatar, Card, CardContent, Chip, Fab, Typography,} from '@material-ui/core';
+import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`

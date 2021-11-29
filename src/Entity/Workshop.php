@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     attributes={"order"={"date": "DESC"}},
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
@@ -137,7 +138,7 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
-     * @Groups({"write"})
+     * @Groups({"read", "write"})
      */
     private ?Collection $skills;
 

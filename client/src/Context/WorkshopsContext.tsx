@@ -1,5 +1,5 @@
-import {Workshop} from '../Types/Workshops';
-import {createContext} from 'react';
+import { Workshop } from '../Types/Workshops';
+import { createContext } from 'react';
 
 interface WorkshopsContext {
     workshops: Workshop[];

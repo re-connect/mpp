@@ -1,9 +1,9 @@
-import { Chip } from '@material-ui/core';
+import { Chip, FormControlLabel, Checkbox, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { Formik, FormikProps } from 'formik';
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
@@ -28,6 +28,7 @@ import {
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
+import { useBoolean } from 'react-hanger/array';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -51,6 +52,7 @@ const initialWorkshop: WorkshopInterface = {
   nbCreatedContacts: 0,
   nbCreatedNotes: 0,
   author: '',
+  usedVault: false,
   participantKinds: [],
   equipmentSuppliers: [],
   ageBreakpoints: [],
@@ -59,8 +61,8 @@ const initialWorkshop: WorkshopInterface = {
   skills: [],
 };
 
-const getSkillsFromTopic = (topic: Topic|undefined) => undefined !== topic ? topic['skills'] : [];
-const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) =>  iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
+const getSkillsFromTopic = (topic: Topic | undefined) => undefined !== topic ? topic['skills'] : [];
+const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
 const removeSkillFromList = (list: Skill[], removedSkill: Skill) => list.filter((skill: Skill) => removedSkill['@id'] !== skill['@id']);
 
 const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
@@ -78,6 +80,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
   const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
   const {topics, setTopics} = useContext(TopicsContext);
+  const [isUsingVault, isUsingVaultActions] = useBoolean(initialWorkshop.usedVault);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
@@ -94,7 +97,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
           ...workshop,
           date: selectedDate,
           center: `/api/centers/${centerId}`,
-          skills: workshop.skills.map(skill => skill['@id'])
+          skills: workshop.skills.map(skill => skill['@id']),
+          usedVault: isUsingVault
         })
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
@@ -115,17 +119,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
         render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
           <StyledForm onSubmit={handleSubmit}>
             <FormRow>
-                <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
-              </FormRow>
-            <FormRow>
-              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
-              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
-            </FormRow>
-            <FormRow>
-              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
-              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
-              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
+              <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
+              <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
             </FormRow>
             <FormRow>
               <MultiSelectField
@@ -137,11 +132,13 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               />
             </FormRow>
             <FormRow>
-              {values.skills.map((skill: Skill) => (
-                <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
-                  setFieldValue('skills', removeSkillFromList(values.skills, skill))}
-                />
-              ))}
+              <div>
+                {values.skills.map((skill: Skill) => (
+                  <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
+                    setFieldValue('skills', removeSkillFromList(values.skills, skill))}
+                  />
+                ))}
+              </div>
             </FormRow>
             <FormRow>
               <MultiSelectField
@@ -191,6 +188,30 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1}}
               />
             </FormRow>
+            <FormRow>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isUsingVault}
+                    onChange={isUsingVaultActions.toggle}
+                    inputProps={{'aria-label': 'controlled'}}
+                    color='primary'
+                  />
+                } label='Coffre-fort numérique'/>
+            </FormRow>
+            {!isUsingVault ? null : (
+              <FormGroup>
+                <FormRow>
+                  <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
+                  <NumberField id='nbStoredDocs' label="Nombre de documents stockés" handleChange={handleChange}/>
+                </FormRow>
+                <FormRow>
+                  <NumberField id='nbCreatedEvents' label="Évènements ajoutés" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedContacts' label="Contacts ajoutés" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedNotes' label="Notes ajoutées" handleChange={handleChange}/>
+                </FormRow>
+              </FormGroup>
+            )}
             <FormRow>
               <Button variant='contained' color='primary' type='submit'>Créer</Button>
             </FormRow>
