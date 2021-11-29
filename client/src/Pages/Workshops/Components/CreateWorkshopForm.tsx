@@ -51,6 +51,7 @@ const initialWorkshop: WorkshopInterface = {
   nbCreatedContacts: 0,
   nbCreatedNotes: 0,
   author: '',
+  usedVault: false,
   participantKinds: [],
   equipmentSuppliers: [],
   ageBreakpoints: [],

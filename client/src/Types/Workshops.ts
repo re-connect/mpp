@@ -22,6 +22,7 @@ export interface WorkshopInterface {
   nbCreatedContacts: number;
   nbCreatedNotes: number;
   author: string;
+  usedVault: boolean;
   participantKinds: ParticipantKind[];
   equipmentSuppliers: EquipmentSupplier[];
   ageBreakpoints: AgeBreakpoint[];
