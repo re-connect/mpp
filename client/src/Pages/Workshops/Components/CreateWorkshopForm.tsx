@@ -136,11 +136,13 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
               />
             </FormRow>
             <FormRow>
-              {values.skills.map((skill: Skill) => (
-                <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
-                  setFieldValue('skills', removeSkillFromList(values.skills, skill))}
-                />
-              ))}
+              <div>
+                {values.skills.map((skill: Skill) => (
+                  <Chip key={skill['@id']} label={skill.name} variant="outlined" onDelete={() =>
+                    setFieldValue('skills', removeSkillFromList(values.skills, skill))}
+                  />
+                ))}
+              </div>
             </FormRow>
             <FormRow>
               <MultiSelectField
