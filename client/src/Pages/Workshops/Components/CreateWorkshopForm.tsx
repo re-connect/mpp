@@ -2,11 +2,11 @@ import {Chip, FormControlLabel, Checkbox, FormGroup} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import { Formik, FormikProps } from 'formik';
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import {Formik, FormikProps} from 'formik';
+import React, {useContext} from 'react';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, { Response } from 'superagent';
+import superagent, {Response} from 'superagent';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
@@ -25,9 +25,9 @@ import {
   usedEquipmentsEndpoint,
   workshopsEndpoint
 } from '../../../Services/requests';
-import { Skill } from '../../../Types/Skills';
-import { Topic } from '../../../Types/Topics';
-import { WorkshopInterface } from '../../../Types/Workshops';
+import {Skill} from '../../../Types/Skills';
+import {Topic} from '../../../Types/Topics';
+import {WorkshopInterface} from '../../../Types/Workshops';
 import {useBoolean} from 'react-hanger';
 
 const StyledForm = styled.form`
@@ -61,8 +61,8 @@ const initialWorkshop: WorkshopInterface = {
   skills: [],
 };
 
-const getSkillsFromTopic = (topic: Topic|undefined) => undefined !== topic ? topic['skills'] : [];
-const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) =>  iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
+const getSkillsFromTopic = (topic: Topic | undefined) => undefined !== topic ? topic['skills'] : [];
+const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
 const removeSkillFromList = (list: Skill[], removedSkill: Skill) => list.filter((skill: Skill) => removedSkill['@id'] !== skill['@id']);
 
 const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
@@ -123,9 +123,9 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
         render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
           <StyledForm onSubmit={handleSubmit}>
             <FormRow>
-                <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-                <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
-              </FormRow>
+              <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
+              <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
+            </FormRow>
             <FormRow>
               <MultiSelectField
                 id="topics"
@@ -198,7 +198,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                   <Checkbox
                     checked={isUsingVault.value}
                     onChange={handleVaultFields}
-                    inputProps={{ 'aria-label': 'controlled' }}
+                    inputProps={{'aria-label': 'controlled'}}
                     color='primary'
                   />
                 } label='Coffre-fort numérique'/>
