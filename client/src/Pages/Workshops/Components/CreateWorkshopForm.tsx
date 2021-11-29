@@ -88,10 +88,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   UseFetchDataEffect(usedEquipmentsEndpoint, setUsedEquipments);
   UseFetchDataEffect(topicsEndpoint, setTopics);
 
-  const handleVaultFields = () => {
-    isUsingVault.value ? isUsingVault.setFalse() : isUsingVault.setTrue();
-  }
-
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
     if (token !== null) {
@@ -197,7 +193,7 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 control={
                   <Checkbox
                     checked={isUsingVault.value}
-                    onChange={handleVaultFields}
+                    onChange={isUsingVault.toggle}
                     inputProps={{'aria-label': 'controlled'}}
                     color='primary'
                   />
