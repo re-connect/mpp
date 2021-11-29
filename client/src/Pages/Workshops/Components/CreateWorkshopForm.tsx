@@ -1,4 +1,4 @@
-import { Chip } from '@material-ui/core';
+import {Chip, FormControlLabel, Checkbox, FormGroup} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -28,6 +28,7 @@ import {
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
+import {useBoolean} from 'react-hanger';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -79,12 +80,17 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
   const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
   const {topics, setTopics} = useContext(TopicsContext);
+  const isUsingVault = useBoolean(initialWorkshop.usedVault);
 
   UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
   UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
   UseFetchDataEffect(ageBreakpointsEndpoint, setAgeBreakpoints);
   UseFetchDataEffect(usedEquipmentsEndpoint, setUsedEquipments);
   UseFetchDataEffect(topicsEndpoint, setTopics);
+
+  const handleVaultFields = () => {
+    isUsingVault.value ? isUsingVault.setFalse() : isUsingVault.setTrue();
+  }
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
@@ -95,7 +101,8 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
           ...workshop,
           date: selectedDate,
           center: `/api/centers/${centerId}`,
-          skills: workshop.skills.map(skill => skill['@id'])
+          skills: workshop.skills.map(skill => skill['@id']),
+          usedVault: isUsingVault.value
         })
         .set('Authorization', `Bearer ${token}`)
         .then((response: Response) => {
@@ -119,15 +126,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
                 <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
               </FormRow>
-            <FormRow>
-              <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
-              <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
-            </FormRow>
-            <FormRow>
-              <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
-              <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
-              <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
-            </FormRow>
             <FormRow>
               <MultiSelectField
                 id="topics"
@@ -192,6 +190,30 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 style={{flex: 1}}
               />
             </FormRow>
+            <FormRow>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isUsingVault.value}
+                    onChange={handleVaultFields}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    color='primary'
+                  />
+                } label='Coffre fort numérique'/>
+            </FormRow>
+            {!isUsingVault.value ? null : (
+              <FormGroup>
+                <FormRow>
+                  <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
+                  <NumberField id='nbStoredDocs' label="Nombre de documents stockés"handleChange={handleChange}/>
+                </FormRow>
+                <FormRow>
+                  <NumberField id='nbCreatedEvents' label="Nombre d'évènements créés" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedContacts' label="Nombre de contacts ajoutées" handleChange={handleChange}/>
+                  <NumberField id='nbCreatedNotes' label="Nombre de notes ajoutées" handleChange={handleChange}/>
+                </FormRow>
+              </FormGroup>
+            )}
             <FormRow>
               <Button variant='contained' color='primary' type='submit'>Créer</Button>
             </FormRow>
