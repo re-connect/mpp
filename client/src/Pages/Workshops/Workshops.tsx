@@ -12,6 +12,7 @@ import CreateWorkshopForm from './Components/CreateWorkshopForm';
 import { useNumber } from 'react-hanger/array';
 import Pagination from '@material-ui/lab/Pagination';
 import { paginationCount } from '../../Services/requests';
+import useQuery from '../../Hooks/useQuery';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -44,12 +45,6 @@ const Workshops = () => {
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
-
-  function useQuery() {
-    const { search } = useLocation();
-
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  }
   const pageNumber = useQuery().get('page');
 
   useEffect(() => {
