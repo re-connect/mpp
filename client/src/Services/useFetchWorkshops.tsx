@@ -8,7 +8,8 @@ function useFetchWorkshops() {
     const {setWorkshops} = useContext(WorkshopsContext);
     const history = useHistory();
 
-    const fetchWorkshops = useCallback((centerId, workshopsCountAction, page = 1) => {
+
+    const fetchWorkshops = useCallback((centerId: number, workshopsCountAction: any, page: any) => {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
@@ -22,6 +23,11 @@ function useFetchWorkshops() {
                 .then((response) => {
                     setWorkshops(response.data['hydra:member']);
                     workshopsCountAction.setValue(response.data['hydra:totalItems'])
+                    if (null === page) {
+                        history.push(`/workshops/${centerId}`)
+                    } else {
+                        history.push(`/workshops/${centerId}?page=${page}`)
+                    }
                 });
         } else {
             history.push('/login');

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Workshop from './Workshop';
 import {Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography} from '@material-ui/core';
 import styled from 'styled-components';
@@ -38,19 +38,26 @@ const PaginationContainer = styled.div`
 
 const Workshops = () => {
   const isModalOpen = useBoolean(false);
-  const centerId = useParams().centerId;
+  const {centerId} = useParams();
   const {workshops} = useContext(WorkshopsContext);
   const {center, fetchCenter} = useFetchCenter();
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
 
+  function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+  const pageNumber = useQuery().get('page');
+
   useEffect(() => {
     fetchCenter(centerId)
   }, [fetchCenter, centerId]);
 
   useEffect(() => {
-    fetchWorkshops(centerId, workshopsCountActions);
+    fetchWorkshops(centerId, workshopsCountActions, pageNumber);
   }, [fetchWorkshops, centerId]);
 
   const changePage = (event: any, value: any) => {
