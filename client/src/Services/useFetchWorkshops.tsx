@@ -12,8 +12,12 @@ function useFetchWorkshops() {
         const token = localStorage.getItem('token');
         if (token !== null) {
             axios
-                .get(`${workshopsEndpoint}?center=${centerId}&page=${page}`, {
-                    headers: {Authorization: `Bearer ${token}`}
+                .get(workshopsEndpoint, {
+                    headers: {Authorization: `Bearer ${token}`},
+                    params: {
+                        center: centerId,
+                        page: page
+                    }
                 })
                 .then((response) => {
                     setWorkshops(response.data['hydra:member']);
