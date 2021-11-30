@@ -44,8 +44,9 @@ const Workshops = () => {
   const {center, fetchCenter} = useFetchCenter();
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
-  const pageNumber = UseQueryParams().get('page');
   const pagesCount = Math.ceil(workshopsCount / paginationCount);
+  const pageNumberParam = UseQueryParams().get('page');
+  const pageNumber = null === pageNumberParam ? 1 : pageNumberParam;
 
   useEffect(() => {
     fetchCenter(centerId)
@@ -98,7 +99,7 @@ const Workshops = () => {
         <Pagination
           count={pagesCount}
           variant="outlined"
-          page={null === pageNumber ? 1 : parseInt(pageNumber)} onChange={changePage}
+          page={parseInt(pageNumber as string)} onChange={changePage}
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
