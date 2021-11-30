@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import useFetchWorkshops from '../../Services/useFetchWorkshops';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Workshop from './Workshop';
 import {Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography} from '@material-ui/core';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ import CreateWorkshopForm from './Components/CreateWorkshopForm';
 import { useNumber } from 'react-hanger/array';
 import Pagination from '@material-ui/lab/Pagination';
 import { paginationCount } from '../../Services/requests';
-import useQuery from '../../Hooks/useQuery';
+import UseQueryParams from '../../Hooks/UseQueryParams';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -44,7 +44,7 @@ const Workshops = () => {
   const {center, fetchCenter} = useFetchCenter();
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
-  const pageNumber = useQuery().get('page');
+  const pageNumber = UseQueryParams().get('page');
 
   useEffect(() => {
     fetchCenter(centerId)
