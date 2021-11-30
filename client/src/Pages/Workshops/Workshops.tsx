@@ -44,7 +44,6 @@ const Workshops = () => {
   const {center, fetchCenter} = useFetchCenter();
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
-  const [currentPage, currentPageActions] = useNumber(1);
   const pageNumber = useQuery().get('page');
 
   useEffect(() => {
@@ -56,7 +55,6 @@ const Workshops = () => {
   }, [fetchWorkshops, centerId]);
 
   const changePage = (event: any, value: any) => {
-    currentPageActions.setValue(value);
     fetchWorkshops(centerId, workshopsCountActions, value);
   }
 
@@ -99,7 +97,7 @@ const Workshops = () => {
         <Pagination
           count={Math.ceil(workshopsCount / paginationCount)}
           variant="outlined"
-          page={currentPage} onChange={changePage}
+          page={null === pageNumber ? 1 : parseInt(pageNumber)} onChange={changePage}
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
