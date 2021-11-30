@@ -45,6 +45,7 @@ const Workshops = () => {
   const fetchWorkshops = useFetchWorkshops();
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const pageNumber = UseQueryParams().get('page');
+  const pagesCount = Math.ceil(workshopsCount / paginationCount);
 
   useEffect(() => {
     fetchCenter(centerId)
@@ -95,7 +96,7 @@ const Workshops = () => {
       </AddNoteIcon>
       <PaginationContainer>
         <Pagination
-          count={Math.ceil(workshopsCount / paginationCount)}
+          count={pagesCount}
           variant="outlined"
           page={null === pageNumber ? 1 : parseInt(pageNumber)} onChange={changePage}
         />
