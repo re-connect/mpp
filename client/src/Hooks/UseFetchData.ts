@@ -9,7 +9,7 @@ export default (endpoint: string, callback: Function, method: Method = 'get') =>
   return React.useCallback(async () => {
     try {
       const { data } = await makeRequest(history, endpoint, method);
-      callback(data['hydra:member']);
+      callback(data);
     } catch (e) {
       history.push("/login");
     }

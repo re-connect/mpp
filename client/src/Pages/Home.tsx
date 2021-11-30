@@ -58,10 +58,10 @@ const Home = () => {
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
 
   UseFetchDataEffect(centersEndpoint, (centers: any) => {
-    setCenters(centers);
-    setFilteredCenters(centers)
+    setCenters(centers['hydra:member']);
+    setFilteredCenters(centers['hydra:member'])
   });
-  UseFetchDataEffect(tagsEndpoint, setTags);
+  UseFetchDataEffect(tagsEndpoint, (data: any) => setTags(data['hydra:member']));
 
   const searchCenters = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
