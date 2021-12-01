@@ -4,8 +4,8 @@ import Charts from './Pages/Charts';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Notes from './Pages/Notes/Notes';
-import Workshops from './Pages/Workshops/Workshops';
 import EditWorkshopForm from './Pages/Workshops/Components/EditWorkshopForm';
+import Workshops from './Pages/Workshops/Workshops';
 
 const Routes = () => (
   <Router>
