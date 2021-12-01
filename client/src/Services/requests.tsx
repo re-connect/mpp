@@ -12,6 +12,7 @@ export const adminLoginEndpoint = `${backendUrl}/admin_login`;
 export const notesEndpoint = `${apiEndpoint}/notes`;
 export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 export const topicsEndpoint = `${apiEndpoint}/topics`;
+export const skillsEndpoint = `${apiEndpoint}/skills`;
 export const participantKindsEndpoint = `${apiEndpoint}/participant_kinds`;
 export const equipmentSuppliersEndpoint = `${apiEndpoint}/equipment_suppliers`;
 export const ageBreakpointsEndpoint = `${apiEndpoint}/age_breakpoints`;

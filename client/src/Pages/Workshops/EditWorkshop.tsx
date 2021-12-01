@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import { workshopsEndpoint } from '../../Services/requests';
 import { WorkshopInterface } from '../../Types/Workshops';
-import EditWorkshopForm from './Components/EditWorkshopForm';
+import WorkshopForm from './Components/WorkshopForm';
 
 const EditWorkshop = () => {
   const {workshopId} = useParams();
@@ -14,7 +14,7 @@ const EditWorkshop = () => {
 
   return (
     <Container maxWidth='sm'>
-        {null === workshop ? <></> : <EditWorkshopForm workshop={workshop} />}
+        {null === workshop ? <></> : <WorkshopForm workshop={workshop} />}
     </Container>
   )
 }

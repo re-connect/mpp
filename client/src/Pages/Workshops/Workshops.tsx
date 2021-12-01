@@ -54,7 +54,6 @@ const Workshops = () => {
     workshopsCountActions.setValue(data['hydra:totalItems'])
   });
 
-
   const changePage = async (event: any, value: any) => {
     history.push(`/workshops/${centerId}?page=${null === value ? '1' : value}`)
   }

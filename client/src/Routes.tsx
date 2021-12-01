@@ -4,7 +4,7 @@ import Charts from './Pages/Charts';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Notes from './Pages/Notes/Notes';
-import EditWorkshop from './Pages/Workshops/Edit';
+import EditWorkshop from './Pages/Workshops/EditWorkshop';
 import Workshops from './Pages/Workshops/Workshops';
 
 const Routes = () => (
