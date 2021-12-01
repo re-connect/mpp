@@ -6,6 +6,7 @@ import { Topic } from './Topics';
 import { Skill } from './Skills';
 
 export interface WorkshopInterface {
+  id?: number;
   date: Date;
   center: string;
   globalReport: string;
