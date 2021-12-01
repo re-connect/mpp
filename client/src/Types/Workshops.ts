@@ -6,21 +6,21 @@ import { Topic } from './Topics';
 import { Skill } from './Skills';
 
 export interface WorkshopInterface {
-  date: Date | null;
-  center: string | null;
-  globalReport: string | null;
-  nbParticipants: number | null;
-  nbBeneficiariesAccounts: number | null;
-  nbStoredDocs: number | null;
-  nbCreatedEvents: number | null;
-  nbCreatedContacts: number | null;
-  nbCreatedNotes: number | null;
-  author: string | null;
-  usedVault: boolean | null;
-  participantKinds: ParticipantKind[] | null;
-  equipmentSuppliers: EquipmentSupplier[] | null;
-  ageBreakpoints: AgeBreakpoint[] | null;
-  usedEquipments: UsedEquipment[] | null;
-  topics: Topic[] | null;
-  skills: Skill[] | null;
+  date: Date;
+  center: string;
+  globalReport: string;
+  nbParticipants: number;
+  nbBeneficiariesAccounts: number;
+  nbStoredDocs: number;
+  nbCreatedEvents: number;
+  nbCreatedContacts: number;
+  nbCreatedNotes: number;
+  author: string;
+  usedVault: boolean;
+  participantKinds: ParticipantKind[];
+  equipmentSuppliers: EquipmentSupplier[];
+  ageBreakpoints: AgeBreakpoint[];
+  usedEquipments: UsedEquipment[];
+  topics: Topic[];
+  skills: Skill[];
 }
