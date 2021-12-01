@@ -13,5 +13,5 @@ export default (endpoint: string, callback: Function, method: Method = 'get') =>
     } catch (e) {
       history.push("/login");
     }
-  }, [history]);
+  }, [history, endpoint]);
 }

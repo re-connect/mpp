@@ -13,7 +13,6 @@ import Pagination from '@material-ui/lab/Pagination';
 import { paginationCount, workshopsEndpoint } from '../../Services/requests';
 import UseQueryParams from '../../Hooks/UseQueryParams';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
-import UseFetchData from '../../Hooks/UseFetchData';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -54,17 +53,11 @@ const Workshops = () => {
     workshopsCountActions.setValue(data['hydra:totalItems'])
   });
 
-  const fetchWorkshops = UseFetchData((`${workshopsEndpoint}?center=${centerId}&page=${pageNumber}`), (data: any) => {
-    setWorkshops(data['hydra:member']);
-    workshopsCountActions.setValue(data['hydra:totalItems'])
-  });
-
   useEffect(() => {
     fetchCenter(centerId)
   }, [fetchCenter, centerId]);
 
   const changePage = async (event: any, value: any) => {
-    await fetchWorkshops();
     history.push(`/workshops/${centerId}?page=${null === value ? '1' : value}`)
   }
 
