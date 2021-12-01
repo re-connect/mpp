@@ -4,7 +4,7 @@ import Charts from './Pages/Charts';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Notes from './Pages/Notes/Notes';
-import EditWorkshopForm from './Pages/Workshops/Components/EditWorkshopForm';
+import EditWorkshop from './Pages/Workshops/Edit';
 import Workshops from './Pages/Workshops/Workshops';
 
 const Routes = () => (
@@ -14,7 +14,7 @@ const Routes = () => (
     <Route path="/charts" exact component={Charts} />
     <Route path="/notes/:centerId" component={Notes} />
     <Route path="/workshops/:centerId" component={Workshops} />
-    <Route path="/workshop/:workshopId/edit" component={EditWorkshopForm} />
+    <Route path="/workshop/:workshopId/edit" component={EditWorkshop} />
   </Router>
 );
 

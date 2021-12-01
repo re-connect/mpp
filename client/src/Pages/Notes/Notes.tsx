@@ -47,7 +47,7 @@ const NotesTitle = styled(Typography)`
   flex: 1;
 `;
 
-const HeaderContent = styled(Header)`
+const HeaderContent = styled.div`
   position: relative;
   align-self: stretch;
   flex: 1;
