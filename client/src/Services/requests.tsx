@@ -18,12 +18,12 @@ export const usedEquipmentsEndpoint = `${apiEndpoint}/used_equipments`;
 
 export const paginationCount = 30;
 
-export const makeRequest = async (history: any, url:string, method:Method = 'get'): Promise<any> => {
+export const makeRequest = async (history: any, url: string, method: Method = 'get', data: Object = {}): Promise<any> => {
   const token = localStorage.getItem("token");
   if (null === token) {
     history.push("/login");
   }
   const headers = { Authorization: `Bearer ${token}` };
 
-  return axios({ method, url, headers });
+  return axios({ method, url, headers, data });
 }
