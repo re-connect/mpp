@@ -42,6 +42,7 @@ const FormRow = styled.div`
 `;
 
 const initialWorkshop: WorkshopInterface = {
+  '@id': '',
   date: new Date(),
   center: '',
   globalReport: '',
