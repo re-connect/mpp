@@ -44,13 +44,9 @@ const getSkillNameFromIri = (list: Skill[], iri: string) => {
   return !skill ? '' : skill.name;
 }
 const getSkillsFromTopic = (topic: Topic | undefined) => undefined !== topic ? topic['skills'] : [];
-const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id']))).flat();
-const removeSkillFromList = (list: Skill[], removedSkill: string) => list.filter((skill: Skill) => removedSkill !== skill['@id']);
-
-const updateTopics = (setFieldValue: Function, topics: Topic[]) => (_id: string, newValue: string[]) => {
-  setFieldValue('topics', newValue);
-  setFieldValue('skills', getSkillsFromTopicIris(topics, newValue));
-}
+const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id'])))
+.flat()
+.map((skill: Skill) => skill['@id']);
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
@@ -90,7 +86,17 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
               id="topics"
               label="Thèmes"
               value={values.topics}
-              setFieldValue={updateTopics(setFieldValue, topics)}
+              setFieldValue={(_id: string, newValue: string[]) => {
+                setFieldValue('topics', newValue);
+                const newSkills = values.skills;
+                const topicSkills = getSkillsFromTopicIris(topics, newValue);
+                topicSkills.forEach((topicIri: string) => {
+                  if (!newSkills.includes(topicIri)) {
+                    newSkills.push(topicIri);
+                  }
+                });
+                setFieldValue('skills', newSkills);
+              }}
               options={topics}
             />
           </FormRow>
@@ -98,7 +104,7 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
             <div>
               {values.skills.map((skill: string) => (
                 <Chip key={skill} label={getSkillNameFromIri(skills, skill)} variant="outlined" onDelete={() =>
-                  setFieldValue('skills', removeSkillFromList(values.skills, skill))}
+                  setFieldValue('skills', values.skills.filter((currentSkill: string) => currentSkill !== skill))}
                 />
               ))}
             </div>
