@@ -1,4 +1,5 @@
 import axios, { Method } from 'axios';
+import { Entity } from '../Types/Entity';
 
 export const backendUrl =
   process.env.NODE_ENV === 'production' ? 'https://api.mpp.reconnect.fr' : 'https://localhost:8000';
@@ -17,6 +18,8 @@ export const ageBreakpointsEndpoint = `${apiEndpoint}/age_breakpoints`;
 export const usedEquipmentsEndpoint = `${apiEndpoint}/used_equipments`;
 
 export const paginationCount = 30;
+
+export const buildEntityEndpoint = (entity: Entity) => `${backendUrl}${entity['@id']}`;
 
 export const makeRequest = async (history: any, url: string, method: Method = 'get', data: Object = {}): Promise<any> => {
   const token = localStorage.getItem("token");
