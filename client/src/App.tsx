@@ -15,7 +15,7 @@ import { Note } from './Types/Notes';
 import { ParticipantKind } from './Types/ParticipantKinds';
 import { Topic } from './Types/Topics';
 import { UsedEquipment } from './Types/UsedEquipments';
-import { Workshop } from './Types/Workshops';
+import { WorkshopInterface } from './Types/Workshops';
 
 const theme = createTheme({
   palette: {
@@ -37,7 +37,7 @@ const theme = createTheme({
 
 const App = () => {
   const [notes, setNotes] = React.useState<Note[]>([]);
-  const [workshops, setWorkshops] = React.useState<Workshop[]>([]);
+  const [workshops, setWorkshops] = React.useState<WorkshopInterface[]>([]);
   const [topics, setTopics] = React.useState<Topic[]>([]);
   const [participantKinds, setParticipantKinds] = React.useState<ParticipantKind[]>([]);
   const [equipmentSuppliers, setEquipmentSuppliers] = React.useState<EquipmentSupplier[]>([]);
