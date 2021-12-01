@@ -1,11 +1,13 @@
 import { Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Formik, FormikProps } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useBoolean } from 'react-hanger/array';
 import styled from 'styled-components';
 import DatePickerField from '../../../Components/DatePickerField';
 import NumberField from '../../../Components/NumberField';
+import UseFetchData from '../../../Hooks/UseFetchData';
+import { buildEntityEndpoint } from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
 
 const StyledForm = styled.form`
@@ -26,17 +28,14 @@ interface EditWorkshopProps {
 const EditWorkshopForm:React.FC<EditWorkshopProps> = ({ workshop }) => {
   const [isUsingVault, isUsingVaultActions] = useBoolean(workshop.usedVault);
   const [selectedDate, setSelectedDate] = React.useState(workshop.date);
-
-  useEffect(() => {
-    isUsingVaultActions.setValue(workshop.usedVault);
-    setSelectedDate(workshop.date);
-  }, [workshop]);
+  const entityUrl = buildEntityEndpoint(workshop);
+  const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
 
   return (
     <Formik
       enableReinitialize
       initialValues={workshop}
-      onSubmit={()=> {}}
+      onSubmit={updateWorkshop}
       render={({handleChange, handleSubmit}: FormikProps<any>) => (
         <StyledForm onSubmit={handleSubmit}>
           <FormRow>

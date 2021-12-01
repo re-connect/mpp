@@ -1,11 +1,12 @@
-import { ParticipantKind } from './ParticipantKinds';
-import { EquipmentSupplier } from './EquipmentSuppliers';
 import { AgeBreakpoint } from './AgeBreakpoints';
-import { UsedEquipment } from './UsedEquipments';
-import { Topic } from './Topics';
+import { Entity } from './Entity';
+import { EquipmentSupplier } from './EquipmentSuppliers';
+import { ParticipantKind } from './ParticipantKinds';
 import { Skill } from './Skills';
+import { Topic } from './Topics';
+import { UsedEquipment } from './UsedEquipments';
 
-export interface WorkshopInterface {
+export interface WorkshopInterface extends Entity {
   id?: number;
   date: Date;
   center: string;
