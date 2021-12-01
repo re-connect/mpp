@@ -1,14 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import useFetchCenter from '../../Services/useFetchCenter';
 import WorkshopsContext from '../../Context/WorkshopsContext';
-import useFetchWorkshops from '../../Services/useFetchWorkshops';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Workshop from './Workshop';
 import {Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography} from '@material-ui/core';
 import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
 import { useBoolean } from 'react-hanger';
 import CreateWorkshopForm from './Components/CreateWorkshopForm';
+import { useNumber } from 'react-hanger/array';
+import Pagination from '@material-ui/lab/Pagination';
+import { paginationCount, workshopsEndpoint } from '../../Services/requests';
+import UseQueryParams from '../../Hooks/UseQueryParams';
+import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -26,20 +30,36 @@ const AddNoteIcon = styled(Fab)`
   right: 0;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+`;
+
 const Workshops = () => {
+  const history = useHistory();
   const isModalOpen = useBoolean(false);
-  const centerId = useParams().centerId;
-  const {workshops} = useContext(WorkshopsContext);
+  const {centerId} = useParams();
+  const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const {center, fetchCenter} = useFetchCenter();
-  const fetchWorkshops = useFetchWorkshops();
+  const [workshopsCount, workshopsCountActions] = useNumber(0);
+  const pagesCount = Math.ceil(workshopsCount / paginationCount);
+  const pageNumberParam = UseQueryParams().get('page');
+  const pageNumber = null === pageNumberParam ? 1 : pageNumberParam;
+
+  UseFetchDataEffect((`${workshopsEndpoint}?center=${centerId}&page=${pageNumber}`), (data: any) => {
+    setWorkshops(data['hydra:member']);
+    workshopsCountActions.setValue(data['hydra:totalItems'])
+  });
 
   useEffect(() => {
     fetchCenter(centerId)
   }, [fetchCenter, centerId]);
 
-  useEffect(() => {
-    fetchWorkshops(centerId);
-  }, [fetchWorkshops, centerId]);
+  const changePage = async (event: any, value: any) => {
+    history.push(`/workshops/${centerId}?page=${null === value ? '1' : value}`)
+  }
 
   return (
     <Container maxWidth='sm'>
@@ -76,6 +96,13 @@ const Workshops = () => {
       >
         <AddIcon/>
       </AddNoteIcon>
+      <PaginationContainer>
+        <Pagination
+          count={pagesCount}
+          variant="outlined"
+          page={parseInt(pageNumber as string)} onChange={changePage}
+        />
+      </PaginationContainer>
       {workshops.map((workshop: any) => (
         <Workshop key={workshop.id} workshop={workshop}/>
       ))}

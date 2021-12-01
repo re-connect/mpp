@@ -82,11 +82,11 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {topics, setTopics} = useContext(TopicsContext);
   const [isUsingVault, isUsingVaultActions] = useBoolean(initialWorkshop.usedVault);
 
-  UseFetchDataEffect(participantKindsEndpoint, setParticipantKinds);
-  UseFetchDataEffect(equipmentSuppliersEndpoint, setEquipmentSuppliers);
-  UseFetchDataEffect(ageBreakpointsEndpoint, setAgeBreakpoints);
-  UseFetchDataEffect(usedEquipmentsEndpoint, setUsedEquipments);
-  UseFetchDataEffect(topicsEndpoint, setTopics);
+  UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
+  UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
+  UseFetchDataEffect(ageBreakpointsEndpoint, (data: any) => setAgeBreakpoints(data['hydra:member']));
+  UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
+  UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);
