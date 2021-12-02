@@ -12,5 +12,5 @@ export default (endpoint: string, callback: Function | null, method: Method = 'g
     } catch (e) {
       console.log('Error making http call', endpoint, e.message);
     }
-  }, []);
+  }, [endpoint]);
 }

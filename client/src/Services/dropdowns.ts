@@ -7,3 +7,11 @@ export function getDropdownNameFromIri(dropdown: Dropdown, iri: string) {
 export function getDropdownValues(dropdowns: Dropdowns, type: string) {
   return dropdowns[type] ? dropdowns[type] : {}
 }
+
+export function getDropdownOptionsArray(dropdowns: Dropdowns, type: string) {
+  const dropdownValues = getDropdownValues(dropdowns, type);
+
+  return Object.keys(dropdownValues).map((iri: string) => ({
+    ...dropdownValues[iri], '@id': iri,
+  }))
+}

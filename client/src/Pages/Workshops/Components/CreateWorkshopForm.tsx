@@ -76,7 +76,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const [isUsingVault, isUsingVaultActions] = useBoolean(initialWorkshop.usedVault);
 
   const create = (workshop: WorkshopInterface) => {
-    console.log(workshop);
     if (token !== null) {
       superagent
         .post(workshopsEndpoint)

@@ -1,6 +1,7 @@
 import { Checkbox, Chip, FormControlLabel, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Formik, FormikProps } from 'formik';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
@@ -18,6 +19,7 @@ import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
 import SkillsContext from "../../../Context/SkillsContext";
+import { useBoolean } from "react-hanger/array";
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -46,6 +48,7 @@ interface WorkshopFormProps {
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [loading, loadingActions] = useBoolean(false);
   const {participantKinds} = useContext(ParticipantKindsContext);
   const {equipmentSuppliers} = useContext(EquipmentSuppliersContext);
   const {ageBreakpoints} = useContext(AgeBreakpointsContext);
@@ -54,17 +57,23 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
   const {skills} = useContext(SkillsContext);
 
   const entityUrl = buildEntityEndpoint(workshop);
-  const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
+  const updateWorkshop = UseFetchData(entityUrl, () => setTimeout(loadingActions.setFalse, 500), 'PUT');
+
+  console.log(workshop);
 
   return (
     <Formik
       initialValues={workshop}
-      onSubmit={updateWorkshop}
+      onSubmit={async (data) => {
+        loadingActions.setTrue();
+        await updateWorkshop(data);
+      }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <StyledForm onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-            <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
+            <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
+                         handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <MultiSelectField
@@ -132,7 +141,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
           </FormRow>
           <FormRow>
             <TextField
-              id='globalReport'
+              value={values.globalReport}
               label="Bilan global"
               name='globalReport'
               type='text'
@@ -152,23 +161,35 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
                   }}
                   color='primary'
                 />
-              } label='Coffre-fort numérique'/>
+              } label={<span style={{color: 'white'}}>Coffre-fort numérique</span>}/>
           </FormRow>
           {!values.usedVault ? null : (
             <FormGroup>
               <FormRow>
-                <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
-                <NumberField id='nbStoredDocs' label="Nombre de documents stockés" handleChange={handleChange}/>
+                <NumberField id="nbBeneficiariesAccounts" value={values.nbBeneficiariesAccounts}
+                             label="Nombre de cfn crées"
+                             handleChange={handleChange}/>
+                <NumberField id="nbStoredDocs" value={values.nbStoredDocs} label="Nombre de documents stockés"
+                             handleChange={handleChange}/>
               </FormRow>
               <FormRow>
-                <NumberField id='nbCreatedEvents' label="Évènements ajoutés" handleChange={handleChange}/>
-                <NumberField id='nbCreatedContacts' label="Contacts ajoutés" handleChange={handleChange}/>
-                <NumberField id='nbCreatedNotes' label="Notes ajoutées" handleChange={handleChange}/>
+                <NumberField id="nbCreatedEvents" value={values.nbCreatedEvents} label="Évènements ajoutés"
+                             handleChange={handleChange}/>
+                <NumberField id="nbCreatedContacts" value={values.nbCreatedContacts} label="Contacts ajoutés"
+                             handleChange={handleChange}/>
+                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="Notes ajoutées"
+                             handleChange={handleChange}/>
               </FormRow>
             </FormGroup>
           )}
           <FormRow>
-            <Button variant='contained' color='primary' type='submit'>Mettre à jour</Button>
+            {loading
+              ?
+              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto'}}><CircularProgress
+                size={20}/></Button>
+              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>Mettre à
+                jour</Button>
+            }
           </FormRow>
         </StyledForm>
       )}
