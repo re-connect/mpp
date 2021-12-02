@@ -26,6 +26,7 @@ import {
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
+import SkillsContext from "../../../Context/SkillsContext";
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -45,21 +46,21 @@ const getSkillNameFromIri = (list: Skill[], iri: string) => {
 }
 const getSkillsFromTopic = (topic: Topic | undefined) => undefined !== topic ? topic['skills'] : [];
 const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id'])))
-.flat()
-.map((skill: Skill) => skill['@id']);
+  .flat()
+  .map((skill: Skill) => skill['@id']);
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
-} 
+}
 
-const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
+const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
   const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
   const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
   const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
   const {topics, setTopics} = useContext(TopicsContext);
-  const [skills, setSkills] = React.useState<Skill[]>([]);
+  const {skills, setSkills} = useContext(SkillsContext);
 
   const entityUrl = buildEntityEndpoint(workshop);
   const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
