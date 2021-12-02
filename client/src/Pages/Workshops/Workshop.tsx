@@ -18,7 +18,7 @@ const Workshop = ({workshop}: any) => (
         Nombre de participants : {workshop.nbParticipants}
       </Typography>
       <div>
-        Thèmes : <ChipList list={workshop.topics}/>
+        Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
       </div>
       {!workshop.topicPrecision ? null : (
         <Typography variant='body2' component='p'>
@@ -26,19 +26,19 @@ const Workshop = ({workshop}: any) => (
         </Typography>
       )}
       <div>
-        Compétences : <ChipList list={workshop.skills}/>
+        Compétences : <ChipList list={workshop.skills} dropdownKind="skills"/>
       </div>
       <div>
-        Types de participants : <ChipList list={workshop.participantKinds}/>
+        Types de participants : <ChipList list={workshop.participantKinds} dropdownKind="participantKinds"/>
       </div>
       <div>
-        Tranches d'âge : <ChipList list={workshop.ageBreakpoints}/>
+        Tranches d'âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
       </div>
       <div>
-        Outils utilisés : <ChipList list={workshop.usedEquipments}/>
+        Outils utilisés : <ChipList list={workshop.usedEquipments} dropdownKind="usedEquipments"/>
       </div>
       <div>
-        Equipement fourni par : <ChipList list={workshop.equipmentSuppliers}/>
+        Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
       </div>
       <Typography>
         Bilan global : {workshop.globalReport}
