@@ -1,7 +1,7 @@
+import { Card, CardContent, Typography } from '@material-ui/core';
+import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
-import { Card, CardContent, Chip, Typography } from '@material-ui/core';
-import { format } from 'date-fns';
 import ChipList from '../../Components/ChipList';
 
 const StyledCard = styled(Card)`
@@ -18,29 +18,29 @@ const Workshop = ({workshop}: any) => {
         <Typography>
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
-        <Typography>
+        <div>
           Thèmes : <ChipList list={workshop.topics}/>
-        </Typography>
+        </div>
         {!workshop.topicPrecision ? null : (
           <Typography variant='body2' component='p'>
             Précisions sur le thème : {workshop.topicPrecision}
           </Typography>
         )}
-        <Typography>
+        <div>
           Compétences : <ChipList list={workshop.skills}/>
-        </Typography>
-        <Typography>
+        </div>
+        <div>
           Types de participants : <ChipList list={workshop.participantKinds}/>
-        </Typography>
-        <Typography>
+        </div>
+        <div>
           Tranches d'âge : <ChipList list={workshop.ageBreakpoints}/>
-        </Typography>
-        <Typography>
+        </div>
+        <div>
           Outils utilisés : <ChipList list={workshop.usedEquipments}/>
-        </Typography>
-        <Typography>
+        </div>
+        <div>
           Equipement fourni par : <ChipList list={workshop.equipmentSuppliers}/>
-        </Typography>
+        </div>
         <Typography>
           Bilan global : {workshop.globalReport}
         </Typography>

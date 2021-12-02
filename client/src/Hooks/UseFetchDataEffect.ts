@@ -5,7 +5,7 @@ import UseFetchData from './UseFetchData';
 export default (endpoint: string, callback: Function, method: Method = 'get') => {
   const fetchData = UseFetchData(endpoint, callback, method);
 
-  return React.useEffect(() => {
-    fetchData();
+  return React.useEffect((data: Object = {}) => {
+    fetchData(data);
   }, [fetchData]);
 }

@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     attributes={"order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"read"}},
+ *     normalizationContext={"groups"={"workshop:read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
@@ -35,25 +35,25 @@ class Workshop
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbParticipants;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?string $globalReport;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?string $topicPrecision;
 
@@ -72,73 +72,73 @@ class Workshop
 
     /**
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $participantKinds;
 
     /**
      * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $topics;
 
     /**
      * @ORM\ManyToMany(targetEntity=AgeBreakpoint::class, inversedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $ageBreakpoints;
 
     /**
      * @ORM\ManyToMany(targetEntity=EquipmentSupplier::class, inversedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $equipmentSuppliers;
 
     /**
      * @ORM\ManyToMany(targetEntity=UsedEquipment::class, inversedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $usedEquipments;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?bool $usedVault = false;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbBeneficiariesAccounts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbStoredDocs;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbCreatedEvents;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbCreatedContacts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?int $nbCreatedNotes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
-     * @Groups({"read", "write"})
+     * @Groups({"workshop:read", "write"})
      */
     private ?Collection $skills;
 

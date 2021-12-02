@@ -26,7 +26,7 @@ const MultiSelectField = ({id, label, value, setFieldValue, options}: any) => (
             });
 
             return (
-              <Chip key={value} label={selectedOption.name}/>
+              <Chip key={value} label={!selectedOption ? '' : selectedOption.name}/>
             );
           })}
         </div>

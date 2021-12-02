@@ -1,9 +1,10 @@
-import { Chip, FormControlLabel, Checkbox, FormGroup } from '@material-ui/core';
+import { Checkbox, Chip, FormControlLabel, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { Formik, FormikProps } from 'formik';
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
+import { useBoolean } from 'react-hanger/array';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import superagent, { Response } from 'superagent';
@@ -28,7 +29,6 @@ import {
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
-import { useBoolean } from 'react-hanger/array';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -42,6 +42,7 @@ const FormRow = styled.div`
 `;
 
 const initialWorkshop: WorkshopInterface = {
+  '@id': '',
   date: new Date(),
   center: '',
   globalReport: '',
