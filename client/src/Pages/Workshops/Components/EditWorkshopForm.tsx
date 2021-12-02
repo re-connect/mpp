@@ -3,29 +3,19 @@ import Button from '@material-ui/core/Button';
 import { Formik, FormikProps } from 'formik';
 import React from 'react';
 import { useBoolean } from 'react-hanger/array';
-import styled from 'styled-components';
 import DatePickerField from '../../../Components/DatePickerField';
 import NumberField from '../../../Components/NumberField';
 import UseFetchData from '../../../Hooks/UseFetchData';
 import { buildEntityEndpoint } from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
-
-const StyledForm = styled.form`
-  margin-bottom: 100px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  margin-top: 16px;
-`;
+import FormRow from "../../../Components/FormRow";
+import Form from "../../../Components/Form";
 
 interface EditWorkshopProps {
   workshop: WorkshopInterface;
 }
 
-const EditWorkshopForm:React.FC<EditWorkshopProps> = ({ workshop }) => {
+const EditWorkshopForm: React.FC<EditWorkshopProps> = ({workshop}) => {
   const [isUsingVault, isUsingVaultActions] = useBoolean(workshop.usedVault);
   const [selectedDate, setSelectedDate] = React.useState(workshop.date);
   const entityUrl = buildEntityEndpoint(workshop);
@@ -37,7 +27,7 @@ const EditWorkshopForm:React.FC<EditWorkshopProps> = ({ workshop }) => {
       initialValues={workshop}
       onSubmit={updateWorkshop}
       render={({handleChange, handleSubmit}: FormikProps<any>) => (
-        <StyledForm onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
           </FormRow>
@@ -89,7 +79,7 @@ const EditWorkshopForm:React.FC<EditWorkshopProps> = ({ workshop }) => {
           <FormRow>
             <Button variant='contained' color='primary' type='submit'>Mettre à jour</Button>
           </FormRow>
-        </StyledForm>
+        </Form>
       )}
     />
   )
