@@ -9,6 +9,7 @@ import TopicsContext from './Context/TopicsContext';
 import UsedEquipmentsContext from './Context/UsedEquipmentsContext';
 import WorkshopsContext from './Context/WorkshopsContext';
 import SkillsContext from './Context/SkillsContext';
+import DropdownsContext from './Context/DropdownsContext';
 import Routes from './Routes';
 import { AgeBreakpoint } from './Types/AgeBreakpoints';
 import { EquipmentSupplier } from './Types/EquipmentSuppliers';
@@ -18,14 +19,15 @@ import { Topic } from './Types/Topics';
 import { UsedEquipment } from './Types/UsedEquipments';
 import { WorkshopInterface } from './Types/Workshops';
 import { Skill } from "./Types/Skills";
-import { useContext } from "react";
 import {
   ageBreakpointsEndpoint,
-  buildEntityEndpoint,
+  dropdownsEndpoint,
   equipmentSuppliersEndpoint,
-  participantKindsEndpoint, skillsEndpoint, topicsEndpoint, usedEquipmentsEndpoint
+  participantKindsEndpoint,
+  skillsEndpoint,
+  topicsEndpoint,
+  usedEquipmentsEndpoint
 } from "./Services/requests";
-import UseFetchData from "./Hooks/UseFetchData";
 import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 
 const theme = createTheme({
@@ -55,6 +57,7 @@ const App = () => {
   const [ageBreakpoints, setAgeBreakpoints] = React.useState<AgeBreakpoint[]>([]);
   const [usedEquipments, setUsedEquipments] = React.useState<UsedEquipment[]>([]);
   const [skills, setSkills] = React.useState<Skill[]>([]);
+  const [dropdowns, setDropdowns] = React.useState<Object>({});
 
   UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
   UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
@@ -62,6 +65,7 @@ const App = () => {
   UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
   UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
   UseFetchDataEffect(skillsEndpoint, (data: any) => setSkills(data['hydra:member']));
+  UseFetchDataEffect(dropdownsEndpoint, setDropdowns);
 
   return (
     <ThemeProvider theme={theme}>
@@ -73,7 +77,9 @@ const App = () => {
                 <AgeBreakpointsContext.Provider value={{ageBreakpoints, setAgeBreakpoints}}>
                   <UsedEquipmentsContext.Provider value={{usedEquipments, setUsedEquipments}}>
                     <SkillsContext.Provider value={{skills, setSkills}}>
-                      <Routes/>
+                      <DropdownsContext.Provider value={{dropdowns, setDropdowns}}>
+                        <Routes/>
+                      </DropdownsContext.Provider>
                     </SkillsContext.Provider>
                   </UsedEquipmentsContext.Provider>
                 </AgeBreakpointsContext.Provider>

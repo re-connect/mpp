@@ -5,18 +5,19 @@ export const backendUrl =
   process.env.NODE_ENV === 'production' ? 'https://api.mpp.reconnect.fr' : 'https://localhost:8000';
 export const apiEndpoint = `${backendUrl}/api`;
 
-export const centersEndpoint = `${apiEndpoint}/centers`;
-export const tagsEndpoint = `${apiEndpoint}/tags`;
-export const loginEndpoint = `${backendUrl}/login`;
 export const adminLoginEndpoint = `${backendUrl}/admin_login`;
-export const notesEndpoint = `${apiEndpoint}/notes`;
-export const workshopsEndpoint = `${apiEndpoint}/workshops`;
-export const topicsEndpoint = `${apiEndpoint}/topics`;
-export const skillsEndpoint = `${apiEndpoint}/skills`;
-export const participantKindsEndpoint = `${apiEndpoint}/participant_kinds`;
-export const equipmentSuppliersEndpoint = `${apiEndpoint}/equipment_suppliers`;
 export const ageBreakpointsEndpoint = `${apiEndpoint}/age_breakpoints`;
+export const centersEndpoint = `${apiEndpoint}/centers`;
+export const dropdownsEndpoint = `${apiEndpoint}/dropdowns`;
+export const equipmentSuppliersEndpoint = `${apiEndpoint}/equipment_suppliers`;
+export const loginEndpoint = `${backendUrl}/login`;
+export const notesEndpoint = `${apiEndpoint}/notes`;
+export const participantKindsEndpoint = `${apiEndpoint}/participant_kinds`;
+export const skillsEndpoint = `${apiEndpoint}/skills`;
+export const tagsEndpoint = `${apiEndpoint}/tags`;
+export const topicsEndpoint = `${apiEndpoint}/topics`;
 export const usedEquipmentsEndpoint = `${apiEndpoint}/used_equipments`;
+export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 
 export const paginationCount = 30;
 
