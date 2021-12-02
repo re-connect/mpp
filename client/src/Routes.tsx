@@ -6,15 +6,17 @@ import Login from './Pages/Login';
 import Notes from './Pages/Notes/Notes';
 import EditWorkshop from './Pages/Workshops/EditWorkshop';
 import Workshops from './Pages/Workshops/Workshops';
+import CreateWorkshop from "./Pages/Workshops/CreateWorkshop";
 
 const Routes = () => (
   <Router>
-    <Route path="/" exact component={Home} />
-    <Route path="/login" exact component={Login} />
-    <Route path="/charts" exact component={Charts} />
-    <Route path="/notes/:centerId" component={Notes} />
-    <Route path="/workshops/:centerId" component={Workshops} />
-    <Route path="/workshop/:workshopId/edit" component={EditWorkshop} />
+    <Route path="/" exact component={Home}/>
+    <Route path="/login" component={Login}/>
+    <Route path="/charts" component={Charts}/>
+    <Route path="/notes/:centerId" component={Notes}/>
+    <Route path="/centers/:centerId/workshops" component={Workshops}/>
+    <Route path="/workshop/:workshopId/edit" component={EditWorkshop}/>
+    <Route path="/centers/:centerId/create-workshop" component={CreateWorkshop}/>
   </Router>
 );
 

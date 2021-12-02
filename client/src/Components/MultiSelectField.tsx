@@ -20,7 +20,7 @@ const MultiSelectField = ({id, label, value, setFieldValue}: any) => {
         labelId={id}
         id={id}
         multiple
-        value={value}
+        value={!value ? [] : value}
         onChange={(event) => {
           setFieldValue(id, event.target.value);
         }}

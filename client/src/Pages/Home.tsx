@@ -136,7 +136,7 @@ const Home = () => {
                   marginLeft: 8,
                   textAlign: 'center',
                   width: 200,
-                }} onClick={() => history.push(`/workshops/${center.id}`)}>
+                }} onClick={() => history.push(`/centers/${center.id}/workshops`)}>
                   <HomeWorkIcon htmlColor="white"/>
                   <ListItemText primary="Ateliers"/>
                 </StyledListItemContent>

@@ -7,28 +7,25 @@ import React, { useContext } from 'react';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
-import UseFetchData from '../../../Hooks/UseFetchData';
-import { buildEntityEndpoint } from '../../../Services/requests';
 import { WorkshopInterface } from '../../../Types/Workshops';
 import { useBoolean } from "react-hanger/array";
 import DropdownsContext from "../../../Context/DropdownsContext";
 import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from "../../../Services/dropdowns";
 import FormRow from "../../../Components/FormRow";
-import Form from "../../../Components/Form";
+import { useHistory } from "react-router-dom";
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
+  onSubmit: Function;
 }
 
-const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
+const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
+  const history = useHistory();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [loading, loadingActions] = useBoolean(false);
   const {dropdowns} = useContext(DropdownsContext);
   const allSkills = getDropdownValues(dropdowns, 'skills');
   const allSkillsArray = getDropdownOptionsArray(dropdowns, 'skills');
-
-  const entityUrl = buildEntityEndpoint(workshop);
-  const updateWorkshop = UseFetchData(entityUrl, () => setTimeout(loadingActions.setFalse, 500), 'PUT');
 
   const addSkillsSuggestions = (skills: string[], topicIris: string[]) => {
     const newSkills = skills;
@@ -48,10 +45,14 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
       initialValues={workshop}
       onSubmit={async (data) => {
         loadingActions.setTrue();
-        await updateWorkshop(data);
+        await onSubmit(data);
+        setTimeout(() => {
+          loadingActions.setFalse();
+          history.push(`/`);
+        }, 500);
       }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
-        <Form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
             <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
@@ -157,11 +158,11 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
               ?
               <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto'}}><CircularProgress
                 size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>Mettre à
-                jour</Button>
+              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>
+                {workshop.id ? "Mettre à jour" : "Créer"}</Button>
             }
           </FormRow>
-        </Form>
+        </form>
       )}
     />
   );
