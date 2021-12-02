@@ -8,9 +8,10 @@ import React, { useContext } from 'react';
 import DropdownsContext from "../Context/DropdownsContext";
 import { getDropdownOptionsArray } from "../Services/dropdowns";
 
-const MultiSelectField = ({id, label, value, setFieldValue, options}: any) => {
+const MultiSelectField = ({id, label, value, setFieldValue}: any) => {
   const {dropdowns} = useContext(DropdownsContext);
-  const dropdownOptions = options ? options : getDropdownOptionsArray(dropdowns, id);
+  const dropdownOptions = getDropdownOptionsArray(dropdowns, id);
+  const options = !dropdownOptions ? [] : dropdownOptions;
 
   return (
     <FormControl style={{flex: 1}}>
@@ -27,7 +28,7 @@ const MultiSelectField = ({id, label, value, setFieldValue, options}: any) => {
         renderValue={(selected: any) => (
           <div>
             {selected.map((value: any) => {
-              const selectedOption = dropdownOptions.find((option: any) => {
+              const selectedOption = options.find((option: any) => {
                 return option['@id'] === value;
               });
 

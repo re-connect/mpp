@@ -13,5 +13,5 @@ export function getDropdownOptionsArray(dropdowns: Dropdowns, type: string) {
 
   return Object.keys(dropdownValues).map((iri: string) => ({
     ...dropdownValues[iri], '@id': iri,
-  }))
+  }));
 }

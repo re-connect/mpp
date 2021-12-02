@@ -114,7 +114,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 label="Thèmes"
                 value={values.topics}
                 setFieldValue={updateTopics(setFieldValue, topics)}
-                options={topics}
               />
             </FormRow>
             <FormRow>
@@ -132,7 +131,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 label="Types de participants"
                 value={values.participantKinds}
                 setFieldValue={setFieldValue}
-                options={participantKinds}
               />
             </FormRow>
             <FormRow>
@@ -141,7 +139,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 label="Tranches d'âge"
                 value={values.ageBreakpoints}
                 setFieldValue={setFieldValue}
-                options={ageBreakpoints}
               />
             </FormRow>
             <FormRow>
@@ -150,7 +147,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 label="Outils utilisés"
                 value={values.usedEquipments}
                 setFieldValue={setFieldValue}
-                options={usedEquipments}
               />
             </FormRow>
             <FormRow>
@@ -159,7 +155,6 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
                 label="Equipement fourni par"
                 value={values.equipmentSuppliers}
                 setFieldValue={setFieldValue}
-                options={equipmentSuppliers}
               />
             </FormRow>
             <FormRow>

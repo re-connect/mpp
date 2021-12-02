@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ApiResource(
@@ -34,7 +35,7 @@ class Topic
 
     /**
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
-     * @Groups({"read", "write"})
+     * @Groups({"write"})
      */
     private ?Collection $skills;
 
@@ -47,6 +48,15 @@ class Topic
     {
         $this->skills = new ArrayCollection();
         $this->workshops = new ArrayCollection();
+    }
+
+    /**
+     * @Groups({"read"})
+     * @SerializedName("@id")
+     */
+    public function getIri()
+    {
+        return sprintf('/api/topics/%s', $this->getId());
     }
 
     public function __toString()
