@@ -29,6 +29,7 @@ import {
   usedEquipmentsEndpoint
 } from "./Services/requests";
 import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
+import { Dropdowns } from "./Types/Dropdowns";
 
 const theme = createTheme({
   palette: {
@@ -57,7 +58,7 @@ const App = () => {
   const [ageBreakpoints, setAgeBreakpoints] = React.useState<AgeBreakpoint[]>([]);
   const [usedEquipments, setUsedEquipments] = React.useState<UsedEquipment[]>([]);
   const [skills, setSkills] = React.useState<Skill[]>([]);
-  const [dropdowns, setDropdowns] = React.useState<Object>({});
+  const [dropdowns, setDropdowns] = React.useState<Dropdowns>({});
 
   UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
   UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));

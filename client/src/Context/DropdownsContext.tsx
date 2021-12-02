@@ -1,12 +1,13 @@
 import { createContext } from 'react';
+import { Dropdowns } from "../Types/Dropdowns";
 
 interface DropdownsContext {
-  dropdowns: Object;
-  setDropdowns: (dropdowns: Object) => void;
+  dropdowns: Dropdowns;
+  setDropdowns: (dropdowns: Dropdowns) => void;
 }
 
 const defaultValues = {
-  dropdowns: [],
+  dropdowns: {},
   setDropdowns: () => {
   },
 }
