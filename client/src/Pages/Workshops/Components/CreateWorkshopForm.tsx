@@ -17,15 +17,7 @@ import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import TopicsContext from '../../../Context/TopicsContext';
 import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 import WorkshopsContext from '../../../Context/WorkshopsContext';
-import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
-import {
-  ageBreakpointsEndpoint,
-  equipmentSuppliersEndpoint,
-  participantKindsEndpoint,
-  topicsEndpoint,
-  usedEquipmentsEndpoint,
-  workshopsEndpoint
-} from '../../../Services/requests';
+import { workshopsEndpoint } from '../../../Services/requests';
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
@@ -76,18 +68,12 @@ const CreateWorkshopForm = ({centerId, closeModal}: any) => {
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const token = localStorage.getItem('token');
   const history = useHistory();
-  const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
-  const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
-  const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
-  const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
-  const {topics, setTopics} = useContext(TopicsContext);
+  const {participantKinds} = useContext(ParticipantKindsContext);
+  const {equipmentSuppliers} = useContext(EquipmentSuppliersContext);
+  const {ageBreakpoints} = useContext(AgeBreakpointsContext);
+  const {usedEquipments} = useContext(UsedEquipmentsContext);
+  const {topics} = useContext(TopicsContext);
   const [isUsingVault, isUsingVaultActions] = useBoolean(initialWorkshop.usedVault);
-
-  UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
-  UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
-  UseFetchDataEffect(ageBreakpointsEndpoint, (data: any) => setAgeBreakpoints(data['hydra:member']));
-  UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
-  UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
 
   const create = (workshop: WorkshopInterface) => {
     console.log(workshop);

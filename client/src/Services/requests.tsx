@@ -22,12 +22,15 @@ export const paginationCount = 30;
 
 export const buildEntityEndpoint = (entity: Entity) => `${backendUrl}${entity['@id']}`;
 
-export const makeRequest = async (history: any, url: string, method: Method = 'get', data: Object = {}): Promise<any> => {
+export const makeRequest = async (url: string, method: Method = 'get', data: Object = {}): Promise<any> => {
   const token = localStorage.getItem("token");
-  if (null === token) {
-    history.push("/login");
-  }
-  const headers = { Authorization: `Bearer ${token}` };
+  if (null !== token) {
+    const headers = {Authorization: `Bearer ${token}`};
 
-  return axios({ method, url, headers, data });
+    return axios({method, url, headers, data});
+  } else {
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login';
+    }
+  }
 }

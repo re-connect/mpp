@@ -18,6 +18,15 @@ import { Topic } from './Types/Topics';
 import { UsedEquipment } from './Types/UsedEquipments';
 import { WorkshopInterface } from './Types/Workshops';
 import { Skill } from "./Types/Skills";
+import { useContext } from "react";
+import {
+  ageBreakpointsEndpoint,
+  buildEntityEndpoint,
+  equipmentSuppliersEndpoint,
+  participantKindsEndpoint, skillsEndpoint, topicsEndpoint, usedEquipmentsEndpoint
+} from "./Services/requests";
+import UseFetchData from "./Hooks/UseFetchData";
+import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 
 const theme = createTheme({
   palette: {
@@ -46,6 +55,13 @@ const App = () => {
   const [ageBreakpoints, setAgeBreakpoints] = React.useState<AgeBreakpoint[]>([]);
   const [usedEquipments, setUsedEquipments] = React.useState<UsedEquipment[]>([]);
   const [skills, setSkills] = React.useState<Skill[]>([]);
+
+  UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
+  UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
+  UseFetchDataEffect(ageBreakpointsEndpoint, (data: any) => setAgeBreakpoints(data['hydra:member']));
+  UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
+  UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
+  UseFetchDataEffect(skillsEndpoint, (data: any) => setSkills(data['hydra:member']));
 
   return (
     <ThemeProvider theme={theme}>

@@ -13,16 +13,7 @@ import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
 import TopicsContext from '../../../Context/TopicsContext';
 import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
 import UseFetchData from '../../../Hooks/UseFetchData';
-import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
-import {
-  ageBreakpointsEndpoint,
-  buildEntityEndpoint,
-  equipmentSuppliersEndpoint,
-  participantKindsEndpoint,
-  skillsEndpoint,
-  topicsEndpoint,
-  usedEquipmentsEndpoint
-} from '../../../Services/requests';
+import { buildEntityEndpoint } from '../../../Services/requests';
 import { Skill } from '../../../Types/Skills';
 import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
@@ -55,22 +46,15 @@ interface WorkshopFormProps {
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop}) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
-  const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
-  const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
-  const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
-  const {topics, setTopics} = useContext(TopicsContext);
-  const {skills, setSkills} = useContext(SkillsContext);
+  const {participantKinds} = useContext(ParticipantKindsContext);
+  const {equipmentSuppliers} = useContext(EquipmentSuppliersContext);
+  const {ageBreakpoints} = useContext(AgeBreakpointsContext);
+  const {usedEquipments} = useContext(UsedEquipmentsContext);
+  const {topics} = useContext(TopicsContext);
+  const {skills} = useContext(SkillsContext);
 
   const entityUrl = buildEntityEndpoint(workshop);
   const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
-
-  UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
-  UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
-  UseFetchDataEffect(ageBreakpointsEndpoint, (data: any) => setAgeBreakpoints(data['hydra:member']));
-  UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
-  UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
-  UseFetchDataEffect(skillsEndpoint, (data: any) => setSkills(data['hydra:member']));
 
   return (
     <Formik

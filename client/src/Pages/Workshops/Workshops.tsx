@@ -1,4 +1,13 @@
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography } from '@material-ui/core';
+import {
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Fab,
+  Typography
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Pagination from '@material-ui/lab/Pagination';
 import React, { useContext } from 'react';
@@ -38,7 +47,7 @@ const PaginationContainer = styled.div`
 `;
 
 const Workshops = () => {
-  const [center, setCenter] = React.useState<Center|null>(null);
+  const [center, setCenter] = React.useState<Center | null>(null);
   const history = useHistory();
   const isModalOpen = useBoolean(false);
   const {centerId} = useParams();
@@ -83,7 +92,7 @@ const Workshops = () => {
           </WorkshopsTitle>
           <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
         </StyledContent>
-          )
+      )
       }
       <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
         Ateliers
@@ -104,7 +113,7 @@ const Workshops = () => {
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
-        <Workshop key={workshop.id} workshop={workshop}/>
+        <Workshop key={workshop['@id']} workshop={workshop}/>
       ))}
     </Container>
   );

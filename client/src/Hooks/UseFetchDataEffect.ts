@@ -7,5 +7,5 @@ export default (endpoint: string, callback: Function, method: Method = 'get') =>
 
   return React.useEffect((data: Object = {}) => {
     fetchData(data);
-  }, [fetchData]);
+  }, []);
 }

@@ -1,4 +1,14 @@
-import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Chip,
+  Fab,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+  Typography
+} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import ChartIcon from "@material-ui/icons/BarChart";
 import HotelIcon from "@material-ui/icons/House";
@@ -79,7 +89,10 @@ const Home = () => {
   return (
     <Container maxWidth="md">
       <StyledContent>
-        <Logout onClick={() => { localStorage.removeItem("token"); history.push("/login") }}>
+        <Logout onClick={() => {
+          localStorage.removeItem("token");
+          history.push("/login")
+        }}>
           Déconnexion
         </Logout>
         <Admin
@@ -98,23 +111,23 @@ const Home = () => {
         </Typography>
         <StyledChipsContainer>
           {tags.map((tag: any) => (
-            <Chip label={tag.name} clickable color="secondary" onClick={() => onClickTag(tag.id)} />
+            <Chip key={tag.id} label={tag.name} clickable color="secondary" onClick={() => onClickTag(tag.id)}/>
           ))}
         </StyledChipsContainer>
         <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
           {filteredCenters.map((center: any) => (
             <ListItem key={center.id}>
-                <ListItemIcon>
-                  <HotelIcon htmlColor="white"/>
-                </ListItemIcon>
-                <ListItemText secondary={center.name}/>
+              <ListItemIcon>
+                <HotelIcon htmlColor="white"/>
+              </ListItemIcon>
+              <ListItemText secondary={center.name}/>
               {!center.permanence ? null :
                 <StyledListItemContent style={{
                   textAlign: 'center',
                   width: 200,
-                  }} onClick={() => history.push(`/notes/${center.id}`)}>
-                    <PeopleIcon htmlColor="white"/>
+                }} onClick={() => history.push(`/notes/${center.id}`)}>
+                  <PeopleIcon htmlColor="white"/>
                   <ListItemText primary="Permanences"/>
                 </StyledListItemContent>
               }
@@ -123,9 +136,9 @@ const Home = () => {
                   marginLeft: 8,
                   textAlign: 'center',
                   width: 200,
-                  }} onClick={() => history.push(`/workshops/${center.id}`)}>
-                    <HomeWorkIcon htmlColor="white"/>
-                  <ListItemText primary="Ateliers" />
+                }} onClick={() => history.push(`/workshops/${center.id}`)}>
+                  <HomeWorkIcon htmlColor="white"/>
+                  <ListItemText primary="Ateliers"/>
                 </StyledListItemContent>
               }
             </ListItem>
