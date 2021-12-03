@@ -51,5 +51,7 @@ class CreateUserCommand extends Command
         $this->em->persist($user);
         $this->em->flush();
         $output->writeln('Done');
+
+        return Command::SUCCESS;
     }
 }
