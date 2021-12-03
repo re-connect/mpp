@@ -5,6 +5,7 @@ import { ParticipantKind } from './ParticipantKinds';
 import { Skill } from './Skills';
 import { Topic } from './Topics';
 import { UsedEquipment } from './UsedEquipments';
+import { Duration } from './Durations';
 
 export interface WorkshopInterface extends Entity {
   id?: number;
@@ -19,6 +20,9 @@ export interface WorkshopInterface extends Entity {
   nbCreatedNotes?: number;
   author?: string;
   usedVault?: boolean;
+  attendees?: string;
+  improvementAxis?: string;
+  duration?: Duration;
   participantKinds?: ParticipantKind[];
   equipmentSuppliers?: EquipmentSupplier[];
   ageBreakpoints?: AgeBreakpoint[];
