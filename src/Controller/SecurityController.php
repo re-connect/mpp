@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="login", methods={"POST"})
      */
-    public function login(Request $request)
+    public function login(): Response
     {
         $user = $this->getUser();
 
@@ -73,9 +73,8 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/oauth/trigger", name="oauth_trigger", methods={"GET"})
-     * @return RedirectResponse
      */
-    public function triggerSSO()
+    public function triggerSSO(): RedirectResponse
     {
         $ssoUrl = sprintf(
             '%s?response_type=code&client_id=%s&redirect_uri=%s',
@@ -89,10 +88,6 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/oauth/check", name="oauth_check", methods={"GET"})
-     * @param Request                      $request
-     * @param UserRepository               $userRepository
-     * @param AuthenticationSuccessHandler $handler
-     * @return RedirectResponse
      */
     public function oauthCheck(Request $request, UserRepository $userRepository, AuthenticationSuccessHandler $handler): RedirectResponse
     {
