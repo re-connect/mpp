@@ -24,6 +24,14 @@ use function json_decode;
 class SecurityController extends AbstractController
 {
     /**
+     * @Route("/", name="home", methods={"GET"})
+     */
+    public function home(): RedirectResponse
+    {
+        return $this->redirectToRoute('app_login');
+    }
+
+    /**
      * @Route("/admin_login", name="admin_login", methods={"GET"})
      */
     public function adminLogin(Request $request, JWTEncoderInterface $encoder, EntityManagerInterface $em, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
