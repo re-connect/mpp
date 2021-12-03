@@ -34,7 +34,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('EasyAdmin');
+            ->setTitle('MPP Admin')
+            ->setFaviconPath('favicon.ico');
     }
 
     public function configureCrud(): Crud
@@ -52,16 +53,18 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToCrud('Center', 'fas fa-folder-open', Center::class);
+        yield MenuItem::linkToCrud('Center', 'fas fa-home', Center::class);
+        yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Tag', 'fas fa-tags', CenterTag::class);
-        yield MenuItem::linkToCrud('User', 'fas fa-folder-open', User::class);
-        yield MenuItem::linkToCrud('Permanence', 'fas fa-folder-open', Permanence::class);
-        yield MenuItem::linkToCrud('Workshop', 'fas fa-folder-open', Workshop::class);
-        yield MenuItem::linkToCrud('Topic', 'fas fa-tags', Topic::class);
-        yield MenuItem::linkToCrud('Skill', 'fas fa-tags', Skill::class);
-        yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-tags', ParticipantKind::class);
-        yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-tags', EquipmentSupplier::class);
-        yield MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-tags', AgeBreakpoint::class);
-        yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tags', UsedEquipment::class);
+        yield MenuItem::linkToCrud('Permanence', 'fas fa-home', Permanence::class);
+        yield MenuItem::linkToCrud('Workshop', 'fas fa-briefcase', Workshop::class);
+        yield MenuItem::subMenu('Dropdowns', 'fas fa-database')->setSubItems([
+            MenuItem::linkToCrud('Topic', 'fas fa-table', Topic::class),
+            MenuItem::linkToCrud('Skill', 'fas fa-table', Skill::class),
+            MenuItem::linkToCrud('ParticipantKind', 'fas fa-table', ParticipantKind::class),
+            MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-table', EquipmentSupplier::class),
+            MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-table', AgeBreakpoint::class),
+            MenuItem::linkToCrud('UsedEquipment', 'fas fa-table', UsedEquipment::class),
+        ]);
     }
 }
