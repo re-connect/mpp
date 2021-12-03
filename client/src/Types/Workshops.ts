@@ -8,21 +8,21 @@ import { UsedEquipment } from './UsedEquipments';
 
 export interface WorkshopInterface extends Entity {
   id?: number;
-  date: Date;
-  center: string;
-  globalReport: string;
-  nbParticipants: number;
-  nbBeneficiariesAccounts: number;
-  nbStoredDocs: number;
-  nbCreatedEvents: number;
-  nbCreatedContacts: number;
-  nbCreatedNotes: number;
-  author: string;
-  usedVault: boolean;
-  participantKinds: ParticipantKind[];
-  equipmentSuppliers: EquipmentSupplier[];
-  ageBreakpoints: AgeBreakpoint[];
-  usedEquipments: UsedEquipment[];
-  topics: Topic[];
-  skills: Skill[];
+  date?: Date;
+  center?: string;
+  globalReport?: string;
+  nbParticipants?: number;
+  nbBeneficiariesAccounts?: number;
+  nbStoredDocs?: number;
+  nbCreatedEvents?: number;
+  nbCreatedContacts?: number;
+  nbCreatedNotes?: number;
+  author?: string;
+  usedVault?: boolean;
+  participantKinds?: ParticipantKind[];
+  equipmentSuppliers?: EquipmentSupplier[];
+  ageBreakpoints?: AgeBreakpoint[];
+  usedEquipments?: UsedEquipment[];
+  topics?: Topic[];
+  skills?: Skill[];
 }

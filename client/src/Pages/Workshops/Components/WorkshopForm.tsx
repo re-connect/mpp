@@ -1,109 +1,78 @@
 import { Checkbox, Chip, FormControlLabel, FormGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Formik, FormikProps } from 'formik';
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
-import AgeBreakpointsContext from '../../../Context/AgeBreakpointsContext';
-import EquipmentSuppliersContext from '../../../Context/EquipmentSuppliersContext';
-import ParticipantKindsContext from '../../../Context/ParticipantKindsContext';
-import TopicsContext from '../../../Context/TopicsContext';
-import UsedEquipmentsContext from '../../../Context/UsedEquipmentsContext';
-import UseFetchData from '../../../Hooks/UseFetchData';
-import UseFetchDataEffect from '../../../Hooks/UseFetchDataEffect';
-import {
-  ageBreakpointsEndpoint,
-  buildEntityEndpoint,
-  equipmentSuppliersEndpoint,
-  participantKindsEndpoint,
-  skillsEndpoint,
-  topicsEndpoint,
-  usedEquipmentsEndpoint
-} from '../../../Services/requests';
-import { Skill } from '../../../Types/Skills';
-import { Topic } from '../../../Types/Topics';
 import { WorkshopInterface } from '../../../Types/Workshops';
-
-const StyledForm = styled.form`
-  margin-bottom: 100px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  margin-top: 16px;
-`;
-
-const getSkillNameFromIri = (list: Skill[], iri: string) => {
-  const skill = list.find((item: Skill) => item['@id'] === iri);
-
-  return !skill ? '' : skill.name;
-}
-const getSkillsFromTopic = (topic: Topic | undefined) => undefined !== topic ? topic['skills'] : [];
-const getSkillsFromTopicIris = (topics: Topic[], iris: string[]) => iris.map(iri => getSkillsFromTopic(topics.find(topic => iri === topic['@id'])))
-.flat()
-.map((skill: Skill) => skill['@id']);
+import { useBoolean } from "react-hanger/array";
+import DropdownsContext from "../../../Context/DropdownsContext";
+import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from "../../../Services/dropdowns";
+import FormRow from "../../../Components/FormRow";
+import { useHistory } from "react-router-dom";
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
-} 
+  onSubmit: Function;
+}
 
-const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
+const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
+  const history = useHistory();
   const [selectedDate, setSelectedDate] = React.useState(new Date());
-  const {participantKinds, setParticipantKinds} = useContext(ParticipantKindsContext);
-  const {equipmentSuppliers, setEquipmentSuppliers} = useContext(EquipmentSuppliersContext);
-  const {ageBreakpoints, setAgeBreakpoints} = useContext(AgeBreakpointsContext);
-  const {usedEquipments, setUsedEquipments} = useContext(UsedEquipmentsContext);
-  const {topics, setTopics} = useContext(TopicsContext);
-  const [skills, setSkills] = React.useState<Skill[]>([]);
+  const [loading, loadingActions] = useBoolean(false);
+  const {dropdowns} = useContext(DropdownsContext);
+  const allSkills = getDropdownValues(dropdowns, 'skills');
+  const allSkillsArray = getDropdownOptionsArray(dropdowns, 'skills');
 
-  const entityUrl = buildEntityEndpoint(workshop);
-  const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
+  const addSkillsSuggestions = (skills: string[], topicIris: string[]) => {
+    const newSkills = skills;
+    topicIris.reduce((accumulator: any, topicIri: string) => ([
+        ...accumulator, ...allSkillsArray.filter((skill: any) => skill['topic']['@id'] === topicIri)]
+    ), []).forEach((topic: any) => {
+      if (!newSkills.includes(topic['@id'])) {
+        newSkills.push(topic['@id']);
+      }
+    });
 
-  UseFetchDataEffect(participantKindsEndpoint, (data: any) => setParticipantKinds(data['hydra:member']));
-  UseFetchDataEffect(equipmentSuppliersEndpoint, (data: any) => setEquipmentSuppliers(data['hydra:member']));
-  UseFetchDataEffect(ageBreakpointsEndpoint, (data: any) => setAgeBreakpoints(data['hydra:member']));
-  UseFetchDataEffect(usedEquipmentsEndpoint, (data: any) => setUsedEquipments(data['hydra:member']));
-  UseFetchDataEffect(topicsEndpoint, (data: any) => setTopics(data['hydra:member']));
-  UseFetchDataEffect(skillsEndpoint, (data: any) => setSkills(data['hydra:member']));
+    return newSkills;
+  }
 
   return (
     <Formik
       initialValues={workshop}
-      onSubmit={updateWorkshop}
+      onSubmit={async (data) => {
+        loadingActions.setTrue();
+        await onSubmit(data);
+        setTimeout(() => {
+          loadingActions.setFalse();
+          history.push(`/`);
+        }, 500);
+      }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
-        <StyledForm onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
-            <NumberField id='nbParticipants' label="Nombre de participants" handleChange={handleChange}/>
+            <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
+                         handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <MultiSelectField
               id="topics"
               label="Thèmes"
               value={values.topics}
-              setFieldValue={(_id: string, newValue: string[]) => {
-                setFieldValue('topics', newValue);
-                const newSkills = values.skills;
-                const topicSkills = getSkillsFromTopicIris(topics, newValue);
-                topicSkills.forEach((topicIri: string) => {
-                  if (!newSkills.includes(topicIri)) {
-                    newSkills.push(topicIri);
-                  }
-                });
-                setFieldValue('skills', newSkills);
+              setFieldValue={(_id: string, topicIris: string[]) => {
+                setFieldValue('topics', topicIris);
+                setFieldValue('skills', addSkillsSuggestions(values.skills, topicIris));
               }}
-              options={topics}
             />
           </FormRow>
           <FormRow>
             <div>
               {values.skills.map((skill: string) => (
-                <Chip key={skill} label={getSkillNameFromIri(skills, skill)} variant="outlined" onDelete={() =>
+                <Chip key={skill} label={getDropdownNameFromIri(allSkills, skill)} variant="outlined" onDelete={() =>
                   setFieldValue('skills', values.skills.filter((currentSkill: string) => currentSkill !== skill))}
                 />
               ))}
@@ -115,7 +84,6 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
               label="Types de participants"
               value={values.participantKinds}
               setFieldValue={setFieldValue}
-              options={participantKinds}
             />
           </FormRow>
           <FormRow>
@@ -124,7 +92,6 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
               label="Tranches d'âge"
               value={values.ageBreakpoints}
               setFieldValue={setFieldValue}
-              options={ageBreakpoints}
             />
           </FormRow>
           <FormRow>
@@ -133,7 +100,6 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
               label="Outils utilisés"
               value={values.usedEquipments}
               setFieldValue={setFieldValue}
-              options={usedEquipments}
             />
           </FormRow>
           <FormRow>
@@ -142,12 +108,11 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
               label="Equipement fourni par"
               value={values.equipmentSuppliers}
               setFieldValue={setFieldValue}
-              options={equipmentSuppliers}
             />
           </FormRow>
           <FormRow>
             <TextField
-              id='globalReport'
+              value={values.globalReport}
               label="Bilan global"
               name='globalReport'
               type='text'
@@ -167,25 +132,37 @@ const WorkshopForm:React.FC<WorkshopFormProps> = ({ workshop }) => {
                   }}
                   color='primary'
                 />
-              } label='Coffre-fort numérique'/>
+              } label={<span style={{color: 'white'}}>Coffre-fort numérique</span>}/>
           </FormRow>
           {!values.usedVault ? null : (
             <FormGroup>
               <FormRow>
-                <NumberField id='nbBeneficiariesAccounts' label="Nombre de cfn crées" handleChange={handleChange}/>
-                <NumberField id='nbStoredDocs' label="Nombre de documents stockés" handleChange={handleChange}/>
+                <NumberField id="nbBeneficiariesAccounts" value={values.nbBeneficiariesAccounts}
+                             label="Nombre de cfn crées"
+                             handleChange={handleChange}/>
+                <NumberField id="nbStoredDocs" value={values.nbStoredDocs} label="Nombre de documents stockés"
+                             handleChange={handleChange}/>
               </FormRow>
               <FormRow>
-                <NumberField id='nbCreatedEvents' label="Évènements ajoutés" handleChange={handleChange}/>
-                <NumberField id='nbCreatedContacts' label="Contacts ajoutés" handleChange={handleChange}/>
-                <NumberField id='nbCreatedNotes' label="Notes ajoutées" handleChange={handleChange}/>
+                <NumberField id="nbCreatedEvents" value={values.nbCreatedEvents} label="Évènements ajoutés"
+                             handleChange={handleChange}/>
+                <NumberField id="nbCreatedContacts" value={values.nbCreatedContacts} label="Contacts ajoutés"
+                             handleChange={handleChange}/>
+                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="Notes ajoutées"
+                             handleChange={handleChange}/>
               </FormRow>
             </FormGroup>
           )}
           <FormRow>
-            <Button variant='contained' color='primary' type='submit'>Mettre à jour</Button>
+            {loading
+              ?
+              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto'}}><CircularProgress
+                size={20}/></Button>
+              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>
+                {workshop.id ? "Mettre à jour" : "Créer"}</Button>
+            }
           </FormRow>
-        </StyledForm>
+        </form>
       )}
     />
   );

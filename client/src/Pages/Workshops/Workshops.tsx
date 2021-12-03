@@ -1,8 +1,7 @@
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Fab, Typography } from '@material-ui/core';
+import { Container, Fab, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Pagination from '@material-ui/lab/Pagination';
 import React, { useContext } from 'react';
-import { useBoolean } from 'react-hanger';
 import { useNumber } from 'react-hanger/array';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,7 +10,6 @@ import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseQueryParams from '../../Hooks/UseQueryParams';
 import { centersEndpoint, paginationCount, workshopsEndpoint } from '../../Services/requests';
 import { Center } from '../../Types/Center';
-import CreateWorkshopForm from './Components/CreateWorkshopForm';
 import Workshop from './Workshop';
 
 const StyledContent = styled.div`
@@ -25,7 +23,7 @@ const WorkshopsTitle = styled(Typography)`
   flex: 1;
 `;
 
-const AddNoteIcon = styled(Fab)`
+const TopRightIcon = styled(Fab)`
   position: absolute;
   right: 0;
 `;
@@ -38,9 +36,8 @@ const PaginationContainer = styled.div`
 `;
 
 const Workshops = () => {
-  const [center, setCenter] = React.useState<Center|null>(null);
+  const [center, setCenter] = React.useState<Center | null>(null);
   const history = useHistory();
-  const isModalOpen = useBoolean(false);
   const {centerId} = useParams();
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const [workshopsCount, workshopsCountActions] = useNumber(0);
@@ -55,27 +52,11 @@ const Workshops = () => {
   });
 
   const changePage = async (event: any, value: any) => {
-    history.push(`/workshops/${centerId}?page=${null === value ? '1' : value}`)
+    history.push(`/centers/${centerId}/workshops?page=${null === value ? '1' : value}`)
   }
 
   return (
     <Container maxWidth='sm'>
-      <Dialog
-        fullScreen
-        open={isModalOpen.value}
-        onClose={isModalOpen.setFalse}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Créer un atelier</DialogTitle>
-        <DialogContent>
-          <CreateWorkshopForm centerId={centerId} closeModal={isModalOpen.setFalse}/>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={isModalOpen.setFalse} color='primary'>
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
       {center === null ? null : (
         <StyledContent>
           <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
@@ -83,19 +64,21 @@ const Workshops = () => {
           </WorkshopsTitle>
           <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
         </StyledContent>
-          )
+      )
       }
       <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
         Ateliers
       </WorkshopsTitle>
-      <AddNoteIcon
-        size='medium'
-        color='primary'
-        aria-label='add'
-        onClick={isModalOpen.setTrue}
-      >
-        <AddIcon/>
-      </AddNoteIcon>
+      {center === null ? null : (
+        <TopRightIcon
+          size='medium'
+          color='primary'
+          aria-label='add'
+          onClick={() => history.push(`/centers/${center.id}/create-workshop`)}
+        >
+          <AddIcon/>
+        </TopRightIcon>
+      )}
       <PaginationContainer>
         <Pagination
           count={pagesCount}
@@ -104,7 +87,7 @@ const Workshops = () => {
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
-        <Workshop key={workshop.id} workshop={workshop}/>
+        <Workshop key={workshop['@id']} workshop={workshop}/>
       ))}
     </Container>
   );

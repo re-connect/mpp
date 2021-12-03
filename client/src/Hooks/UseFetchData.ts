@@ -1,19 +1,14 @@
 import { Method } from 'axios';
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeRequest } from '../Services/requests';
 
-export default (endpoint: string, callback: Function|null, method: Method = 'get') => {
-  const history = useHistory();
-  
-  return React.useCallback(async (body) => {
-    try {
-      const { data } = await makeRequest(history, endpoint, method, body);
-      if (null !== callback) {
-        callback(data);
-      }
-    } catch (e) {
-      history.push("/login");
+export default (endpoint: string, callback: Function | null, method: Method = 'get') => React.useCallback(async (body) => {
+  try {
+    const {data} = await makeRequest(endpoint, method, body);
+    if (null !== callback) {
+      callback(data);
     }
-  }, [history, endpoint]);
-}
+  } catch (e) {
+    console.log('Error making http call', endpoint, e.message);
+  }
+}, [endpoint]);

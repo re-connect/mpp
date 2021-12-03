@@ -34,6 +34,7 @@ class Skill
 
     /**
      * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="skills")
+     * @Groups({"read"})
      */
     private ?Topic $topic;
 

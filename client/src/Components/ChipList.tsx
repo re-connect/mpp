@@ -1,10 +1,24 @@
 import { Chip } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
+import DropdownsContext from "../Context/DropdownsContext";
+import { getDropdownNameFromIri, getDropdownValues } from "../Services/dropdowns";
 
-const ChipList = ({list}: any) => {
-  return (list.map((listItem: any) => (
-    <Chip key={listItem.id} label={listItem.name} variant='outlined'/>
-  )));
-};
+interface ChipListProps {
+  list: string[];
+  dropdownKind?: string;
+}
+
+const ChipList: React.FC<ChipListProps> = ({list, dropdownKind}) => {
+  const {dropdowns} = useContext(DropdownsContext);
+  const dropdown = !dropdownKind ? {} : getDropdownValues(dropdowns, dropdownKind);
+
+  return (
+    <>
+      {list.map((listItem: string) => (
+        <Chip key={listItem} label={getDropdownNameFromIri(dropdown, listItem)} variant='outlined'/>
+      ))}
+    </>
+  );
+}
 
 export default ChipList;
