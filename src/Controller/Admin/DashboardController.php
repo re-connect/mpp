@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\AgeBreakpoint;
 use App\Entity\Center;
 use App\Entity\CenterTag;
+use App\Entity\Duration;
 use App\Entity\EquipmentSupplier;
 use App\Entity\ParticipantKind;
 use App\Entity\Permanence;
@@ -63,5 +64,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-tags', EquipmentSupplier::class);
         yield MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-tags', AgeBreakpoint::class);
         yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tags', UsedEquipment::class);
+        yield MenuItem::linkToCrud('Duration', 'fas fa-tags', Duration::class);
     }
 }
