@@ -7,9 +7,7 @@ const DropdownSingleValue = ({iri, dropdownKind}: any) => {
   const dropdown = !dropdownKind ? {} : getDropdownValues(dropdowns, dropdownKind);
 
   return (
-    <>
       <span>{getDropdownNameFromIri(dropdown, iri)}</span>
-    </>
   );
 }
 

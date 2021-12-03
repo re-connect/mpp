@@ -21,9 +21,7 @@ const Workshop = ({workshop}: any) => (
       <Typography>
         Nombre de participants : {workshop.nbParticipants}
       </Typography>
-      <div>
         Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
-      </div>
       <div>
         Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
       </div>
