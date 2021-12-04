@@ -18,7 +18,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
-import { adminLoginEndpoint, centersEndpoint, tagsEndpoint } from "../Services/requests";
+import { adminEndpoint, centersEndpoint, logoutEndpoint, makeRequest, tagsEndpoint } from "../Services/requests";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -57,7 +57,6 @@ const Logout = styled(Button)`
 const Admin = styled(Button)`
   position: absolute !important;
   left: 50px;
-
   top: 10px;
 `;
 
@@ -89,16 +88,15 @@ const Home = () => {
   return (
     <Container maxWidth="md">
       <StyledContent>
-        <Logout onClick={() => {
-          localStorage.removeItem("token");
-          history.push("/login")
+        <Logout onClick={async () => {
+          await makeRequest(logoutEndpoint);
+          window.location.replace(`/`);
         }}>
           Déconnexion
         </Logout>
         <Admin
           onClick={() => {
-            const token = localStorage.getItem("token");
-            window.location.replace(`${adminLoginEndpoint}?token=${token}`);
+            window.location.replace(adminEndpoint);
           }}
         >
           Admin
@@ -110,13 +108,13 @@ const Home = () => {
           Centres
         </Typography>
         <StyledChipsContainer>
-          {tags.map((tag: any) => (
+          {!tags ? null : tags.map((tag: any) => (
             <Chip key={tag.id} label={tag.name} clickable color="secondary" onClick={() => onClickTag(tag.id)}/>
           ))}
         </StyledChipsContainer>
         <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
         <List dense={false}>
-          {filteredCenters.map((center: any) => (
+          {!filteredCenters ? null : filteredCenters.map((center: any) => (
             <ListItem key={center.id}>
               <ListItemIcon>
                 <HotelIcon htmlColor="white"/>

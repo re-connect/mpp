@@ -53,7 +53,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToLogout('logout', 'fas fa-sign-out-alt text-danger')->setCssClass('text-danger');
+        yield MenuItem::linkToLogout('Logout', 'fas fa-sign-out-alt text-danger')->setCssClass('text-danger');
         yield MenuItem::section();
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Center', 'fas fa-home', Center::class);

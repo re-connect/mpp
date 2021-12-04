@@ -4,71 +4,45 @@
 namespace App\Controller;
 
 
-use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Security\LoginFormAuthenticator;
-use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Firebase\JWT\JWT;
-use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use function in_array;
-use function json_decode;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): Response
+    {
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+    }
+
     /**
      * @Route("/", name="home", methods={"GET"})
      */
     public function home(): RedirectResponse
     {
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('login');
     }
 
     /**
-     * @Route("/admin_login", name="admin_login", methods={"GET"})
+     * @Route("/login", name="login", methods={"GET", "POST"})
      */
-    public function adminLogin(Request $request, JWTEncoderInterface $encoder, EntityManagerInterface $em, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        $token = $request->get('token');
-        if ($token === null) throw $this->createAccessDeniedException();
-        try {
-            $credentials = $encoder->decode($token);
-            if ($credentials === false || $credentials === null) throw $this->createAccessDeniedException();
-            $username = $credentials['username'];
-            if ($username === null) throw $this->createAccessDeniedException();
-            $user = $em->getRepository(User::class)->findOneBy(['email' => $username]);
-            if ($user === null) throw $this->createAccessDeniedException();
-            if (!in_array('ROLE_ADMIN', $user->getRoles())) throw $this->createAccessDeniedException();
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main'
-            );
-        } catch (Exception $exception) {
-            throw $this->createAccessDeniedException();
-        }
-    }
-
-    /**
-     * @Route("/login", name="login", methods={"POST"})
-     */
-    public function login(): Response
-    {
-        $user = $this->getUser();
-
-        return $this->json([
-            'username' => $user->getUsername(),
-            'roles' => $user->getRoles(),
-        ]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
@@ -91,7 +65,7 @@ class SecurityController extends AbstractController
      */
     public function oauthCheck(Request $request, UserRepository $userRepository, AuthenticationSuccessHandler $handler): RedirectResponse
     {
-        $token = $request->get('code');
+        $token = $request->query->get('code');
         $key = file_get_contents(dirname(__DIR__).'/../var/oauth/public.key');
         $decodedToken = JWT::decode($token, $key, ['RS256']);
         $tokenArray = (array) $decodedToken;

@@ -3,12 +3,10 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import LinkIcon from "@material-ui/icons/Link";
 import { Formik, FormikProps } from "formik";
-import queryString from "query-string";
 import * as React from "react";
-import {withRouter} from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
-import { backendUrl, loginEndpoint } from "../Services/requests";
+import { backendUrl, loginEndpoint, makeRequest } from "../Services/requests";
 import logo from "../Images/logo.png";
 import { Typography } from "@material-ui/core";
 
@@ -32,20 +30,11 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-const Login: any = withRouter(({history, location}: any) => {
-  let params = queryString.parse(location.search);
-  if (params && params.token && typeof params.token === "string") {
-    localStorage.setItem("token", params.token.toString());
+const Login: React.FC = () => {
+  const history = useHistory();
+  const login = async (values: Object) => {
+    await makeRequest(loginEndpoint, "POST", values);
     history.push("/");
-  }
-
-  const login = (email: string, password: string) => {
-    axios
-      .post(loginEndpoint, {email, password})
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        history.push("/");
-      });
   };
 
   return (
@@ -63,9 +52,7 @@ const Login: any = withRouter(({history, location}: any) => {
       </StyledImageContainer>
       <Formik
         initialValues={{email: "", password: ""}}
-        onSubmit={values => {
-          login(values.email, values.password);
-        }}
+        onSubmit={login}
         render={(props: FormikProps<any>) => (
           <StyledForm onSubmit={props.handleSubmit}>
             <TextField
@@ -109,6 +96,6 @@ const Login: any = withRouter(({history, location}: any) => {
       />
     </Container>
   );
-});
+};
 
 export default Login;

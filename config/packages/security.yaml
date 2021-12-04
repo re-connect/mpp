@@ -1,5 +1,5 @@
 security:
-    enable_authenticator_manager: false
+    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         App\Entity\User: 'auto'
@@ -19,27 +19,9 @@ security:
         oauth_trigger:
             pattern: ^/oauth/trigger
             security: false
-        admin_login:
-            pattern: ^/admin_login
-            security: false
-        api:
-            pattern: ^/api/
-            stateless: true
-            anonymous: true
-            provider: app_user_provider
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
-            anonymous: true
-            json_login:
-                check_path: login
-                username_path: email
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: App\Handler\AuthenticationFailHandler
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthenticator
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -53,10 +35,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth/check,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth/trigger,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/docs, roles: PUBLIC_ACCESS }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/oauth/check,       roles: PUBLIC_ACCESS }
+        - { path: ^/oauth/trigger,       roles: PUBLIC_ACCESS }
         - { path: ^/admin,       roles: ROLE_ADMIN }
-        - { path: ^/admin_login,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
