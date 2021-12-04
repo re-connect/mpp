@@ -13,12 +13,6 @@ security:
         dev:
             pattern: ^/_(profiler|wdt)
             security: false
-        oauth_check:
-            pattern: ^/oauth/check
-            security: false
-        oauth_trigger:
-            pattern: ^/oauth/trigger
-            security: false
         main:
             custom_authenticators:
                 - App\Security\LoginFormAuthenticator

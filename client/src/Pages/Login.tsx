@@ -4,9 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import LinkIcon from "@material-ui/icons/Link";
 import { Formik, FormikProps } from "formik";
 import * as React from "react";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { backendUrl, loginEndpoint, makeRequest } from "../Services/requests";
+import { loginEndpoint, makeRequest, oauthEndpoint } from "../Services/requests";
 import logo from "../Images/logo.png";
 import { Typography } from "@material-ui/core";
 
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
               color="primary"
               variant="contained"
               style={{marginTop: 50, marginBottom: 100, fontSize: 20}}
-              href={`${backendUrl}/oauth/trigger`}
+              href={oauthEndpoint}
             >
               <LinkIcon style={{marginRight: 20}}/>
               Me connecter avec Reconnect Pro

@@ -5,14 +5,15 @@ namespace App\Controller;
 
 
 use App\Repository\UserRepository;
+use App\Security\LoginFormAuthenticator;
 use Firebase\JWT\JWT;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -63,22 +64,17 @@ class SecurityController extends AbstractController
     /**
      * @Route("/oauth/check", name="oauth_check", methods={"GET"})
      */
-    public function oauthCheck(Request $request, UserRepository $userRepository, AuthenticationSuccessHandler $handler): RedirectResponse
+    public function oauthCheck(Request $request, UserRepository $userRepository, LoginFormAuthenticator $authenticator, UserAuthenticatorInterface $userAuthenticator): RedirectResponse
     {
-        $token = $request->query->get('code');
         $key = file_get_contents(dirname(__DIR__).'/../var/oauth/public.key');
-        $decodedToken = JWT::decode($token, $key, ['RS256']);
+        $decodedToken = JWT::decode($request->query->get('code'), $key, ['RS256']);
         $tokenArray = (array) $decodedToken;
-        $email = $tokenArray['user_id'];
-        $user = $userRepository->findOneBy(['email' => $email]);
+        $user = $userRepository->findOneBy(['email' => $tokenArray['user_id']]);
 
-        if (null === $user) {
-            return new RedirectResponse($_ENV['FRONTEND_URL']);
+        if (null !== $user) {
+            $userAuthenticator->authenticateUser($user, $authenticator, $request);
         }
-        $response = $handler->handleAuthenticationSuccess($user);
-        $responseData = (array) json_decode($response->getContent());
-        $token = $responseData['token'];
 
-        return new RedirectResponse($_ENV['FRONTEND_URL'].'/login?token='.$token);
+        return new RedirectResponse($_ENV['FRONTEND_URL']);
     }
 }

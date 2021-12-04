@@ -4,6 +4,7 @@ import { Entity } from '../Types/Entity';
 export const backendUrl =
   process.env.NODE_ENV === 'production' ? 'https://api.mpp.reconnect.fr' : 'https://localhost:8000';
 
+export const oauthEndpoint = `${backendUrl}/oauth/trigger`;
 export const adminEndpoint = `${backendUrl}/admin`;
 export const apiEndpoint = `${backendUrl}/api`;
 export const centersEndpoint = `${apiEndpoint}/centers`;
