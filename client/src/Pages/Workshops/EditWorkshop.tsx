@@ -13,7 +13,7 @@ const EditWorkshop = () => {
   const entityUrl = !workshop ? '' : buildEntityEndpoint(workshop);
 
   UseFetchDataEffect(`${workshopsEndpoint}/${parseInt(workshopId)}`, setWorkshop);
-  const updateWorkshop = UseFetchData(entityUrl, null, 'PUT');
+  const updateWorkshop = UseFetchData(entityUrl, () => {}, 'PUT');
 
   return (
     <Container maxWidth='sm'>
