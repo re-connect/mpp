@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
 import ChipList from '../../Components/ChipList';
+import DropdownSingleValue from '../../Components/DropdownSingleValue';
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
@@ -15,8 +16,12 @@ const Workshop = ({workshop}: any) => (
         Date : {format(new Date(workshop.date), 'dd-MM-yyyy')}
       </Typography>
       <Typography>
+        Qui a animé l'atelier : {workshop.attendees}
+      </Typography>
+      <Typography>
         Nombre de participants : {workshop.nbParticipants}
       </Typography>
+        Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
       <div>
         Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
       </div>
@@ -42,6 +47,9 @@ const Workshop = ({workshop}: any) => (
       </div>
       <Typography>
         Bilan global : {workshop.globalReport}
+      </Typography>
+      <Typography>
+        Axes d'amélioration : {workshop.improvementAxis}
       </Typography>
       {!workshop.usedVault ? null : (
         <div>

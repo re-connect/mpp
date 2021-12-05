@@ -13,6 +13,7 @@ import DropdownsContext from "../../../Context/DropdownsContext";
 import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from "../../../Services/dropdowns";
 import FormRow from "../../../Components/FormRow";
 import { useHistory } from "react-router-dom";
+import SelectField from '../../../Components/SelectField';
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
@@ -57,6 +58,24 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
             <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
                          handleChange={handleChange}/>
+          </FormRow>
+          <FormRow>
+            <SelectField
+            id='duration'
+            label='Durée'
+            value={values.duration}
+            setFieldValue={setFieldValue}
+            required={true}
+            />
+            <TextField
+              value={values.attendees}
+              label="Qui a animé l'atelier"
+              name='attendees'
+              type='text'
+              variant='outlined'
+              onChange={handleChange}
+              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+            />
           </FormRow>
           <FormRow>
             <MultiSelectField
@@ -115,6 +134,18 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               value={values.globalReport}
               label="Bilan global"
               name='globalReport'
+              type='text'
+              variant='outlined'
+              multiline rows='4'
+              onChange={handleChange}
+              style={{flex: 1}}
+            />
+          </FormRow>
+          <FormRow>
+            <TextField
+              value={values.improvementAxis}
+              label="Axes d'amélioration"
+              name='improvementAxis'
               type='text'
               variant='outlined'
               multiline rows='4'

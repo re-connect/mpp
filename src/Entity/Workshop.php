@@ -142,6 +142,25 @@ class Workshop
      */
     private ?Collection $skills;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"workshop:read", "write"})
+     */
+    private ?string $attendees;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"workshop:read", "write"})
+     */
+    private ?string $improvementAxis;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Duration::class, inversedBy="workshops")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"workshop:read", "write"})
+     */
+    private ?Duration $duration;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -444,6 +463,42 @@ class Workshop
     public function removeSkill(Skill $skill): self
     {
         $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getAttendees(): ?string
+    {
+        return $this->attendees;
+    }
+
+    public function setAttendees(string $attendees): self
+    {
+        $this->attendees = $attendees;
+
+        return $this;
+    }
+
+    public function getImprovementAxis(): ?string
+    {
+        return $this->improvementAxis;
+    }
+
+    public function setImprovementAxis(?string $improvementAxis): self
+    {
+        $this->improvementAxis = $improvementAxis;
+
+        return $this;
+    }
+
+    public function getDuration(): ?Duration
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?Duration $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

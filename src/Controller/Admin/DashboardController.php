@@ -5,10 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\AgeBreakpoint;
 use App\Entity\Center;
 use App\Entity\CenterTag;
+use App\Entity\Duration;
 use App\Entity\EquipmentSupplier;
 use App\Entity\ParticipantKind;
 use App\Entity\Permanence;
-use App\Entity\Project;
 use App\Entity\Skill;
 use App\Entity\Topic;
 use App\Entity\UsedEquipment;
@@ -69,6 +69,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-table', EquipmentSupplier::class),
             MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-table', AgeBreakpoint::class),
             MenuItem::linkToCrud('UsedEquipment', 'fas fa-table', UsedEquipment::class),
+            MenuItem::linkToCrud('UsedEquipment', 'fas fa-tags', UsedEquipment::class),
+            MenuItem::linkToCrud('Duration', 'fas fa-tags', Duration::class),
         ]);
     }
 }

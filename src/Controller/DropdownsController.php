@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Repository\AgeBreakpointRepository;
+use App\Repository\DurationRepository;
 use App\Repository\EquipmentSupplierRepository;
 use App\Repository\ParticipantKindRepository;
 use App\Repository\SkillRepository;
@@ -25,7 +26,8 @@ class DropdownsController extends AbstractController
         AgeBreakpointRepository     $ageBreakpointRepository,
         UsedEquipmentRepository     $usedEquipmentRepository,
         TopicRepository             $topicRepository,
-        SkillRepository             $skillRepository
+        SkillRepository             $skillRepository,
+        DurationRepository          $durationRepository
     ): Response {
         $dropdowns = [];
         $repositories = [
@@ -35,6 +37,7 @@ class DropdownsController extends AbstractController
             'ageBreakpoints' => $ageBreakpointRepository,
             'usedEquipments' => $usedEquipmentRepository,
             'skills' => $skillRepository,
+            'durations' => $durationRepository,
         ];
 
         foreach ($repositories as $key => $repository) {
