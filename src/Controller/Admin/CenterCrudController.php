@@ -34,14 +34,9 @@ class CenterCrudController extends AbstractCrudController
         $workshop = BooleanField::new('workshop');
         $permanence = BooleanField::new('permanence');
 
-        if (Crud::PAGE_INDEX === $pageName) {
+        if (Crud::PAGE_INDEX === $pageName || Crud::PAGE_DETAIL === $pageName) {
             return [$id, $name, $notes, $tags, $workshop, $permanence];
-        } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $notes, $tags, $workshop, $permanence];
-        } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$name, $tags, $workshop, $permanence];
-        } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$name, $tags, $workshop, $permanence];
         }
+        return [$name, $tags, $workshop, $permanence];
     }
 }

@@ -3,13 +3,12 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import {Formik, FormikProps} from 'formik';
+import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import superagent, {Response} from 'superagent';
 import NotesContext from '../../../Context/NotesContext';
-import { notesEndpoint } from '../../../Services/requests';
+import { makeRequest, notesEndpoint } from '../../../Services/requests';
 
 const StyledForm = styled.form`
   margin-bottom: 100px;
@@ -34,26 +33,15 @@ export interface NoteInterface {
   reconnectNotes: string;
 }
 
-const EditNoteForm: any = withRouter(({history, centerId, closeModal, note}: any) => {
+const EditNoteForm: any = withRouter(({centerId, closeModal, note}: any) => {
   const {setNotes, notes} = React.useContext(NotesContext);
 
-  const update = (note: NoteInterface) => {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
-      superagent
-        .put(`${notesEndpoint}/${note.id}`)
-        .send(note)
-        .set('Authorization', `Bearer ${token}`)
-        .then((response: Response) => {
-          closeModal();
-          setNotes(notes.map((note: any) => {
-            return note.id === response.body.id ? response.body : note;
-          }))
-        });
-    } else {
-      alert('Il semble que vous ne soyez pas connecté, veuillex vous reconnecter');
-      history.push('/login');
-    }
+  const update = async (note: NoteInterface) => {
+    const response = await makeRequest(`${notesEndpoint}/${note.id}`, "PUT", note)
+    closeModal();
+    setNotes(notes.map((note: any) => {
+      return note.id === response.data.id ? response.data : note;
+    }))
   };
 
   const [selectedDate, setSelectedDate] = React.useState(new Date());

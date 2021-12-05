@@ -6,12 +6,14 @@ use App\Entity\Permanence;
 use App\Service\ExportService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Factory\FilterFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class NoteCrudController extends ExportableCrudController
 {
@@ -33,12 +35,10 @@ class NoteCrudController extends ExportableCrudController
         'author',
         'center',
     ];
-    private ExportService $exportsService;
 
-    public function __construct(ExportService $exportsService)
+    public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
     {
-        parent::__construct($exportsService, self::EXPORT_FIELDS);
-        $this->exportsService = $exportsService;
+        parent::__construct($exportsService, $adminContextProvider, $filterFactory, self::EXPORT_FIELDS);
     }
 
     public static function getEntityFqcn(): string

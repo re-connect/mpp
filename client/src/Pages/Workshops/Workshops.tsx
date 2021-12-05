@@ -62,7 +62,7 @@ const Workshops = () => {
           <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
             {center.name}
           </WorkshopsTitle>
-          <Typography>Nb d'ateliers : {center.workshops.length}</Typography>
+          <Typography>Nb d'ateliers : {!center.workshops ? 0 : center.workshops.length}</Typography>
         </StyledContent>
       )
       }

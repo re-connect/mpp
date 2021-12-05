@@ -41,9 +41,7 @@ class WorkshopCrudController extends AbstractCrudController
 
         if (Crud::PAGE_DETAIL === $pageName) {
             return [$id, $date, $topicPrecision, $nbParticipants, $participantKinds, $globalReport, $center, $author, $createdAt, $updatedAt];
-        } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$date, $topicPrecision, $nbParticipants, $participantKinds, $globalReport, $center, $author, $createdAt, $updatedAt];
-        } elseif (Crud::PAGE_EDIT === $pageName) {
+        } elseif (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
             return [$date, $topicPrecision, $nbParticipants, $participantKinds, $globalReport, $center, $author, $createdAt, $updatedAt];
         }
 
