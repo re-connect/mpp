@@ -73,6 +73,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               name='attendees'
               type='text'
               variant='outlined'
+              required={true}
               onChange={handleChange}
               style={{marginLeft: 8, marginRight: 8, flex: 1}}
             />
