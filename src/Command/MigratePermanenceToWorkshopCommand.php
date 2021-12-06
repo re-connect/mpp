@@ -64,6 +64,9 @@ class MigratePermanenceToWorkshopCommand extends Command
                         $workshop->setUsedVault(true);
                     }
                     $this->em->persist($workshop);
+                    $center->setPermanence(false)
+                        ->setWorkshop(true);
+                    $this->em->remove($permanence);
                 }
                 $this->em->flush();
                 $io->success('Migration executed');
