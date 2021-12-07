@@ -1,17 +1,32 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
+import {Card, CardContent, Fab, Typography} from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
 import ChipList from '../../Components/ChipList';
 import DropdownSingleValue from '../../Components/DropdownSingleValue';
+import EditIcon from "@material-ui/icons/Edit";
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
 `;
 
-const Workshop = ({workshop}: any) => (
+const EditWorkshop = styled(Fab)`
+  position: absolute !important;
+  right: 10px;
+  top: 10px;
+`;
+
+const Workshop = ({workshop, editWorkshop}: any) => (
   <StyledCard>
     <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
+      <EditWorkshop
+        size='small'
+        color='primary'
+        aria-label='add'
+        onClick={() => {editWorkshop(workshop)}}
+      >
+        <EditIcon/>
+      </EditWorkshop>
       <Typography color='textPrimary' gutterBottom>
         Date : {format(new Date(workshop.date), 'dd-MM-yyyy')}
       </Typography>
