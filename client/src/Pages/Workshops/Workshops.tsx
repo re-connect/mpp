@@ -11,7 +11,6 @@ import UseQueryParams from '../../Hooks/UseQueryParams';
 import { centersEndpoint, paginationCount, workshopsEndpoint } from '../../Services/requests';
 import { Center } from '../../Types/Center';
 import Workshop from './Workshop';
-import { getIdFromIri } from '../../Services/helpers';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -56,11 +55,6 @@ const Workshops = () => {
     history.push(`/centers/${centerId}/workshops?page=${null === value ? '1' : value}`)
   }
 
-  const editWorkshop = (workshop: any) => {
-    const workshopId = getIdFromIri(workshop['@id']);
-    history.push(`/workshop/${workshopId}/edit`);
-  }
-
   return (
     <Container maxWidth='sm'>
       {center === null ? null : (
@@ -93,7 +87,7 @@ const Workshops = () => {
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
-        <Workshop key={workshop['@id']} workshop={workshop} editWorkshop={editWorkshop}/>
+        <Workshop key={workshop['@id']} workshop={workshop}/>
       ))}
     </Container>
   );
