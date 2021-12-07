@@ -5,6 +5,8 @@ namespace App\Command;
 use App\Entity\Center;
 use App\Entity\Duration;
 use App\Entity\Workshop;
+use App\Repository\CenterRepository;
+use App\Repository\DurationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,11 +18,19 @@ class MigratePermanenceToWorkshopCommand extends Command
 {
     protected static $defaultName = 'app:migrate-permanences-to-workshops';
     private EntityManagerInterface $em;
+    private DurationRepository $durationRepository;
+    private CenterRepository $centerRepository;
 
-    public function __construct(EntityManagerInterface $em, string $name = null)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        DurationRepository $durationRepository,
+        CenterRepository $centerRepository,
+        string $name = null
+    ) {
         parent::__construct($name);
         $this->em = $em;
+        $this->durationRepository = $durationRepository;
+        $this->centerRepository = $centerRepository;
     }
 
     protected function configure(): void
@@ -36,10 +46,9 @@ class MigratePermanenceToWorkshopCommand extends Command
         $io->title('Migrate Permanences into Workshops');
         $centerId = $input->getArgument('center Id');
 
-        $center = $this->em->getRepository(Center::class)->find($centerId);
-        $durationRepository = $this->em->getRepository(Duration::class);
-        $allDurations = $durationRepository->findAll();
-        $defaultDuration = $durationRepository->findOneBy(['name' => 120]);
+        $center = $this->centerRepository->find($centerId);
+        $allDurations = $this->durationRepository->findAll();
+        $defaultDuration = $this->durationRepository->findOneBy(['name' => 120]);
 
         if (null === $center) {
             $io->error(sprintf('No center found for id %s', $centerId));
@@ -54,7 +63,13 @@ class MigratePermanenceToWorkshopCommand extends Command
                     ->setAuthor($permanence->getAuthor())
                     ->setDate($permanence->getDate())
                     ->setNbParticipants($permanence->getNbBeneficiaries())
-                    ->setGlobalReport($permanence->getBeneficiariesNotes())
+                    ->setGlobalReport(
+                        sprintf('%s | %s | %s',
+                        $permanence->getBeneficiariesNotes(),
+                        $permanence->getProNotes(),
+                        $permanence->getReconnectNotes()
+                        )
+                    )
                     ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
                     ->setAttendees('' === $permanence->getAttendees()
                         ? $permanence->getAuthor()->getEmail()
