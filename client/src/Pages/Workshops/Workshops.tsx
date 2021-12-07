@@ -11,6 +11,7 @@ import UseQueryParams from '../../Hooks/UseQueryParams';
 import { centersEndpoint, paginationCount, workshopsEndpoint } from '../../Services/requests';
 import { Center } from '../../Types/Center';
 import Workshop from './Workshop';
+import { getIdFromIri } from '../../Services/helpers';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -56,7 +57,7 @@ const Workshops = () => {
   }
 
   const editWorkshop = (workshop: any) => {
-    const workshopId = workshop['@id'].match(/\d+/);
+    const workshopId = getIdFromIri(workshop['@id']);
     history.push(`/workshop/${workshopId}/edit`);
   }
 
