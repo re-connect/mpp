@@ -45,7 +45,7 @@ const Workshop = ({workshop}: any) => (
       <div>
         Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
       </div>
-      <Typography>
+      <Typography style={{whiteSpace: "pre-line"}}>
         Bilan global : {workshop.globalReport}
       </Typography>
       <Typography>
