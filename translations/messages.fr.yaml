@@ -1,4 +1,5 @@
 AgeBreakpoint: Tranches d'âge
+Age Breakpoints: Tranches d'âge
 Attendees: Participants
 Author: Créateur
 attendees: Participants
@@ -16,6 +17,7 @@ Date: Date
 Duration: Durée
 date: Date
 EquipmentSupplier: Equipement fourni par
+Equipment Suppliers: Equipement fourni par
 export: Exporter
 field_format_unknown: Format du champ inconnu
 Global Report: Bilan global
@@ -23,9 +25,13 @@ Hours: Heures
 hours: Heures
 ID: Id
 id: Id
+Improvement Axis: Axes d'amélioration
 Name: Nom
 Nb Beneficiaries Accounts: Nb Comptes Bénef
 Nb Beneficiaries: Nb Bénef
+Nb Created Contacts: Nb de contacts créés
+Nb Created Events: Nb d'événements créés
+Nb Created Notes: Nb de notes créées
 Nb Pro Accounts: Nb Comptes Pro
 Nb Pros: Nb Pros
 Nb Stored Docs: Nb docs stockés
@@ -37,8 +43,9 @@ nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés
 nbStoredDocs: Nombre de documents stockés
-Participant Kind: Type de participants
-ParticipantKind: Type de participants
+Participant Kind: Types de participants
+ParticipantKind: Types de participants
+Participant Kinds: Types de participants
 proNotes: Remarques concernant les bénéficiaires
 Password: Mot de passe
 Project: Projet
@@ -52,10 +59,12 @@ Skills: Compétences
 Tag: Label
 Tags: Labels
 Topic: Thème
+Topics: Thèmes
 Topic Precision: Précisions sur le thème
 Updated At: Date de dernière mise à jour
 UpdatedAt: Date de mise à jour
 UsedEquipment: Outils utilisés
+Used Equipments: Outils utilisés
 User: Utilisateurs
 unfilled: Non renseigné
 updatedAt: Date de mise à jour
