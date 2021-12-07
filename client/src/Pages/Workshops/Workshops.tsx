@@ -55,6 +55,11 @@ const Workshops = () => {
     history.push(`/centers/${centerId}/workshops?page=${null === value ? '1' : value}`)
   }
 
+  const editWorkshop = (workshop: any) => {
+    const workshopId = workshop['@id'].match(/\d+/);
+    history.push(`/workshop/${workshopId}/edit`);
+  }
+
   return (
     <Container maxWidth='sm'>
       {center === null ? null : (
@@ -87,7 +92,7 @@ const Workshops = () => {
         />
       </PaginationContainer>
       {workshops.map((workshop: any) => (
-        <Workshop key={workshop['@id']} workshop={workshop}/>
+        <Workshop key={workshop['@id']} workshop={workshop} editWorkshop={editWorkshop}/>
       ))}
     </Container>
   );
