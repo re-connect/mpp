@@ -49,7 +49,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();
-          history.push(`/`);
+          history.goBack();
         }, 500);
       }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
