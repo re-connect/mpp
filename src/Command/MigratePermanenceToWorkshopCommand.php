@@ -17,7 +17,7 @@ class MigratePermanenceToWorkshopCommand extends Command
     protected static $defaultName = 'app:migrate-permanences-to-workshops';
     private EntityManagerInterface $em;
 
-    public function __construct(string $name = null, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, string $name = null)
     {
         parent::__construct($name);
         $this->em = $em;
@@ -36,56 +36,62 @@ class MigratePermanenceToWorkshopCommand extends Command
         $io->title('Migrate Permanences into Workshops');
         $centerId = $input->getArgument('center Id');
 
-        if ($io->confirm('Are you sure you want to migrate permanences from center ' . $centerId)) {
-            $center = $this->em->getRepository(Center::class)->find($centerId);
+        $center = $this->em->getRepository(Center::class)->find($centerId);
+        $durationRepository = $this->em->getRepository(Duration::class);
+        $allDurations = $durationRepository->findAll();
+        $defaultDuration = $durationRepository->findOneBy(['name' => 120]);
 
-            if (null !== $center) {
-                foreach ($center->getNotes() as $permanence) {
-                    $workshop = new Workshop();
-                    $workshop->setCenter($center)
-                        ->setAuthor($permanence->getAuthor())
-                        ->setDate($permanence->getDate())
-                        ->setNbParticipants($permanence->getNbBeneficiaries())
-                        ->setGlobalReport($permanence->getBeneficiariesNotes())
-                        ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
-                        ->setAttendees('' === $permanence->getAttendees()
-                            ? $permanence->getAuthor()->getEmail()
-                            : $permanence->getAttendees())
-                        ->setDuration($this->findWorkshopDuration($permanence->getHours()))
-                        ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
-                        ->setNbStoredDocs($permanence->getNbStoredDocs())
-                        ->setNbCreatedEvents(0)
-                        ->setNbCreatedContacts(0)
-                        ->setNbCreatedNotes(0)
-                        ->setCreatedAt($permanence->getCreatedAt())
-                        ->setUpdatedAt($permanence->getUpdatedAt());
+        if (null === $center) {
+            $io->error(sprintf('No center found for id %s', $centerId));
 
-                    if ($permanence->getNbBeneficiariesAccounts() > 0 || $permanence->getNbStoredDocs() > 0) {
-                        $workshop->setUsedVault(true);
-                    }
-                    $this->em->persist($workshop);
-                    $center->setPermanence(false)
-                        ->setWorkshop(true);
-                    $this->em->remove($permanence);
-                }
-                $this->em->flush();
-                $io->success('Migration executed');
-            }
+            return Command::FAILURE;
         }
+
+        if ($io->confirm(sprintf('Are you sure you want to migrate permanences from center : %s', $center->getName()))) {
+            foreach ($center->getNotes() as $permanence) {
+                $workshop = new Workshop();
+                $workshop->setCenter($center)
+                    ->setAuthor($permanence->getAuthor())
+                    ->setDate($permanence->getDate())
+                    ->setNbParticipants($permanence->getNbBeneficiaries())
+                    ->setGlobalReport($permanence->getBeneficiariesNotes())
+                    ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
+                    ->setAttendees('' === $permanence->getAttendees()
+                        ? $permanence->getAuthor()->getEmail()
+                        : $permanence->getAttendees())
+                    ->setDuration($this->findWorkshopDuration($allDurations, $permanence->getHours(), $defaultDuration))
+                    ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
+                    ->setNbStoredDocs($permanence->getNbStoredDocs())
+                    ->setNbCreatedEvents(0)
+                    ->setNbCreatedContacts(0)
+                    ->setNbCreatedNotes(0)
+                    ->setCreatedAt($permanence->getCreatedAt())
+                    ->setUpdatedAt($permanence->getUpdatedAt());
+
+                if ($permanence->getNbBeneficiariesAccounts() > 0 || $permanence->getNbStoredDocs() > 0) {
+                    $workshop->setUsedVault(true);
+                }
+
+                $this->em->persist($workshop);
+                $center->setPermanence(false)
+                    ->setWorkshop(true);
+                $this->em->remove($permanence);
+            }
+            $this->em->flush();
+            $io->success('Migration executed');
+        }
+
         return Command::SUCCESS;
     }
 
-    private function findWorkshopDuration(int $permDuration): Duration
+    private function findWorkshopDuration(array $allDurations, int $permDuration, Duration $defaultDuration): Duration
     {
-        $durationRepository = $this->em->getRepository(Duration::class);
-        $result = null;
-
-        foreach ($durationRepository->findAll() as $duration) {
-            if ($duration->getName() === ($permDuration*60)) {
-                $result = $duration;
+        foreach ($allDurations as $duration) {
+            if ($duration->getName() === ($permDuration * 60)) {
+                return $duration;
             }
         }
 
-        return null === $result ? $durationRepository->findOneBy(['name' => 120]) : $result;
+        return $defaultDuration;
     }
 }
