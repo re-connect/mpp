@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Workshop;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -16,6 +17,32 @@ class WorkshopCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Workshop::class;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('date')
+            ->add('nbParticipants')
+            ->add('globalReport')
+            ->add('topicPrecision')
+            ->add('author')
+            ->add('center')
+            ->add('participantKinds')
+            ->add('topics')
+            ->add('ageBreakpoints')
+            ->add('equipmentSuppliers')
+            ->add('usedEquipments')
+            ->add('usedVault')
+            ->add('nbBeneficiariesAccounts')
+            ->add('nbStoredDocs')
+            ->add('nbCreatedEvents')
+            ->add('nbCreatedContacts')
+            ->add('nbCreatedNotes')
+            ->add('skills')
+            ->add('attendees')
+            ->add('improvementAxis')
+            ->add('duration');
     }
 
     public function configureCrud(Crud $crud): Crud
