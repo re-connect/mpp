@@ -18,12 +18,11 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import NotesContext from '../../Context/NotesContext';
 import { centersEndpoint, notesEndpoint, paginationCount } from '../../Services/requests';
-import CreateNoteForm from './Components/CreateNoteForm';
 import EditNoteForm from './Components/EditNoteForm';
 import Note from './Note';
-import UseFetchDataEffect from "../../Hooks/UseFetchDataEffect";
-import UseFetchData from "../../Hooks/UseFetchData";
-import { Center } from "../../Types/Center";
+import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
+import UseFetchData from '../../Hooks/UseFetchData';
+import { Center } from '../../Types/Center';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -54,13 +53,12 @@ const HeaderContent = styled.div`
   flex: 1;
 `;
 
-const AddNoteIcon = styled(Fab)`
+const TopRightIcon = styled(Fab)`
   position: absolute;
   right: 0;
 `;
 
 const Notes = withRouter(({history, match}: any) => {
-  const isModalOpen = useBoolean(false);
   const isEditModalOpen = useBoolean(false);
   const [idNoteBeingEdited, noteIdActions] = useNumber(0);
   const [notesCount, notesCountActions] = useNumber(0);
@@ -74,6 +72,7 @@ const Notes = withRouter(({history, match}: any) => {
     notesCountActions.setValue(data['hydra:totalItems'])
     setNotes(data['hydra:member']);
   });
+
   React.useEffect(() => {
     fetchNotes();
   }, [fetchNotes])
@@ -85,22 +84,6 @@ const Notes = withRouter(({history, match}: any) => {
 
   return (
     <Container maxWidth='sm'>
-      <Dialog
-        fullScreen
-        open={isModalOpen.value}
-        onClose={isModalOpen.setFalse}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Créer une note</DialogTitle>
-        <DialogContent>
-          <CreateNoteForm centerId={centerId} closeModal={isModalOpen.setFalse}/>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={isModalOpen.setFalse} color='primary'>
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Dialog
         fullScreen
         open={isEditModalOpen.value}
@@ -141,14 +124,16 @@ const Notes = withRouter(({history, match}: any) => {
             <NotesTitle variant='h4' gutterBottom color='textPrimary'>
               Permanences
             </NotesTitle>
-            <AddNoteIcon
-              size='medium'
-              color='primary'
-              aria-label='add'
-              onClick={isModalOpen.setTrue}
-            >
-              <AddIcon/>
-            </AddNoteIcon>
+            {center === null ? null : (
+              <TopRightIcon
+                size='medium'
+                color='primary'
+                aria-label='add'
+                onClick={() => history.push(`/centers/${center.id}/create-note`)}
+              >
+                <AddIcon/>
+              </TopRightIcon>
+            )}
           </HeaderContent>
         </Header>
         <PaginationContainer>
