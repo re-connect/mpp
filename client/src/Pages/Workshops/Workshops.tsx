@@ -1,4 +1,4 @@
-import { Container, Fab, Typography } from '@material-ui/core';
+import { Container, Divider, Fab, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Pagination from '@material-ui/lab/Pagination';
 import React, { useContext } from 'react';
@@ -63,9 +63,11 @@ const Workshops = () => {
             {center.name}
           </WorkshopsTitle>
           <Typography>Nb d'ateliers : {!center.workshops ? 0 : center.workshops.length}</Typography>
+          <Typography>Nb CFN crées : {!center.createdBeneficiaryCount ? 0 : center.createdBeneficiaryCount}</Typography>
+          <Typography>Nb docs stockés : {!center.documentsCount ? 0 : center.documentsCount}</Typography>
         </StyledContent>
-      )
-      }
+      )}
+      <Divider/>
       <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
         Ateliers
       </WorkshopsTitle>
