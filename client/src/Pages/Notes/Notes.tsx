@@ -1,10 +1,5 @@
 import {
-  Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Divider,
   Fab,
   Typography
@@ -12,13 +7,11 @@ import {
 import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
 import React, { useContext } from 'react';
-import { useBoolean } from 'react-hanger';
 import { useNumber } from 'react-hanger/array';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import NotesContext from '../../Context/NotesContext';
 import { centersEndpoint, notesEndpoint, paginationCount } from '../../Services/requests';
-import EditNoteForm from './Components/EditNoteForm';
 import Note from './Note';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
