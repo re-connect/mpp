@@ -188,10 +188,10 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             {loading
               ?
-              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto'}}><CircularProgress
+              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto', flex: 1}}><CircularProgress
                 size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>
-                {workshop.id ? "Mettre à jour" : "Créer"}</Button>
+              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto', flex: 1}}>
+                {workshop['@id'] ? "Mettre à jour" : "Créer"}</Button>
             }
           </FormRow>
         </form>

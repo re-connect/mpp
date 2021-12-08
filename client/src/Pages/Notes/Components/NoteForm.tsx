@@ -25,7 +25,7 @@ const NoteForm = ({note ,onSubmit}: any) => {
           history.goBack();
         }, 500);
       }}
-      render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
+      render={({handleChange, handleSubmit, values}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
@@ -112,8 +112,7 @@ const NoteForm = ({note ,onSubmit}: any) => {
               <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 8, flex: 1}}><CircularProgress
                 size={20}/></Button>
               : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 8, flex: 1}}>
-                Créer
-              </Button>
+                {note['@id'] ? "Mettre à jour" : "Créer"}</Button>
             }
           </FormRow>
         </form>
