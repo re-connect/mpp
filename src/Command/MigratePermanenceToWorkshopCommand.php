@@ -64,10 +64,11 @@ class MigratePermanenceToWorkshopCommand extends Command
                     ->setDate($permanence->getDate())
                     ->setNbParticipants($permanence->getNbBeneficiaries())
                     ->setGlobalReport(
-                        sprintf("%s \n\n%s \n\n%s",
+                        sprintf("%s \n\n%s \n\n%s \n\nLieu : %s",
                         $permanence->getBeneficiariesNotes(),
                         $permanence->getProNotes(),
-                        $permanence->getReconnectNotes()
+                        $permanence->getReconnectNotes(),
+                        $permanence->getPlace()
                         )
                     )
                     ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
