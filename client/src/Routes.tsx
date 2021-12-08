@@ -8,6 +8,7 @@ import EditWorkshop from './Pages/Workshops/EditWorkshop';
 import Workshops from './Pages/Workshops/Workshops';
 import CreateWorkshop from './Pages/Workshops/CreateWorkshop';
 import CreateNote from './Pages/Notes/CreateNote';
+import EditNote from './Pages/Notes/EditNote';
 
 const Routes = () => (
   <Router>
@@ -15,10 +16,11 @@ const Routes = () => (
     <Route path="/login" component={Login}/>
     <Route path="/charts" component={Charts}/>
     <Route path="/centers/:centerId/notes" component={Notes}/>
+    <Route path="/centers/:centerId/create-note" component={CreateNote}/>
+    <Route path="/note/:noteId/edit" component={EditNote}/>
     <Route path="/centers/:centerId/workshops" component={Workshops}/>
     <Route path="/workshop/:workshopId/edit" component={EditWorkshop}/>
     <Route path="/centers/:centerId/create-workshop" component={CreateWorkshop}/>
-    <Route path="/centers/:centerId/create-note" component={CreateNote}/>
   </Router>
 );
 
