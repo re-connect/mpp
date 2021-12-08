@@ -83,25 +83,20 @@ const Notes = withRouter(({history, match}: any) => {
           </>
         )}
         <br/>
-        <Header>
-          <Divider/>
-          <HeaderContent>
-            <Divider/>
-            <NotesTitle variant='h4' gutterBottom color='textPrimary'>
-              Permanences
-            </NotesTitle>
-            {center === null ? null : (
-              <TopRightIcon
-                size='medium'
-                color='primary'
-                aria-label='add'
-                onClick={() => history.push(`/centers/${center.id}/create-note`)}
-              >
-                <AddIcon/>
-              </TopRightIcon>
-            )}
-          </HeaderContent>
-        </Header>
+        <Divider/>
+        <NotesTitle variant='h4' gutterBottom color='textPrimary'>
+          Permanences
+        </NotesTitle>
+        {center === null ? null : (
+          <TopRightIcon
+            size='medium'
+            color='primary'
+            aria-label='add'
+            onClick={() => history.push(`/centers/${center.id}/create-note`)}
+          >
+            <AddIcon/>
+          </TopRightIcon>
+        )}
         <PaginationContainer>
           <Pagination
             count={Math.ceil(notesCount / paginationCount)}
