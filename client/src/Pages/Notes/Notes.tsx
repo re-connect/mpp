@@ -59,8 +59,6 @@ const TopRightIcon = styled(Fab)`
 `;
 
 const Notes = withRouter(({history, match}: any) => {
-  const isEditModalOpen = useBoolean(false);
-  const [idNoteBeingEdited, noteIdActions] = useNumber(0);
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
   const {centerId} = match.params;
@@ -77,33 +75,8 @@ const Notes = withRouter(({history, match}: any) => {
     fetchNotes();
   }, [fetchNotes])
 
-  const editNote = (id: number) => {
-    noteIdActions.setValue(id);
-    isEditModalOpen.setTrue();
-  };
-
   return (
     <Container maxWidth='sm'>
-      <Dialog
-        fullScreen
-        open={isEditModalOpen.value}
-        onClose={isEditModalOpen.setFalse}
-        aria-labelledby='edit-note'
-      >
-        <DialogTitle id='edit-note'>Modifier la note</DialogTitle>
-        <DialogContent>
-          <EditNoteForm
-            centerId={centerId}
-            note={notes.find(note => note.id === idNoteBeingEdited)}
-            closeModal={isEditModalOpen.setFalse}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={isEditModalOpen.setFalse} color='primary'>
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
       <StyledContent>
         {!center ? null : (
           <>
@@ -145,7 +118,7 @@ const Notes = withRouter(({history, match}: any) => {
           />
         </PaginationContainer>
         {notes.map((note: any) => (
-          <Note note={note} key={note.id} editNote={editNote}/>
+          <Note note={note} key={note.id}/>
         ))}
       </StyledContent>
     </Container>
