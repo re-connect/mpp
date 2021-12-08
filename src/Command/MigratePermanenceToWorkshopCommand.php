@@ -59,26 +59,33 @@ class MigratePermanenceToWorkshopCommand extends Command
         if ($io->confirm(sprintf('Are you sure you want to migrate permanences from center : %s', $center->getName()))) {
             foreach ($center->getNotes() as $permanence) {
                 $workshop = new Workshop();
+                $globalReport = sprintf("%s \n\n", $permanence->getBeneficiariesNotes());
+
+                if (!empty($permanence->getProNotes())) {
+                    $globalReport .= sprintf("%s \n\n", $permanence->getProNotes());
+                }
+
+                if (!empty($permanence->getReconnectNotes())) {
+                    $globalReport .= sprintf("%s \n\n", $permanence->getReconnectNotes());
+                }
+
+                if (!empty($permanence->getPlace())) {
+                    $globalReport .= sprintf("Lieu : %s \n", $permanence->getPlace());
+                }
+
+                if (0 < $permanence->getNbPros()) {
+                    $globalReport .= sprintf("Nb pros rencontrés : %s \n", $permanence->getNbPros());
+                }
+
+                if (0 < $permanence->getNbProAccounts()) {
+                    $globalReport .= sprintf("Nb comptes pro : %s \n", $permanence->getNbProAccounts());
+                }
+
                 $workshop->setCenter($center)
                     ->setAuthor($permanence->getAuthor())
                     ->setDate($permanence->getDate())
                     ->setNbParticipants($permanence->getNbBeneficiaries())
-                    ->setGlobalReport(
-                        sprintf(
-                            "%s \n\n
-                            %s \n\n
-                            %s \n\n
-                            Lieu : %s \n
-                            Nb pros recontrés : %s \n
-                            Nb comptes pro: %s \n",
-                        $permanence->getBeneficiariesNotes(),
-                        $permanence->getProNotes(),
-                        $permanence->getReconnectNotes(),
-                        $permanence->getPlace(),
-                        $permanence->getNbPros(),
-                        $permanence->getNbProAccounts()
-                        )
-                    )
+                    ->setGlobalReport($globalReport)
                     ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
                     ->setAttendees('' === $permanence->getAttendees()
                         ? $permanence->getAuthor()->getEmail()
