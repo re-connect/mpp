@@ -6,7 +6,8 @@ import Login from './Pages/Login';
 import Notes from './Pages/Notes/Notes';
 import EditWorkshop from './Pages/Workshops/EditWorkshop';
 import Workshops from './Pages/Workshops/Workshops';
-import CreateWorkshop from "./Pages/Workshops/CreateWorkshop";
+import CreateWorkshop from './Pages/Workshops/CreateWorkshop';
+import CreateNote from './Pages/Notes/CreateNote';
 
 const Routes = () => (
   <Router>
@@ -17,6 +18,7 @@ const Routes = () => (
     <Route path="/centers/:centerId/workshops" component={Workshops}/>
     <Route path="/workshop/:workshopId/edit" component={EditWorkshop}/>
     <Route path="/centers/:centerId/create-workshop" component={CreateWorkshop}/>
+    <Route path="/centers/:centerId/create-note" component={CreateNote}/>
   </Router>
 );
 
