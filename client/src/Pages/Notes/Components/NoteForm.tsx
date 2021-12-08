@@ -5,9 +5,9 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useBoolean } from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
-import FormRow from "../../../Components/FormRow";
-import NumberField from "../../../Components/NumberField";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import FormRow from '../../../Components/FormRow';
+import NumberField from '../../../Components/NumberField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const NoteForm = ({note ,onSubmit}: any) => {
   const history = useHistory();
