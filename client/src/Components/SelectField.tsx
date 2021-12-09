@@ -9,7 +9,7 @@ const SelectField = ({id, label, value, setFieldValue, required}: any) => {
   const options = !dropdownOptions ? [] : dropdownOptions;
 
   return (
-    <FormControl style={{flex: 1}}>
+    <FormControl style={{flex: 1, margin: 8}}>
       <InputLabel id={id}>{label}</InputLabel>
       <Select
         labelId={id}

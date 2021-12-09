@@ -17,6 +17,7 @@ const DatePickerField = ({label, handleChange, value}: any) => (
       KeyboardButtonProps={{
         'aria-label': 'change date',
       }}
+      style={{margin: 8, flex: 1}}
     />
   </MuiPickersUtilsProvider>
 );

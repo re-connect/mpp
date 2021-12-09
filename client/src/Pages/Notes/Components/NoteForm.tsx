@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, FormikProps } from 'formik';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useBoolean } from 'react-hanger/array';
@@ -8,10 +7,11 @@ import DatePickerField from '../../../Components/DatePickerField';
 import FormRow from '../../../Components/FormRow';
 import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FormTextField from '../../../Components/FormTextField';
 
 const NoteForm = ({note ,onSubmit}: any) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [loading, loadingActions] = useBoolean(false);
 
   return (
@@ -41,77 +41,58 @@ const NoteForm = ({note ,onSubmit}: any) => {
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
               id='attendees'
-              name='attendees'
               type='text'
               label="Qui a fait la perm"
-              variant='outlined'
               value={values.attendees}
-              onChange={handleChange}
-              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
               id='place'
-              name='place'
-              type='text'
               label='Lieu (optionnel)'
-              variant='outlined'
               value={values.place}
-              onChange={handleChange}
-              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
               id='beneficiariesNotes'
-              name='beneficiariesNotes'
-              type='text'
               label='Remarques en rapport avec les bénéficiaires'
-              variant='outlined'
-              multiline
+              multiline={true}
               rows='4'
               value={values.beneficiariesNotes}
-              onChange={handleChange}
-              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
               id='proNotes'
-              name='proNotes'
-              type='text'
               label='Remarques en rapport avec les professionnels'
-              variant='outlined'
-              multiline
+              multiline={true}
               rows='4'
               value={values.proNotes}
-              onChange={handleChange}
-              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
               id='reconnectNotes'
-              name='reconnectNotes'
-              type='text'
               label='Remarques en rapport avec Reconnect'
-              variant='outlined'
-              multiline
+              multiline={true}
               rows='4'
               value={values.reconnectNotes}
-              onChange={handleChange}
-              style={{marginLeft: 8, marginRight: 8, flex: 1}}
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
             {loading
               ?
-              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 8, flex: 1}}><CircularProgress
+              <Button variant='contained' color='primary' disabled={true} style={{margin: 8, flex: 1}}><CircularProgress
                 size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 8, flex: 1}}>
+              : <Button variant='contained' color='primary' type='submit' style={{margin: 8, flex: 1}}>
                 {note['@id'] ? "Mettre à jour" : "Créer"}</Button>
             }
           </FormRow>
