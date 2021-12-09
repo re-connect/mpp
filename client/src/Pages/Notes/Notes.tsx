@@ -31,18 +31,7 @@ const PaginationContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  position: relative;
-`;
-
 const NotesTitle = styled(Typography)`
-  flex: 1;
-`;
-
-const HeaderContent = styled.div`
-  position: relative;
-  align-self: stretch;
   flex: 1;
 `;
 
