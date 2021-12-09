@@ -1,5 +1,4 @@
 import { Checkbox, Chip, FormControlLabel, FormGroup } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Formik, FormikProps } from 'formik';
 import React, { useContext } from 'react';
@@ -14,6 +13,7 @@ import FormRow from "../../../Components/FormRow";
 import { useHistory } from "react-router-dom";
 import SelectField from '../../../Components/SelectField';
 import FormTextField from '../../../Components/FormTextField';
+import PrimaryButton from '../../../Components/PrimaryButton';
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
@@ -181,11 +181,8 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           )}
           <FormRow>
             {loading
-              ?
-              <Button variant='contained' color='primary' disabled={true} style={{margin: 8, flex: 1}}><CircularProgress
-                size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{margin: 8, flex: 1}}>
-                {workshop['@id'] ? "Mettre à jour" : "Créer"}</Button>
+              ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
+              : <PrimaryButton>{workshop['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
             }
           </FormRow>
         </form>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, FormikProps } from 'formik';
-import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useBoolean } from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
@@ -8,6 +7,7 @@ import FormRow from '../../../Components/FormRow';
 import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
+import PrimaryButton from '../../../Components/PrimaryButton';
 
 const NoteForm = ({note ,onSubmit}: any) => {
   const history = useHistory();
@@ -89,11 +89,8 @@ const NoteForm = ({note ,onSubmit}: any) => {
           </FormRow>
           <FormRow>
             {loading
-              ?
-              <Button variant='contained' color='primary' disabled={true} style={{margin: 8, flex: 1}}><CircularProgress
-                size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{margin: 8, flex: 1}}>
-                {note['@id'] ? "Mettre à jour" : "Créer"}</Button>
+              ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
+              : <PrimaryButton>{note['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
             }
           </FormRow>
         </form>
