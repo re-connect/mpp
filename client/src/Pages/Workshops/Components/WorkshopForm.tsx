@@ -152,6 +152,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <FormControlLabel
               control={
                 <Checkbox
+                  style={{marginLeft: 8}}
                   value={values.usedVault}
                   onChange={(event, value) => {
                     setFieldValue('usedVault', value)
