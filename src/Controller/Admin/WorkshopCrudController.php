@@ -81,6 +81,7 @@ class WorkshopCrudController extends ExportableCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Workshop/index.html.twig')
             ->setEntityLabelInSingular('Workshop')
             ->setEntityLabelInPlural('Workshops')
             ->setSearchFields(['id', 'date', 'attendees', 'topics.name', 'skills.name', 'participantKinds.name']);
