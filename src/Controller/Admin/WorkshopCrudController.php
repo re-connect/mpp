@@ -3,17 +3,50 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Workshop;
+use App\Service\ExportService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Factory\FilterFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
-class WorkshopCrudController extends AbstractCrudController
+class WorkshopCrudController extends ExportableCrudController
 {
+    const EXPORT_FIELDS = [
+        'id',
+        'date',
+        'duration',
+        'attendees',
+        'nbParticipants',
+        'topics',
+        'skills',
+        'topicPrecision',
+        'participantKinds',
+        'ageBreakpoints',
+        'usedEquipments',
+        'equipmentSuppliers',
+        'globalReport',
+        'improvementAxis',
+        'nbBeneficiariesAccounts',
+        'nbStoredDocs',
+        'nbCreatedEvents',
+        'nbCreatedContacts',
+        'nbCreatedNotes',
+        'center',
+        'author',
+        'createdAt',
+        'updatedAt'
+    ];
+
+    public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
+    {
+        parent::__construct($exportsService, $adminContextProvider, $filterFactory, self::EXPORT_FIELDS);
+    }
+
     public static function getEntityFqcn(): string
     {
         return Workshop::class;
@@ -48,6 +81,7 @@ class WorkshopCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Workshop/index.html.twig')
             ->setEntityLabelInSingular('Workshop')
             ->setEntityLabelInPlural('Workshops')
             ->setSearchFields(['id', 'date', 'attendees', 'topics.name', 'skills.name', 'participantKinds.name']);
