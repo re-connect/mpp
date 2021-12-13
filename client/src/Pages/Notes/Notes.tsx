@@ -1,10 +1,5 @@
 import {
-  Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Divider,
   Fab,
   Typography
@@ -12,18 +7,15 @@ import {
 import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
 import React, { useContext } from 'react';
-import { useBoolean } from 'react-hanger';
 import { useNumber } from 'react-hanger/array';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import NotesContext from '../../Context/NotesContext';
 import { centersEndpoint, notesEndpoint, paginationCount } from '../../Services/requests';
-import CreateNoteForm from './Components/CreateNoteForm';
-import EditNoteForm from './Components/EditNoteForm';
 import Note from './Note';
-import UseFetchDataEffect from "../../Hooks/UseFetchDataEffect";
-import UseFetchData from "../../Hooks/UseFetchData";
-import { Center } from "../../Types/Center";
+import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
+import UseFetchData from '../../Hooks/UseFetchData';
+import { Center } from '../../Types/Center';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -39,30 +31,16 @@ const PaginationContainer = styled.div`
   margin-bottom: 32px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  position: relative;
-`;
-
 const NotesTitle = styled(Typography)`
   flex: 1;
 `;
 
-const HeaderContent = styled.div`
-  position: relative;
-  align-self: stretch;
-  flex: 1;
-`;
-
-const AddNoteIcon = styled(Fab)`
+const TopRightIcon = styled(Fab)`
   position: absolute;
   right: 0;
 `;
 
 const Notes = withRouter(({history, match}: any) => {
-  const isModalOpen = useBoolean(false);
-  const isEditModalOpen = useBoolean(false);
-  const [idNoteBeingEdited, noteIdActions] = useNumber(0);
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
   const {centerId} = match.params;
@@ -74,53 +52,13 @@ const Notes = withRouter(({history, match}: any) => {
     notesCountActions.setValue(data['hydra:totalItems'])
     setNotes(data['hydra:member']);
   });
+
   React.useEffect(() => {
     fetchNotes();
   }, [fetchNotes])
 
-  const editNote = (id: number) => {
-    noteIdActions.setValue(id);
-    isEditModalOpen.setTrue();
-  };
-
   return (
     <Container maxWidth='sm'>
-      <Dialog
-        fullScreen
-        open={isModalOpen.value}
-        onClose={isModalOpen.setFalse}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>Créer une note</DialogTitle>
-        <DialogContent>
-          <CreateNoteForm centerId={centerId} closeModal={isModalOpen.setFalse}/>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={isModalOpen.setFalse} color='primary'>
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        fullScreen
-        open={isEditModalOpen.value}
-        onClose={isEditModalOpen.setFalse}
-        aria-labelledby='edit-note'
-      >
-        <DialogTitle id='edit-note'>Modifier la note</DialogTitle>
-        <DialogContent>
-          <EditNoteForm
-            centerId={centerId}
-            note={notes.find(note => note.id === idNoteBeingEdited)}
-            closeModal={isEditModalOpen.setFalse}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={isEditModalOpen.setFalse} color='primary'>
-            Annuler
-          </Button>
-        </DialogActions>
-      </Dialog>
       <StyledContent>
         {!center ? null : (
           <>
@@ -134,23 +72,20 @@ const Notes = withRouter(({history, match}: any) => {
           </>
         )}
         <br/>
-        <Header>
-          <Divider/>
-          <HeaderContent>
-            <Divider/>
-            <NotesTitle variant='h4' gutterBottom color='textPrimary'>
-              Permanences
-            </NotesTitle>
-            <AddNoteIcon
-              size='medium'
-              color='primary'
-              aria-label='add'
-              onClick={isModalOpen.setTrue}
-            >
-              <AddIcon/>
-            </AddNoteIcon>
-          </HeaderContent>
-        </Header>
+        <Divider/>
+        <NotesTitle variant='h4' gutterBottom color='textPrimary'>
+          Permanences
+        </NotesTitle>
+        {center === null ? null : (
+          <TopRightIcon
+            size='medium'
+            color='primary'
+            aria-label='add'
+            onClick={() => history.push(`/centers/${center.id}/create-note`)}
+          >
+            <AddIcon/>
+          </TopRightIcon>
+        )}
         <PaginationContainer>
           <Pagination
             count={Math.ceil(notesCount / paginationCount)}
@@ -160,7 +95,7 @@ const Notes = withRouter(({history, match}: any) => {
           />
         </PaginationContainer>
         {notes.map((note: any) => (
-          <Note note={note} key={note.id} editNote={editNote}/>
+          <Note note={note} key={note.id}/>
         ))}
       </StyledContent>
     </Container>

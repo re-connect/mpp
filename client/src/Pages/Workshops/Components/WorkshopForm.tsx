@@ -1,6 +1,4 @@
 import { Checkbox, Chip, FormControlLabel, FormGroup } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Formik, FormikProps } from 'formik';
 import React, { useContext } from 'react';
@@ -8,12 +6,14 @@ import DatePickerField from '../../../Components/DatePickerField';
 import MultiSelectField from '../../../Components/MultiSelectField';
 import NumberField from '../../../Components/NumberField';
 import { WorkshopInterface } from '../../../Types/Workshops';
-import { useBoolean } from "react-hanger/array";
-import DropdownsContext from "../../../Context/DropdownsContext";
-import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from "../../../Services/dropdowns";
-import FormRow from "../../../Components/FormRow";
-import { useHistory } from "react-router-dom";
+import { useBoolean } from 'react-hanger/array';
+import DropdownsContext from '../../../Context/DropdownsContext';
+import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from '../../../Services/dropdowns';
+import FormRow from '../../../Components/FormRow';
+import { useHistory } from 'react-router-dom';
 import SelectField from '../../../Components/SelectField';
+import FormTextField from '../../../Components/FormTextField';
+import PrimaryButton from '../../../Components/PrimaryButton';
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
@@ -22,7 +22,7 @@ interface WorkshopFormProps {
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [loading, loadingActions] = useBoolean(false);
   const {dropdowns} = useContext(DropdownsContext);
   const allSkills = getDropdownValues(dropdowns, 'skills');
@@ -67,14 +67,12 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             setFieldValue={setFieldValue}
             required={true}
             />
-            <TextField
+            <FormTextField
+              id='attendees'
               value={values.attendees}
               label="Qui a animé l'atelier"
-              name='attendees'
-              type='text'
-              variant='outlined'
               required={true}
-              onChange={handleChange}
+              handleChange={handleChange}
               style={{marginLeft: 8, marginRight: 8, flex: 1}}
             />
           </FormRow>
@@ -131,33 +129,30 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
+              id='globalReport'
               value={values.globalReport}
               label="Bilan global"
-              name='globalReport'
-              type='text'
-              variant='outlined'
-              multiline rows='4'
-              onChange={handleChange}
-              style={{flex: 1}}
+              multiline
+              rows='4'
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
-            <TextField
+            <FormTextField
+              id='improvementAxis'
               value={values.improvementAxis}
               label="Axes d'amélioration"
-              name='improvementAxis'
-              type='text'
-              variant='outlined'
-              multiline rows='4'
-              onChange={handleChange}
-              style={{flex: 1}}
+              multiline={true}
+              rows='4'
+              handleChange={handleChange}
             />
           </FormRow>
           <FormRow>
             <FormControlLabel
               control={
                 <Checkbox
+                  style={{marginLeft: 8}}
                   value={values.usedVault}
                   onChange={(event, value) => {
                     setFieldValue('usedVault', value)
@@ -187,11 +182,8 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           )}
           <FormRow>
             {loading
-              ?
-              <Button variant='contained' color='primary' disabled={true} style={{marginLeft: 'auto'}}><CircularProgress
-                size={20}/></Button>
-              : <Button variant='contained' color='primary' type='submit' style={{marginLeft: 'auto'}}>
-                {workshop.id ? "Mettre à jour" : "Créer"}</Button>
+              ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
+              : <PrimaryButton>{workshop['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
             }
           </FormRow>
         </form>

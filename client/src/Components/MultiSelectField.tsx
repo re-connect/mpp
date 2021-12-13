@@ -14,7 +14,7 @@ const MultiSelectField = ({id, label, value, setFieldValue}: any) => {
   const options = !dropdownOptions ? [] : dropdownOptions;
 
   return (
-    <FormControl style={{flex: 1}}>
+    <FormControl style={{marginLeft: 8, marginRight: 8, flex: 1}}>
       <InputLabel id={id}>{label}</InputLabel>
       <Select
         labelId={id}

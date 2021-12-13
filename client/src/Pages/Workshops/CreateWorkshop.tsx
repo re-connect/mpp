@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { centersEndpoint, workshopsEndpoint } from '../../Services/requests';
 import WorkshopForm from './Components/WorkshopForm';
-import UseFetchData from "../../Hooks/UseFetchData";
+import UseFetchData from '../../Hooks/UseFetchData';
 
 const CreateWorkshop = () => {
   const {centerId} = useParams();

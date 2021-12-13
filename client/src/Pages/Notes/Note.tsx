@@ -2,8 +2,9 @@ import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@material-ui/c
 import EditIcon from '@material-ui/icons/Edit';
 import { format } from 'date-fns';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { getIdFromIri } from '../../Services/helpers';
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
@@ -19,7 +20,9 @@ const StyledChip = styled(Chip)`
   margin: 8px;
 `;
 
-const Note = withRouter(({history, match, note, editNote}: any) => {
+const Note = withRouter(({note}: any) => {
+  const history = useHistory();
+
   return (
     <StyledCard key={note.id}>
       <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
@@ -27,7 +30,7 @@ const Note = withRouter(({history, match, note, editNote}: any) => {
           size='small'
           color='primary'
           aria-label='add'
-          onClick={() => editNote(note.id)}
+          onClick={() => history.push(`/note/${getIdFromIri(note['@id'])}/edit`)}
         >
           <EditIcon/>
         </EditNote>

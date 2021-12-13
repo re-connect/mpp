@@ -5,7 +5,7 @@ import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import { buildEntityEndpoint, workshopsEndpoint } from '../../Services/requests';
 import { WorkshopInterface } from '../../Types/Workshops';
 import WorkshopForm from './Components/WorkshopForm';
-import UseFetchData from "../../Hooks/UseFetchData";
+import UseFetchData from '../../Hooks/UseFetchData';
 
 const EditWorkshop = () => {
   const {workshopId} = useParams();

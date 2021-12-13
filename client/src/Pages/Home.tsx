@@ -124,7 +124,7 @@ const Home = () => {
                 <StyledListItemContent style={{
                   textAlign: 'center',
                   width: 200,
-                }} onClick={() => history.push(`/notes/${center.id}`)}>
+                }} onClick={() => history.push(`/centers/${center.id}/notes`)}>
                   <PeopleIcon htmlColor="white"/>
                   <ListItemText primary="Permanences"/>
                 </StyledListItemContent>
