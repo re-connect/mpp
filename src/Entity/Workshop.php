@@ -34,7 +34,7 @@ class Workshop
     private ?int $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @Groups({"workshop:read", "write"})
      */
     private ?\DateTimeInterface $date;

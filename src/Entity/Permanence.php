@@ -38,7 +38,7 @@ class Permanence
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\Column(name="date", type="date", nullable=true)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
     private ?\DateTimeInterface $date;
 
