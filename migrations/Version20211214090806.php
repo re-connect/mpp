@@ -21,17 +21,13 @@ final class Version20211214090806 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE note ALTER date TYPE TIMESTAMP(0) WITHOUT TIME ZONE');
-        $this->addSql('ALTER TABLE note ALTER date DROP DEFAULT');
         $this->addSql('ALTER TABLE workshop ALTER date TYPE TIMESTAMP(0) WITHOUT TIME ZONE');
-        $this->addSql('ALTER TABLE workshop ALTER date DROP DEFAULT');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE note ALTER date TYPE DATE');
-        $this->addSql('ALTER TABLE note ALTER date DROP DEFAULT');
         $this->addSql('ALTER TABLE workshop ALTER date TYPE DATE');
-        $this->addSql('ALTER TABLE workshop ALTER date DROP DEFAULT');
     }
 }
