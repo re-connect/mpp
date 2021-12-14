@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 import SelectField from '../../../Components/SelectField';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
+import { getDateWithoutTimezoneOffset } from '../../../Services/helpers';
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
@@ -22,7 +23,7 @@ interface WorkshopFormProps {
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date>(undefined === workshop.date ? new Date() : workshop.date);
   const [loading, loadingActions] = useBoolean(false);
   const {dropdowns} = useContext(DropdownsContext);
   const allSkills = getDropdownValues(dropdowns, 'skills');
@@ -46,6 +47,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
       initialValues={workshop}
       onSubmit={async (data) => {
         loadingActions.setTrue();
+        data.date = getDateWithoutTimezoneOffset(selectedDate);
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();

@@ -8,10 +8,11 @@ import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
+import { getDateWithoutTimezoneOffset } from '../../../Services/helpers';
 
 const NoteForm = ({note ,onSubmit}: any) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date>(undefined === note.date ? new Date() : note.date);
   const [loading, loadingActions] = useBoolean(false);
 
   return (
@@ -19,6 +20,7 @@ const NoteForm = ({note ,onSubmit}: any) => {
       initialValues={note}
       onSubmit={async (data) => {
         loadingActions.setTrue();
+        data.date = getDateWithoutTimezoneOffset(selectedDate);
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();
