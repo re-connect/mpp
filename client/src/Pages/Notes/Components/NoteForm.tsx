@@ -11,7 +11,7 @@ import PrimaryButton from '../../../Components/PrimaryButton';
 
 const NoteForm = ({note ,onSubmit}: any) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date>(undefined === note.date ? new Date() : note.date);
   const [loading, loadingActions] = useBoolean(false);
 
   return (
@@ -19,6 +19,7 @@ const NoteForm = ({note ,onSubmit}: any) => {
       initialValues={note}
       onSubmit={async (data) => {
         loadingActions.setTrue();
+        data.date = selectedDate;
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();
