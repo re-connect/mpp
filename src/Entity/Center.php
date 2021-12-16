@@ -206,6 +206,12 @@ class Center
         foreach ($this->notes as $note) {
             $total += $note->getNbBeneficiariesAccounts();
         }
+
+        /** @var Workshop $workshop */
+        foreach ($this->workshops as $workshop) {
+            $total += $workshop->getNbBeneficiariesAccounts();
+        }
+
         return $total;
     }
 
@@ -220,6 +226,12 @@ class Center
         foreach ($this->notes as $note) {
             $total += $note->getNbStoredDocs();
         }
+
+        /** @var Workshop $workshop */
+        foreach ($this->workshops as $workshop) {
+            $total += $workshop->getNbStoredDocs();
+        }
+
         return $total;
     }
 
