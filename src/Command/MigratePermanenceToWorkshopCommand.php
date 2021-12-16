@@ -87,7 +87,7 @@ class MigratePermanenceToWorkshopCommand extends Command
                     ->setNbParticipants($permanence->getNbBeneficiaries())
                     ->setGlobalReport($globalReport)
                     ->setNbBeneficiariesAccounts($permanence->getNbBeneficiariesAccounts())
-                    ->setAttendees('' === $permanence->getAttendees()
+                    ->setAttendees((null === $permanence->getAttendees() || '' === $permanence->getAttendees())
                         ? $permanence->getAuthor()->getEmail()
                         : $permanence->getAttendees())
                     ->setDuration($this->findWorkshopDuration($allDurations, $permanence->getHours(), $defaultDuration))
