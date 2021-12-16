@@ -27,7 +27,10 @@ const NoteForm = ({note, onSubmit}: any) => {
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
-            <DatePickerField label="Date" handleChange={(datetime: Date) => setFieldValue('date', datetime)}
+            <DatePickerField label="Date"
+                             handleChange={(datetime: Date) => {
+                               setFieldValue('date', new Date(datetime.toISOString()))
+                             }}
                              value={values.date}/>
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
           </FormRow>

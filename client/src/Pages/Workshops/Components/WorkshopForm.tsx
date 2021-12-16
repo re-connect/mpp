@@ -54,7 +54,10 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
-            <DatePickerField label="Date" handleChange={(datetime: Date) => setFieldValue('date', datetime)}
+            <DatePickerField label="Date"
+                             handleChange={(datetime: Date) => {
+                               setFieldValue('date', new Date(datetime.toISOString()))
+                             }}
                              value={values.date}/>
             <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
                          handleChange={handleChange}/>
