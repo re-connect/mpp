@@ -9,9 +9,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
 
-const NoteForm = ({note ,onSubmit}: any) => {
+const NoteForm = ({note, onSubmit}: any) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [loading, loadingActions] = useBoolean(false);
 
   return (
@@ -25,20 +24,25 @@ const NoteForm = ({note ,onSubmit}: any) => {
           history.goBack();
         }, 500);
       }}
-      render={({handleChange, handleSubmit, values}: FormikProps<any>) => (
+      render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
-            <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
+            <DatePickerField label="Date" handleChange={(datetime: Date) => setFieldValue('date', datetime)}
+                             value={values.date}/>
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbPros' value={values.nbPros} label="Nb pros rencontrés" handleChange={handleChange}/>
-            <NumberField id='nbProAccounts' value={values.nbProAccounts} label="Nb comptes pros créés" handleChange={handleChange}/>
+            <NumberField id='nbProAccounts' value={values.nbProAccounts} label="Nb comptes pros créés"
+                         handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés" handleChange={handleChange}/>
-            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts} label="Nb comptes benef créés" handleChange={handleChange}/>
-            <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés" handleChange={handleChange}/>
+            <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés"
+                         handleChange={handleChange}/>
+            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts}
+                         label="Nb comptes benef créés" handleChange={handleChange}/>
+            <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
+                         handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <FormTextField
