@@ -62,15 +62,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Permanence', 'fas fa-home', Permanence::class);
         yield MenuItem::linkToCrud('Workshop', 'fas fa-briefcase', Workshop::class);
         yield MenuItem::section('Données');
-        yield MenuItem::subMenu('Dropdowns', 'fas fa-database')->setSubItems([
-            MenuItem::linkToCrud('Topic', 'fas fa-table', Topic::class),
-            MenuItem::linkToCrud('Skill', 'fas fa-table', Skill::class),
-            MenuItem::linkToCrud('ParticipantKind', 'fas fa-table', ParticipantKind::class),
-            MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-table', EquipmentSupplier::class),
-            MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-table', AgeBreakpoint::class),
-            MenuItem::linkToCrud('UsedEquipment', 'fas fa-table', UsedEquipment::class),
-            MenuItem::linkToCrud('UsedEquipment', 'fas fa-tags', UsedEquipment::class),
-            MenuItem::linkToCrud('Duration', 'fas fa-tags', Duration::class),
-        ]);
+        yield MenuItem::linkToCrud('Topic', 'fas fa-comment', Topic::class);
+        yield MenuItem::linkToCrud('Skill', 'fas fa-hand-paper', Skill::class);
+        yield MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-birthday-cake', AgeBreakpoint::class);
+        yield MenuItem::linkToCrud('Duration', 'fas fa-clock', Duration::class);
+        yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-users', ParticipantKind::class);
+        yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-truck', EquipmentSupplier::class);
+        yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tools', UsedEquipment::class);
     }
 }

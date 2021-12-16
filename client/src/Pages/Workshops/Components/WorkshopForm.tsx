@@ -22,7 +22,6 @@ interface WorkshopFormProps {
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [loading, loadingActions] = useBoolean(false);
   const {dropdowns} = useContext(DropdownsContext);
   const allSkills = getDropdownValues(dropdowns, 'skills');
@@ -55,17 +54,18 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
-            <DatePickerField label="Date" handleChange={setSelectedDate} value={selectedDate}/>
+            <DatePickerField label="Date" handleChange={(datetime: Date) => setFieldValue('date', datetime)}
+                             value={values.date}/>
             <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
                          handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <SelectField
-            id='duration'
-            label='Durée'
-            value={values.duration}
-            setFieldValue={setFieldValue}
-            required={true}
+              id='duration'
+              label='Durée'
+              value={values.duration}
+              setFieldValue={setFieldValue}
+              required={true}
             />
             <FormTextField
               id='attendees'

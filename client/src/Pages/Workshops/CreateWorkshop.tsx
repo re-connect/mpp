@@ -18,7 +18,8 @@ const CreateWorkshop = () => {
     nbCreatedContacts: 0,
     nbCreatedNotes: 0,
   }
-  const createWorkshop = UseFetchData(workshopsEndpoint, () => {}, 'POST');
+  const createWorkshop = UseFetchData(workshopsEndpoint, () => {
+  }, 'POST');
 
   return (
     <Container maxWidth='sm'>
