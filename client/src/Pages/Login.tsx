@@ -1,17 +1,17 @@
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
-import LinkIcon from "@material-ui/icons/Link";
-import { Formik, FormikProps } from "formik";
-import * as React from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import { dropdownsEndpoint, loginEndpoint, makeRequest, oauthEndpoint } from "../Services/requests";
-import logo from "../Images/logo.png";
-import { Typography } from "@material-ui/core";
-import UseFetchData from "../Hooks/UseFetchData";
-import { useContext } from "react";
-import DropdownsContext from "../Context/DropdownsContext";
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import LinkIcon from '@material-ui/icons/Link';
+import { Formik, FormikProps } from 'formik';
+import * as React from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { dropdownsEndpoint, loginEndpoint, makeRequest, oauthEndpoint } from '../Services/requests';
+import logo from '../Images/logo.png';
+import { Typography } from '@material-ui/core';
+import UseFetchData from '../Hooks/UseFetchData';
+import { useContext } from 'react';
+import DropdownsContext from '../Context/DropdownsContext';
 
 const StyledImage = styled.img`
   width: 140px;
