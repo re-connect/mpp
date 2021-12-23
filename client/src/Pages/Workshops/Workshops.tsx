@@ -11,6 +11,7 @@ import UseQueryParams from '../../Hooks/UseQueryParams';
 import { centersEndpoint, paginationCount, workshopsEndpoint } from '../../Services/requests';
 import { Center } from '../../Types/Center';
 import Workshop from './Workshop';
+import HomeButton from '../../Components/HomeButton';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -57,6 +58,9 @@ const Workshops = () => {
 
   return (
     <Container maxWidth='sm'>
+      <HomeButton
+        history={history}
+      />
       {center === null ? null : (
         <StyledContent>
           <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>

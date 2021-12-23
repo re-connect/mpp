@@ -16,6 +16,7 @@ import Note from './Note';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
 import { Center } from '../../Types/Center';
+import HomeButton from '../../Components/HomeButton';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -59,6 +60,9 @@ const Notes = withRouter(({history, match}: any) => {
 
   return (
     <Container maxWidth='sm'>
+      <HomeButton
+        history={history}
+      />
       <StyledContent>
         {!center ? null : (
           <>
