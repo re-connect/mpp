@@ -20,6 +20,12 @@ const StyledContent = styled.div`
   color: whitesmoke;
 `;
 
+const LeftTopContent = styled.div`
+  position: absolute;
+  left: 140px;
+  top: 10px;
+`;
+
 const WorkshopsTitle = styled(Typography)`
   flex: 1;
 `;
@@ -58,9 +64,9 @@ const Workshops = () => {
 
   return (
     <Container maxWidth='sm'>
-      <HomeButton
-        history={history}
-      />
+      <LeftTopContent>
+        <HomeButton/>
+      </LeftTopContent>
       {center === null ? null : (
         <StyledContent>
           <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>

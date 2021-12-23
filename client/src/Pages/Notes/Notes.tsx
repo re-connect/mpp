@@ -25,6 +25,12 @@ const StyledContent = styled.div`
   color: whitesmoke;
 `;
 
+const LeftTopContent = styled.div`
+  position: absolute;
+  left: 140px;
+  top: 10px;
+`;
+
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -60,9 +66,9 @@ const Notes = withRouter(({history, match}: any) => {
 
   return (
     <Container maxWidth='sm'>
-      <HomeButton
-        history={history}
-      />
+      <LeftTopContent>
+        <HomeButton/>
+      </LeftTopContent>
       <StyledContent>
         {!center ? null : (
           <>
