@@ -16,12 +16,19 @@ import Note from './Note';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
 import { Center } from '../../Types/Center';
+import HomeButton from '../../Components/HomeButton';
 
 const StyledContent = styled.div`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   color: whitesmoke;
+`;
+
+const LeftTopContent = styled.div`
+  position: absolute;
+  left: 140px;
+  top: 10px;
 `;
 
 const PaginationContainer = styled.div`
@@ -59,6 +66,9 @@ const Notes = withRouter(({history, match}: any) => {
 
   return (
     <Container maxWidth='sm'>
+      <LeftTopContent>
+        <HomeButton/>
+      </LeftTopContent>
       <StyledContent>
         {!center ? null : (
           <>
