@@ -54,13 +54,20 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
-            <DatePickerField label="Date"
-                             handleChange={(datetime: Date) => {
-                               setFieldValue('date', new Date(datetime.toISOString()))
-                             }}
-                             value={values.date}/>
-            <NumberField id='nbParticipants' value={values.nbParticipants} label="Nombre de participants"
-                         handleChange={handleChange}/>
+            <DatePickerField
+              label="Date"
+              handleChange={(datetime: Date) => {
+                setFieldValue('date', new Date(datetime.toISOString()))
+              }}
+              value={values.date}
+            />
+            <NumberField
+              id='nbParticipants'
+              value={values.nbParticipants}
+              label="Nombre de participants"
+              handleChange={handleChange}
+              required={true}
+            />
           </FormRow>
           <FormRow>
             <SelectField
@@ -84,6 +91,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               id="topics"
               label="Thèmes"
               value={values.topics}
+              required={true}
               setFieldValue={(_id: string, topicIris: string[]) => {
                 setFieldValue('topics', topicIris);
                 setFieldValue('skills', addSkillsSuggestions(values.skills, topicIris));
@@ -126,7 +134,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <MultiSelectField
               id="equipmentSuppliers"
-              label="Equipement fourni par"
+              label="Équipement fourni par"
               value={values.equipmentSuppliers}
               setFieldValue={setFieldValue}
             />
@@ -136,6 +144,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               id='globalReport'
               value={values.globalReport}
               label="Bilan global"
+              required={true}
               multiline
               rows='4'
               handleChange={handleChange}

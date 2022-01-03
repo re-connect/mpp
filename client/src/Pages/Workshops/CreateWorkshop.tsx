@@ -11,7 +11,6 @@ const CreateWorkshop = () => {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),
     skills: [],
-    nbParticipants: 0,
     nbBeneficiariesAccounts: 0,
     nbStoredDocs: 0,
     nbCreatedEvents: 0,
