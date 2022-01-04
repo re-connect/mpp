@@ -8,7 +8,7 @@ import React, { useContext } from 'react';
 import DropdownsContext from "../Context/DropdownsContext";
 import { getDropdownOptionsArray } from "../Services/dropdowns";
 
-const MultiSelectField = ({id, label, value, setFieldValue}: any) => {
+const MultiSelectField = ({id, label, value, setFieldValue, required= false}: any) => {
   const {dropdowns} = useContext(DropdownsContext);
   const dropdownOptions = getDropdownOptionsArray(dropdowns, id);
   const options = !dropdownOptions ? [] : dropdownOptions;
@@ -21,6 +21,7 @@ const MultiSelectField = ({id, label, value, setFieldValue}: any) => {
         id={id}
         multiple
         value={!value ? [] : value}
+        required={required}
         onChange={(event) => {
           setFieldValue(id, event.target.value);
         }}

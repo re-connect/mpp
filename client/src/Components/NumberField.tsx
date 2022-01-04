@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 
-const NumberField = ({id, label, handleChange, value}: any) => (
+const NumberField = ({id, label, handleChange, value, required= false}: any) => (
     <TextField
         id={id}
         label={label}
@@ -11,6 +11,7 @@ const NumberField = ({id, label, handleChange, value}: any) => (
         variant='outlined'
         style={{marginLeft: 8, marginRight: 8, flex: 1}}
         value={value}
+        required={required}
     />
 );
 
