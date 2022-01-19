@@ -68,7 +68,7 @@ const Workshop = ({workshop}: any) => {
         <Typography style={{whiteSpace: "pre-line"}}>
           Bilan global : {workshop.globalReport}
         </Typography>
-        <Typography>
+        <Typography style={{whiteSpace: "pre-line"}}>
           Axes d'amélioration : {workshop.improvementAxis}
         </Typography>
         {!workshop.usedVault ? null : (
