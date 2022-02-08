@@ -36,7 +36,7 @@ const Workshop = ({workshop}: any) => {
           Date : {format(new Date(workshop.date), 'dd-MM-yyyy')}
         </Typography>
         <Typography>
-          Qui a animé l'atelier : {workshop.attendees}
+          Animateur.trice : {workshop.attendees}
         </Typography>
         <Typography>
           Nombre de participants : {workshop.nbParticipants}
