@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class NoteCrudController extends ExportableCrudController
@@ -55,7 +56,7 @@ class NoteCrudController extends ExportableCrudController
             ->add('attendees')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('center');
+            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
     }
 
 

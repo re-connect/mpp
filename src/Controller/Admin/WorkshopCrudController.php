@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class WorkshopCrudController extends ExportableCrudController
@@ -65,7 +66,7 @@ class WorkshopCrudController extends ExportableCrudController
             ->add('usedVault')
             ->add('skills')
             ->add('duration')
-            ->add('center');
+            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
     }
 
     public function configureCrud(Crud $crud): Crud
