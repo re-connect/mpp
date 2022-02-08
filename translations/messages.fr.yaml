@@ -1,4 +1,5 @@
 AgeBreakpoint: Tranches d'âge
+AgeBreakpoints: Tranches d'âge
 Age Breakpoints: Tranches d'âge
 Attendees: Participants
 Author: Créateur
@@ -16,6 +17,7 @@ createdAt: Date de création
 Date: Date
 Duration: Durée
 date: Date
+EquipmentSuppliers: Equipement fourni par
 EquipmentSupplier: Equipement fourni par
 Equipment Suppliers: Equipement fourni par
 export: Exporter
@@ -43,6 +45,7 @@ nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés
 nbStoredDocs: Nombre de documents stockés
+ParticipantKinds: Types de participants
 Participant Kind: Types de participants
 ParticipantKind: Types de participants
 Participant Kinds: Types de participants
@@ -63,8 +66,10 @@ Topics: Thèmes
 Topic Precision: Précisions sur le thème
 Updated At: Date de dernière mise à jour
 UpdatedAt: Date de mise à jour
+UsedEquipments: Outils utilisés
 UsedEquipment: Outils utilisés
 Used Equipments: Outils utilisés
+UsedVault: Utilisation du CFN
 User: Utilisateurs
 unfilled: Non renseigné
 updatedAt: Date de mise à jour

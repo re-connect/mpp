@@ -56,26 +56,16 @@ class WorkshopCrudController extends ExportableCrudController
     {
         return $filters
             ->add('date')
-            ->add('nbParticipants')
-            ->add('globalReport')
-            ->add('topicPrecision')
             ->add('author')
-            ->add('center')
             ->add('participantKinds')
             ->add('topics')
             ->add('ageBreakpoints')
             ->add('equipmentSuppliers')
             ->add('usedEquipments')
             ->add('usedVault')
-            ->add('nbBeneficiariesAccounts')
-            ->add('nbStoredDocs')
-            ->add('nbCreatedEvents')
-            ->add('nbCreatedContacts')
-            ->add('nbCreatedNotes')
             ->add('skills')
-            ->add('attendees')
-            ->add('improvementAxis')
-            ->add('duration');
+            ->add('duration')
+            ->add('center');
     }
 
     public function configureCrud(Crud $crud): Crud

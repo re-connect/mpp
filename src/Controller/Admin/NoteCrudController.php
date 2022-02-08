@@ -51,19 +51,10 @@ class NoteCrudController extends ExportableCrudController
         return $filters
             ->add('id')
             ->add('date')
-            ->add('hours')
-            ->add('nbPros')
-            ->add('nbProAccounts')
-            ->add('nbBeneficiaries')
-            ->add('nbBeneficiariesAccounts')
-            ->add('nbStoredDocs')
-            ->add('beneficiariesNotes')
-            ->add('proNotes')
-            ->add('reconnectNotes')
+            ->add('author')
             ->add('attendees')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('author')
             ->add('center');
     }
 
