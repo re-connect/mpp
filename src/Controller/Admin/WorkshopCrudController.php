@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class WorkshopCrudController extends ExportableCrudController
@@ -56,26 +57,16 @@ class WorkshopCrudController extends ExportableCrudController
     {
         return $filters
             ->add('date')
-            ->add('nbParticipants')
-            ->add('globalReport')
-            ->add('topicPrecision')
             ->add('author')
-            ->add('center')
             ->add('participantKinds')
             ->add('topics')
             ->add('ageBreakpoints')
             ->add('equipmentSuppliers')
             ->add('usedEquipments')
             ->add('usedVault')
-            ->add('nbBeneficiariesAccounts')
-            ->add('nbStoredDocs')
-            ->add('nbCreatedEvents')
-            ->add('nbCreatedContacts')
-            ->add('nbCreatedNotes')
             ->add('skills')
-            ->add('attendees')
-            ->add('improvementAxis')
-            ->add('duration');
+            ->add('duration')
+            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
     }
 
     public function configureCrud(Crud $crud): Crud

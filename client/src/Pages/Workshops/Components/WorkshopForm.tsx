@@ -80,7 +80,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <FormTextField
               id='attendees'
               value={values.attendees}
-              label="Qui a animé l'atelier"
+              label="Animateur.trice"
               required={true}
               handleChange={handleChange}
               style={{marginLeft: 8, marginRight: 8, flex: 1}}
