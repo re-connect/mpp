@@ -126,7 +126,7 @@ const Home = () => {
                   width: 200,
                 }} onClick={() => history.push(`/centers/${center.id}/notes`)}>
                   <PeopleIcon htmlColor="white"/>
-                  <ListItemText primary="Permanences"/>
+                  <ListItemText secondary="Permanences Coffre-fort numérique"/>
                 </StyledListItemContent>
               }
               {!center.workshop ? null :
@@ -136,7 +136,7 @@ const Home = () => {
                   width: 200,
                 }} onClick={() => history.push(`/centers/${center.id}/workshops`)}>
                   <HomeWorkIcon htmlColor="white"/>
-                  <ListItemText primary="Ateliers"/>
+                  <ListItemText secondary="Accompagnements numérique (individuel ou collectif)"/>
                 </StyledListItemContent>
               }
             </ListItem>
