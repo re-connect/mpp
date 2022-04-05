@@ -84,7 +84,7 @@ const Notes = withRouter(({history, match}: any) => {
         <br/>
         <Divider/>
         <NotesTitle variant='h4' gutterBottom color='textPrimary'>
-          Permanences
+          Permanences CFN
         </NotesTitle>
         {center === null ? null : (
           <TopRightIcon

@@ -79,7 +79,7 @@ const Workshops = () => {
       )}
       <Divider/>
       <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>
-        Ateliers
+        Accompagnements numérique
       </WorkshopsTitle>
       {center === null ? null : (
         <TopRightIcon
