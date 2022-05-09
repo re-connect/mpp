@@ -29,7 +29,7 @@ const NoteForm = ({note, onSubmit}: any) => {
           <FormRow>
             <DatePickerField label="Date"
                              handleChange={(datetime: Date) => {
-                               setFieldValue('date', new Date(datetime.toISOString()))
+                               setFieldValue('date', datetime.toDateString())
                              }}
                              value={values.date}/>
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>

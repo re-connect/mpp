@@ -57,7 +57,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <DatePickerField
               label="Date"
               handleChange={(datetime: Date) => {
-                setFieldValue('date', new Date(datetime.toISOString()))
+                setFieldValue('date', datetime.toDateString())
               }}
               value={values.date}
             />
