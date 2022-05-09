@@ -117,6 +117,15 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           </FormRow>
           <FormRow>
             <MultiSelectField
+              id="genders"
+              label="Genres"
+              required
+              value={values.genders}
+              setFieldValue={setFieldValue}
+            />
+          </FormRow>
+          <FormRow>
+            <MultiSelectField
               id="ageBreakpoints"
               label="Tranches d'âge"
               value={values.ageBreakpoints}
