@@ -5,6 +5,7 @@ import React from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { getIdFromIri } from '../../Services/helpers';
+import ChipList from '../../Components/ChipList';
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
@@ -67,6 +68,9 @@ const Note = withRouter(({note}: any) => {
           label='Comptes bénéficiaires crées'
         />
         <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés'/>
+        <div>
+          Genres : <ChipList list={note.genders} dropdownKind="genders"/>
+        </div>
         <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
         <Typography variant='body2' component='p'>
           {note.beneficiariesNotes}

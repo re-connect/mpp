@@ -8,6 +8,7 @@ import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
+import MultiSelectField from '../../../Components/MultiSelectField';
 
 const NoteForm = ({note, onSubmit}: any) => {
   const history = useHistory();
@@ -46,6 +47,15 @@ const NoteForm = ({note, onSubmit}: any) => {
                          label="Nb comptes benef créés" handleChange={handleChange}/>
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
                          handleChange={handleChange}/>
+          </FormRow>
+          <FormRow>
+            <MultiSelectField
+              id="genders"
+              label="Genres"
+              required
+              value={values.genders}
+              setFieldValue={setFieldValue}
+            />
           </FormRow>
           <FormRow>
             <FormTextField
