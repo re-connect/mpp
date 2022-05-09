@@ -27,6 +27,7 @@ class NoteCrudController extends ExportableCrudController
         'nbBeneficiaries',
         'nbBeneficiariesAccounts',
         'nbStoredDocs',
+        'genders',
         'beneficiariesNotes',
         'proNotes',
         'reconnectNotes',
@@ -87,13 +88,65 @@ class NoteCrudController extends ExportableCrudController
         $author = AssociationField::new('author');
         $center = AssociationField::new('center');
         $id = IntegerField::new('id');
+        $gender = AssociationField::new('genders');
 
         if (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $date, $hours, $nbPros, $nbProAccounts, $nbBeneficiaries, $nbBeneficiariesAccounts, $nbStoredDocs, $beneficiariesNotes, $proNotes, $reconnectNotes, $attendees, $createdAt, $updatedAt, $author, $center];
+            return [
+                $id,
+                $date,
+                $hours,
+                $nbPros,
+                $nbProAccounts,
+                $nbBeneficiaries,
+                $nbBeneficiariesAccounts,
+                $nbStoredDocs,
+                $beneficiariesNotes,
+                $proNotes,
+                $reconnectNotes,
+                $attendees,
+                $createdAt,
+                $updatedAt,
+                $author,
+                $center
+            ];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$date, $hours, $nbPros, $nbProAccounts, $nbBeneficiaries, $nbBeneficiariesAccounts, $nbStoredDocs, $beneficiariesNotes, $proNotes, $reconnectNotes, $attendees, $createdAt, $updatedAt, $author, $center];
+            return [
+                $date,
+                $hours,
+                $nbPros,
+                $nbProAccounts,
+                $nbBeneficiaries,
+                $nbBeneficiariesAccounts,
+                $gender,
+                $nbStoredDocs,
+                $beneficiariesNotes,
+                $proNotes,
+                $reconnectNotes,
+                $attendees,
+                $createdAt,
+                $updatedAt,
+                $author,
+                $center
+            ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$date, $hours, $nbPros, $nbProAccounts, $nbBeneficiaries, $nbBeneficiariesAccounts, $nbStoredDocs, $beneficiariesNotes, $proNotes, $reconnectNotes, $attendees, $createdAt, $updatedAt, $author, $center];
+            return [
+                $date,
+                $hours,
+                $nbPros,
+                $nbProAccounts,
+                $nbBeneficiaries,
+                $nbBeneficiariesAccounts,
+                $gender,
+                $nbStoredDocs,
+                $beneficiariesNotes,
+                $proNotes,
+                $reconnectNotes,
+                $attendees,
+                $createdAt,
+                $updatedAt,
+                $author,
+                $center
+            ];
         }
 
         return [$id, $date, $hours, $nbPros, $nbProAccounts, $nbBeneficiaries, $nbBeneficiariesAccounts];

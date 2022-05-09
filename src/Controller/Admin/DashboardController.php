@@ -7,6 +7,7 @@ use App\Entity\Center;
 use App\Entity\CenterTag;
 use App\Entity\Duration;
 use App\Entity\EquipmentSupplier;
+use App\Entity\Gender;
 use App\Entity\ParticipantKind;
 use App\Entity\Permanence;
 use App\Entity\Skill;
@@ -69,5 +70,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-users', ParticipantKind::class);
         yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-truck', EquipmentSupplier::class);
         yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tools', UsedEquipment::class);
+        yield MenuItem::linkToCrud('Gender', 'fas fa-venus-mars', Gender::class);
     }
 }
