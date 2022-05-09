@@ -161,6 +161,12 @@ class Workshop
      */
     private ?Duration $duration;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="workshops")
+     * @Groups({"workshop:read", "write"})
+     */
+    private ?Collection $genders;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -169,6 +175,7 @@ class Workshop
         $this->equipmentSuppliers = new ArrayCollection();
         $this->usedEquipments = new ArrayCollection();
         $this->skills = new ArrayCollection();
+        $this->genders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -499,6 +506,30 @@ class Workshop
     public function setDuration(?Duration $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gender[]
+     */
+    public function getGenders(): Collection
+    {
+        return $this->genders;
+    }
+
+    public function addGender(Gender $gender): self
+    {
+        if (!$this->genders->contains($gender)) {
+            $this->genders[] = $gender;
+        }
+
+        return $this;
+    }
+
+    public function removeGender(Gender $gender): self
+    {
+        $this->genders->removeElement($gender);
 
         return $this;
     }

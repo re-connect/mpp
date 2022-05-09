@@ -6,6 +6,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -118,6 +120,17 @@ class Permanence
      * @Groups({"read", "write"})
      */
     private ?string $place;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="permanences")
+     * @Groups({"read", "write"})
+     */
+    private ?Collection $genders;
+
+    public function __construct()
+    {
+        $this->genders = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -348,6 +361,30 @@ class Permanence
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gender[]
+     */
+    public function getGenders(): Collection
+    {
+        return $this->genders;
+    }
+
+    public function addGender(Gender $gender): self
+    {
+        if (!$this->genders->contains($gender)) {
+            $this->genders[] = $gender;
+        }
+
+        return $this;
+    }
+
+    public function removeGender(Gender $gender): self
+    {
+        $this->genders->removeElement($gender);
 
         return $this;
     }
