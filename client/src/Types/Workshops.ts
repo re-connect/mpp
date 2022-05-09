@@ -6,6 +6,7 @@ import { Skill } from './Skills';
 import { Topic } from './Topics';
 import { UsedEquipment } from './UsedEquipments';
 import { Duration } from './Durations';
+import { Gender } from './Gender';
 
 export interface WorkshopInterface extends Entity {
   id?: number;
@@ -29,4 +30,5 @@ export interface WorkshopInterface extends Entity {
   usedEquipments?: UsedEquipment[];
   topics?: Topic[];
   skills?: Skill[];
+  genders?: Gender[];
 }
