@@ -41,6 +41,10 @@ const Workshop = ({workshop}: any) => {
         <Typography>
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
+        <Typography>
+          Genres : [ Femmes : {workshop.femaleCount} ][ Hommes : {workshop.maleCount} ][ Autres : {workshop.noGenderCount} ]
+        </Typography>
+        <br/>
           Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
         <div>
           Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
@@ -55,9 +59,6 @@ const Workshop = ({workshop}: any) => {
         </div>
         <div>
           Types de participants : <ChipList list={workshop.participantKinds} dropdownKind="participantKinds"/>
-        </div>
-        <div>
-          Genres : <ChipList list={workshop.genders} dropdownKind="genders"/>
         </div>
         <div>
           Tranches d'âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>

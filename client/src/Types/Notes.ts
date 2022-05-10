@@ -5,7 +5,7 @@ export interface Note extends Entity{
   content?: string;
   title?: string;
   date?: Date;
-  nbFemaleGender?: number;
-  nbMaleGender?: number;
-  nbOtherGender?: number;
+  femaleCount?: number;
+  maleCount?: number;
+  noGenderCount?: number;
 }
