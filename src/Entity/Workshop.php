@@ -167,6 +167,12 @@ class Workshop
      */
     private ?Collection $genders;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"workshop:read", "workshop:write"})
+     */
+    private ?string $place;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -530,6 +536,18 @@ class Workshop
     public function removeGender(Gender $gender): self
     {
         $this->genders->removeElement($gender);
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }
