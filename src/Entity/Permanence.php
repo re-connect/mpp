@@ -15,8 +15,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="note")
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}},
+ *     normalizationContext={"groups"={"permanence:read"}},
+ *     denormalizationContext={"groups"={"permanence:write"}},
  *     shortName="notes"
  *     )
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
@@ -37,67 +37,67 @@ class Permanence
     private ?int $id;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="date", type="date", nullable=true)
      */
     private ?\DateTimeInterface $date;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="hours", type="integer")
      */
     private ?int $hours;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_pros", type="integer")
      */
     private ?int $nbPros;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_pro_accounts", type="integer")
      */
     private ?int $nbProAccounts;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_beneficiaries", type="integer")
      */
     private ?int $nbBeneficiaries;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_beneficiaries_accounts", type="integer")
      */
     private ?int $nbBeneficiariesAccounts;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_stored_docs", type="integer")
      */
     private ?int $nbStoredDocs;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="beneficiaries_notes", type="text")
      */
     private ?string $beneficiariesNotes;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="pro_notes", type="text")
      */
     private ?string $proNotes;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="reconnect_notes", type="text")
      */
     private ?string $reconnectNotes;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="attendees", type="string", length=255, nullable=true)
      */
     private ?string $attendees;
@@ -108,32 +108,32 @@ class Permanence
     private ?User $author;
 
     /**
-     * @Groups({"write"})
+     * @Groups({"permanence:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Center", inversedBy="notes")
      */
     private ?Center $center;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      */
     private ?string $place;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      */
     private ?int $nbMaleGender;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      */
     private ?int $nbFemaleGender;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"read", "write"})
+     * @Groups({"permanence:read", "permanence:write"})
      */
     private ?int $nbOtherGender;
 
