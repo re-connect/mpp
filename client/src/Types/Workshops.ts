@@ -11,6 +11,7 @@ import { Gender } from './Gender';
 export interface WorkshopInterface extends Entity {
   id?: number;
   date?: Date;
+  place?: string;
   center?: string;
   globalReport?: string;
   nbParticipants?: number;

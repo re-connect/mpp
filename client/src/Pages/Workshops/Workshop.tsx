@@ -36,6 +36,9 @@ const Workshop = ({workshop}: any) => {
           Date : {format(new Date(workshop.date), 'dd-MM-yyyy')}
         </Typography>
         <Typography>
+          Lieu : {workshop.place}
+        </Typography>
+        <Typography>
           Animateur.trice : {workshop.attendees}
         </Typography>
         <Typography>
