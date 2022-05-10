@@ -119,6 +119,24 @@ class Permanence
      */
     private ?string $place;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read", "write"})
+     */
+    private ?int $nbMaleGender;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read", "write"})
+     */
+    private ?int $nbFemaleGender;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read", "write"})
+     */
+    private ?int $nbOtherGender;
+
     public function __toString()
     {
         return $this->date->format('m/d/Y');
@@ -348,6 +366,42 @@ class Permanence
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getNbMaleGender(): ?int
+    {
+        return $this->nbMaleGender;
+    }
+
+    public function setNbMaleGender(?int $nbMaleGender): self
+    {
+        $this->nbMaleGender = $nbMaleGender;
+
+        return $this;
+    }
+
+    public function getNbFemaleGender(): ?int
+    {
+        return $this->nbFemaleGender;
+    }
+
+    public function setNbFemaleGender(?int $nbFemaleGender): self
+    {
+        $this->nbFemaleGender = $nbFemaleGender;
+
+        return $this;
+    }
+
+    public function getNbOtherGender(): ?int
+    {
+        return $this->nbOtherGender;
+    }
+
+    public function setNbOtherGender(?int $nbOtherGender): self
+    {
+        $this->nbOtherGender = $nbOtherGender;
 
         return $this;
     }
