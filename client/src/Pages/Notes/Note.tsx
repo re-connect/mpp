@@ -68,9 +68,10 @@ const Note = withRouter(({note}: any) => {
           label='Comptes bénéficiaires crées'
         />
         <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés'/>
-        <div>
-          Genres : <ChipList list={note.genders} dropdownKind="genders"/>
-        </div>
+        <Typography>
+          Genres : [ Femmes : {note.femaleCount} ][ Hommes : {note.maleCount} ][ Autres : {note.noGenderCount} ]
+        </Typography>
+        <br/>
         <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
         <Typography variant='body2' component='p'>
           {note.beneficiariesNotes}
