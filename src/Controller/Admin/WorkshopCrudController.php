@@ -83,6 +83,7 @@ class WorkshopCrudController extends ExportableCrudController
     {
         $id = IntegerField::new('id', 'ID');
         $date = DateField::new('date');
+        $place = TextField::new('place');
         $topicPrecision = TextField::new('topicPrecision');
         $nbParticipants = IntegerField::new('nbParticipants');
         $participantKinds = AssociationField::new('participantKinds');
@@ -111,6 +112,7 @@ class WorkshopCrudController extends ExportableCrudController
             return [
                 $id,
                 $date,
+                $place,
                 $duration,
                 $attendees,
                 $nbParticipants,
@@ -136,6 +138,7 @@ class WorkshopCrudController extends ExportableCrudController
         } elseif (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
             return [
                 $date,
+                $place,
                 $duration,
                 $attendees,
                 $nbParticipants,

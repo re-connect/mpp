@@ -73,6 +73,7 @@ class NoteCrudController extends ExportableCrudController
     public function configureFields(string $pageName): iterable
     {
         $date = DateField::new('date');
+        $place = TextField::new('place');
         $hours = IntegerField::new('hours');
         $nbPros = IntegerField::new('nbPros');
         $nbProAccounts = IntegerField::new('nbProAccounts');
@@ -112,6 +113,7 @@ class NoteCrudController extends ExportableCrudController
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
                 $date,
+                $place,
                 $hours,
                 $nbPros,
                 $nbProAccounts,
@@ -131,6 +133,7 @@ class NoteCrudController extends ExportableCrudController
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
                 $date,
+                $place,
                 $hours,
                 $nbPros,
                 $nbProAccounts,
