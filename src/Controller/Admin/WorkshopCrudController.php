@@ -27,7 +27,6 @@ class WorkshopCrudController extends ExportableCrudController
         'skills',
         'topicPrecision',
         'participantKinds',
-        'genders',
         'ageBreakpoints',
         'usedEquipments',
         'equipmentSuppliers',
@@ -104,7 +103,6 @@ class WorkshopCrudController extends ExportableCrudController
         $attendees = TextField::new('attendees');
         $improvementAxis = TextField::new('improvementAxis');
         $duration = AssociationField::new('duration');
-        $gender = AssociationField::new('genders');
 
 
         if (Crud::PAGE_DETAIL === $pageName) {
@@ -143,7 +141,6 @@ class WorkshopCrudController extends ExportableCrudController
                 $skills,
                 $topicPrecision,
                 $participantKinds,
-                $gender,
                 $ageBreakpoints,
                 $usedEquipments,
                 $equipmentSuppliers,

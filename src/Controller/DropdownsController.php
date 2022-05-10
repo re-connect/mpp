@@ -6,7 +6,6 @@ use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Repository\AgeBreakpointRepository;
 use App\Repository\DurationRepository;
 use App\Repository\EquipmentSupplierRepository;
-use App\Repository\GenderRepository;
 use App\Repository\ParticipantKindRepository;
 use App\Repository\SkillRepository;
 use App\Repository\TopicRepository;
@@ -29,7 +28,6 @@ class DropdownsController extends AbstractController
         TopicRepository             $topicRepository,
         SkillRepository             $skillRepository,
         DurationRepository          $durationRepository,
-        GenderRepository            $genderRepository,
     ): Response {
         $dropdowns = [];
         $repositories = [
@@ -40,7 +38,6 @@ class DropdownsController extends AbstractController
             'usedEquipments' => $usedEquipmentRepository,
             'skills' => $skillRepository,
             'durations' => $durationRepository,
-            'genders' => $genderRepository,
         ];
 
         foreach ($repositories as $key => $repository) {
