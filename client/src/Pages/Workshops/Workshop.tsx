@@ -22,7 +22,7 @@ const Workshop = ({workshop}: any) => {
   const history = useHistory();
 
   return (
-    <StyledCard>
+    <StyledCard variant="outlined" >
       <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
         <EditWorkshop
           size='small'
@@ -39,13 +39,15 @@ const Workshop = ({workshop}: any) => {
           Animateur.trice : {workshop.attendees}
         </Typography>
         <Typography>
-          Nombre de participants : {workshop.nbParticipants}
+          Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
         </Typography>
         <Typography>
-          Genres : [ Femmes : {workshop.femaleCount} ][ Hommes : {workshop.maleCount} ][ Autres : {workshop.noGenderCount} ]
+          Nombre de participants : {workshop.nbParticipants}
+        </Typography>
+        <Typography variant="body2">
+          Genres : [ Femmes : {workshop.femaleCount} ] [ Hommes : {workshop.maleCount} ] [ Autres : {workshop.noGenderCount} ]
         </Typography>
         <br/>
-          Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
         <div>
           Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
         </div>
@@ -69,31 +71,40 @@ const Workshop = ({workshop}: any) => {
         <div>
           Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
         </div>
-        <Typography style={{whiteSpace: "pre-line"}}>
-          Bilan global : {workshop.globalReport}
+        <br/>
+        <Typography variant="subtitle1">
+          Bilan global :
         </Typography>
-        <Typography style={{whiteSpace: "pre-line"}}>
-          Axes d'amélioration : {workshop.improvementAxis}
+        <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+          {workshop.globalReport}
+        </Typography>
+        <br/>
+        <Typography variant="subtitle1">
+          Axes d'amélioration :
+        </Typography>
+        <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+          {workshop.improvementAxis}
         </Typography>
         {!workshop.usedVault ? null : (
           <div>
+            <br/>
             <Typography>
-              Coffre-fort numérique
+              Coffre-fort numérique :
             </Typography>
             <Typography variant='body2' component='p'>
-              Nb CFN créés : {workshop.nbBeneficiariesAccounts}
+              - Nb CFN créés : {workshop.nbBeneficiariesAccounts}
             </Typography>
             <Typography variant='body2' component='p'>
-              Nb documents : {workshop.nbStoredDocs}
+              - Nb documents : {workshop.nbStoredDocs}
             </Typography>
             <Typography variant='body2' component='p'>
-              Nb rappels : {workshop.nbCreatedEvents}
+              - Nb rappels : {workshop.nbCreatedEvents}
             </Typography>
             <Typography variant='body2' component='p'>
-              Nb contacts : {workshop.nbCreatedContacts}
+              - Nb contacts : {workshop.nbCreatedContacts}
             </Typography>
             <Typography variant='body2' component='p'>
-              Nb notes : {workshop.nbCreatedNotes}
+              - Nb notes : {workshop.nbCreatedNotes}
             </Typography>
           </div>
         )}
