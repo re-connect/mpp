@@ -48,6 +48,29 @@ const NoteForm = ({note, onSubmit}: any) => {
                          handleChange={handleChange}/>
           </FormRow>
           <FormRow>
+            <NumberField
+              id='nbFemaleGender'
+              value={values.nbFemaleGender}
+              label="nb Femmes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='nbMaleGender'
+              value={values.nbMaleGender}
+              label="nb Hommes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='nbOtherGender'
+              value={values.nbOtherGender}
+              label="nb Autres"
+              handleChange={handleChange}
+              required={true}
+            />
+          </FormRow>
+          <FormRow>
             <FormTextField
               id='attendees'
               type='text'
