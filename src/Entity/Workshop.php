@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     attributes={"order"={"date": "DESC"}},
  *     normalizationContext={"groups"={"workshop:read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     denormalizationContext={"groups"={"workshop:write"}}
  * )
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
@@ -35,25 +35,25 @@ class Workshop
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?\DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbParticipants;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?string $globalReport;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?string $topicPrecision;
 
@@ -66,100 +66,106 @@ class Workshop
     /**
      * @ORM\ManyToOne(targetEntity=Center::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"write"})
+     * @Groups({"workshop:write"})
      */
     private ?Center $center;
 
     /**
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $participantKinds;
 
     /**
      * @ORM\ManyToMany(targetEntity=Topic::class, mappedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $topics;
 
     /**
      * @ORM\ManyToMany(targetEntity=AgeBreakpoint::class, inversedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $ageBreakpoints;
 
     /**
      * @ORM\ManyToMany(targetEntity=EquipmentSupplier::class, inversedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $equipmentSuppliers;
 
     /**
      * @ORM\ManyToMany(targetEntity=UsedEquipment::class, inversedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $usedEquipments;
 
     /**
      * @ORM\Column(type="boolean", options={"default":"0"})
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?bool $usedVault = false;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbBeneficiariesAccounts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbStoredDocs;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbCreatedEvents;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbCreatedContacts;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?int $nbCreatedNotes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Collection $skills;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?string $attendees;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?string $improvementAxis;
 
     /**
      * @ORM\ManyToOne(targetEntity=Duration::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"workshop:read", "write"})
+     * @Groups({"workshop:read", "workshop:write"})
      */
     private ?Duration $duration;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="workshops")
+     * @Groups({"workshop:read", "workshop:write"})
+     */
+    private ?Collection $genders;
 
     public function __construct()
     {
@@ -169,6 +175,7 @@ class Workshop
         $this->equipmentSuppliers = new ArrayCollection();
         $this->usedEquipments = new ArrayCollection();
         $this->skills = new ArrayCollection();
+        $this->genders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -499,6 +506,30 @@ class Workshop
     public function setDuration(?Duration $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gender[]
+     */
+    public function getGenders(): Collection
+    {
+        return $this->genders;
+    }
+
+    public function addGender(Gender $gender): self
+    {
+        if (!$this->genders->contains($gender)) {
+            $this->genders[] = $gender;
+        }
+
+        return $this;
+    }
+
+    public function removeGender(Gender $gender): self
+    {
+        $this->genders->removeElement($gender);
 
         return $this;
     }

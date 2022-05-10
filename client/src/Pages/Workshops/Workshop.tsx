@@ -57,6 +57,9 @@ const Workshop = ({workshop}: any) => {
           Types de participants : <ChipList list={workshop.participantKinds} dropdownKind="participantKinds"/>
         </div>
         <div>
+          Genres : <ChipList list={workshop.genders} dropdownKind="genders"/>
+        </div>
+        <div>
           Tranches d'âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
         </div>
         <div>

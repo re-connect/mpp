@@ -57,7 +57,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <DatePickerField
               label="Date"
               handleChange={(datetime: Date) => {
-                setFieldValue('date', new Date(datetime.toISOString()))
+                setFieldValue('date', datetime.toDateString())
               }}
               value={values.date}
             />
@@ -112,6 +112,15 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               id="participantKinds"
               label="Types de participants"
               value={values.participantKinds}
+              setFieldValue={setFieldValue}
+            />
+          </FormRow>
+          <FormRow>
+            <MultiSelectField
+              id="genders"
+              label="Genres"
+              required
+              value={values.genders}
               setFieldValue={setFieldValue}
             />
           </FormRow>
