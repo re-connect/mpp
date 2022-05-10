@@ -41,6 +41,10 @@ const Workshop = ({workshop}: any) => {
         <Typography>
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
+        <Typography>
+          Genres : [ Femmes : {workshop.nbFemaleGender} ][ Hommes : {workshop.nbMaleGender} ][ Autres : {workshop.nbOtherGender} ]
+        </Typography>
+        <br/>
           Durée : <DropdownSingleValue iri={workshop.duration} dropdownKind="durations"/> minutes
         <div>
           Thèmes : <ChipList list={workshop.topics} dropdownKind="topics"/>
@@ -65,6 +69,7 @@ const Workshop = ({workshop}: any) => {
         <div>
           Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
         </div>
+        <br/>
         <Typography style={{whiteSpace: "pre-line"}}>
           Bilan global : {workshop.globalReport}
         </Typography>
