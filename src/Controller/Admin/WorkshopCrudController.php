@@ -103,6 +103,9 @@ class WorkshopCrudController extends ExportableCrudController
         $attendees = TextField::new('attendees');
         $improvementAxis = TextField::new('improvementAxis');
         $duration = AssociationField::new('duration');
+        $maleCount = IntegerField::new('maleCount')->setRequired(true);
+        $femaleCount = IntegerField::new('femaleCount')->setRequired(true);
+        $noGenderCount = IntegerField::new('noGenderCount')->setRequired(true);
 
 
         if (Crud::PAGE_DETAIL === $pageName) {
@@ -137,6 +140,9 @@ class WorkshopCrudController extends ExportableCrudController
                 $duration,
                 $attendees,
                 $nbParticipants,
+                $maleCount,
+                $femaleCount,
+                $noGenderCount,
                 $topics,
                 $skills,
                 $topicPrecision,
