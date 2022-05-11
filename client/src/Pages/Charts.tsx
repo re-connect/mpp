@@ -1,7 +1,7 @@
 import { Fab, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import HomeIcon from "@material-ui/icons/Home";
-import "chart.js";
+import 'chartkick/chart.js'
 import React, { useContext } from "react";
 import { LineChart } from "react-chartkick";
 import { withRouter } from "react-router-dom";
