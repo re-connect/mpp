@@ -10,6 +10,7 @@ import { Duration } from './Durations';
 export interface WorkshopInterface extends Entity {
   id?: number;
   date?: Date;
+  place?: string;
   center?: string;
   globalReport?: string;
   nbParticipants?: number;

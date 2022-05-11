@@ -179,6 +179,12 @@ class Workshop
      */
     private ?int $noGenderCount;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"workshop:read", "workshop:write"})
+     */
+    private ?string $place;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -554,6 +560,18 @@ class Workshop
     public function setNoGenderCount(?int $noGenderCount): self
     {
         $this->noGenderCount = $noGenderCount;
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }

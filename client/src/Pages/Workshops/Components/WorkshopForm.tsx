@@ -108,6 +108,12 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               handleChange={handleChange}
               style={{marginLeft: 8, marginRight: 8, flex: 1}}
             />
+            <FormTextField
+              id='place'
+              label='Lieu'
+              value={values.place}
+              handleChange={handleChange}
+            />
           </FormRow>
           <FormRow>
             <MultiSelectField
