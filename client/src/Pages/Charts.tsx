@@ -18,6 +18,9 @@ const HomeButton = styled(Fab)`
 
 const Charts = withRouter(({history}: any) => {
   const notesContext = useContext(NotesContext);
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('fr', {year: "numeric", month: "short", day: "2-digit"});
+  }
 
   UseFetchDataEffect(`${notesEndpoint}`, (data: any) => {
     notesContext.setNotes(data['hydra:member']);
@@ -29,14 +32,14 @@ const Charts = withRouter(({history}: any) => {
 
   notesContext.notes.forEach((note: any, index: number) => {
     nbProAccountsData = {
+      [formatDate(note.date)]: note.nbProAccounts,
       ...nbProAccountsData,
-      [note.date]: note.nbProAccounts
     };
     nbBeneficiariesAccountsData = {
+      [formatDate(note.date)]: note.nbBeneficiariesAccounts,
       ...nbBeneficiariesAccountsData,
-      [note.date]: note.nbBeneficiariesAccounts
     };
-    nbStoredDocsData = {...nbStoredDocsData, [note.date]: note.nbStoredDocs};
+    nbStoredDocsData = {[formatDate(note.date)]: note.nbStoredDocs, ...nbStoredDocsData};
   });
 
   return (
