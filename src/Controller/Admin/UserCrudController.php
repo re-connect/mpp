@@ -3,21 +3,22 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    private UserPasswordHasherInterface $hasher;
+    private UserService $userService;
 
-    public function __construct(UserPasswordHasherInterface $hasher)
+    public function __construct(UserService $userService)
     {
-        $this->hasher = $hasher;
+        $this->userService = $userService;
     }
 
     public static function getEntityFqcn(): string
@@ -35,14 +36,14 @@ class UserCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $user): void
     {
-        $this->updateUserPassword($user);
+        $this->userService->updatePassword($user, $user->getPlainPassword());
         $user->setApiToken($user->getEmail());
         parent::persistEntity($entityManager, $user);
     }
 
     public function updateEntity(EntityManagerInterface $entityManager, $user): void
     {
-        $this->updateUserPassword($user);
+        $this->userService->updatePassword($user, $user->getPlainPassword());
         parent::persistEntity($entityManager, $user);
     }
 
@@ -52,25 +53,15 @@ class UserCrudController extends AbstractCrudController
         $password = TextField::new('plainPassword', 'Password');
         $notes = AssociationField::new('notes');
         $id = IntegerField::new('id', 'ID');
-        $roles = TextField::new('roles');
+        $roles = ChoiceField::new('roles')
+            ->setChoices(array_combine(User::ROLES, User::ROLES))
+            ->allowMultipleChoices();
 
-        if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $email, $notes];
-        } elseif (Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $email, $roles, $password, $notes];
-        } elseif (Crud::PAGE_NEW === $pageName) {
-            return [$email, $password, $notes];
-        } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$email, $password];
-        }
-    }
-
-    /**
-     * @param $user
-     */
-    private function updateUserPassword($user): void
-    {
-        $encodedPassword = $this->hasher->hashPassword($user, $user->getPlainPassword());
-        $user->setPassword($encodedPassword);
+        return match ($pageName) {
+            Crud::PAGE_INDEX => [$id, $email, $notes],
+            Crud::PAGE_DETAIL => [$id, $email, $roles, $password, $notes],
+            Crud::PAGE_NEW => [$email, $password, $notes],
+            Crud::PAGE_EDIT => [$email, $password, $roles],
+        };
     }
 }

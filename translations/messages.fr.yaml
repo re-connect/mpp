@@ -35,8 +35,11 @@ Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
 Nb Created Notes: Nb de notes créées
 Female Count: Nb femmes
+femaleCount: Nb femmes
 Male Count: Nb hommes
+maleCount: Nb hommes
 No Gender Count: Nb autres
+noGenderCount: Nb autres
 Nb Pro Accounts: Nb Comptes Pro
 Nb Pros: Nb Pros
 Nb Stored Docs: Nb docs stockés
