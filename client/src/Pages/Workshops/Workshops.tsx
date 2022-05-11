@@ -30,10 +30,7 @@ const WorkshopsTitle = styled(Typography)`
   flex: 1;
 `;
 
-const TopRightIcon = styled(Fab)`
-  position: absolute;
-  right: 0;
-`;
+const TopRightIcon = styled(Fab)``;
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -45,7 +42,7 @@ const PaginationContainer = styled.div`
 const Workshops = () => {
   const [center, setCenter] = React.useState<Center | null>(null);
   const history = useHistory();
-  const {centerId} = useParams();
+  const {centerId} = useParams<{ centerId: string|undefined }>();
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const pagesCount = Math.ceil(workshopsCount / paginationCount);

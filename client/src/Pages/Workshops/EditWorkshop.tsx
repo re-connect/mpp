@@ -8,7 +8,7 @@ import WorkshopForm from './Components/WorkshopForm';
 import UseFetchData from '../../Hooks/UseFetchData';
 
 const EditWorkshop = () => {
-  const {workshopId} = useParams();
+  const {workshopId} = useParams() as { workshopId: string};
   const [workshop, setWorkshop] = useState<WorkshopInterface | null>(null);
   const entityUrl = !workshop ? '' : buildEntityEndpoint(workshop);
 

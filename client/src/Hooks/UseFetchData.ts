@@ -11,7 +11,7 @@ export default (endpoint: string, callback: Function = () => {}, method: Method 
     if (response.request.responseURL === loginEndpoint && window.location.pathname !== '/login') {
       window.location.replace('login');
     }
-  } catch (e) {
+  } catch (e: any) {
     console.log('Error making http call', endpoint, e.message);
   }
 }, [endpoint]);

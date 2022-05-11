@@ -6,7 +6,7 @@ import WorkshopForm from './Components/WorkshopForm';
 import UseFetchData from '../../Hooks/UseFetchData';
 
 const CreateWorkshop = () => {
-  const {centerId} = useParams();
+  const {centerId} = useParams<{ centerId: string|undefined }>();
   const workshop = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),

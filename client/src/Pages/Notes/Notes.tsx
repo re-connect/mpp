@@ -42,10 +42,7 @@ const NotesTitle = styled(Typography)`
   flex: 1;
 `;
 
-const TopRightIcon = styled(Fab)`
-  position: absolute;
-  right: 0;
-`;
+const TopRightIcon = styled(Fab)``;
 
 const Notes = withRouter(({history, match}: any) => {
   const [notesCount, notesCountActions] = useNumber(0);
