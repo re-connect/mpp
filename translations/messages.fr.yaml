@@ -22,8 +22,6 @@ EquipmentSupplier: Equipement fourni par
 Equipment Suppliers: Equipement fourni par
 export: Exporter
 field_format_unknown: Format du champ inconnu
-Gender: Genre
-Genders: Genres
 Global Report: Bilan global
 Hours: Heures
 hours: Heures
@@ -36,6 +34,9 @@ Nb Beneficiaries: Nb Bénef
 Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
 Nb Created Notes: Nb de notes créées
+Female Count: Nb femmes
+Male Count: Nb hommes
+No Gender Count: Nb autres
 Nb Pro Accounts: Nb Comptes Pro
 Nb Pros: Nb Pros
 Nb Stored Docs: Nb docs stockés

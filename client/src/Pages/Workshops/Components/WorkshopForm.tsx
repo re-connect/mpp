@@ -70,6 +70,29 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             />
           </FormRow>
           <FormRow>
+            <NumberField
+              id='femaleCount'
+              value={values.femaleCount}
+              label="nb Femmes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='maleCount'
+              value={values.maleCount}
+              label="nb Hommes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='noGenderCount'
+              value={values.noGenderCount}
+              label="nb Autres"
+              handleChange={handleChange}
+              required={true}
+            />
+          </FormRow>
+          <FormRow>
             <SelectField
               id='duration'
               label='Durée'
@@ -112,15 +135,6 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               id="participantKinds"
               label="Types de participants"
               value={values.participantKinds}
-              setFieldValue={setFieldValue}
-            />
-          </FormRow>
-          <FormRow>
-            <MultiSelectField
-              id="genders"
-              label="Genres"
-              required
-              value={values.genders}
               setFieldValue={setFieldValue}
             />
           </FormRow>

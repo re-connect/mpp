@@ -25,7 +25,7 @@ const Note = withRouter(({note}: any) => {
   const history = useHistory();
 
   return (
-    <StyledCard key={note.id}>
+    <StyledCard key={note.id} variant={"outlined"}>
       <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
         <EditNote
           size='small'
@@ -68,18 +68,24 @@ const Note = withRouter(({note}: any) => {
           label='Comptes bénéficiaires crées'
         />
         <StyledChip avatar={<Avatar>{note.nbStoredDocs}</Avatar>} label='Documents stockés'/>
-        <div>
-          Genres : <ChipList list={note.genders} dropdownKind="genders"/>
-        </div>
-        <Typography variant='subtitle1'>Remarques concernant les bénéficiaires</Typography>
+        <Typography variant="subtitle1">
+          Genres :
+        </Typography>
+        <Typography variant="body2">
+          [ Femmes : {note.femaleCount} ] [ Hommes : {note.maleCount} ] [ Autres : {note.noGenderCount} ]
+        </Typography>
+        <br/>
+        <Typography variant='subtitle1'>Remarques concernant les bénéficiaires :</Typography>
         <Typography variant='body2' component='p'>
           {note.beneficiariesNotes}
         </Typography>
-        <Typography variant='subtitle1'>Remarques concernant les professionnels</Typography>
+        <br/>
+        <Typography variant='subtitle1'>Remarques concernant les professionnels :</Typography>
         <Typography variant='body2' component='p'>
           {note.proNotes}
         </Typography>
-        <Typography variant='subtitle1'>Remarques concernant Reconnect</Typography>
+        <br/>
+        <Typography variant='subtitle1'>Remarques concernant Reconnect :</Typography>
         <Typography variant='body2' component='p'>
           {note.reconnectNotes}
         </Typography>

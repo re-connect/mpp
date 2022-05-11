@@ -1,4 +1,3 @@
-import { Gender } from './Gender';
 import { Entity } from './Entity';
 
 export interface Note extends Entity{
@@ -6,5 +5,7 @@ export interface Note extends Entity{
   content?: string;
   title?: string;
   date?: Date;
-  genders?: Gender[];
+  femaleCount?: number;
+  maleCount?: number;
+  noGenderCount?: number;
 }

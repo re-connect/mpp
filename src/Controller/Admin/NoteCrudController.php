@@ -27,7 +27,6 @@ class NoteCrudController extends ExportableCrudController
         'nbBeneficiaries',
         'nbBeneficiariesAccounts',
         'nbStoredDocs',
-        'genders',
         'beneficiariesNotes',
         'proNotes',
         'reconnectNotes',
@@ -88,7 +87,9 @@ class NoteCrudController extends ExportableCrudController
         $author = AssociationField::new('author');
         $center = AssociationField::new('center');
         $id = IntegerField::new('id');
-        $gender = AssociationField::new('genders');
+        $maleCount = IntegerField::new('maleCount')->setRequired(true);
+        $femaleCount = IntegerField::new('femaleCount')->setRequired(true);
+        $noGenderCount = IntegerField::new('noGenderCount')->setRequired(true);
 
         if (Crud::PAGE_DETAIL === $pageName) {
             return [
@@ -113,11 +114,13 @@ class NoteCrudController extends ExportableCrudController
             return [
                 $date,
                 $hours,
+                $maleCount,
+                $femaleCount,
+                $noGenderCount,
                 $nbPros,
                 $nbProAccounts,
                 $nbBeneficiaries,
                 $nbBeneficiariesAccounts,
-                $gender,
                 $nbStoredDocs,
                 $beneficiariesNotes,
                 $proNotes,
@@ -132,11 +135,13 @@ class NoteCrudController extends ExportableCrudController
             return [
                 $date,
                 $hours,
+                $maleCount,
+                $femaleCount,
+                $noGenderCount,
                 $nbPros,
                 $nbProAccounts,
                 $nbBeneficiaries,
                 $nbBeneficiariesAccounts,
-                $gender,
                 $nbStoredDocs,
                 $beneficiariesNotes,
                 $proNotes,

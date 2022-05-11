@@ -49,12 +49,26 @@ const NoteForm = ({note, onSubmit}: any) => {
                          handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <MultiSelectField
-              id="genders"
-              label="Genres"
-              required
-              value={values.genders}
-              setFieldValue={setFieldValue}
+            <NumberField
+              id='femaleCount'
+              value={values.femaleCount}
+              label="nb Femmes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='maleCount'
+              value={values.maleCount}
+              label="nb Hommes"
+              handleChange={handleChange}
+              required={true}
+            />
+            <NumberField
+              id='noGenderCount'
+              value={values.noGenderCount}
+              label="nb Autres"
+              handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>

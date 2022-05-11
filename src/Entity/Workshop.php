@@ -162,10 +162,22 @@ class Workshop
     private ?Duration $duration;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Gender::class, inversedBy="workshops")
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?Collection $genders;
+    private ?int $maleCount;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"workshop:read", "workshop:write"})
+     */
+    private ?int $femaleCount;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"workshop:read", "workshop:write"})
+     */
+    private ?int $noGenderCount;
 
     public function __construct()
     {
@@ -510,26 +522,38 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|Gender[]
-     */
-    public function getGenders(): Collection
+    public function getMaleCount(): ?int
     {
-        return $this->genders;
+        return $this->maleCount;
     }
 
-    public function addGender(Gender $gender): self
+    public function setMaleCount(?int $maleCount): self
     {
-        if (!$this->genders->contains($gender)) {
-            $this->genders[] = $gender;
-        }
+        $this->maleCount = $maleCount;
 
         return $this;
     }
 
-    public function removeGender(Gender $gender): self
+    public function getFemaleCount(): ?int
     {
-        $this->genders->removeElement($gender);
+        return $this->femaleCount;
+    }
+
+    public function setFemaleCount(?int $femaleCount): self
+    {
+        $this->femaleCount = $femaleCount;
+
+        return $this;
+    }
+
+    public function getNoGenderCount(): ?int
+    {
+        return $this->noGenderCount;
+    }
+
+    public function setNoGenderCount(?int $noGenderCount): self
+    {
+        $this->noGenderCount = $noGenderCount;
 
         return $this;
     }
