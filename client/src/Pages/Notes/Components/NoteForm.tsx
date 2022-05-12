@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, FormikProps } from 'formik';
-import { useHistory } from 'react-router-dom';
 import { useBoolean } from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
 import FormRow from '../../../Components/FormRow';
@@ -8,11 +7,11 @@ import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
-import MultiSelectField from '../../../Components/MultiSelectField';
+import { useNavigate } from 'react-router-dom';
 
 const NoteForm = ({note, onSubmit}: any) => {
-  const history = useHistory();
   const [loading, loadingActions] = useBoolean(false);
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -22,7 +21,7 @@ const NoteForm = ({note, onSubmit}: any) => {
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();
-          history.goBack();
+          navigate(-1);
         }, 500);
       }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (

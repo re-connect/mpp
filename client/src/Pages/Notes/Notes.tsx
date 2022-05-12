@@ -8,7 +8,6 @@ import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
 import React, { useContext } from 'react';
 import { useNumber } from 'react-hanger/array';
-import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import NotesContext from '../../Context/NotesContext';
 import { centersEndpoint, notesEndpoint, paginationCount } from '../../Services/requests';
@@ -17,6 +16,7 @@ import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
 import { Center } from '../../Types/Center';
 import HomeButton from '../../Components/HomeButton';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const StyledContent = styled.div`
   margin-top: 50px;
@@ -44,10 +44,11 @@ const NotesTitle = styled(Typography)`
 
 const TopRightIcon = styled(Fab)``;
 
-const Notes = withRouter(({history, match}: any) => {
+const Notes = () => {
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
-  const {centerId} = match.params;
+  const navigate = useNavigate();
+  const {centerId} = useParams<{ centerId: string|undefined }>();
   const {notes, setNotes} = useContext(NotesContext);
   const [center, setCenter] = React.useState<Center>({});
 
@@ -88,7 +89,7 @@ const Notes = withRouter(({history, match}: any) => {
             size='medium'
             color='primary'
             aria-label='add'
-            onClick={() => history.push(`/centers/${center.id}/create-note`)}
+            onClick={() => navigate(`/centers/${center.id}/create-note`)}
           >
             <AddIcon/>
           </TopRightIcon>
@@ -107,6 +108,6 @@ const Notes = withRouter(({history, match}: any) => {
       </StyledContent>
     </Container>
   );
-});
+};
 
 export default Notes;

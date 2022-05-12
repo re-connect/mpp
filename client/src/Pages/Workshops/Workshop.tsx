@@ -6,7 +6,7 @@ import ChipList from '../../Components/ChipList';
 import DropdownSingleValue from '../../Components/DropdownSingleValue';
 import EditIcon from '@material-ui/icons/Edit';
 import { getIdFromIri } from '../../Services/helpers';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)`
   margin-bottom: 10px;
@@ -19,7 +19,7 @@ const EditWorkshop = styled(Fab)`
 `;
 
 const Workshop = ({workshop}: any) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <StyledCard variant="outlined" >
@@ -28,7 +28,7 @@ const Workshop = ({workshop}: any) => {
           size='small'
           color='primary'
           aria-label='add'
-          onClick={() => history.push(`/workshop/${getIdFromIri(workshop['@id'])}/edit`)}
+          onClick={() => navigate(`/workshop/${getIdFromIri(workshop['@id'])}/edit`)}
         >
           <EditIcon/>
         </EditWorkshop>

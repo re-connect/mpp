@@ -4,7 +4,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import 'chartkick/chart.js'
 import React, { useContext } from "react";
 import { LineChart } from "react-chartkick";
-import { withRouter } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import NotesContext from "../Context/NotesContext";
 import { notesEndpoint } from "../Services/requests";
@@ -16,7 +16,8 @@ const HomeButton = styled(Fab)`
   top: 10px;
 `;
 
-const Charts = withRouter(({history}: any) => {
+const Charts = () => {
+  const navigate = useNavigate();
   const notesContext = useContext(NotesContext);
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('fr', {year: "numeric", month: "short", day: "2-digit"});
@@ -30,7 +31,7 @@ const Charts = withRouter(({history}: any) => {
   let nbBeneficiariesAccountsData = {};
   let nbStoredDocsData = {};
 
-  notesContext.notes.forEach((note: any, index: number) => {
+  notesContext.notes.forEach((note: any) => {
     nbProAccountsData = {
       [formatDate(note.date)]: note.nbProAccounts,
       ...nbProAccountsData,
@@ -48,7 +49,7 @@ const Charts = withRouter(({history}: any) => {
         size="small"
         color="primary"
         aria-label="add"
-        onClick={() => history.push("")}
+        onClick={() => navigate("/")}
       >
         <HomeIcon/>
       </HomeButton>
@@ -74,6 +75,6 @@ const Charts = withRouter(({history}: any) => {
       <LineChart data={nbStoredDocsData} colors={["#8e44ad"]}/>
     </Container>
   );
-});
+};
 
 export default Charts;
