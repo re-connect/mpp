@@ -55,7 +55,8 @@ class UserCrudController extends AbstractCrudController
         $id = IntegerField::new('id', 'ID');
         $roles = ChoiceField::new('roles')
             ->setChoices(array_combine(User::ROLES, User::ROLES))
-            ->allowMultipleChoices();
+            ->allowMultipleChoices()
+            ->setRequired(false);
 
         return match ($pageName) {
             Crud::PAGE_INDEX => [$id, $email, $notes],
