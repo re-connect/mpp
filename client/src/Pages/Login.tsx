@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import LinkIcon from '@material-ui/icons/Link';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { dropdownsEndpoint, loginEndpoint, makeRequest, oauthEndpoint } from '../Services/requests';
 import logo from '../Images/logo.png';
@@ -34,14 +34,14 @@ const StyledForm = styled.form`
 `;
 
 const Login: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const {dropdowns, setDropdowns} = useContext(DropdownsContext);
   const fetchDropdowns = UseFetchData(dropdownsEndpoint, setDropdowns);
 
   const login = async (values: Object) => {
     await makeRequest(loginEndpoint, "POST", values);
     await fetchDropdowns();
-    history.push("/");
+    navigate("/");
   };
 
   return (
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
               variant="outlined"
               onChange={props.handleChange}
             />
-            {props.errors.email && (
+            {props.errors.email && typeof props.errors.email === 'string' && (
               <div id="feedback">{props.errors.email}</div>
             )}
             <TextField
@@ -83,7 +83,7 @@ const Login: React.FC = () => {
               variant="outlined"
               onChange={props.handleChange}
             />
-            {props.errors.password && (
+            {props.errors.password && typeof props.errors.password === 'string' && (
               <div id="feedback">{props.errors.password}</div>
             )}
             <Button variant="outlined" color="primary" type="submit">

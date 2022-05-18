@@ -4,12 +4,13 @@ import * as React from 'react';
 import NotesContext from './Context/NotesContext';
 import WorkshopsContext from './Context/WorkshopsContext';
 import DropdownsContext from './Context/DropdownsContext';
-import Routes from './Routes';
+import Router from './Router';
 import { Note } from './Types/Notes';
 import { WorkshopInterface } from './Types/Workshops';
 import { dropdownsEndpoint } from "./Services/requests";
 import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 import { Dropdowns } from "./Types/Dropdowns";
+import {BrowserRouter} from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -41,7 +42,9 @@ const App = () => {
       <WorkshopsContext.Provider value={{workshops, setWorkshops}}>
         <NotesContext.Provider value={{notes, setNotes}}>
           <DropdownsContext.Provider value={{dropdowns, setDropdowns}}>
-            <Routes/>
+            <BrowserRouter>
+              <Router/>
+            </BrowserRouter>
           </DropdownsContext.Provider>
         </NotesContext.Provider>
       </WorkshopsContext.Provider>

@@ -10,7 +10,7 @@ import { useBoolean } from 'react-hanger/array';
 import DropdownsContext from '../../../Context/DropdownsContext';
 import { getDropdownNameFromIri, getDropdownOptionsArray, getDropdownValues } from '../../../Services/dropdowns';
 import FormRow from '../../../Components/FormRow';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SelectField from '../../../Components/SelectField';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
@@ -21,7 +21,7 @@ interface WorkshopFormProps {
 }
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [loading, loadingActions] = useBoolean(false);
   const {dropdowns} = useContext(DropdownsContext);
   const allSkills = getDropdownValues(dropdowns, 'skills');
@@ -48,7 +48,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
         await onSubmit(data);
         setTimeout(() => {
           loadingActions.setFalse();
-          history.goBack();
+          navigate(-1);
         }, 500);
       }}
       render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (

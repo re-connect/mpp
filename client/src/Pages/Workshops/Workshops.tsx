@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Pagination from '@material-ui/lab/Pagination';
 import React, { useContext } from 'react';
 import { useNumber } from 'react-hanger/array';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
@@ -30,10 +30,7 @@ const WorkshopsTitle = styled(Typography)`
   flex: 1;
 `;
 
-const TopRightIcon = styled(Fab)`
-  position: absolute;
-  right: 0;
-`;
+const TopRightIcon = styled(Fab)``;
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -44,8 +41,8 @@ const PaginationContainer = styled.div`
 
 const Workshops = () => {
   const [center, setCenter] = React.useState<Center | null>(null);
-  const history = useHistory();
-  const {centerId} = useParams();
+  const navigate = useNavigate();
+  const {centerId} = useParams<{ centerId: string|undefined }>();
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const pagesCount = Math.ceil(workshopsCount / paginationCount);
@@ -59,7 +56,7 @@ const Workshops = () => {
   });
 
   const changePage = async (event: any, value: any) => {
-    history.push(`/centers/${centerId}/workshops?page=${null === value ? '1' : value}`)
+    navigate(`/centers/${centerId}/workshops?page=${null === value ? '1' : value}`)
   }
 
   return (
@@ -86,7 +83,7 @@ const Workshops = () => {
           size='medium'
           color='primary'
           aria-label='add'
-          onClick={() => history.push(`/centers/${center.id}/create-workshop`)}
+          onClick={() => navigate(`/centers/${center.id}/create-workshop`)}
         >
           <AddIcon/>
         </TopRightIcon>

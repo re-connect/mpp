@@ -6,7 +6,7 @@ import { Container } from '@material-ui/core';
 import NoteForm from './Components/NoteForm';
 
 const CreateNote = () => {
-  const {centerId} = useParams();
+  const {centerId} = useParams<{ centerId: string|undefined }>();
   const note = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),

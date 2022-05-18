@@ -15,7 +15,7 @@ import HotelIcon from "@material-ui/icons/House";
 import PeopleIcon from "@material-ui/icons/PeopleAlt";
 import HomeWorkIcon from "@material-ui/icons/Work";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
 import { adminEndpoint, centersEndpoint, logoutEndpoint, makeRequest, tagsEndpoint } from "../Services/requests";
@@ -61,7 +61,7 @@ const Admin = styled(Button)`
 `;
 
 const Home = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [centers, setCenters] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
   const [filteredCenters, setFilteredCenters] = useState<any[]>([]);
@@ -101,7 +101,7 @@ const Home = () => {
         >
           Admin
         </Admin>
-        <ChartsButton size="small" color="primary" aria-label="add" onClick={() => history.push("/charts")}>
+        <ChartsButton size="small" color="primary" aria-label="add" onClick={() => navigate("/charts")}>
           <ChartIcon/>
         </ChartsButton>
         <Typography variant="h2" component="h2" gutterBottom color="textPrimary">
@@ -124,7 +124,7 @@ const Home = () => {
                 <StyledListItemContent style={{
                   textAlign: 'center',
                   width: 200,
-                }} onClick={() => history.push(`/centers/${center.id}/notes`)}>
+                }} onClick={() => navigate(`/centers/${center.id}/notes`)}>
                   <PeopleIcon htmlColor="white"/>
                   <ListItemText secondary="Permanences Coffre-fort numérique"/>
                 </StyledListItemContent>
@@ -134,7 +134,7 @@ const Home = () => {
                   marginLeft: 8,
                   textAlign: 'center',
                   width: 200,
-                }} onClick={() => history.push(`/centers/${center.id}/workshops`)}>
+                }} onClick={() => navigate(`/centers/${center.id}/workshops`)}>
                   <HomeWorkIcon htmlColor="white"/>
                   <ListItemText secondary="Accompagnements numérique (individuel ou collectif)"/>
                 </StyledListItemContent>
