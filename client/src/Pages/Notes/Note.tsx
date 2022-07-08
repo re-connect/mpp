@@ -1,4 +1,4 @@
-import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@material-ui/core';
+import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@mui/material';
 import EditIcon from '@material-ui/icons/Edit';
 import { format } from 'date-fns';
 import React from 'react';

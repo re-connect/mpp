@@ -1,16 +1,16 @@
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import LinkIcon from '@material-ui/icons/Link';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import LinkIcon from '@mui/icons-material/Link';
+import Typography from '@mui/material/Typography';
 import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { dropdownsEndpoint, loginEndpoint, makeRequest, oauthEndpoint } from '../Services/requests';
 import logo from '../Images/logo.png';
-import { Typography } from '@material-ui/core';
 import UseFetchData from '../Hooks/UseFetchData';
-import { useContext } from 'react';
 import DropdownsContext from '../Context/DropdownsContext';
 
 const StyledImage = styled.img`
@@ -51,7 +51,6 @@ const Login: React.FC = () => {
           variant="h3"
           component="h2"
           gutterBottom
-          color="textPrimary"
         >
           Ma petite permanence
         </Typography>

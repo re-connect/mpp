@@ -1,15 +1,5 @@
-import {
-  Button,
-  Chip,
-  Fab,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography
-} from "@material-ui/core";
-import Container from "@material-ui/core/Container";
+import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
 import ChartIcon from "@material-ui/icons/BarChart";
 import HotelIcon from "@material-ui/icons/House";
 import PeopleIcon from "@material-ui/icons/PeopleAlt";

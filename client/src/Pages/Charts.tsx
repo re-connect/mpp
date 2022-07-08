@@ -1,5 +1,6 @@
-import { Fab, Typography } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
+import Typography from "@mui/material/Typography";
+import Fab from "@mui/material/Fab";
+import Container from "@mui/material/Container";
 import HomeIcon from "@material-ui/icons/Home";
 import 'chartkick/chart.js'
 import React, { useContext } from "react";

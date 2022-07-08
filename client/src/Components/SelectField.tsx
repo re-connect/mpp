@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 import DropdownsContext from '../Context/DropdownsContext';
 import { getDropdownOptionsArray } from '../Services/dropdowns';
 

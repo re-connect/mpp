@@ -1,7 +1,8 @@
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
+
 import React from 'react';
 
-const FormTextField = ({id, label, value, handleChange, rows, multiline= false, required= false}: any) => (
+const FormTextField = ({id, label, value, handleChange, rows, multiline = false, required = false}: any) => (
   <TextField
     id={id}
     name={id}
