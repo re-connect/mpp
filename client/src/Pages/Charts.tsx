@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
 import Container from "@mui/material/Container";
-import HomeIcon from "@material-ui/icons/Home";
+import HomeIcon from "@mui/icons-material/Home";
 import 'chartkick/chart.js'
 import React, { useContext } from "react";
 import { LineChart } from "react-chartkick";

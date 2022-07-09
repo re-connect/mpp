@@ -1,9 +1,9 @@
 import { Button, Chip, Fab, List, ListItem, ListItemIcon, ListItemText, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
-import ChartIcon from "@material-ui/icons/BarChart";
-import HotelIcon from "@material-ui/icons/House";
-import PeopleIcon from "@material-ui/icons/PeopleAlt";
-import HomeWorkIcon from "@material-ui/icons/Work";
+import ChartIcon from "@mui/icons-material/PieChart";
+import HomeWorkIcon from "@mui/icons-material/Home";
+import HotelIcon from "@mui/icons-material/Hotel";
+import PeopleIcon from "@mui/icons-material/People";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";

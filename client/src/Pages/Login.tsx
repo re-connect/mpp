@@ -35,7 +35,7 @@ const StyledForm = styled.form`
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const {dropdowns, setDropdowns} = useContext(DropdownsContext);
+  const {setDropdowns} = useContext(DropdownsContext);
   const fetchDropdowns = UseFetchData(dropdownsEndpoint, setDropdowns);
 
   const login = async (values: Object) => {
@@ -51,6 +51,7 @@ const Login: React.FC = () => {
           variant="h3"
           component="h2"
           gutterBottom
+          color="textPrimary"
         >
           Ma petite permanence
         </Typography>

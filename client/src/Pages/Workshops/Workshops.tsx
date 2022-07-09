@@ -1,5 +1,5 @@
 import { Container, Divider, Fab, Typography } from '@mui/material';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 import Pagination from '@mui/material/Pagination';
 import React, { useContext } from 'react';
 import { useNumber } from 'react-hanger/array';

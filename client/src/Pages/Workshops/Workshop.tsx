@@ -7,7 +7,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ChipList from '../../Components/ChipList';
 import DropdownSingleValue from '../../Components/DropdownSingleValue';
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@mui/icons-material//Edit';
 import { getIdFromIri } from '../../Services/helpers';
 import { useNavigate } from 'react-router-dom';
 

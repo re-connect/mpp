@@ -1,16 +1,17 @@
 import { WorkshopInterface } from '../Types/Workshops';
 import { createContext } from 'react';
 
-interface WorkshopsContext {
-    workshops: WorkshopInterface[];
-    setWorkshops: (workshops: WorkshopInterface[]) => void;
+interface WorkshopsContextInterface {
+  workshops: WorkshopInterface[];
+  setWorkshops: (workshops: WorkshopInterface[]) => void;
 }
 
 const defaultValues = {
-    workshops: [],
-    setWorkshops: () => {},
+  workshops: [],
+  setWorkshops: () => {
+  },
 };
 
-const WorkshopsContext = createContext<WorkshopsContext>(defaultValues);
+const WorkshopsContext = createContext<WorkshopsContextInterface>(defaultValues);
 
 export default WorkshopsContext;
