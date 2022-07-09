@@ -1,6 +1,6 @@
-import { Container, Divider, Fab, Typography } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import Pagination from '@material-ui/lab/Pagination';
+import { Container, Divider, Fab, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import Pagination from '@mui/material/Pagination';
 import React, { useContext } from 'react';
 import { useNumber } from 'react-hanger/array';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -42,7 +42,7 @@ const PaginationContainer = styled.div`
 const Workshops = () => {
   const [center, setCenter] = React.useState<Center | null>(null);
   const navigate = useNavigate();
-  const {centerId} = useParams<{ centerId: string|undefined }>();
+  const {centerId} = useParams<{ centerId: string | undefined }>();
   const {workshops, setWorkshops} = useContext(WorkshopsContext);
   const [workshopsCount, workshopsCountActions] = useNumber(0);
   const pagesCount = Math.ceil(workshopsCount / paginationCount);

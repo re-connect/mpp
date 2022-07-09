@@ -2,7 +2,7 @@
   "type": "project",
   "license": "proprietary",
   "require": {
-    "php": "*",
+    "php": "8.1.*",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "ext-json": "*",
@@ -12,44 +12,49 @@
     "doctrine/doctrine-bundle": "*",
     "doctrine/doctrine-migrations-bundle": "3.2.*",
     "doctrine/orm": "^2.10",
-    "easycorp/easyadmin-bundle": "4.0.*",
-    "firebase/php-jwt": "5.5.*",
+    "easycorp/easyadmin-bundle": "4.3.*",
+    "firebase/php-jwt": "6.2.*",
     "lexik/jwt-authentication-bundle": "2.*.*",
     "nelmio/cors-bundle": "^2.1",
     "phpdocumentor/reflection-common": "2.2.*",
     "phpdocumentor/reflection-docblock": "^5.2",
     "stof/doctrine-extensions-bundle": "1.7.*",
     "symfony/apache-pack": "1.0.*",
-    "symfony/asset": "6.0.*",
-    "symfony/console": "6.0.*",
-    "symfony/dotenv": "6.0.*",
-    "symfony/expression-language": "6.0.*",
-    "symfony/flex": "2.1.*",
-    "symfony/framework-bundle": "6.0.*",
-    "symfony/http-client": "6.0.*",
-    "symfony/http-kernel": "6.0.*",
+    "symfony/asset": "6.1.*",
+    "symfony/console": "6.1.*",
+    "symfony/dotenv": "6.1.*",
+    "symfony/expression-language": "6.1.*",
+    "symfony/flex": "2.2.*",
+    "symfony/framework-bundle": "6.1.*",
+    "symfony/http-client": "6.1.*",
+    "symfony/http-kernel": "6.1.*",
     "symfony/monolog-bundle": "^3.7",
-    "symfony/property-access": "6.0.*",
-    "symfony/property-info": "6.0.*",
-    "symfony/proxy-manager-bridge": "6.0.*",
-    "symfony/runtime": "6.0.*",
-    "symfony/security-bundle": "6.0.*",
-    "symfony/serializer": "6.0.*",
-    "symfony/translation": "6.0.*",
-    "symfony/twig-bundle": "6.0.*",
-    "symfony/validator": "6.0.*",
-    "symfony/yaml": "6.0.*"
+    "symfony/property-access": "6.1.*",
+    "symfony/property-info": "6.1.*",
+    "symfony/proxy-manager-bridge": "6.1.*",
+    "symfony/runtime": "6.1.*",
+    "symfony/security-bundle": "6.1.*",
+    "symfony/serializer": "6.1.*",
+    "symfony/translation": "6.1.*",
+    "symfony/twig-bundle": "6.1.*",
+    "symfony/validator": "6.1.*",
+    "symfony/yaml": "6.1.*"
   },
   "require-dev": {
-    "symfony/maker-bundle": "1.36.*",
-    "symfony/stopwatch": "6.0.*",
-    "symfony/web-profiler-bundle": "6.0.*"
+    "deployer/deployer": "v7.0.0-rc.8",
+    "symfony/maker-bundle": "1.43.*",
+    "symfony/stopwatch": "6.1.*",
+    "symfony/web-profiler-bundle": "6.1.*"
   },
   "config": {
     "preferred-install": {
       "*": "dist"
     },
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": true,
+      "symfony/runtime": true
+    }
   },
   "autoload": {
     "psr-4": {
@@ -87,7 +92,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "6.0.*"
+      "require": "6.1.*"
     }
   }
 }

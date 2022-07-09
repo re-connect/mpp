@@ -1,4 +1,4 @@
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { centersEndpoint, workshopsEndpoint } from '../../Services/requests';
@@ -6,7 +6,7 @@ import WorkshopForm from './Components/WorkshopForm';
 import UseFetchData from '../../Hooks/UseFetchData';
 
 const CreateWorkshop = () => {
-  const {centerId} = useParams<{ centerId: string|undefined }>();
+  const {centerId} = useParams<{ centerId: string | undefined }>();
   const workshop = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),

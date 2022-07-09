@@ -1,10 +1,13 @@
-import { Card, CardContent, Fab, Typography } from '@material-ui/core';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Fab from '@mui/material/Fab';
+import Typography from '@mui/material/Typography';
 import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
 import ChipList from '../../Components/ChipList';
 import DropdownSingleValue from '../../Components/DropdownSingleValue';
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@mui/icons-material//Edit';
 import { getIdFromIri } from '../../Services/helpers';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +25,7 @@ const Workshop = ({workshop}: any) => {
   const navigate = useNavigate();
 
   return (
-    <StyledCard variant="outlined" >
+    <StyledCard variant="outlined">
       <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
         <EditWorkshop
           size='small'
@@ -48,7 +51,8 @@ const Workshop = ({workshop}: any) => {
           Nombre de participants : {workshop.nbParticipants}
         </Typography>
         <Typography variant="body2">
-          Genres : [ Femmes : {workshop.femaleCount} ] [ Hommes : {workshop.maleCount} ] [ Autres : {workshop.noGenderCount} ]
+          Genres : [ Femmes : {workshop.femaleCount} ] [ Hommes : {workshop.maleCount} ] [ Autres
+          : {workshop.noGenderCount} ]
         </Typography>
         <br/>
         <div>

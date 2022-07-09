@@ -1,5 +1,5 @@
-import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { Avatar, Card, CardContent, Chip, Fab, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';

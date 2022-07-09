@@ -2,11 +2,11 @@ import React from 'react';
 import { centersEndpoint, notesEndpoint } from '../../Services/requests';
 import { useParams } from 'react-router-dom';
 import UseFetchData from '../../Hooks/UseFetchData';
-import { Container } from '@material-ui/core';
+import Container from '@mui/material/Container';
 import NoteForm from './Components/NoteForm';
 
 const CreateNote = () => {
-  const {centerId} = useParams<{ centerId: string|undefined }>();
+  const {centerId} = useParams<{ centerId: string | undefined }>();
   const note = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),
@@ -23,7 +23,8 @@ const CreateNote = () => {
     reconnectNotes: '',
   }
 
-  const createNote = UseFetchData(notesEndpoint, () => {}, 'POST');
+  const createNote = UseFetchData(notesEndpoint, () => {
+  }, 'POST');
 
   return (
     <Container maxWidth='sm'>

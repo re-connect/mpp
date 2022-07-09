@@ -1,14 +1,15 @@
-import Chip from '@material-ui/core/Chip';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import Chip from '@mui/material/Chip';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 import React, { useContext } from 'react';
 import DropdownsContext from "../Context/DropdownsContext";
 import { getDropdownOptionsArray } from "../Services/dropdowns";
 
-const MultiSelectField = ({id, label, value, setFieldValue, required= false}: any) => {
+const MultiSelectField = ({id, label, value, setFieldValue, required = false}: any) => {
   const {dropdowns} = useContext(DropdownsContext);
   const dropdownOptions = getDropdownOptionsArray(dropdowns, id);
   const options = !dropdownOptions ? [] : dropdownOptions;

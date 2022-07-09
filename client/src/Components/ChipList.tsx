@@ -1,4 +1,4 @@
-import { Chip } from '@material-ui/core';
+import Chip from '@mui/material/Chip';
 import React, { useContext } from 'react';
 import DropdownsContext from "../Context/DropdownsContext";
 import { getDropdownNameFromIri, getDropdownValues } from "../Services/dropdowns";

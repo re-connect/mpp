@@ -1,4 +1,4 @@
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';

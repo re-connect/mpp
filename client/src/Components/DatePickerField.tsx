@@ -1,25 +1,17 @@
-import DateFnsUtils from '@date-io/date-fns';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import TextField from '@mui/material/TextField';
 import React from 'react';
 
 
 const DatePickerField = ({label, handleChange, value}: any) => (
-  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <KeyboardDatePicker
-      disableToolbar
-      format='dd/MM/yyyy'
-      margin='normal'
-      id='date-picker-inline'
-      label={label}
-      onChange={handleChange}
-      variant='inline'
-      value={value}
-      KeyboardButtonProps={{
-        'aria-label': 'change date',
-      }}
-      style={{margin: 8, flex: 1}}
-    />
-  </MuiPickersUtilsProvider>
+  <DatePicker
+    renderInput={(params) => <
+      TextField {...params}/>}
+    inputFormat="dd/MM/yyyy"
+    label={label}
+    onChange={handleChange}
+    value={value}
+  />
 );
 
 export default DatePickerField;

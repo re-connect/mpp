@@ -2,7 +2,8 @@ import { Method } from 'axios';
 import * as React from 'react';
 import { loginEndpoint, makeRequest } from '../Services/requests';
 
-export default (endpoint: string, callback: Function = () => {}, method: Method = 'GET') => React.useCallback(async (body: Object = {}) => {
+const useFetchData = (endpoint: string, callback: Function = () => {
+}, method: Method = 'GET') => React.useCallback(async (body: Object = {}) => {
   try {
     const response = await makeRequest(endpoint, method, body);
     if (null !== callback) {
@@ -15,3 +16,6 @@ export default (endpoint: string, callback: Function = () => {}, method: Method 
     console.log('Error making http call', endpoint, e.message);
   }
 }, [endpoint]);
+
+export default useFetchData;
+

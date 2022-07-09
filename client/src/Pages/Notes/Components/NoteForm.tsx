@@ -4,7 +4,7 @@ import { useBoolean } from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
 import FormRow from '../../../Components/FormRow';
 import NumberField from '../../../Components/NumberField';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
