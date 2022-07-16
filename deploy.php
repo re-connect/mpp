@@ -30,6 +30,7 @@ host('155.133.130.39')
 task('build', function () {
     cd('{{release_path}}');
     cd('./client');
+    run('npm install');
     run('npm run build');
 });
 

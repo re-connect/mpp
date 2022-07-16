@@ -9,15 +9,9 @@
 
 ###< frontend dependencies ###
 node_modules
-.pnp
-.pnp.js
+client/build
 ###< frontend dependencies ###
 
-###< symfony/framework-bundle ###
-composer.phar
-/public/bundles/
-/var/
-/vendor/
 ###> IDE ###
 .idea
 .DS_Store
@@ -32,21 +26,17 @@ yarn-debug.log*
 yarn-error.log*
 
 ###> symfony/framework-bundle ###
+composer.phar
+/var/
+/vendor/
 /.env.local
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
