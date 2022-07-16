@@ -16,7 +16,11 @@ add('shared_files', [
     '.env.local',
     '.env.local.php',
 ]);
-add('shared_dirs', []);
+add('shared_dirs', [
+    'var/oauth',
+    'var/log',
+    'client/public',
+]);
 add('writable_dirs', []);
 
 // Hosts
@@ -27,11 +31,10 @@ host('155.133.130.39')
 
 // Tasks
 
-task('build', function () {
-    cd('{{release_path}}');
-    cd('./client');
-    run('npm install');
-    run('npm run build');
+task('deploy:build_frontend', function () {
+    run('cd {{release_path}} && cd client && npm install && npm run build');
 });
+
+before('deploy:cache:clear', 'build');
 
 after('deploy:failed', 'deploy:unlock');
