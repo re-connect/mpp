@@ -18,10 +18,6 @@ composer.phar
 /public/bundles/
 /var/
 /vendor/
-###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
-###< lexik/jwt-authentication-bundle ###
-
 ###> IDE ###
 .idea
 .DS_Store

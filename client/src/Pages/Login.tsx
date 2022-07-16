@@ -1,9 +1,7 @@
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
 import LinkIcon from '@mui/icons-material/Link';
 import Typography from '@mui/material/Typography';
-import { Formik, FormikProps } from 'formik';
 import * as React from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -57,50 +55,16 @@ const Login: React.FC = () => {
         </Typography>
         <StyledImage src={logo} alt="logo"/>
       </StyledImageContainer>
-      <Formik
-        initialValues={{email: "", password: ""}}
-        onSubmit={login}
-        render={(props: FormikProps<any>) => (
-          <StyledForm onSubmit={props.handleSubmit}>
-            <TextField
-              id="email"
-              name="email"
-              type="email"
-              label="Email"
-              margin="normal"
-              variant="outlined"
-              onChange={props.handleChange}
-            />
-            {props.errors.email && typeof props.errors.email === 'string' && (
-              <div id="feedback">{props.errors.email}</div>
-            )}
-            <TextField
-              id="password"
-              name="password"
-              type="password"
-              label="Password"
-              margin="normal"
-              variant="outlined"
-              onChange={props.handleChange}
-            />
-            {props.errors.password && typeof props.errors.password === 'string' && (
-              <div id="feedback">{props.errors.password}</div>
-            )}
-            <Button variant="outlined" color="primary" type="submit">
-              Login
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              style={{marginTop: 50, marginBottom: 100, fontSize: 20}}
-              href={oauthEndpoint}
-            >
-              <LinkIcon style={{marginRight: 20}}/>
-              Me connecter avec Reconnect Pro
-            </Button>
-          </StyledForm>
-        )}
-      />
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        style={{marginTop: 50, marginBottom: 100, fontSize: 20, width: '100%', minHeight: '120px'}}
+        href={oauthEndpoint}
+      >
+        <LinkIcon style={{marginRight: 20}}/>
+        Me connecter avec Reconnect Pro
+      </Button>
     </Container>
   );
 };
