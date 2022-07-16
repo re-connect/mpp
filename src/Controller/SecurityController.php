@@ -4,16 +4,14 @@
 namespace App\Controller;
 
 
-use App\Repository\UserRepository;
-use App\Security\LoginFormAuthenticator;
-use Firebase\JWT\JWT;
+use App\Service\SecurityService;
+use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -46,35 +44,18 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    /**
-     * @Route("/oauth/trigger", name="oauth_trigger", methods={"GET"})
-     */
-    public function triggerSSO(): RedirectResponse
+    #[Route(path: '/reconnect-pro-login-trigger', name: 'reconnect_pro_login_trigger', methods: ['GET'])]
+    public function reconnectProLoginTrigger(OAuth2Client $client): mixed
     {
-        $ssoUrl = sprintf(
-            '%s?response_type=code&client_id=%s&redirect_uri=%s',
-            $_ENV['SSO_AUTH_ENDPOINT'],
-            $_ENV['SSO_CLIENT_ID'],
-            $_ENV['SSO_REDIRECT_URI']
-        );
-
-        return new RedirectResponse($ssoUrl);
+        return $client->getOAuth2Provider()->authorize();
     }
 
     /**
-     * @Route("/oauth/check", name="oauth_check", methods={"GET"})
+     * @throws \Exception
      */
-    public function oauthCheck(Request $request, UserRepository $userRepository, LoginFormAuthenticator $authenticator, UserAuthenticatorInterface $userAuthenticator): RedirectResponse
+    #[Route(path: '/reconnect-pro-login-check', name: 'reconnect_pro_login_check', methods: ['GET'])]
+    public function reconnectProLoginCheck(Request $request, SecurityService $service): Response
     {
-        $key = file_get_contents(dirname(__DIR__).'/../var/oauth/public.key');
-        $decodedToken = JWT::decode($request->query->get('code'), $key, ['RS256']);
-        $tokenArray = (array) $decodedToken;
-        $user = $userRepository->findOneBy(['email' => $tokenArray['user_id']]);
-
-        if (null !== $user) {
-            $userAuthenticator->authenticateUser($user, $authenticator, $request);
-        }
-
-        return new RedirectResponse($_ENV['FRONTEND_URL']);
+        return $this->redirect($service->authenticateUserFromReconnectPro($request));
     }
 }

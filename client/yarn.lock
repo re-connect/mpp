@@ -7543,7 +7543,7 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-hanger@^2.4.4:
+react-hanger@^2.4.0:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/react-hanger/-/react-hanger-2.4.4.tgz#daf72b5aac2a247dc04cfbfd4140f10a6e1da28c"
   integrity sha512-2sHrQBw8TrWsthby9aofhmYrg/ovva9zQXEROmEoQASWYAlwQvJdrJ7EfBZ1NddKzHm8CUM4RiPvMRkhWFsi/A==
