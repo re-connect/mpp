@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -57,5 +57,11 @@ class SecurityController extends AbstractController
     public function reconnectProLoginCheck(Request $request, SecurityService $service): Response
     {
         return $this->redirect($service->authenticateUserFromReconnectPro($request));
+    }
+
+    #[Route(path: '/user-disabled', name: 'user_disabled', methods: ['GET'])]
+    public function userDisabled(): Response
+    {
+        return $this->render('security/user_disabled.html.twig');
     }
 }
