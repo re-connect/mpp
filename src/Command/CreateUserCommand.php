@@ -44,7 +44,6 @@ class CreateUserCommand extends Command
         $output->writeln('You are about to create a user.');
 
         $user = new User();
-        $user->setApiToken($email);
         $user->setEmail($email);
         $user->setPassword($this->hasher->hashPassword($user, $password));
 

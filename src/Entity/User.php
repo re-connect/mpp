@@ -41,11 +41,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?string $password;
 
     /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    private ?string $apiToken;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
      */
     private ?Collection $notes;
@@ -178,22 +173,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApiToken()
-    {
-        return $this->apiToken;
-    }
-
-    /**
-     * @param mixed $apiToken
-     */
-    public function setApiToken($apiToken): void
-    {
-        $this->apiToken = $apiToken;
     }
 
     /**
