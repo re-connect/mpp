@@ -10,6 +10,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityService
@@ -20,6 +21,7 @@ class SecurityService
         private readonly LoginFormAuthenticator     $formLoginAuthenticator,
         private readonly UserRepository             $repository,
         private readonly EntityManagerInterface     $em,
+        private readonly RouterInterface            $router,
         private readonly string                     $reconnectProJwtPublicKey,
         private readonly string                     $frontendUrl,
     ) {
@@ -54,7 +56,11 @@ class SecurityService
                 $this->em->persist($user);
                 $this->em->flush();
             }
-            $this->authenticator->authenticateUser($user, $this->formLoginAuthenticator, $request);
+            if ($user->isDisabled()) {
+                return $this->router->generate('user_disabled');
+            } else {
+                $this->authenticator->authenticateUser($user, $this->formLoginAuthenticator, $request);
+            }
         }
 
         return $this->frontendUrl;

@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
-    public const ROLES = [ "ROLE_ADMIN", "ROLE_SUPER_ADMIN"];
+    public const ROLES = ["ROLE_ADMIN", "ROLE_SUPER_ADMIN"];
 
     /**
      * @ORM\Id()
@@ -50,7 +50,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
      */
     private ?Collection $notes;
 
-    private $plainPassword;
+    private ?string $plainPassword = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="author")
@@ -58,9 +58,11 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?Collection $workshops;
 
     /**
-     * @return mixed
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    public function getPlainPassword()
+    private ?bool $disabled = false;
+
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
@@ -260,6 +262,18 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
                 $workshop->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDisabled(): ?bool
+    {
+        return $this->disabled;
+    }
+
+    public function setDisabled(?bool $disabled): self
+    {
+        $this->disabled = $disabled;
 
         return $this;
     }
