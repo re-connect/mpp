@@ -32,13 +32,12 @@ class UserCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('User')
             ->setEntityLabelInPlural('User')
-            ->setSearchFields(['id', 'email', 'roles', 'apiToken']);
+            ->setSearchFields(['id', 'email', 'roles']);
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $user): void
     {
         $this->userService->updatePassword($user, $user->getPlainPassword());
-        $user->setApiToken($user->getEmail());
         parent::persistEntity($entityManager, $user);
     }
 
