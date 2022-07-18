@@ -35,6 +35,6 @@ task('deploy:build_frontend', function () {
     run('cd {{release_path}} && cd client && npm install && npm run build');
 });
 
-before('deploy:cache:clear', 'build');
+before('deploy:cache:clear', 'deploy:build_frontend');
 
 after('deploy:failed', 'deploy:unlock');
