@@ -1,9 +1,4 @@
-import {
-  Container,
-  Divider,
-  Fab,
-  Typography
-} from '@mui/material';
+import { Container, Divider, Fab, Typography } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import AddIcon from '@mui/icons-material//Add';
 import React, { useContext } from 'react';
@@ -48,7 +43,7 @@ const Notes = () => {
   const [notesCount, notesCountActions] = useNumber(0);
   const [currentPage, currentPageActions] = useNumber(1);
   const navigate = useNavigate();
-  const {centerId} = useParams<{ centerId: string|undefined }>();
+  const {centerId} = useParams<{ centerId: string | undefined }>();
   const {notes, setNotes} = useContext(NotesContext);
   const [center, setCenter] = React.useState<Center>({});
 
@@ -70,13 +65,11 @@ const Notes = () => {
       <StyledContent>
         {!center ? null : (
           <>
-            <NotesTitle variant='h4' gutterBottom color='textPrimary'>
-              {center.name}
-            </NotesTitle>
+            <NotesTitle variant='h4' gutterBottom color='textPrimary'>{center.name}</NotesTitle>
             <Typography>Nb permanences: {!center.notes ? 0 : center.notes.length}</Typography>
-            <Typography>Nb bénef rencontrés: {center.beneficiaryCount}</Typography>
-            <Typography>Nb CFN crées: {center.createdBeneficiaryCount}</Typography>
-            <Typography>Nb docs stockés: {center.documentsCount}</Typography>
+            <Typography>Nb bénef rencontrés: {center.beneficiariesCount}</Typography>
+            <Typography>Nb CFN crées: {center.notesBeneficiariesCount}</Typography>
+            <Typography>Nb docs stockés: {center.notesStoredDocumentsCount}</Typography>
           </>
         )}
         <br/>

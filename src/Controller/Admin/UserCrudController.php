@@ -47,23 +47,18 @@ class UserCrudController extends AbstractCrudController
         parent::persistEntity($entityManager, $user);
     }
 
-    public function configureFields(string $pageName): iterable
+    public function configureFields(string $pageName): \Generator
     {
-        $email = TextField::new('email');
-        $password = TextField::new('plainPassword', 'Password');
-        $notes = AssociationField::new('notes');
-        $id = IntegerField::new('id', 'ID');
-        $disabled = BooleanField::new('disabled', 'disabled');
-        $roles = ChoiceField::new('roles')
+        yield TextField::new('email');
+        yield TextField::new('plainPassword', 'Password')->onlyOnForms();
+        yield AssociationField::new('notes')->onlyOnIndex();
+        yield AssociationField::new('workshops')->onlyOnIndex();
+        yield IntegerField::new('id', 'ID')->onlyOnDetail();
+        yield BooleanField::new('disabled', 'disabled');
+        yield ChoiceField::new('roles')
+            ->onlyOnForms()
             ->setChoices(array_combine(User::ROLES, User::ROLES))
             ->allowMultipleChoices()
             ->setRequired(false);
-
-        return match ($pageName) {
-            Crud::PAGE_INDEX => [$id, $email, $notes],
-            Crud::PAGE_DETAIL => [$id, $email, $roles, $password, $notes],
-            Crud::PAGE_NEW => [$email, $password, $notes],
-            Crud::PAGE_EDIT => [$email, $password, $disabled, $roles],
-        };
     }
 }

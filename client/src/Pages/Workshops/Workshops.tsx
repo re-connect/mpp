@@ -70,8 +70,8 @@ const Workshops = () => {
             {center.name}
           </WorkshopsTitle>
           <Typography>Nb d'ateliers : {!center.workshops ? 0 : center.workshops.length}</Typography>
-          <Typography>Nb CFN crées : {!center.createdBeneficiaryCount ? 0 : center.createdBeneficiaryCount}</Typography>
-          <Typography>Nb docs stockés : {!center.documentsCount ? 0 : center.documentsCount}</Typography>
+          <Typography>Nb CFN crées : {center.workshopsBeneficiariesCount ?? 0}</Typography>
+          <Typography>Nb docs stockés : {center.workshopsStoredDocumentsCount ?? 0}</Typography>
         </StyledContent>
       )}
       <Divider/>
