@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity
@@ -18,14 +17,12 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Center
 {
     /**
-     * The id of this person.
-     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      * @Groups({"read", "write"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @Groups({"read", "write"})
@@ -78,64 +75,45 @@ class Center
         $this->workshops = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name = null): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * @return Collection<int, Permanence>
      */
-    public function getNotes()
+    public function getNotes(): Collection
     {
         return $this->notes;
     }
 
     /**
-     * @param mixed $notes
+     * @param Collection<int, Permanence> $notes
      */
-    public function setNotes($notes): void
+    public function setNotes(Collection $notes): void
     {
         $this->notes = $notes;
     }
 
-    /**
-     * @param Permanence $note
-     *
-     * @return $this
-     */
-    public function addNote(Permanence $note)
+    public function addNote(Permanence $note): self
     {
         $this->notes[] = $note;
 
         return $this;
     }
 
-    /**
-     * @param Permanence $note
-     *
-     * @return $this
-     */
-    public function removeNote(Permanence $note)
+    public function removeNote(Permanence $note): self
     {
         $this->notes->removeElement($note);
 
@@ -155,7 +133,7 @@ class Center
     }
 
     /**
-     * @return Collection|CenterTag[]
+     * @return Collection<int, CenterTag>
      */
     public function getTags(): Collection
     {
@@ -181,58 +159,56 @@ class Center
         return $this;
     }
 
-    /**
-     * @Groups({"read"})
-     * @SerializedName("beneficiaryCount")
-     */
-    public function getBeneficiariesMeetCount(): int
+    #[Groups('read')]
+    public function getBeneficiariesCount(): int
     {
-        $total = 0;
-        /** @var Permanence $note */
-        foreach ($this->notes as $note) {
-            $total += $note->getNbBeneficiaries();
-        }
-        return $total;
+        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
+            return $acc + $note->getNbBeneficiaries();
+        }, 0);
     }
 
-    /**
-     * @Groups({"read"})
-     * @SerializedName("createdBeneficiaryCount")
-     */
-    public function getBeneficiariesCreatedCount(): int
+    #[Groups('read')]
+    public function getCreatedBeneficiaryCount(): int
     {
-        $total = 0;
-        /** @var Permanence $note */
-        foreach ($this->notes as $note) {
-            $total += $note->getNbBeneficiariesAccounts();
-        }
-
-        /** @var Workshop $workshop */
-        foreach ($this->workshops as $workshop) {
-            $total += $workshop->getNbBeneficiariesAccounts();
-        }
-
-        return $total;
+        return $this->getNotesBeneficiariesCount() + $this->getWorkshopsBeneficiariesCount();
     }
 
-    /**
-     * @Groups({"read"})
-     * @SerializedName("documentsCount")
-     */
-    public function getStoredDocuments(): int
+    #[Groups('read')]
+    public function getNotesBeneficiariesCount(): int
     {
-        $total = 0;
-        /** @var Permanence $note */
-        foreach ($this->notes as $note) {
-            $total += $note->getNbStoredDocs();
-        }
+        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
+            return $acc + $note->getNbBeneficiariesAccounts();
+        }, 0);
+    }
 
-        /** @var Workshop $workshop */
-        foreach ($this->workshops as $workshop) {
-            $total += $workshop->getNbStoredDocs();
-        }
+    #[Groups('read')]
+    public function getWorkshopsBeneficiariesCount(): int
+    {
+        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
+            return $acc + $workshop->getNbBeneficiariesAccounts();
+        }, 0);
+    }
 
-        return $total;
+    #[Groups('read')]
+    public function getStoredDocumentsCount(): int
+    {
+        return $this->getWorkshopsStoredDocumentsCount() + $this->getNotesStoredDocumentsCount();
+    }
+
+    #[Groups('read')]
+    public function getWorkshopsStoredDocumentsCount(): int
+    {
+        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
+            return $acc + $workshop->getNbStoredDocs();
+        }, 0);
+    }
+
+    #[Groups('read')]
+    public function getNotesStoredDocumentsCount(): int
+    {
+        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
+            return $acc + $note->getNbStoredDocs();
+        }, 0);
     }
 
     public function hasPermanence(): ?bool
@@ -260,7 +236,7 @@ class Center
     }
 
     /**
-     * @return Collection|Workshop[]
+     * @return Collection<int, Workshop>
      */
     public function getWorkshops(): Collection
     {

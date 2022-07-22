@@ -6,7 +6,11 @@ export interface Center {
   permanence?: boolean,
   workshop?: boolean,
   workshops?: string[],
-  beneficiaryCount?: number,
+  beneficiariesCount?: number,
   createdBeneficiaryCount?: number,
-  documentsCount?: number
+  notesBeneficiariesCount?: number,
+  notesStoredDocumentsCount?: number,
+  storedDocumentsCount?: number,
+  workshopsBeneficiariesCount?: number,
+  workshopsStoredDocumentsCount?: number,
 }

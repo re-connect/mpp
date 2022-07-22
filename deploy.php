@@ -36,5 +36,6 @@ task('deploy:build_frontend', function () {
 });
 
 before('deploy:cache:clear', 'deploy:build_frontend');
+before('deploy:symlink', 'database:migrate');
 
 after('deploy:failed', 'deploy:unlock');
