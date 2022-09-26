@@ -42,7 +42,7 @@ class Skill implements \Stringable
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function getId(): ?int
@@ -83,7 +83,7 @@ class Skill implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
             $workshop->addSkill($this);
         }
 

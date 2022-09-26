@@ -67,7 +67,7 @@ class AgeBreakpoint implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
             $workshop->addAgeBreakpoint($this);
         }
 

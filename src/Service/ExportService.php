@@ -21,7 +21,7 @@ class ExportService
 
     /**
      * @param array<array<mixed>> $data
-     * @param array<string>       $fields
+     * @param array<string> $fields
      */
     public function export(array $data, array $fields): StreamedResponse
     {
@@ -33,19 +33,21 @@ class ExportService
         }, $fields);
         $response->setCallback(function () use ($data, $fields, $translatedFields) {
             $handle = fopen('php://output', 'w+');
-            fputcsv($handle, $translatedFields, ';');
-            foreach ($data as $datum) {
-                $values = [];
-                foreach ($fields as $field) {
-                    $fieldValue = $this->getFieldValue(explode('.', $field), $datum);
-                    $values[] = $this->getFieldStringValue($fieldValue);
+            if (false !== $handle) {
+                fputcsv($handle, $translatedFields, ';');
+                foreach ($data as $datum) {
+                    $values = [];
+                    foreach ($fields as $field) {
+                        $fieldValue = $this->getFieldValue(explode('.', $field), $datum);
+                        $values[] = $this->getFieldStringValue($fieldValue);
+                    }
+                    fputcsv($handle, $values, ';');
                 }
-                fputcsv($handle, $values, ';');
+                fclose($handle);
             }
-            fclose($handle);
         });
         $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment; filename="'.'export.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . 'export.csv');
 
         return $response;
     }
@@ -77,11 +79,11 @@ class ExportService
         } elseif (null === $fieldValue) {
             return $this->translator->trans('unfilled');
         } elseif (is_numeric($fieldValue)) {
-            return (string) $fieldValue;
+            return (string)$fieldValue;
         } elseif (is_array($fieldValue)) {
-            return implode(',', array_map(fn ($element) => $this->getFieldStringValue($element), $fieldValue));
+            return implode(',', array_map(fn($element) => $this->getFieldStringValue($element), $fieldValue));
         } elseif ($fieldValue instanceof Collection) {
-            return implode(',', $fieldValue->map(fn ($element) => $this->getFieldStringValue($element))->toArray());
+            return implode(',', $fieldValue->map(fn($element) => $this->getFieldStringValue($element))->toArray());
         } elseif (is_bool($fieldValue)) {
             return $this->translator->trans($fieldValue ? 'yes' : 'no');
         } elseif ($fieldValue instanceof \DateTime) {
@@ -90,7 +92,7 @@ class ExportService
             if (method_exists($fieldValue, 'getName')) {
                 return $fieldValue->getName();
             } elseif (method_exists($fieldValue, '__toString')) {
-                return (string) $fieldValue;
+                return (string)$fieldValue;
             } elseif (method_exists($fieldValue, 'getId')) {
                 return $fieldValue->getId();
             } else {

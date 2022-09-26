@@ -234,7 +234,7 @@ class Workshop
     public function addParticipantKind(ParticipantKind $participantKind): self
     {
         if (!$this->participantKinds->contains($participantKind)) {
-            $this->participantKinds[] = $participantKind;
+            $this->participantKinds->add($participantKind);
         }
 
         return $this;
@@ -256,7 +256,7 @@ class Workshop
     public function addTopic(Topic $topic): self
     {
         if (!$this->topics->contains($topic)) {
-            $this->topics[] = $topic;
+            $this->topics->add($topic);
             $topic->addWorkshop($this);
         }
 
@@ -281,7 +281,7 @@ class Workshop
     public function addAgeBreakpoint(AgeBreakpoint $ageBreakpoint): self
     {
         if (!$this->ageBreakpoints->contains($ageBreakpoint)) {
-            $this->ageBreakpoints[] = $ageBreakpoint;
+            $this->ageBreakpoints->add($ageBreakpoint);
         }
 
         return $this;
@@ -303,7 +303,7 @@ class Workshop
     public function addEquipmentSupplier(EquipmentSupplier $equipmentSupplier): self
     {
         if (!$this->equipmentSuppliers->contains($equipmentSupplier)) {
-            $this->equipmentSuppliers[] = $equipmentSupplier;
+            $this->equipmentSuppliers->add($equipmentSupplier);
         }
 
         return $this;
@@ -325,7 +325,7 @@ class Workshop
     public function addUsedEquipment(UsedEquipment $usedEquipment): self
     {
         if (!$this->usedEquipments->contains($usedEquipment)) {
-            $this->usedEquipments[] = $usedEquipment;
+            $this->usedEquipments->add($usedEquipment);
         }
 
         return $this;
@@ -419,7 +419,7 @@ class Workshop
     public function addSkill(Skill $skill): self
     {
         if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
+            $this->skills->add($skill);
         }
 
         return $this;

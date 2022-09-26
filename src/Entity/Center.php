@@ -54,7 +54,7 @@ class Center implements \Stringable
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function __construct()
@@ -87,9 +87,7 @@ class Center implements \Stringable
         return $this->notes;
     }
 
-    /**
-     * @param Collection<int, Permanence> $notes
-     */
+    /** @param Collection<int, Permanence> $notes */
     public function setNotes(Collection $notes): void
     {
         $this->notes = $notes;
@@ -97,7 +95,7 @@ class Center implements \Stringable
 
     public function addNote(Permanence $note): self
     {
-        $this->notes[] = $note;
+        $this->notes->add($note);
 
         return $this;
     }
@@ -132,7 +130,7 @@ class Center implements \Stringable
     public function addTag(CenterTag $tag): self
     {
         if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
+            $this->tags->add($tag);
             $tag->addCenter($this);
         }
 
@@ -151,7 +149,7 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
@@ -163,13 +161,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getNotesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
     public function getWorkshopsBeneficiariesCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -181,13 +179,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getWorkshopsStoredDocumentsCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
     public function getNotesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
     public function hasPermanence(): ?bool
@@ -223,7 +221,7 @@ class Center implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
             $workshop->setCenter($this);
         }
 

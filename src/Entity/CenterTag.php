@@ -61,7 +61,7 @@ class CenterTag implements \Stringable
     public function addCenter(Center $center): self
     {
         if (!$this->centers->contains($center)) {
-            $this->centers[] = $center;
+            $this->centers->add($center);
         }
 
         return $this;
