@@ -66,7 +66,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
 
     public function __toString(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     public function getId(): ?int
@@ -100,12 +100,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
      */
     public function getUsername(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**
@@ -144,7 +144,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
      */
     public function getPassword(): string
     {
-        return (string)$this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self

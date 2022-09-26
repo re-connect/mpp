@@ -11,17 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"permanence:read"}},
- *     denormalizationContext={"groups"={"permanence:write"}},
- *     shortName="notes"
- *     )
- * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- */
+#[ApiResource(
+    shortName: 'notes',
+    attributes: ['access_control' => "is_granted('ROLE_USER')", 'order' => ['date' => 'DESC']],
+    denormalizationContext: ['groups' => ['permanence:write']],
+    normalizationContext: ['groups' => ['permanence:read']]
+)]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Table(name: 'note')]
-#[ORM\Entity()]
+#[ORM\Entity]
 class Permanence implements \Stringable
 {
     use TimestampableEntity;

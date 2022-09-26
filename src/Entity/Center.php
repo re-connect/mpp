@@ -9,11 +9,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
- *     order={"name": "ASC"})
- */
+#[ApiResource(
+    attributes: ['access_control' => "is_granted('ROLE_USER')", 'pagination_items_per_page' => 100],
+    order: ['name' => 'ASC']
+)]
 #[ORM\Entity]
 class Center implements \Stringable
 {
@@ -215,9 +214,7 @@ class Center implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection<int, Workshop>
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;

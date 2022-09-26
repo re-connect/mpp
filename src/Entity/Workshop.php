@@ -13,14 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"workshop:read"}},
- *     denormalizationContext={"groups"={"workshop:write"}}
- * )
- * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- */
+#[ApiResource(
+    attributes: ['order' => ['date' => 'DESC']],
+    denormalizationContext: ['groups' => ['workshop:write']],
+    normalizationContext: ['groups' => ['workshop:read']]
+)]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 class Workshop
 {
