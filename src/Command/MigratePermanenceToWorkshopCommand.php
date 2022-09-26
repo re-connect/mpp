@@ -108,10 +108,11 @@ class MigratePermanenceToWorkshopCommand extends Command
         return Command::SUCCESS;
     }
 
+    /** @param array<Duration> $allDurations */
     private function findWorkshopDuration(array $allDurations, int $permDuration, Duration $defaultDuration): Duration
     {
         foreach ($allDurations as $duration) {
-            if ($duration->getName() === ($permDuration * 60)) {
+            if ((int) $duration->getName() === ($permDuration * 60)) {
                 return $duration;
             }
         }

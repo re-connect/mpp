@@ -57,22 +57,27 @@ class Workshop
     #[ORM\JoinColumn(nullable: false)]
     private ?Center $center = null;
 
+    /** @var ?Collection<int, ParticipantKind> $participantKinds */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: ParticipantKind::class, inversedBy: 'workshops')]
     private ?Collection $participantKinds;
 
+    /** @var ?Collection<int, Topic> $topics */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'workshops')]
     private ?Collection $topics;
 
+    /** @var ?Collection<int, AgeBreakpoint> $ageBreakpoints */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: AgeBreakpoint::class, inversedBy: 'workshops')]
     private ?Collection $ageBreakpoints;
 
+    /** @var ?Collection<int, EquipmentSupplier> $equipmentSuppliers */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: EquipmentSupplier::class, inversedBy: 'workshops')]
     private ?Collection $equipmentSuppliers;
 
+    /** @var ?Collection<int, UsedEquipment> $usedEquipments */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: UsedEquipment::class, inversedBy: 'workshops')]
     private ?Collection $usedEquipments;
@@ -101,6 +106,7 @@ class Workshop
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedNotes = null;
 
+    /** @var ?Collection<int, Skill> */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'workshops')]
     private ?Collection $skills;
@@ -221,9 +227,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|ParticipantKind[]
-     */
+    /** @return Collection<int, ParticipantKind> */
     public function getParticipantKinds(): Collection
     {
         return $this->participantKinds;
@@ -245,9 +249,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|Topic[]
-     */
+    /** @return Collection<int, Topic> */
     public function getTopics(): Collection
     {
         return $this->topics;
@@ -272,9 +274,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|AgeBreakpoint[]
-     */
+    /** @return Collection<int, AgeBreakpoint> */
     public function getAgeBreakpoints(): Collection
     {
         return $this->ageBreakpoints;
@@ -296,9 +296,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|EquipmentSupplier[]
-     */
+    /** @return Collection<int, EquipmentSupplier> */
     public function getEquipmentSuppliers(): Collection
     {
         return $this->equipmentSuppliers;
@@ -320,9 +318,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|UsedEquipment[]
-     */
+    /** @return Collection<int, UsedEquipment> */
     public function getUsedEquipments(): Collection
     {
         return $this->usedEquipments;
@@ -416,9 +412,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|Skill[]
-     */
+    /** @return Collection<int, Skill> */
     public function getSkills(): Collection
     {
         return $this->skills;

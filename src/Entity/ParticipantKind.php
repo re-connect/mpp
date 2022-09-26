@@ -29,6 +29,7 @@ class ParticipantKind implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
+    /** @var ?Collection<int, Workshop> */
     #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'participantKind')]
     private ?Collection $workshops;
 
@@ -59,9 +60,7 @@ class ParticipantKind implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;

@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Workshop|null findOneBy(array $criteria, array $orderBy = null)
  * @method Workshop[]    findAll()
  * @method Workshop[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<Workshop>
  */
 class WorkshopRepository extends ServiceEntityRepository
 {

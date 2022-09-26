@@ -9,9 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ApiResource(shortName="tag")
- */
+#[ApiResource(shortName: 'tag')]
 #[ORM\Entity(repositoryClass: CenterTagRepository::class)]
 class CenterTag implements \Stringable
 {
@@ -23,6 +21,7 @@ class CenterTag implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
+    /** @var ?Collection<int, Center> */
     #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
     private ?Collection $centers;
 

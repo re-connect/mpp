@@ -19,6 +19,10 @@ class ExportService
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
+    /**
+     * @param array<array<mixed>> $data
+     * @param array<string>       $fields
+     */
     public function export(array $data, array $fields): StreamedResponse
     {
         $response = new StreamedResponse();
@@ -46,7 +50,8 @@ class ExportService
         return $response;
     }
 
-    private function getFieldValue(array $fieldParts, $datum)
+    /** @param string[] $fieldParts */
+    private function getFieldValue(array $fieldParts, mixed $datum): mixed
     {
         $currentPart = array_shift($fieldParts);
         $currentValue = $this->propertyAccessor->getValue($datum, $currentPart);
@@ -65,7 +70,7 @@ class ExportService
         return $this->getFieldValue($fieldParts, $currentValue);
     }
 
-    private function getFieldStringValue($fieldValue): string
+    private function getFieldStringValue(mixed $fieldValue): string
     {
         if (is_string($fieldValue)) {
             return $fieldValue;
@@ -96,6 +101,7 @@ class ExportService
         }
     }
 
+    /** @param string[] $fields */
     public function getExportFieldCollection(array $fields): FieldCollection
     {
         $exportFields = FieldCollection::new([]);

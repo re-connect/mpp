@@ -33,6 +33,7 @@ class Skill implements \Stringable
     #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'skills')]
     private ?Topic $topic = null;
 
+    /** @var ?Collection<int, Workshop> $workshops */
     #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'skills')]
     private ?Collection $workshops;
 
@@ -43,7 +44,7 @@ class Skill implements \Stringable
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function getId(): ?int
@@ -75,9 +76,7 @@ class Skill implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;

@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CenterTag|null findOneBy(array $criteria, array $orderBy = null)
  * @method CenterTag[]    findAll()
  * @method CenterTag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<CenterTag>
  */
 class CenterTagRepository extends ServiceEntityRepository
 {

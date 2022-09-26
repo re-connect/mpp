@@ -27,9 +27,7 @@ class Center implements \Stringable
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255)]
     public ?string $name = null;
 
-    /**
-     * @var Collection<int, Permanence>
-     */
+    /** @var Collection<int, Permanence> */
     #[Groups(['read'])]
     #[ORM\OneToMany(mappedBy: 'center', targetEntity: Permanence::class)]
     private Collection $notes;
@@ -38,6 +36,7 @@ class Center implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $association = null;
 
+    /** @var ?Collection<int, CenterTag>> */
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;

@@ -32,16 +32,16 @@ class UserCrudController extends AbstractCrudController
             ->setSearchFields(['id', 'email', 'roles']);
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $user): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
-        $this->userService->updatePassword($user, $user->getPlainPassword());
-        parent::persistEntity($entityManager, $user);
+        $this->userService->updatePassword($entityInstance, $entityInstance->getPlainPassword());
+        parent::persistEntity($entityManager, $entityInstance);
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, $user): void
+    public function updateEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
-        $this->userService->updatePassword($user, $user->getPlainPassword());
-        parent::persistEntity($entityManager, $user);
+        $this->userService->updatePassword($entityInstance, $entityInstance->getPlainPassword());
+        parent::persistEntity($entityManager, $entityInstance);
     }
 
     public function configureFields(string $pageName): \Generator
