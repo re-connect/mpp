@@ -51,6 +51,7 @@ class PromoteUserCommand extends Command
         $this->em->flush();
 
         $io->success(sprintf('%s has been successfully promoted', $user->getUsername()));
+
         return Command::SUCCESS;
     }
 }

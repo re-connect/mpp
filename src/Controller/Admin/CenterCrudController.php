@@ -37,6 +37,7 @@ class CenterCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX === $pageName || Crud::PAGE_DETAIL === $pageName) {
             return [$id, $name, $notes, $tags, $workshop, $permanence];
         }
+
         return [$name, $tags, $workshop, $permanence];
     }
 }

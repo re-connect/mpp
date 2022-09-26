@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Entity\Center;
 use App\Entity\Duration;
 use App\Entity\Workshop;
 use App\Repository\CenterRepository;

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Command;
-
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +12,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateUserCommand extends Command
 {
-
     protected static $defaultName = 'app:create-user';
     private UserPasswordHasherInterface $hasher;
     private EntityManagerInterface $em;
@@ -33,7 +30,6 @@ class CreateUserCommand extends Command
             ->setHelp('This command allows you to create a user')
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
             ->addArgument('password', InputArgument::REQUIRED, 'User password');
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

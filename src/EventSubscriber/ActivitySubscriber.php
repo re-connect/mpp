@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
@@ -30,7 +29,6 @@ final class ActivitySubscriber implements EventSubscriberInterface
 
     public function setAuthor(ViewEvent $event)
     {
-
         $activity = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 

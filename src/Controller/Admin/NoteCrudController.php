@@ -18,7 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class NoteCrudController extends ExportableCrudController
 {
-    const EXPORT_FIELDS = [
+    public const EXPORT_FIELDS = [
         'id',
         'date',
         'hours',
@@ -61,7 +61,6 @@ class NoteCrudController extends ExportableCrudController
             ->add('updatedAt')
             ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
     }
-
 
     public function configureCrud(Crud $crud): Crud
     {
@@ -112,7 +111,7 @@ class NoteCrudController extends ExportableCrudController
                 $createdAt,
                 $updatedAt,
                 $author,
-                $center
+                $center,
             ];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
@@ -134,7 +133,7 @@ class NoteCrudController extends ExportableCrudController
                 $createdAt,
                 $updatedAt,
                 $author,
-                $center
+                $center,
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
@@ -156,7 +155,7 @@ class NoteCrudController extends ExportableCrudController
                 $createdAt,
                 $updatedAt,
                 $author,
-                $center
+                $center,
             ];
         }
 

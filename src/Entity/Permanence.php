@@ -7,7 +7,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -22,7 +21,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     shortName="notes"
  *     )
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- *
  */
 class Permanence
 {
@@ -165,9 +163,6 @@ class Permanence
         return $this->date;
     }
 
-    /**
-     * @param DateTime $date
-     */
     public function setDate(DateTime $date): void
     {
         $this->date = $date;
