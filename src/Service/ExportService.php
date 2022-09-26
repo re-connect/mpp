@@ -75,9 +75,9 @@ class ExportService
         } elseif (is_numeric($fieldValue)) {
             return (string) $fieldValue;
         } elseif (is_array($fieldValue)) {
-            return implode(',', array_map(fn($element) => $this->getFieldStringValue($element), $fieldValue));
+            return implode(',', array_map(fn ($element) => $this->getFieldStringValue($element), $fieldValue));
         } elseif ($fieldValue instanceof Collection) {
-            return implode(',', $fieldValue->map(fn($element) => $this->getFieldStringValue($element))->toArray());
+            return implode(',', $fieldValue->map(fn ($element) => $this->getFieldStringValue($element))->toArray());
         } elseif (is_bool($fieldValue)) {
             return $this->translator->trans($fieldValue ? 'yes' : 'no');
         } elseif ($fieldValue instanceof \DateTime) {

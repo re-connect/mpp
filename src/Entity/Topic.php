@@ -35,9 +35,11 @@ class Topic implements \Stringable
 
     /**
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
+     *
+     * @var Collection<int, Skill>
      */
     #[Groups(['write'])]
-    private ?Collection $skills;
+    private Collection $skills;
 
     /**
      * @ORM\ManyToMany(targetEntity=Workshop::class, inversedBy="topics")

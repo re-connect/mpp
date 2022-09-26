@@ -34,8 +34,10 @@ class Duration implements \Stringable
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="duration")
+     *
+     * @var Collection<int, Workshop>
      */
-    private ?Collection $workshops;
+    private Collection $workshops;
 
     public function __construct()
     {

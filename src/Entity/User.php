@@ -42,15 +42,19 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
+     *
+     * @var Collection<int, Permanence>
      */
-    private ?Collection $notes;
+    private Collection $notes;
 
     private ?string $plainPassword = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="author")
+     *
+     * @var Collection<int, Workshop>
      */
-    private ?Collection $workshops;
+    private Collection $workshops;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)

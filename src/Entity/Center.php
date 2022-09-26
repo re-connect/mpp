@@ -32,9 +32,11 @@ class Center implements \Stringable
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
+     *
+     * @var Collection<int, Permanence>
      */
     #[Groups(['read'])]
-    private ?Collection $notes;
+    private Collection $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -60,8 +62,10 @@ class Center implements \Stringable
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
+     *
+     * @var Collection<int, Workshop>
      */
-    private ?Collection $workshops;
+    private Collection $workshops;
 
     public function __toString(): string
     {
@@ -162,7 +166,7 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
@@ -174,13 +178,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getNotesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
     public function getWorkshopsBeneficiariesCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -192,13 +196,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getWorkshopsStoredDocumentsCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
     public function getNotesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
     public function hasPermanence(): ?bool
