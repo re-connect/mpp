@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -15,12 +14,12 @@ class ExportService
 {
     private readonly PropertyAccessor $propertyAccessor;
 
-    public function __construct(private readonly EntityManagerInterface $em, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    public function export(array $data, array $fields)
+    public function export(array $data, array $fields): StreamedResponse
     {
         $response = new StreamedResponse();
         $translatedFields = array_map(function ($field) {

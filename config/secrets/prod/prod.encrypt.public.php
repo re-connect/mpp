@@ -1,3 +1,5 @@
-<?php // prod.encrypt.public on Mon, 26 Sep 2022 09:56:55 +0000
+<?php
+
+// prod.encrypt.public on Mon, 26 Sep 2022 09:56:55 +0000
 
 return "\x28\x99w\x1A\x19\x92\x86\xB1\x83\x02A\x8C\xB41\xF5\x84\x0B\x22U\x95\xEAIj\x9C\xFE\xD9N\xEEv\x15\xA6\x3F";

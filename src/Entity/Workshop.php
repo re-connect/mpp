@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\WorkshopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -28,23 +29,23 @@ class Workshop
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbParticipants = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $globalReport = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $topicPrecision = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'workshops')]
@@ -77,27 +78,27 @@ class Workshop
     private ?Collection $usedEquipments;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
     private ?bool $usedVault = false;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbBeneficiariesAccounts = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbStoredDocs = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedEvents = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedContacts = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedNotes = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
@@ -105,11 +106,11 @@ class Workshop
     private ?Collection $skills;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $attendees = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $improvementAxis = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
@@ -118,19 +119,19 @@ class Workshop
     private ?Duration $duration = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $maleCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $femaleCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
 
     public function __construct()
@@ -141,7 +142,6 @@ class Workshop
         $this->equipmentSuppliers = new ArrayCollection();
         $this->usedEquipments = new ArrayCollection();
         $this->skills = new ArrayCollection();
-        $this->genders = new ArrayCollection();
     }
 
     public function getId(): ?int

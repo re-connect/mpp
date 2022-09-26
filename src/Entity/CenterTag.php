@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CenterTagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,10 +17,10 @@ class CenterTag implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
@@ -52,9 +53,7 @@ class CenterTag implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Center[]
-     */
+    /** @return Collection<int, Center> */
     public function getCenters(): Collection
     {
         return $this->centers;

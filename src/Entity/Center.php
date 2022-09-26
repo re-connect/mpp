@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -19,38 +20,38 @@ class Center implements \Stringable
     #[Groups(['read', 'write'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255)]
     public ?string $name = null;
 
     /**
      * @var Collection<int, Permanence>
      */
     #[Groups(['read'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'center')]
+    #[ORM\OneToMany(mappedBy: 'center', targetEntity: Permanence::class)]
     private Collection $notes;
 
     #[Groups(['read'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $association = null;
 
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;
 
-    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 1])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
 
-    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
 
     /**
      * @var Collection<int, Workshop>
      */
-    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'center')]
+    #[ORM\OneToMany(mappedBy: 'center', targetEntity: Workshop::class)]
     private Collection $workshops;
 
     public function __toString(): string
