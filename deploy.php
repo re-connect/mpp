@@ -15,6 +15,7 @@ add('shared_files', [
     '.env',
     '.env.local',
     '.env.local.php',
+    'config/secrets/prod/prod.decrypt.private.php',
 ]);
 add('shared_dirs', [
     'var/oauth',

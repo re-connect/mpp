@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Controller;
 
-
 use App\Service\SecurityService;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,24 +15,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/logout", name="app_logout")
+     * @throws \Exception
      */
+    #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): Response
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 
-    /**
-     * @Route("/", name="home", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'home', methods: ['GET'])]
     public function home(): RedirectResponse
     {
         return $this->redirectToRoute('login');
     }
 
-    /**
-     * @Route("/login", name="login", methods={"GET", "POST"})
-     */
+    #[Route(path: '/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
@@ -50,13 +46,24 @@ class SecurityController extends AbstractController
         return $client->getOAuth2Provider()->authorize();
     }
 
-    /**
-     * @throws \Exception
-     */
     #[Route(path: '/reconnect-pro-login-check', name: 'reconnect_pro_login_check', methods: ['GET'])]
     public function reconnectProLoginCheck(Request $request, SecurityService $service): Response
     {
-        return $this->redirect($service->authenticateUserFromReconnectPro($request));
+        return $service->authenticateUserFromReconnectPro($request);
+    }
+
+    #[Route(path: '/google-login-trigger', name: 'google_login_trigger', methods: ['GET'])]
+    public function googleLoginTrigger(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        return $clientRegistry
+            ->getClient('google')
+            ->redirect([], []);
+    }
+
+    #[Route(path: '/google-check', name: 'google_login_check', methods: ['GET'])]
+    public function googleLoginCheck(Request $request, SecurityService $service): Response
+    {
+        return $service->authenticateUserFromGoogle($request);
     }
 
     #[Route(path: '/user-disabled', name: 'user_disabled', methods: ['GET'])]

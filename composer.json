@@ -15,6 +15,7 @@
     "easycorp/easyadmin-bundle": "4.3.*",
     "firebase/php-jwt": "6.3.*",
     "knpuniversity/oauth2-client-bundle": "^2.10",
+    "league/oauth2-google": "^4.0",
     "nelmio/cors-bundle": "^2.1",
     "phpdocumentor/reflection-common": "2.2.*",
     "phpdocumentor/reflection-docblock": "^5.2",
