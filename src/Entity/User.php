@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
-    public const ROLES = ["ROLE_ADMIN", "ROLE_SUPER_ADMIN"];
+    public const ROLES = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
 
     /**
      * @ORM\Id()
@@ -68,7 +68,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
 
     public function __construct()
     {
@@ -137,6 +136,15 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    public function addRole(string $role): self
+    {
+        $roles = $this->roles;
+
+        $this->roles = array_unique([...$roles, $role]);
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -192,8 +200,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     }
 
     /**
-     * @param Permanence $note
-     *
      * @return $this
      */
     public function addNote(Permanence $note)
@@ -204,8 +210,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     }
 
     /**
-     * @param Permanence $note
-     *
      * @return $this
      */
     public function removeNote(Permanence $note)
@@ -256,5 +260,4 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
         return $this;
     }
-
 }

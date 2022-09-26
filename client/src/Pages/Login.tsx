@@ -6,7 +6,7 @@ import * as React from 'react';
 import {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import {dropdownsEndpoint, loginEndpoint, makeRequest, oauthEndpoint} from '../Services/requests';
+import {dropdownsEndpoint, googleLoginEndpoint, loginEndpoint, makeRequest, oauthEndpoint} from '../Services/requests';
 import logo from '../Images/logo.png';
 import UseFetchData from '../Hooks/UseFetchData';
 import DropdownsContext from '../Context/DropdownsContext';
@@ -59,11 +59,21 @@ const Login: React.FC = () => {
                 color="primary"
                 variant="contained"
                 size="large"
-                style={{marginTop: 50, marginBottom: 100, fontSize: 20, width: '100%', minHeight: '120px'}}
+                style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
                 href={oauthEndpoint}
             >
                 <LinkIcon style={{marginRight: 20}}/>
                 Me connecter avec Reconnect Pro
+            </Button>
+            <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
+                href={googleLoginEndpoint}
+            >
+                <LinkIcon style={{marginRight: 20}}/>
+                Me connecter avec Google
             </Button>
             <Button
                 color="primary"
