@@ -28,7 +28,7 @@ class CreateUserCommand extends Command
             ->addArgument('password', InputArgument::REQUIRED, 'User password');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $email = $input->getArgument('email');
         $password = $input->getArgument('password');

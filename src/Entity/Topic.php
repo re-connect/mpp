@@ -23,20 +23,20 @@ class Topic implements \Stringable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
      */
+    #[Groups(['read', 'write'])]
     private ?string $name = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
-     * @Groups({"write"})
      */
+    #[Groups(['write'])]
     private ?Collection $skills;
 
     /**
@@ -50,10 +50,8 @@ class Topic implements \Stringable
         $this->workshops = new ArrayCollection();
     }
 
-    /**
-     * @Groups({"read"})
-     * @SerializedName("@id")
-     */
+    #[Groups(['read'])]
+    #[SerializedName('@id')]
     public function getIri()
     {
         return sprintf('/api/topics/%s', $this->getId());

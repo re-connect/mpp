@@ -40,9 +40,7 @@ class DashboardController extends AbstractDashboardController
         return Crud::new();
     }
 
-    /**
-     * @Route("/admin")
-     */
+    #[Route(path: '/admin')]
     public function index(): Response
     {
         return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());

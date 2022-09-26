@@ -22,20 +22,20 @@ class Skill implements \Stringable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
      */
+    #[Groups(['read', 'write'])]
     private ?string $name = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="skills")
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?Topic $topic = null;
 
     /**

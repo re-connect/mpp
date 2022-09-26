@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DropdownsController extends AbstractController
 {
-    /**
-     * @Route("/api/dropdowns", name="dropdowns")
-     */
+    #[Route(path: '/api/dropdowns', name: 'dropdowns')]
     public function index(
         IriConverterInterface $iriGenerator,
         ParticipantKindRepository $participantKindRepository,

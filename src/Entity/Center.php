@@ -20,32 +20,32 @@ class Center implements \Stringable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
      */
+    #[Groups(['read', 'write'])]
     private ?int $id = null;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(name="name", type="string", length=255)
      */
+    #[Groups(['read', 'write'])]
     public ?string $name = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?Collection $notes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?string $association = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
-     * @Groups({"read"})
      */
+    #[Groups(['read'])]
     private ?Collection $tags;
 
     /**
