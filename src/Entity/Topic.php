@@ -15,35 +15,28 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=TopicRepository::class)
  */
+#[ORM\Entity(repositoryClass: TopicRepository::class)]
 class Topic implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $name = null;
 
     /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
-     *
      * @var Collection<int, Skill>
      */
     #[Groups(['write'])]
+    #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'topic')]
     private Collection $skills;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, inversedBy="topics")
-     */
+    #[ORM\ManyToMany(targetEntity: Workshop::class, inversedBy: 'topics')]
     private ?Collection $workshops;
 
     public function __construct()

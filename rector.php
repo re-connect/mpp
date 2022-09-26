@@ -9,7 +9,7 @@ use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__.'/src',
+        __DIR__ . '/src',
     ]);
 
     $rectorConfig->sets([
@@ -19,5 +19,6 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
         SymfonySetList::SYMFONY_STRICT,
         DoctrineSetList::DOCTRINE_CODE_QUALITY,
+        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
 };

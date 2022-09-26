@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,56 +10,42 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- */
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[ORM\Table(name: 'users')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements PasswordAuthenticatedUserInterface, UserInterface, \Stringable
 {
     final public const ROLES = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private ?array $roles = [];
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
-     *
      * @var Collection<int, Permanence>
      */
+    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'author')]
     private Collection $notes;
 
     private ?string $plainPassword = null;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="author")
-     *
      * @var Collection<int, Workshop>
      */
+    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'author')]
     private Collection $workshops;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $disabled = false;
 
     public function getPlainPassword(): ?string

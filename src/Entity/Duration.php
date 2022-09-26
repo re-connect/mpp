@@ -14,29 +14,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=DurationRepository::class)
  */
+#[ORM\Entity(repositoryClass: DurationRepository::class)]
 class Duration implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
     #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'integer')]
     private ?string $name = null;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="duration")
-     *
      * @var Collection<int, Workshop>
      */
+    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'duration')]
     private Collection $workshops;
 
     public function __construct()

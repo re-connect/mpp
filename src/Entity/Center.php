@@ -9,62 +9,48 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
  *     order={"name": "ASC"})
  */
+#[ORM\Entity]
 class Center implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
     #[Groups(['read', 'write'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(name="name", type="string", length=255)
-     */
     #[Groups(['read', 'write'])]
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     public ?string $name = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
-     *
      * @var Collection<int, Permanence>
      */
     #[Groups(['read'])]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'center')]
     private Collection $notes;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     #[Groups(['read'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $association = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
-     */
     #[Groups(['read'])]
+    #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default":"1"})
-     */
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
-     *
      * @var Collection<int, Workshop>
      */
+    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'center')]
     private Collection $workshops;
 
     public function __toString(): string
