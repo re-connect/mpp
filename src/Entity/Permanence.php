@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     )
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
  */
-class Permanence
+class Permanence implements \Stringable
 {
     use TimestampableEntity;
 
@@ -34,115 +34,115 @@ class Permanence
      * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="date", type="date", nullable=true)
      */
-    private ?\DateTimeInterface $date;
+    private ?\DateTimeInterface $date = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="hours", type="integer")
      */
-    private ?int $hours;
+    private ?int $hours = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_pros", type="integer")
      */
-    private ?int $nbPros;
+    private ?int $nbPros = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_pro_accounts", type="integer")
      */
-    private ?int $nbProAccounts;
+    private ?int $nbProAccounts = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_beneficiaries", type="integer")
      */
-    private ?int $nbBeneficiaries;
+    private ?int $nbBeneficiaries = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_beneficiaries_accounts", type="integer")
      */
-    private ?int $nbBeneficiariesAccounts;
+    private ?int $nbBeneficiariesAccounts = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="nb_stored_docs", type="integer")
      */
-    private ?int $nbStoredDocs;
+    private ?int $nbStoredDocs = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="beneficiaries_notes", type="text")
      */
-    private ?string $beneficiariesNotes;
+    private ?string $beneficiariesNotes = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="pro_notes", type="text")
      */
-    private ?string $proNotes;
+    private ?string $proNotes = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="reconnect_notes", type="text")
      */
-    private ?string $reconnectNotes;
+    private ?string $reconnectNotes = null;
 
     /**
      * @Groups({"permanence:read", "permanence:write"})
      * @ORM\Column(name="attendees", type="string", length=255, nullable=true)
      */
-    private ?string $attendees;
+    private ?string $attendees = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notes")
      */
-    private ?User $author;
+    private ?User $author = null;
 
     /**
      * @Groups({"permanence:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Center", inversedBy="notes")
      */
-    private ?Center $center;
+    private ?Center $center = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"permanence:read", "permanence:write"})
      */
-    private ?string $place;
+    private ?string $place = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"permanence:read", "permanence:write"})
      */
-    private ?int $maleCount;
+    private ?int $maleCount = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"permanence:read", "permanence:write"})
      */
-    private ?int $femaleCount;
+    private ?int $femaleCount = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"permanence:read", "permanence:write"})
      */
-    private ?int $noGenderCount;
+    private ?int $noGenderCount = null;
 
     public function __construct()
     {
         $this->genders = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->date->format('m/d/Y');
     }
@@ -176,10 +176,7 @@ class Permanence
         return $this->author;
     }
 
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author): void
+    public function setAuthor(mixed $author): void
     {
         $this->author = $author;
     }
@@ -352,9 +349,6 @@ class Permanence
         return $this->attendees;
     }
 
-    /**
-     * @param ?string $attendees
-     */
     public function setAttendees(?string $attendees = null): void
     {
         $this->attendees = $attendees;

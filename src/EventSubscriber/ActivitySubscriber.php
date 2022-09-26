@@ -13,11 +13,8 @@ use Symfony\Component\Security\Core\Security;
 
 final class ActivitySubscriber implements EventSubscriberInterface
 {
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
     public static function getSubscribedEvents()

@@ -14,21 +14,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements PasswordAuthenticatedUserInterface, UserInterface
+class User implements PasswordAuthenticatedUserInterface, UserInterface, \Stringable
 {
-    public const ROLES = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+    final public const ROLES = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private ?string $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="json")
@@ -38,7 +38,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private ?string $password;
+    private ?string $password = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="author")
@@ -75,9 +75,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->email;
+        return (string) $this->email;
     }
 
     public function getId(): ?int
@@ -191,10 +191,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this->notes;
     }
 
-    /**
-     * @param mixed $notes
-     */
-    public function setNotes($notes): void
+    public function setNotes(mixed $notes): void
     {
         $this->notes = $notes;
     }

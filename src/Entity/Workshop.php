@@ -31,44 +31,44 @@ class Workshop
      * @ORM\Column(type="integer")
      * @Groups({"read"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?\DateTimeInterface $date;
+    private ?\DateTimeInterface $date = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbParticipants;
+    private ?int $nbParticipants = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?string $globalReport;
+    private ?string $globalReport = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?string $topicPrecision;
+    private ?string $topicPrecision = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $author;
+    private ?User $author = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Center::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"workshop:write"})
      */
-    private ?Center $center;
+    private ?Center $center = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=ParticipantKind::class, inversedBy="workshops")
@@ -110,31 +110,31 @@ class Workshop
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbBeneficiariesAccounts;
+    private ?int $nbBeneficiariesAccounts = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbStoredDocs;
+    private ?int $nbStoredDocs = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbCreatedEvents;
+    private ?int $nbCreatedEvents = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbCreatedContacts;
+    private ?int $nbCreatedContacts = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $nbCreatedNotes;
+    private ?int $nbCreatedNotes = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Skill::class, inversedBy="workshops")
@@ -146,44 +146,44 @@ class Workshop
      * @ORM\Column(type="string", length=255)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?string $attendees;
+    private ?string $attendees = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?string $improvementAxis;
+    private ?string $improvementAxis = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Duration::class, inversedBy="workshops")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?Duration $duration;
+    private ?Duration $duration = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $maleCount;
+    private ?int $maleCount = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $femaleCount;
+    private ?int $femaleCount = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?int $noGenderCount;
+    private ?int $noGenderCount = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"workshop:read", "workshop:write"})
      */
-    private ?string $place;
+    private ?string $place = null;
 
     public function __construct()
     {

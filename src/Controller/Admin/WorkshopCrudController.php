@@ -17,7 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class WorkshopCrudController extends ExportableCrudController
 {
-    public const EXPORT_FIELDS = [
+    final public const EXPORT_FIELDS = [
         'id',
         'date',
         'duration',

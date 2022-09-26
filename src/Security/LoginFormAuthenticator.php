@@ -19,18 +19,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    private UserPasswordHasherInterface $passwordHasher;
-    private RouterInterface $router;
-
-    public function __construct(RouterInterface $router, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly RouterInterface $router, private readonly UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
-        $this->router = $router;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $credentials = json_decode($request->getContent(), true);
+        $credentials = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $email = $credentials ? $credentials['email'] : $request->request->get('email');
         $password = $credentials ? $credentials['password'] : $request->request->get('password');
         $request->getSession()->set(Security::LAST_USERNAME, $email);

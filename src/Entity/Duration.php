@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass=DurationRepository::class)
  */
-class Duration
+class Duration implements \Stringable
 {
     /**
      * @ORM\Id
@@ -24,13 +24,13 @@ class Duration
      * @ORM\Column(type="integer")
      * @Groups({"read"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"read", "write"})
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="duration")
@@ -42,9 +42,9 @@ class Duration
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

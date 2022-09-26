@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
  *     order={"name": "ASC"})
  */
-class Center
+class Center implements \Stringable
 {
     /**
      * @ORM\Id
@@ -28,7 +28,7 @@ class Center
      * @Groups({"read", "write"})
      * @ORM\Column(name="name", type="string", length=255)
      */
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
@@ -40,7 +40,7 @@ class Center
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read"})
      */
-    private ?string $association;
+    private ?string $association = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
@@ -63,9 +63,9 @@ class Center
      */
     private ?Collection $workshops;
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function __construct()
@@ -162,9 +162,7 @@ class Center
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbBeneficiaries();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
@@ -176,17 +174,13 @@ class Center
     #[Groups('read')]
     public function getNotesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbBeneficiariesAccounts();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
     public function getWorkshopsBeneficiariesCount(): int
     {
-        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
-            return $acc + $workshop->getNbBeneficiariesAccounts();
-        }, 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -198,17 +192,13 @@ class Center
     #[Groups('read')]
     public function getWorkshopsStoredDocumentsCount(): int
     {
-        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
-            return $acc + $workshop->getNbStoredDocs();
-        }, 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
     public function getNotesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbStoredDocs();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
     public function hasPermanence(): ?bool

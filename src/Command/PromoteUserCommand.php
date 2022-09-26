@@ -17,13 +17,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class PromoteUserCommand extends Command
 {
-    private UserRepository $userRepository;
-    private EntityManagerInterface $em;
-
-    public function __construct(UserRepository $userRepository, EntityManagerInterface $em)
+    public function __construct(private readonly UserRepository $userRepository, private readonly EntityManagerInterface $em)
     {
-        $this->userRepository = $userRepository;
-        $this->em = $em;
         parent::__construct();
     }
 

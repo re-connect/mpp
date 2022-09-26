@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass=UsedEquipmentRepository::class)
  */
-class UsedEquipment
+class UsedEquipment implements \Stringable
 {
     /**
      * @ORM\Id
@@ -24,13 +24,13 @@ class UsedEquipment
      * @ORM\Column(type="integer")
      * @Groups({"read"})
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"read", "write"})
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="usedEquipments")
@@ -42,9 +42,9 @@ class UsedEquipment
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

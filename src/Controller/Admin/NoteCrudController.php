@@ -18,7 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class NoteCrudController extends ExportableCrudController
 {
-    public const EXPORT_FIELDS = [
+    final public const EXPORT_FIELDS = [
         'id',
         'date',
         'hours',
