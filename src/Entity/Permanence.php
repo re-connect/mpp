@@ -7,14 +7,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="note")
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},
  *     normalizationContext={"groups"={"permanence:read"}},
@@ -22,129 +19,94 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     shortName="notes"
  *     )
  * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- *
  */
-class Permanence
+#[ORM\Table(name: 'note')]
+class Permanence implements \Stringable
 {
     use TimestampableEntity;
 
     /**
      * The id of this note.
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @Groups({"read"})
-     * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="date", type="date", nullable=true)
-     */
-    private ?\DateTimeInterface $date;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'date', type: 'date', nullable: true)]
+    private ?\DateTimeInterface $date = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="hours", type="integer")
-     */
-    private ?int $hours;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'hours', type: 'integer')]
+    private ?int $hours = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="nb_pros", type="integer")
-     */
-    private ?int $nbPros;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_pros', type: 'integer')]
+    private ?int $nbPros = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="nb_pro_accounts", type="integer")
-     */
-    private ?int $nbProAccounts;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_pro_accounts', type: 'integer')]
+    private ?int $nbProAccounts = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="nb_beneficiaries", type="integer")
-     */
-    private ?int $nbBeneficiaries;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_beneficiaries', type: 'integer')]
+    private ?int $nbBeneficiaries = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="nb_beneficiaries_accounts", type="integer")
-     */
-    private ?int $nbBeneficiariesAccounts;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_beneficiaries_accounts', type: 'integer')]
+    private ?int $nbBeneficiariesAccounts = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="nb_stored_docs", type="integer")
-     */
-    private ?int $nbStoredDocs;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_stored_docs', type: 'integer')]
+    private ?int $nbStoredDocs = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="beneficiaries_notes", type="text")
-     */
-    private ?string $beneficiariesNotes;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'beneficiaries_notes', type: 'text')]
+    private ?string $beneficiariesNotes = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="pro_notes", type="text")
-     */
-    private ?string $proNotes;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'pro_notes', type: 'text')]
+    private ?string $proNotes = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="reconnect_notes", type="text")
-     */
-    private ?string $reconnectNotes;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'reconnect_notes', type: 'text')]
+    private ?string $reconnectNotes = null;
 
-    /**
-     * @Groups({"permanence:read", "permanence:write"})
-     * @ORM\Column(name="attendees", type="string", length=255, nullable=true)
-     */
-    private ?string $attendees;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'attendees', type: 'string', length: 255, nullable: true)]
+    private ?string $attendees = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="notes")
-     */
-    private ?User $author;
+    #[ORM\ManyToOne(targetEntity: \App\Entity\User::class, inversedBy: 'notes')]
+    private ?User $author = null;
 
-    /**
-     * @Groups({"permanence:write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\Center", inversedBy="notes")
-     */
-    private ?Center $center;
+    #[Groups(['permanence:write'])]
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Center::class, inversedBy: 'notes')]
+    private ?Center $center = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"permanence:read", "permanence:write"})
-     */
-    private ?string $place;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $place = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"permanence:read", "permanence:write"})
-     */
-    private ?int $maleCount;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $maleCount = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"permanence:read", "permanence:write"})
-     */
-    private ?int $femaleCount;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $femaleCount = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"permanence:read", "permanence:write"})
-     */
-    private ?int $noGenderCount;
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $noGenderCount = null;
 
     public function __construct()
     {
         $this->genders = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->date->format('m/d/Y');
     }
@@ -165,9 +127,6 @@ class Permanence
         return $this->date;
     }
 
-    /**
-     * @param DateTime $date
-     */
     public function setDate(DateTime $date): void
     {
         $this->date = $date;
@@ -181,10 +140,7 @@ class Permanence
         return $this->author;
     }
 
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author): void
+    public function setAuthor(mixed $author): void
     {
         $this->author = $author;
     }
@@ -357,9 +313,6 @@ class Permanence
         return $this->attendees;
     }
 
-    /**
-     * @param ?string $attendees
-     */
     public function setAttendees(?string $attendees = null): void
     {
         $this->attendees = $attendees;

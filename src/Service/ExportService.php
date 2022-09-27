@@ -13,15 +13,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExportService
 {
-    private EntityManagerInterface $em;
-    private PropertyAccessor $propertyAccessor;
-    private TranslatorInterface $translator;
+    private readonly PropertyAccessor $propertyAccessor;
 
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly TranslatorInterface $translator)
     {
-        $this->em = $em;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
-        $this->translator = $translator;
     }
 
     public function export(array $data, array $fields)
@@ -79,13 +75,9 @@ class ExportService
         } elseif (is_numeric($fieldValue)) {
             return (string) $fieldValue;
         } elseif (is_array($fieldValue)) {
-            return implode(',', array_map(function ($element) {
-                return $this->getFieldStringValue($element);
-            }, $fieldValue));
+            return implode(',', array_map(fn ($element) => $this->getFieldStringValue($element), $fieldValue));
         } elseif ($fieldValue instanceof Collection) {
-            return implode(',', $fieldValue->map(function ($element) {
-                return $this->getFieldStringValue($element);
-            })->toArray());
+            return implode(',', $fieldValue->map(fn ($element) => $this->getFieldStringValue($element))->toArray());
         } elseif (is_bool($fieldValue)) {
             return $this->translator->trans($fieldValue ? 'yes' : 'no');
         } elseif ($fieldValue instanceof \DateTime) {

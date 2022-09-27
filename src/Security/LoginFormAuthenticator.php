@@ -9,7 +9,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
@@ -20,18 +19,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    private UserPasswordHasherInterface $passwordHasher;
-    private RouterInterface $router;
-
-    public function __construct(RouterInterface $router, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly RouterInterface $router, private readonly UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
-        $this->router = $router;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $credentials = json_decode($request->getContent(), true);
+        $credentials = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
         $email = $credentials ? $credentials['email'] : $request->request->get('email');
         $password = $credentials ? $credentials['password'] : $request->request->get('password');
         $request->getSession()->set(Security::LAST_USERNAME, $email);

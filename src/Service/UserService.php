@@ -7,11 +7,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService
 {
-    private UserPasswordHasherInterface $hasher;
-
-    public function __construct(UserPasswordHasherInterface $hasher)
+    public function __construct(private readonly UserPasswordHasherInterface $hasher)
     {
-        $this->hasher = $hasher;
     }
 
     public function updatePassword(User $user, ?string $password): void

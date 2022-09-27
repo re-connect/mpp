@@ -60,7 +60,7 @@ class SecurityService
             $email = $client->fetchUser()->getEmail();
 
             return $this->authenticateOrCreateUser($email, $request);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             throw new AccessDeniedException();
         }
     }

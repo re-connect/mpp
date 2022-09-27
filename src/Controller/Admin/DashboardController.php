@@ -24,11 +24,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    private AdminUrlGenerator $adminUrlGenerator;
-
-    public function __construct(AdminUrlGenerator $adminUrlGenerator)
+    public function __construct(private readonly AdminUrlGenerator $adminUrlGenerator)
     {
-        $this->adminUrlGenerator = $adminUrlGenerator;
     }
 
     public function configureDashboard(): Dashboard
@@ -43,9 +40,7 @@ class DashboardController extends AbstractDashboardController
         return Crud::new();
     }
 
-    /**
-     * @Route("/admin")
-     */
+    #[Route(path: '/admin')]
     public function index(): Response
     {
         return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());

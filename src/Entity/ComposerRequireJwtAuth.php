@@ -7,16 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\ComposerRequireJwtAuthRepository")
  */
+#[ORM\Entity(repositoryClass: \App\Repository\ComposerRequireJwtAuthRepository::class)]
 class ComposerRequireJwtAuth
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
     public function getId(): ?int
     {

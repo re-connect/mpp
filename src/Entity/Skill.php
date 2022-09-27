@@ -14,33 +14,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=SkillRepository::class)
  */
-class Skill
+#[ORM\Entity(repositoryClass: SkillRepository::class)]
+class Skill implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"read"})
-     */
-    private ?int $id;
+    #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private ?string $name;
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="skills")
-     * @Groups({"read"})
-     */
-    private ?Topic $topic;
+    #[Groups(['read'])]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'skills')]
+    private ?Topic $topic = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="skills")
-     */
+    #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'skills')]
     private ?Collection $workshops;
 
     public function __construct()
@@ -48,9 +40,9 @@ class Skill
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

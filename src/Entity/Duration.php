@@ -14,37 +14,34 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=DurationRepository::class)
  */
-class Duration
+#[ORM\Entity(repositoryClass: DurationRepository::class)]
+class Duration implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"read"})
-     */
-    private ?int $id;
+    #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'integer')]
+    private ?string $name = null;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @var Collection<int, Workshop>
      */
-    private ?string $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="duration")
-     */
-    private ?Collection $workshops;
+    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'duration')]
+    private Collection $workshops;
 
     public function __construct()
     {
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

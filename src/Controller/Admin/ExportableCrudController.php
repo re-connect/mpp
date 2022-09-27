@@ -9,17 +9,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 abstract class ExportableCrudController extends AbstractCrudController
 {
-    private array $exportFields = [];
-    private ExportService $exportsService;
-    private AdminContextProvider $adminContextProvider;
-    private FilterFactory $filterFactory;
-
-    public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory, array $exportFields)
+    public function __construct(private readonly ExportService $exportsService, private readonly AdminContextProvider $adminContextProvider, private readonly FilterFactory $filterFactory, private readonly array $exportFields)
     {
-        $this->exportsService = $exportsService;
-        $this->exportFields = $exportFields;
-        $this->adminContextProvider = $adminContextProvider;
-        $this->filterFactory = $filterFactory;
     }
 
     public function export()

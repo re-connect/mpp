@@ -14,27 +14,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=EquipmentSupplierRepository::class)
  */
-class EquipmentSupplier
+#[ORM\Entity(repositoryClass: EquipmentSupplierRepository::class)]
+class EquipmentSupplier implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"read"})
-     */
-    private ?int $id;
+    #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private ?string $name;
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, mappedBy="equipmentSuppliers")
-     */
+    #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'equipmentSuppliers')]
     private ?Collection $workshops;
 
     public function __construct()
@@ -42,9 +36,9 @@ class EquipmentSupplier
         $this->workshops = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

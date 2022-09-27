@@ -17,7 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 
 class WorkshopCrudController extends ExportableCrudController
 {
-    const EXPORT_FIELDS = [
+    final public const EXPORT_FIELDS = [
         'id',
         'date',
         'duration',
@@ -43,7 +43,7 @@ class WorkshopCrudController extends ExportableCrudController
         'center',
         'author',
         'createdAt',
-        'updatedAt'
+        'updatedAt',
     ];
 
     public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
@@ -111,7 +111,6 @@ class WorkshopCrudController extends ExportableCrudController
         $femaleCount = IntegerField::new('femaleCount')->setRequired(true);
         $noGenderCount = IntegerField::new('noGenderCount')->setRequired(true);
 
-
         if (Crud::PAGE_DETAIL === $pageName) {
             return [
                 $id,
@@ -137,7 +136,7 @@ class WorkshopCrudController extends ExportableCrudController
                 $center,
                 $author,
                 $createdAt,
-                $updatedAt
+                $updatedAt,
             ];
         } elseif (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
             return [
@@ -166,7 +165,7 @@ class WorkshopCrudController extends ExportableCrudController
                 $center,
                 $author,
                 $createdAt,
-                $updatedAt
+                $updatedAt,
             ];
         }
 

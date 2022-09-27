@@ -9,63 +9,53 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
  *     order={"name": "ASC"})
  */
-class Center
+#[ORM\Entity]
+class Center implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
-     */
+    #[Groups(['read', 'write'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @Groups({"read", "write"})
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    public ?string $name;
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    public ?string $name = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Permanence", mappedBy="center")
-     * @Groups({"read"})
+     * @var Collection<int, Permanence>
      */
-    private ?Collection $notes;
+    #[Groups(['read'])]
+    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'center')]
+    private Collection $notes;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read"})
-     */
-    private ?string $association;
+    #[Groups(['read'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $association = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=CenterTag::class, mappedBy="centers")
-     * @Groups({"read"})
-     */
+    #[Groups(['read'])]
+    #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default":"1"})
-     */
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default":"0"})
-     */
+    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Workshop::class, mappedBy="center")
+     * @var Collection<int, Workshop>
      */
-    private ?Collection $workshops;
+    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'center')]
+    private Collection $workshops;
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function __construct()
@@ -162,9 +152,7 @@ class Center
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbBeneficiaries();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
@@ -176,17 +164,13 @@ class Center
     #[Groups('read')]
     public function getNotesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbBeneficiariesAccounts();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
     public function getWorkshopsBeneficiariesCount(): int
     {
-        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
-            return $acc + $workshop->getNbBeneficiariesAccounts();
-        }, 0);
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -198,17 +182,13 @@ class Center
     #[Groups('read')]
     public function getWorkshopsStoredDocumentsCount(): int
     {
-        return array_reduce($this->workshops->toArray(), function (int $acc, Workshop $workshop) {
-            return $acc + $workshop->getNbStoredDocs();
-        }, 0);
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
     public function getNotesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), function (int $acc, Permanence $note) {
-            return $acc + $note->getNbStoredDocs();
-        }, 0);
+        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
     public function hasPermanence(): ?bool

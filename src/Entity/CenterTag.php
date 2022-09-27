@@ -10,30 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource(shortName="tag")
- * @ORM\Entity(repositoryClass=CenterTagRepository::class)
  */
-class CenterTag
+#[ORM\Entity(repositoryClass: CenterTagRepository::class)]
+class CenterTag implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private ?string $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Center::class, inversedBy="tags")
-     */
+    #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
     private ?Collection $centers;
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function __construct()

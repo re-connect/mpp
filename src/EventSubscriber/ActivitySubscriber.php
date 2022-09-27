@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
@@ -14,14 +13,11 @@ use Symfony\Component\Security\Core\Security;
 
 final class ActivitySubscriber implements EventSubscriberInterface
 {
-    private $security;
-
-    public function __construct(Security $security)
+    public function __construct(private readonly Security $security)
     {
-        $this->security = $security;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::VIEW => ['setAuthor', EventPriorities::PRE_WRITE],
@@ -30,7 +26,6 @@ final class ActivitySubscriber implements EventSubscriberInterface
 
     public function setAuthor(ViewEvent $event)
     {
-
         $activity = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 

@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Entity\Center;
 use App\Entity\Duration;
 use App\Entity\Workshop;
 use App\Repository\CenterRepository;
@@ -17,20 +16,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class MigratePermanenceToWorkshopCommand extends Command
 {
     protected static $defaultName = 'app:migrate-permanences-to-workshops';
-    private EntityManagerInterface $em;
-    private DurationRepository $durationRepository;
-    private CenterRepository $centerRepository;
 
     public function __construct(
-        EntityManagerInterface $em,
-        DurationRepository $durationRepository,
-        CenterRepository $centerRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly DurationRepository $durationRepository,
+        private readonly CenterRepository $centerRepository,
         string $name = null
     ) {
         parent::__construct($name);
-        $this->em = $em;
-        $this->durationRepository = $durationRepository;
-        $this->centerRepository = $centerRepository;
     }
 
     protected function configure(): void

@@ -15,33 +15,28 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *     normalizationContext={"groups"={"read"}},
  *     denormalizationContext={"groups"={"write"}}
  * )
- * @ORM\Entity(repositoryClass=TopicRepository::class)
  */
-class Topic
+#[ORM\Entity(repositoryClass: TopicRepository::class)]
+class Topic implements \Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"read"})
-     */
-    private ?int $id;
+    #[Groups(['read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @var Collection<int, Skill>
      */
-    private ?string $name;
+    #[Groups(['write'])]
+    #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'topic')]
+    private Collection $skills;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="topic")
-     * @Groups({"write"})
-     */
-    private ?Collection $skills;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Workshop::class, inversedBy="topics")
-     */
+    #[ORM\ManyToMany(targetEntity: Workshop::class, inversedBy: 'topics')]
     private ?Collection $workshops;
 
     public function __construct()
@@ -50,18 +45,16 @@ class Topic
         $this->workshops = new ArrayCollection();
     }
 
-    /**
-     * @Groups({"read"})
-     * @SerializedName("@id")
-     */
+    #[Groups(['read'])]
+    #[SerializedName('@id')]
     public function getIri()
     {
         return sprintf('/api/topics/%s', $this->getId());
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int
