@@ -33,7 +33,7 @@ symfony server:ca:install
 symfony serve
 ```
 
-To create a user, you can use the `symfony consoleapp:create-user ${email} ${password}` alongside the `symfony console security:encode` to encode the password you want.
+To create a user, you can use the `symfony console app:create-user ${email} ${password}` alongside the `symfony console security:encode` to encode the password you want.
 Don't forget to build your bundle's assets with `symfony console assets:install`.
 You can now browse the [swagger API here](https://127.0.0.1:8000/api/)
 
@@ -55,11 +55,39 @@ yarn start
 * You can now browse the [frontend here](http://127.0.0.1:3000/)
 * As usual, you will get a CORS error on your local computer when the frontend will query the backend, there are plenty ways of solving the problem
 
-### Authenticating
+## Authenticating
 
-* You will need to SSO connect with a reconnect Pro account
+* Login via login form
+* Or SSI via a reconnect.fr Google account
+* Or SSO via a Reconnect Pro Account
 
-### Hosting
+## Testing
 
-* It is hosted on a server alongside Homepage, Preprod Reconnect Pro files bucket, Ambroise.
-* There is no provisioning for this application as it does not have its own server. I don't plan to set it up as the application is not that big
+```bash
+php ./vendor/bin/simple-phpunit tests
+# Or using makefile
+make test
+```
+
+## Deployment
+
+```bash
+php ./vendor/bin/dep deploy
+# Or using Make
+make deploy
+```
+
+## Code quality standards
+We use php-cs-fixer, rector, and phpstan
+```bash
+php ./vendor/bin/rector process
+php ./vendor/bin/phpstan analyse
+php ./vendor/bin/php-cs-fixer fix src --allow-risky=yes
+php ./vendor/bin/php-cs-fixer fix tests --allow-risky=yes
+# Or using Make
+make rector
+make stan
+make lint
+# Or running all at once
+make cs
+```
