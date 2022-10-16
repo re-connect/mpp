@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CenterTagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,10 +17,8 @@ class CenterTag implements \Stringable
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
-
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
-
     /** @var ?Collection<int, Center> */
     #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
     private ?Collection $centers;

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UsedEquipmentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,10 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(
-    denormalizationContext: ['groups' => ['write']],
-    normalizationContext: ['groups' => ['read']]
-)]
+#[ApiResource(denormalizationContext: ['groups' => ['write']], normalizationContext: ['groups' => ['read']])]
 #[ORM\Entity(repositoryClass: UsedEquipmentRepository::class)]
 class UsedEquipment implements \Stringable
 {
@@ -22,11 +19,9 @@ class UsedEquipment implements \Stringable
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
-
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
-
     /** @var ?Collection<int, Workshop> */
     #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'usedEquipments')]
     private ?Collection $workshops;

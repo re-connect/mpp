@@ -2,17 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(
-    attributes: ['access_control' => "is_granted('ROLE_USER')", 'pagination_items_per_page' => 100],
-    order: ['name' => 'ASC']
-)]
+#[ApiResource(security: 'is_granted(\'ROLE_USER\')', paginationItemsPerPage: 100, order: ['name' => 'ASC'])]
 #[ORM\Entity]
 class Center implements \Stringable
 {
@@ -21,31 +18,24 @@ class Center implements \Stringable
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
-
     #[Groups(['read', 'write'])]
     #[ORM\Column(name: 'name', type: Types::STRING, length: 255)]
     public ?string $name = null;
-
     /** @var Collection<int, Permanence> */
     #[Groups(['read'])]
     #[ORM\OneToMany(mappedBy: 'center', targetEntity: Permanence::class)]
     private Collection $notes;
-
     #[Groups(['read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $association = null;
-
     /** @var ?Collection<int, CenterTag>> */
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;
-
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
-
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
-
     /**
      * @var Collection<int, Workshop>
      */
