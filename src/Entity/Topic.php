@@ -3,6 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\TopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +17,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-#[ApiResource(normalizationContext: ['groups' => ['read']], denormalizationContext: ['groups' => ['write']])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']]
+)]
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
 class Topic implements \Stringable
 {
@@ -20,16 +37,19 @@ class Topic implements \Stringable
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
+
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
+
     /** @var Collection<int, Skill> */
     #[Groups(['write'])]
-    #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'topic')]
+    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Skill::class)]
     private Collection $skills;
-    /** @var ?Collection<int, Workshop> */
+
+    /** @var Collection<int, Workshop> */
     #[ORM\ManyToMany(targetEntity: Workshop::class, inversedBy: 'topics')]
-    private ?Collection $workshops;
+    private Collection $workshops;
 
     public function __construct()
     {
@@ -46,7 +66,7 @@ class Topic implements \Stringable
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function getId(): ?int

@@ -3,6 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +16,18 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(denormalizationContext: ['groups' => ['write']], normalizationContext: ['groups' => ['read']])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']]
+)]
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 class Skill implements \Stringable
 {
@@ -19,15 +36,18 @@ class Skill implements \Stringable
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
+
     #[Groups(['read', 'write'])]
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
+
     #[Groups(['read'])]
     #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'skills')]
     private ?Topic $topic = null;
-    /** @var ?Collection<int, Workshop> $workshops */
+
+    /** @var Collection<int, Workshop> $workshops */
     #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'skills')]
-    private ?Collection $workshops;
+    private Collection $workshops;
 
     public function __construct()
     {

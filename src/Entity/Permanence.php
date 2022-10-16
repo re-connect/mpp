@@ -5,71 +5,109 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(shortName: 'notes', security: 'is_granted(\'ROLE_USER\')', order: ['date' => 'DESC'], denormalizationContext: ['groups' => ['permanence:write']], normalizationContext: ['groups' => ['permanence:read']])]
+#[ApiResource(
+    shortName: 'notes',
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['permanence:read']],
+    denormalizationContext: ['groups' => ['permanence:write']],
+    order: ['date' => 'DESC'],
+    security: "is_granted('ROLE_USER')"
+)]
 #[ORM\Table(name: 'note')]
 #[ORM\Entity]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 class Permanence implements \Stringable
 {
     use TimestampableEntity;
+
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'date', type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'hours', type: Types::INTEGER)]
     private ?int $hours = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'nb_pros', type: Types::INTEGER)]
     private ?int $nbPros = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'nb_pro_accounts', type: Types::INTEGER)]
     private ?int $nbProAccounts = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'nb_beneficiaries', type: Types::INTEGER)]
     private ?int $nbBeneficiaries = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'nb_beneficiaries_accounts', type: Types::INTEGER)]
     private ?int $nbBeneficiariesAccounts = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'nb_stored_docs', type: Types::INTEGER)]
     private ?int $nbStoredDocs = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'beneficiaries_notes', type: Types::TEXT)]
     private ?string $beneficiariesNotes = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'pro_notes', type: Types::TEXT)]
     private ?string $proNotes = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'reconnect_notes', type: Types::TEXT)]
     private ?string $reconnectNotes = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(name: 'attendees', type: Types::STRING, length: 255, nullable: true)]
     private ?string $attendees = null;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notes')]
     private ?User $author = null;
+
     #[Groups(['permanence:write'])]
     #[ORM\ManyToOne(targetEntity: Center::class, inversedBy: 'notes')]
     private ?Center $center = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $maleCount = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $femaleCount = null;
+
     #[Groups(['permanence:read', 'permanence:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;

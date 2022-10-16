@@ -5,6 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\WorkshopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,97 +19,135 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(order: ['date' => 'DESC'], denormalizationContext: ['groups' => ['workshop:write']], normalizationContext: ['groups' => ['workshop:read']])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['workshop:read']],
+    denormalizationContext: ['groups' => ['workshop:write']],
+    order: ['date' => 'DESC']
+)]
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 class Workshop
 {
     use TimestampableEntity;
+
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbParticipants = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $globalReport = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $topicPrecision = null;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'workshops')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
+
     #[Groups(['workshop:write'])]
     #[ORM\ManyToOne(targetEntity: Center::class, inversedBy: 'workshops')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Center $center = null;
-    /** @var ?Collection<int, ParticipantKind> $participantKinds */
+
+    /** @var Collection<int, ParticipantKind> $participantKinds */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: ParticipantKind::class, inversedBy: 'workshops')]
-    private ?Collection $participantKinds;
-    /** @var ?Collection<int, Topic> $topics */
+    private Collection $participantKinds;
+
+    /** @var Collection<int, Topic> $topics */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'workshops')]
-    private ?Collection $topics;
-    /** @var ?Collection<int, AgeBreakpoint> $ageBreakpoints */
+    private Collection $topics;
+
+    /** @var Collection<int, AgeBreakpoint> $ageBreakpoints */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: AgeBreakpoint::class, inversedBy: 'workshops')]
-    private ?Collection $ageBreakpoints;
-    /** @var ?Collection<int, EquipmentSupplier> $equipmentSuppliers */
+    private Collection $ageBreakpoints;
+
+    /** @var Collection<int, EquipmentSupplier> $equipmentSuppliers */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: EquipmentSupplier::class, inversedBy: 'workshops')]
-    private ?Collection $equipmentSuppliers;
-    /** @var ?Collection<int, UsedEquipment> $usedEquipments */
+    private Collection $equipmentSuppliers;
+
+    /** @var Collection<int, UsedEquipment> $usedEquipments */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: UsedEquipment::class, inversedBy: 'workshops')]
-    private ?Collection $usedEquipments;
+    private Collection $usedEquipments;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
     private ?bool $usedVault = false;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbBeneficiariesAccounts = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbStoredDocs = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedEvents = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedContacts = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedNotes = null;
-    /** @var ?Collection<int, Skill> */
+
+    /** @var Collection<int, Skill> */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'workshops')]
-    private ?Collection $skills;
+    private Collection $skills;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $attendees = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $improvementAxis = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToOne(targetEntity: Duration::class, inversedBy: 'workshops')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Duration $duration = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $maleCount = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $femaleCount = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;
+
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
