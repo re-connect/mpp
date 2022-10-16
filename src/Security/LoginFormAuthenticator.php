@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -24,12 +25,17 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $credentials = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
-        $email = $credentials ? $credentials['email'] : $request->request->get('email');
-        $password = $credentials ? $credentials['password'] : $request->request->get('password');
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        try {
+            $credentials = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
-        return new Passport(new UserBadge($email), new PasswordCredentials($password));
+            $email = $credentials ? $credentials['email'] : $request->request->get('email');
+            $password = $credentials ? $credentials['password'] : $request->request->get('password');
+            $request->getSession()->set(Security::LAST_USERNAME, $email);
+
+            return new Passport(new UserBadge($email), new PasswordCredentials($password));
+        } catch (\JsonException) {
+            throw new AuthenticationException();
+        }
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use ApiPlatform\Core\Api\IriConverterInterface;
+use ApiPlatform\Api\IriConverterInterface;
 use App\Repository\AgeBreakpointRepository;
 use App\Repository\DurationRepository;
 use App\Repository\EquipmentSupplierRepository;
@@ -11,14 +11,14 @@ use App\Repository\SkillRepository;
 use App\Repository\TopicRepository;
 use App\Repository\UsedEquipmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DropdownsController extends AbstractController
 {
     #[Route(path: '/api/dropdowns', name: 'dropdowns')]
     public function index(
-        IriConverterInterface $iriGenerator,
+        IriConverterInterface $iriConverter,
         ParticipantKindRepository $participantKindRepository,
         EquipmentSupplierRepository $equipmentSupplierRepository,
         AgeBreakpointRepository $ageBreakpointRepository,
@@ -26,7 +26,7 @@ class DropdownsController extends AbstractController
         TopicRepository $topicRepository,
         SkillRepository $skillRepository,
         DurationRepository $durationRepository,
-    ): Response {
+    ): JsonResponse {
         $dropdowns = [];
         $repositories = [
             'participantKinds' => $participantKindRepository,
@@ -41,7 +41,7 @@ class DropdownsController extends AbstractController
         foreach ($repositories as $key => $repository) {
             $values = [];
             foreach ($repository->findAll() as $item) {
-                $values[$iriGenerator->getIriFromItem($item)] = $item;
+                $values[$iriConverter->getIriFromResource($item)] = $item;
             }
             $dropdowns[$key] = $values;
         }

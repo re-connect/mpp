@@ -2,7 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,9 +16,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    attributes: ['access_control' => "is_granted('ROLE_USER')", 'pagination_items_per_page' => 100],
-    order: ['name' => 'ASC']
-)]
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    order: ['name' => 'ASC'],
+    paginationItemsPerPage: 100,
+    security: 'is_granted(\'ROLE_USER\')')
+]
 #[ORM\Entity]
 class Center implements \Stringable
 {
@@ -35,10 +50,10 @@ class Center implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $association = null;
 
-    /** @var ?Collection<int, CenterTag>> */
+    /** @var Collection<int, CenterTag>> */
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
-    private ?Collection $tags;
+    private Collection $tags;
 
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
@@ -46,9 +61,7 @@ class Center implements \Stringable
     #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
 
-    /**
-     * @var Collection<int, Workshop>
-     */
+    /** @var Collection<int, Workshop> */
     #[ORM\OneToMany(mappedBy: 'center', targetEntity: Workshop::class)]
     private Collection $workshops;
 

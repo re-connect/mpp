@@ -2,14 +2,30 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\CenterTagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource(shortName: 'tag')]
+#[ApiResource(
+    shortName: 'tag',
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+)]
 #[ORM\Entity(repositoryClass: CenterTagRepository::class)]
 class CenterTag implements \Stringable
 {
@@ -21,9 +37,9 @@ class CenterTag implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
-    /** @var ?Collection<int, Center> */
+    /** @var Collection<int, Center> */
     #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
-    private ?Collection $centers;
+    private Collection $centers;
 
     public function __toString(): string
     {

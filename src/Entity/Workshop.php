@@ -2,9 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\WorkshopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,12 +20,20 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    attributes: ['order' => ['date' => 'DESC']],
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['workshop:read']],
     denormalizationContext: ['groups' => ['workshop:write']],
-    normalizationContext: ['groups' => ['workshop:read']]
+    order: ['date' => 'DESC']
 )]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 class Workshop
 {
     use TimestampableEntity;
@@ -55,30 +69,30 @@ class Workshop
     #[ORM\JoinColumn(nullable: false)]
     private ?Center $center = null;
 
-    /** @var ?Collection<int, ParticipantKind> $participantKinds */
+    /** @var Collection<int, ParticipantKind> $participantKinds */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: ParticipantKind::class, inversedBy: 'workshops')]
-    private ?Collection $participantKinds;
+    private Collection $participantKinds;
 
-    /** @var ?Collection<int, Topic> $topics */
+    /** @var Collection<int, Topic> $topics */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'workshops')]
-    private ?Collection $topics;
+    private Collection $topics;
 
-    /** @var ?Collection<int, AgeBreakpoint> $ageBreakpoints */
+    /** @var Collection<int, AgeBreakpoint> $ageBreakpoints */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: AgeBreakpoint::class, inversedBy: 'workshops')]
-    private ?Collection $ageBreakpoints;
+    private Collection $ageBreakpoints;
 
-    /** @var ?Collection<int, EquipmentSupplier> $equipmentSuppliers */
+    /** @var Collection<int, EquipmentSupplier> $equipmentSuppliers */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: EquipmentSupplier::class, inversedBy: 'workshops')]
-    private ?Collection $equipmentSuppliers;
+    private Collection $equipmentSuppliers;
 
-    /** @var ?Collection<int, UsedEquipment> $usedEquipments */
+    /** @var Collection<int, UsedEquipment> $usedEquipments */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: UsedEquipment::class, inversedBy: 'workshops')]
-    private ?Collection $usedEquipments;
+    private Collection $usedEquipments;
 
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
@@ -104,10 +118,10 @@ class Workshop
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedNotes = null;
 
-    /** @var ?Collection<int, Skill> */
+    /** @var Collection<int, Skill> */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'workshops')]
-    private ?Collection $skills;
+    private Collection $skills;
 
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\Column(type: Types::STRING, length: 255)]

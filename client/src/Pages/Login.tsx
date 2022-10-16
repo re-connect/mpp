@@ -1,15 +1,14 @@
 import Button from '@mui/material/Button';
+import Github from '@mui/icons-material/GitHub';
 import Container from '@mui/material/Container';
 import LinkIcon from '@mui/icons-material/Link';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import {useContext} from 'react';
-import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
-import {dropdownsEndpoint, googleLoginEndpoint, loginEndpoint, makeRequest, oauthEndpoint} from '../Services/requests';
+import {googleLoginEndpoint, loginEndpoint, oauthEndpoint} from '../Services/requests';
 import logo from '../Images/logo.png';
-import UseFetchData from '../Hooks/UseFetchData';
-import DropdownsContext from '../Context/DropdownsContext';
+import Grid from "@mui/material/Unstable_Grid2";
+import {Link, Tooltip} from "@mui/material";
 
 const StyledImage = styled.img`
   width: 140px;
@@ -18,31 +17,20 @@ const StyledImage = styled.img`
 `;
 
 const StyledImageContainer = styled.div`
-  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const StyledForm = styled.form`
-  padding-top: 100px;
-  margin-bottom: 200px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Login: React.FC = () => {
-    const navigate = useNavigate();
-    const {setDropdowns} = useContext(DropdownsContext);
-    const fetchDropdowns = UseFetchData(dropdownsEndpoint, setDropdowns);
-
-    const login = async (values: Object) => {
-        await makeRequest(loginEndpoint, "POST", values);
-        await fetchDropdowns();
-        navigate("/");
-    };
-
-    return (
+const Login: React.FC = () => (
+    <div>
+        <Grid container display="flex" justifyContent="end" p={2} pr={5}>
+            <Tooltip title="Voir le code sur Github">
+                <Link href="https://github.com/re-connect/mpp" target="_blank">
+                    <Github/>
+                </Link>
+            </Tooltip>
+        </Grid>
         <Container maxWidth="sm">
             <StyledImageContainer>
                 <Typography
@@ -86,7 +74,7 @@ const Login: React.FC = () => {
                 Me connecter avec username et password
             </Button>
         </Container>
-    );
-};
+    </div>
+);
 
 export default Login;

@@ -2,9 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,13 +19,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     shortName: 'notes',
-    attributes: ['access_control' => "is_granted('ROLE_USER')", 'order' => ['date' => 'DESC']],
+    operations: [
+        new Get(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        new GetCollection(),
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['permanence:read']],
     denormalizationContext: ['groups' => ['permanence:write']],
-    normalizationContext: ['groups' => ['permanence:read']]
+    order: ['date' => 'DESC'],
+    security: "is_granted('ROLE_USER')"
 )]
-#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Table(name: 'note')]
 #[ORM\Entity]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 class Permanence implements \Stringable
 {
     use TimestampableEntity;
