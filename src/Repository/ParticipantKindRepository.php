@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ParticipantKind|null findOneBy(array $criteria, array $orderBy = null)
  * @method ParticipantKind[]    findAll()
  * @method ParticipantKind[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<ParticipantKind>
  */
 class ParticipantKindRepository extends ServiceEntityRepository
 {

@@ -6,28 +6,28 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EquipmentSupplierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
- * )
- */
+#[ApiResource(
+    denormalizationContext: ['groups' => ['write']],
+    normalizationContext: ['groups' => ['read']]
+)]
 #[ORM\Entity(repositoryClass: EquipmentSupplierRepository::class)]
 class EquipmentSupplier implements \Stringable
 {
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
+    /** @var ?Collection<int, Workshop> $workshops */
     #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'equipmentSuppliers')]
     private ?Collection $workshops;
 
@@ -58,9 +58,7 @@ class EquipmentSupplier implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;
@@ -69,7 +67,7 @@ class EquipmentSupplier implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
             $workshop->addEquipmentSupplier($this);
         }
 

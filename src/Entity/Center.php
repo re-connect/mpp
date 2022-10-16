@@ -5,57 +5,56 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')", "pagination_items_per_page"=100},
- *     order={"name": "ASC"})
- */
+#[ApiResource(
+    attributes: ['access_control' => "is_granted('ROLE_USER')", 'pagination_items_per_page' => 100],
+    order: ['name' => 'ASC']
+)]
 #[ORM\Entity]
 class Center implements \Stringable
 {
     #[Groups(['read', 'write'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255)]
     public ?string $name = null;
 
-    /**
-     * @var Collection<int, Permanence>
-     */
+    /** @var Collection<int, Permanence> */
     #[Groups(['read'])]
-    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'center')]
+    #[ORM\OneToMany(mappedBy: 'center', targetEntity: Permanence::class)]
     private Collection $notes;
 
     #[Groups(['read'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $association = null;
 
+    /** @var ?Collection<int, CenterTag>> */
     #[Groups(['read'])]
     #[ORM\ManyToMany(targetEntity: CenterTag::class, mappedBy: 'centers')]
     private ?Collection $tags;
 
-    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 1])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 1])]
     private ?bool $permanence = true;
 
-    #[ORM\Column(type: 'boolean', nullable: true, options: ['default' => 0])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => 0])]
     private ?bool $workshop = false;
 
     /**
      * @var Collection<int, Workshop>
      */
-    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'center')]
+    #[ORM\OneToMany(mappedBy: 'center', targetEntity: Workshop::class)]
     private Collection $workshops;
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     public function __construct()
@@ -88,9 +87,7 @@ class Center implements \Stringable
         return $this->notes;
     }
 
-    /**
-     * @param Collection<int, Permanence> $notes
-     */
+    /** @param Collection<int, Permanence> $notes */
     public function setNotes(Collection $notes): void
     {
         $this->notes = $notes;
@@ -98,7 +95,7 @@ class Center implements \Stringable
 
     public function addNote(Permanence $note): self
     {
-        $this->notes[] = $note;
+        $this->notes->add($note);
 
         return $this;
     }
@@ -133,7 +130,7 @@ class Center implements \Stringable
     public function addTag(CenterTag $tag): self
     {
         if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
+            $this->tags->add($tag);
             $tag->addCenter($this);
         }
 
@@ -152,7 +149,7 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
@@ -164,13 +161,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getNotesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
     public function getWorkshopsBeneficiariesCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -182,13 +179,13 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getWorkshopsStoredDocumentsCount(): int
     {
-        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
+        return array_reduce($this->workshops->toArray(), fn(int $acc, Workshop $workshop) => $acc + $workshop->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
     public function getNotesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
+        return array_reduce($this->notes->toArray(), fn(int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
     public function hasPermanence(): ?bool
@@ -215,9 +212,7 @@ class Center implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection<int, Workshop>
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;
@@ -226,7 +221,7 @@ class Center implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
             $workshop->setCenter($this);
         }
 

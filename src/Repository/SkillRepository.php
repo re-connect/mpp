@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Skill|null findOneBy(array $criteria, array $orderBy = null)
  * @method Skill[]    findAll()
  * @method Skill[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<Skill>
  */
 class SkillRepository extends ServiceEntityRepository
 {

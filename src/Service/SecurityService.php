@@ -11,6 +11,7 @@ use Firebase\JWT\Key;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
+use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -57,9 +58,10 @@ class SecurityService
         try {
             /** @var GoogleClient $client */
             $client = $this->registry->getClient('google');
-            $email = $client->fetchUser()->getEmail();
+            /** @var GoogleUser $user */
+            $user = $client->fetchUser();
 
-            return $this->authenticateOrCreateUser($email, $request);
+            return $this->authenticateOrCreateUser($user->getEmail(), $request);
         } catch (\Exception) {
             throw new AccessDeniedException();
         }

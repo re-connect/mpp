@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -15,12 +14,16 @@ class ExportService
 {
     private readonly PropertyAccessor $propertyAccessor;
 
-    public function __construct(private readonly EntityManagerInterface $em, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    public function export(array $data, array $fields)
+    /**
+     * @param array<array<mixed>> $data
+     * @param array<string> $fields
+     */
+    public function export(array $data, array $fields): StreamedResponse
     {
         $response = new StreamedResponse();
         $translatedFields = array_map(function ($field) {
@@ -30,24 +33,27 @@ class ExportService
         }, $fields);
         $response->setCallback(function () use ($data, $fields, $translatedFields) {
             $handle = fopen('php://output', 'w+');
-            fputcsv($handle, $translatedFields, ';');
-            foreach ($data as $datum) {
-                $values = [];
-                foreach ($fields as $field) {
-                    $fieldValue = $this->getFieldValue(explode('.', $field), $datum);
-                    $values[] = $this->getFieldStringValue($fieldValue);
+            if (false !== $handle) {
+                fputcsv($handle, $translatedFields, ';');
+                foreach ($data as $datum) {
+                    $values = [];
+                    foreach ($fields as $field) {
+                        $fieldValue = $this->getFieldValue(explode('.', $field), $datum);
+                        $values[] = $this->getFieldStringValue($fieldValue);
+                    }
+                    fputcsv($handle, $values, ';');
                 }
-                fputcsv($handle, $values, ';');
+                fclose($handle);
             }
-            fclose($handle);
         });
         $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment; filename="'.'export.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . 'export.csv');
 
         return $response;
     }
 
-    private function getFieldValue(array $fieldParts, $datum)
+    /** @param string[] $fieldParts */
+    private function getFieldValue(array $fieldParts, mixed $datum): mixed
     {
         $currentPart = array_shift($fieldParts);
         $currentValue = $this->propertyAccessor->getValue($datum, $currentPart);
@@ -66,18 +72,18 @@ class ExportService
         return $this->getFieldValue($fieldParts, $currentValue);
     }
 
-    private function getFieldStringValue($fieldValue): string
+    private function getFieldStringValue(mixed $fieldValue): string
     {
         if (is_string($fieldValue)) {
             return $fieldValue;
         } elseif (null === $fieldValue) {
             return $this->translator->trans('unfilled');
         } elseif (is_numeric($fieldValue)) {
-            return (string) $fieldValue;
+            return (string)$fieldValue;
         } elseif (is_array($fieldValue)) {
-            return implode(',', array_map(fn ($element) => $this->getFieldStringValue($element), $fieldValue));
+            return implode(',', array_map(fn($element) => $this->getFieldStringValue($element), $fieldValue));
         } elseif ($fieldValue instanceof Collection) {
-            return implode(',', $fieldValue->map(fn ($element) => $this->getFieldStringValue($element))->toArray());
+            return implode(',', $fieldValue->map(fn($element) => $this->getFieldStringValue($element))->toArray());
         } elseif (is_bool($fieldValue)) {
             return $this->translator->trans($fieldValue ? 'yes' : 'no');
         } elseif ($fieldValue instanceof \DateTime) {
@@ -86,7 +92,7 @@ class ExportService
             if (method_exists($fieldValue, 'getName')) {
                 return $fieldValue->getName();
             } elseif (method_exists($fieldValue, '__toString')) {
-                return (string) $fieldValue;
+                return (string)$fieldValue;
             } elseif (method_exists($fieldValue, 'getId')) {
                 return $fieldValue->getId();
             } else {
@@ -97,6 +103,7 @@ class ExportService
         }
     }
 
+    /** @param string[] $fields */
     public function getExportFieldCollection(array $fields): FieldCollection
     {
         $exportFields = FieldCollection::new([]);

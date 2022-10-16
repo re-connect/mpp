@@ -6,104 +6,99 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')", "order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"permanence:read"}},
- *     denormalizationContext={"groups"={"permanence:write"}},
- *     shortName="notes"
- *     )
- * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- */
+#[ApiResource(
+    shortName: 'notes',
+    attributes: ['access_control' => "is_granted('ROLE_USER')", 'order' => ['date' => 'DESC']],
+    denormalizationContext: ['groups' => ['permanence:write']],
+    normalizationContext: ['groups' => ['permanence:read']]
+)]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Table(name: 'note')]
+#[ORM\Entity]
 class Permanence implements \Stringable
 {
     use TimestampableEntity;
 
-    /**
-     * The id of this note.
-     */
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'date', type: 'date', nullable: true)]
+    #[ORM\Column(name: 'date', type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'hours', type: 'integer')]
+    #[ORM\Column(name: 'hours', type: Types::INTEGER)]
     private ?int $hours = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_pros', type: 'integer')]
+    #[ORM\Column(name: 'nb_pros', type: Types::INTEGER)]
     private ?int $nbPros = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_pro_accounts', type: 'integer')]
+    #[ORM\Column(name: 'nb_pro_accounts', type: Types::INTEGER)]
     private ?int $nbProAccounts = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_beneficiaries', type: 'integer')]
+    #[ORM\Column(name: 'nb_beneficiaries', type: Types::INTEGER)]
     private ?int $nbBeneficiaries = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_beneficiaries_accounts', type: 'integer')]
+    #[ORM\Column(name: 'nb_beneficiaries_accounts', type: Types::INTEGER)]
     private ?int $nbBeneficiariesAccounts = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_stored_docs', type: 'integer')]
+    #[ORM\Column(name: 'nb_stored_docs', type: Types::INTEGER)]
     private ?int $nbStoredDocs = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'beneficiaries_notes', type: 'text')]
+    #[ORM\Column(name: 'beneficiaries_notes', type: Types::TEXT)]
     private ?string $beneficiariesNotes = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'pro_notes', type: 'text')]
+    #[ORM\Column(name: 'pro_notes', type: Types::TEXT)]
     private ?string $proNotes = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'reconnect_notes', type: 'text')]
+    #[ORM\Column(name: 'reconnect_notes', type: Types::TEXT)]
     private ?string $reconnectNotes = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'attendees', type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name: 'attendees', type: Types::STRING, length: 255, nullable: true)]
     private ?string $attendees = null;
 
-    #[ORM\ManyToOne(targetEntity: \App\Entity\User::class, inversedBy: 'notes')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notes')]
     private ?User $author = null;
 
     #[Groups(['permanence:write'])]
-    #[ORM\ManyToOne(targetEntity: \App\Entity\Center::class, inversedBy: 'notes')]
+    #[ORM\ManyToOne(targetEntity: Center::class, inversedBy: 'notes')]
     private ?Center $center = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $maleCount = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $femaleCount = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;
 
     public function __construct()
     {
-        $this->genders = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -111,17 +106,11 @@ class Permanence implements \Stringable
         return $this->date->format('m/d/Y');
     }
 
-    /**
-     * @return int
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -132,10 +121,7 @@ class Permanence implements \Stringable
         $this->date = $date;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -145,169 +131,106 @@ class Permanence implements \Stringable
         $this->author = $author;
     }
 
-    /**
-     * @return Center
-     */
     public function getCenter(): ?Center
     {
         return $this->center;
     }
 
-    /**
-     * @param ?Center $center
-     */
     public function setCenter(Center $center = null): void
     {
         $this->center = $center;
     }
 
-    /**
-     * @return int
-     */
     public function getHours(): ?int
     {
         return $this->hours;
     }
 
-    /**
-     * @param ?int $hours
-     */
     public function setHours(int $hours = null): void
     {
         $this->hours = $hours;
     }
 
-    /**
-     * @return int
-     */
     public function getNbPros(): ?int
     {
         return $this->nbPros;
     }
 
-    /**
-     * @param ?int $nbPros
-     */
     public function setNbPros(int $nbPros = null): void
     {
         $this->nbPros = $nbPros;
     }
 
-    /**
-     * @return int
-     */
     public function getNbProAccounts(): ?int
     {
         return $this->nbProAccounts;
     }
 
-    /**
-     * @param ?int $nbProAccounts
-     */
     public function setNbProAccounts(int $nbProAccounts = null): void
     {
         $this->nbProAccounts = $nbProAccounts;
     }
 
-    /**
-     * @return int
-     */
     public function getNbBeneficiaries(): ?int
     {
         return $this->nbBeneficiaries;
     }
 
-    /**
-     * @param ?int $nbBeneficiaries
-     */
     public function setNbBeneficiaries(int $nbBeneficiaries = null): void
     {
         $this->nbBeneficiaries = $nbBeneficiaries;
     }
 
-    /**
-     * @return int
-     */
     public function getNbBeneficiariesAccounts(): ?int
     {
         return $this->nbBeneficiariesAccounts;
     }
 
-    /**
-     * @param ?int $nbBeneficiariesAccounts
-     */
     public function setNbBeneficiariesAccounts(int $nbBeneficiariesAccounts = null): void
     {
         $this->nbBeneficiariesAccounts = $nbBeneficiariesAccounts;
     }
 
-    /**
-     * @return int
-     */
     public function getNbStoredDocs(): ?int
     {
         return $this->nbStoredDocs;
     }
 
-    /**
-     * @param ?int $nbStoredDocs
-     */
     public function setNbStoredDocs(int $nbStoredDocs = null): void
     {
         $this->nbStoredDocs = $nbStoredDocs;
     }
 
-    /**
-     * @return string
-     */
     public function getBeneficiariesNotes(): ?string
     {
         return $this->beneficiariesNotes;
     }
 
-    /**
-     * @param ?string $beneficiariesNotes
-     */
     public function setBeneficiariesNotes(string $beneficiariesNotes = null): void
     {
         $this->beneficiariesNotes = $beneficiariesNotes;
     }
 
-    /**
-     * @return string
-     */
     public function getProNotes(): ?string
     {
         return $this->proNotes;
     }
 
-    /**
-     * @param ?string $proNotes
-     */
     public function setProNotes(string $proNotes = null): void
     {
         $this->proNotes = $proNotes;
     }
 
-    /**
-     * @return string
-     */
     public function getReconnectNotes(): ?string
     {
         return $this->reconnectNotes;
     }
 
-    /**
-     * @param ?string $reconnectNotes
-     */
     public function setReconnectNotes(string $reconnectNotes = null): void
     {
         $this->reconnectNotes = $reconnectNotes;
     }
 
-    /**
-     * @return string
-     */
     public function getAttendees(): ?string
     {
         return $this->attendees;

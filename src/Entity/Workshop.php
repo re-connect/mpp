@@ -8,18 +8,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\WorkshopRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     attributes={"order"={"date": "DESC"}},
- *     normalizationContext={"groups"={"workshop:read"}},
- *     denormalizationContext={"groups"={"workshop:write"}}
- * )
- * @ApiFilter(SearchFilter::class, properties={"center": "exact"})
- */
+#[ApiResource(
+    attributes: ['order' => ['date' => 'DESC']],
+    denormalizationContext: ['groups' => ['workshop:write']],
+    normalizationContext: ['groups' => ['workshop:read']]
+)]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 class Workshop
 {
@@ -28,23 +27,23 @@ class Workshop
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbParticipants = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $globalReport = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $topicPrecision = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'workshops')]
@@ -56,60 +55,66 @@ class Workshop
     #[ORM\JoinColumn(nullable: false)]
     private ?Center $center = null;
 
+    /** @var ?Collection<int, ParticipantKind> $participantKinds */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: ParticipantKind::class, inversedBy: 'workshops')]
     private ?Collection $participantKinds;
 
+    /** @var ?Collection<int, Topic> $topics */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'workshops')]
     private ?Collection $topics;
 
+    /** @var ?Collection<int, AgeBreakpoint> $ageBreakpoints */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: AgeBreakpoint::class, inversedBy: 'workshops')]
     private ?Collection $ageBreakpoints;
 
+    /** @var ?Collection<int, EquipmentSupplier> $equipmentSuppliers */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: EquipmentSupplier::class, inversedBy: 'workshops')]
     private ?Collection $equipmentSuppliers;
 
+    /** @var ?Collection<int, UsedEquipment> $usedEquipments */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: UsedEquipment::class, inversedBy: 'workshops')]
     private ?Collection $usedEquipments;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'boolean', options: ['default' => 0])]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
     private ?bool $usedVault = false;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbBeneficiariesAccounts = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbStoredDocs = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedEvents = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedContacts = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $nbCreatedNotes = null;
 
+    /** @var ?Collection<int, Skill> */
     #[Groups(['workshop:read', 'workshop:write'])]
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'workshops')]
     private ?Collection $skills;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $attendees = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $improvementAxis = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
@@ -118,19 +123,19 @@ class Workshop
     private ?Duration $duration = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $maleCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $femaleCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;
 
     #[Groups(['workshop:read', 'workshop:write'])]
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
 
     public function __construct()
@@ -141,7 +146,6 @@ class Workshop
         $this->equipmentSuppliers = new ArrayCollection();
         $this->usedEquipments = new ArrayCollection();
         $this->skills = new ArrayCollection();
-        $this->genders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -221,9 +225,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|ParticipantKind[]
-     */
+    /** @return Collection<int, ParticipantKind> */
     public function getParticipantKinds(): Collection
     {
         return $this->participantKinds;
@@ -232,7 +234,7 @@ class Workshop
     public function addParticipantKind(ParticipantKind $participantKind): self
     {
         if (!$this->participantKinds->contains($participantKind)) {
-            $this->participantKinds[] = $participantKind;
+            $this->participantKinds->add($participantKind);
         }
 
         return $this;
@@ -245,9 +247,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|Topic[]
-     */
+    /** @return Collection<int, Topic> */
     public function getTopics(): Collection
     {
         return $this->topics;
@@ -256,7 +256,7 @@ class Workshop
     public function addTopic(Topic $topic): self
     {
         if (!$this->topics->contains($topic)) {
-            $this->topics[] = $topic;
+            $this->topics->add($topic);
             $topic->addWorkshop($this);
         }
 
@@ -272,9 +272,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|AgeBreakpoint[]
-     */
+    /** @return Collection<int, AgeBreakpoint> */
     public function getAgeBreakpoints(): Collection
     {
         return $this->ageBreakpoints;
@@ -283,7 +281,7 @@ class Workshop
     public function addAgeBreakpoint(AgeBreakpoint $ageBreakpoint): self
     {
         if (!$this->ageBreakpoints->contains($ageBreakpoint)) {
-            $this->ageBreakpoints[] = $ageBreakpoint;
+            $this->ageBreakpoints->add($ageBreakpoint);
         }
 
         return $this;
@@ -296,9 +294,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|EquipmentSupplier[]
-     */
+    /** @return Collection<int, EquipmentSupplier> */
     public function getEquipmentSuppliers(): Collection
     {
         return $this->equipmentSuppliers;
@@ -307,7 +303,7 @@ class Workshop
     public function addEquipmentSupplier(EquipmentSupplier $equipmentSupplier): self
     {
         if (!$this->equipmentSuppliers->contains($equipmentSupplier)) {
-            $this->equipmentSuppliers[] = $equipmentSupplier;
+            $this->equipmentSuppliers->add($equipmentSupplier);
         }
 
         return $this;
@@ -320,9 +316,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|UsedEquipment[]
-     */
+    /** @return Collection<int, UsedEquipment> */
     public function getUsedEquipments(): Collection
     {
         return $this->usedEquipments;
@@ -331,7 +325,7 @@ class Workshop
     public function addUsedEquipment(UsedEquipment $usedEquipment): self
     {
         if (!$this->usedEquipments->contains($usedEquipment)) {
-            $this->usedEquipments[] = $usedEquipment;
+            $this->usedEquipments->add($usedEquipment);
         }
 
         return $this;
@@ -416,9 +410,7 @@ class Workshop
         return $this;
     }
 
-    /**
-     * @return Collection|Skill[]
-     */
+    /** @return Collection<int, Skill> */
     public function getSkills(): Collection
     {
         return $this->skills;
@@ -427,7 +419,7 @@ class Workshop
     public function addSkill(Skill $skill): self
     {
         if (!$this->skills->contains($skill)) {
-            $this->skills[] = $skill;
+            $this->skills->add($skill);
         }
 
         return $this;

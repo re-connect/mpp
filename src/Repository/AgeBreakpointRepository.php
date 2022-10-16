@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method AgeBreakpoint|null findOneBy(array $criteria, array $orderBy = null)
  * @method AgeBreakpoint[]    findAll()
  * @method AgeBreakpoint[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<AgeBreakpoint>
  */
 class AgeBreakpointRepository extends ServiceEntityRepository
 {

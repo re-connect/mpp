@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -19,33 +20,30 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(type: 'json')]
+    /** @var string[] $roles */
+    #[ORM\Column(type: Types::JSON)]
     private ?array $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     private ?string $password = null;
 
-    /**
-     * @var Collection<int, Permanence>
-     */
-    #[ORM\OneToMany(targetEntity: \App\Entity\Permanence::class, mappedBy: 'author')]
+    /** @var Collection<int, Permanence> */
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Permanence::class)]
     private Collection $notes;
 
     private ?string $plainPassword = null;
 
-    /**
-     * @var Collection<int, Workshop>
-     */
-    #[ORM\OneToMany(targetEntity: Workshop::class, mappedBy: 'author')]
+    /** @var Collection<int, Workshop> */
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Workshop::class)]
     private Collection $workshops;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $disabled = false;
 
     public function getPlainPassword(): ?string
@@ -53,7 +51,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($plainPassword): self
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 
@@ -76,9 +74,11 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
         return $this->id;
     }
 
-    public function setId($id)
+    public function setId(int $id): static
     {
         $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -109,6 +109,8 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
     }
 
     /**
+     * @return string[]
+     *
      * @see UserInterface
      */
     public function getRoles(): array
@@ -120,6 +122,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
         return array_unique($roles);
     }
 
+    /** @param string[] $roles */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -168,16 +171,14 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNotes()
+    /** @return Collection<int, Permanence> */
+    public function getNotes(): Collection
     {
         return $this->notes;
     }
@@ -187,29 +188,21 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
         $this->notes = $notes;
     }
 
-    /**
-     * @return $this
-     */
-    public function addNote(Permanence $note)
+    public function addNote(Permanence $note): static
     {
         $this->notes[] = $note;
 
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function removeNote(Permanence $note)
+    public function removeNote(Permanence $note): static
     {
         $this->notes->removeElement($note);
 
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;

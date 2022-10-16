@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method UsedEquipment|null findOneBy(array $criteria, array $orderBy = null)
  * @method UsedEquipment[]    findAll()
  * @method UsedEquipment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<UsedEquipment>
  */
 class UsedEquipmentRepository extends ServiceEntityRepository
 {

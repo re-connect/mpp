@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use ApiPlatform\Core\EventListener\EventPriorities;
+use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Entity\Permanence;
 use App\Entity\Workshop;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,7 +24,7 @@ final class ActivitySubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function setAuthor(ViewEvent $event)
+    public function setAuthor(ViewEvent $event): void
     {
         $activity = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();

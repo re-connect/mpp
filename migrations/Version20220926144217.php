@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Migrations;
+namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200712113417 extends AbstractMigration
+final class Version20220926144217 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,10 +20,15 @@ final class Version20200712113417 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('DROP SEQUENCE composer_require_jwt_auth_id_seq CASCADE');
+        $this->addSql('DROP TABLE composer_require_jwt_auth');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('CREATE SEQUENCE composer_require_jwt_auth_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE TABLE composer_require_jwt_auth (id INT NOT NULL, PRIMARY KEY(id))');
     }
 }

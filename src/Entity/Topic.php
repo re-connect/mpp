@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -22,20 +23,19 @@ class Topic implements \Stringable
     #[Groups(['read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['read', 'write'])]
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, Skill>
-     */
+    /** @var Collection<int, Skill> */
     #[Groups(['write'])]
     #[ORM\OneToMany(targetEntity: Skill::class, mappedBy: 'topic')]
     private Collection $skills;
 
+    /** @var ?Collection<int, Workshop> */
     #[ORM\ManyToMany(targetEntity: Workshop::class, inversedBy: 'topics')]
     private ?Collection $workshops;
 
@@ -47,7 +47,7 @@ class Topic implements \Stringable
 
     #[Groups(['read'])]
     #[SerializedName('@id')]
-    public function getIri()
+    public function getIri(): string
     {
         return sprintf('/api/topics/%s', $this->getId());
     }
@@ -74,9 +74,7 @@ class Topic implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Skill[]
-     */
+    /** @return Collection<int, Skill> */
     public function getSkills(): Collection
     {
         return $this->skills;
@@ -104,9 +102,7 @@ class Topic implements \Stringable
         return $this;
     }
 
-    /**
-     * @return Collection|Workshop[]
-     */
+    /** @return Collection<int, Workshop> */
     public function getWorkshops(): Collection
     {
         return $this->workshops;
@@ -115,7 +111,7 @@ class Topic implements \Stringable
     public function addWorkshop(Workshop $workshop): self
     {
         if (!$this->workshops->contains($workshop)) {
-            $this->workshops[] = $workshop;
+            $this->workshops->add($workshop);
         }
 
         return $this;

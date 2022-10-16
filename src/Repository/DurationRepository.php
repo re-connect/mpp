@@ -11,6 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Duration|null findOneBy(array $criteria, array $orderBy = null)
  * @method Duration[]    findAll()
  * @method Duration[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @extends ServiceEntityRepository<Duration>
  */
 class DurationRepository extends ServiceEntityRepository
 {
