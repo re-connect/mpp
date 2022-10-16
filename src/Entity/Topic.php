@@ -66,7 +66,7 @@ class Topic implements \Stringable
 
     public function __toString(): string
     {
-        return (string)$this->name;
+        return (string) $this->name;
     }
 
     public function getId(): ?int
