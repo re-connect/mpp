@@ -33,6 +33,7 @@ class SecurityService
     ) {
     }
 
+    /** @throws \Exception */
     public function authenticateUserFromReconnectPro(Request $request): RedirectResponse
     {
         try {

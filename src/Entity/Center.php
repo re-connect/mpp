@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource(security: 'is_granted(\'ROLE_USER\')', paginationItemsPerPage: 100, order: ['name' => 'ASC'])]
+#[ApiResource(order: ['name' => 'ASC'], paginationItemsPerPage: 100, security: 'is_granted(\'ROLE_USER\')')]
 #[ORM\Entity]
 class Center implements \Stringable
 {

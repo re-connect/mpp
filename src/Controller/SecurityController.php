@@ -14,9 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @throws \Exception
-     */
+    /** @throws \Exception */
     #[Route(path: '/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): never
     {
@@ -46,6 +44,7 @@ class SecurityController extends AbstractController
         return $client->getOAuth2Provider()->authorize();
     }
 
+    /** @throws \Exception */
     #[Route(path: '/reconnect-pro-login-check', name: 'reconnect_pro_login_check', methods: ['GET'])]
     public function reconnectProLoginCheck(Request $request, SecurityService $service): Response
     {
