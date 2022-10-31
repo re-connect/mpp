@@ -3,7 +3,7 @@
 {% block page_actions %}
     {{ parent() }}
     <a class="btn btn-success"
-       href="{{ ea_url().setController('App\\Controller\\Admin\\NoteCrudController').setAction('export') }}">
+       href="{{ ea_url().setController('App\\Controller\\Admin\\PermanenceCrudController').setAction('export') }}">
         <i class="fa fa-file-excel mr-1"></i>{{ 'export'|trans }}
     </a>
 {% endblock %}
