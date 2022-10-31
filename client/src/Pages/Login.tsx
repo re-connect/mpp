@@ -48,20 +48,20 @@ const Login: React.FC = () => (
                 variant="contained"
                 size="large"
                 style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
-                href={oauthEndpoint}
+                href={googleLoginEndpoint}
             >
                 <LinkIcon style={{marginRight: 20}}/>
-                Me connecter avec Reconnect Pro
+                Me connecter avec Google
             </Button>
             <Button
                 color="primary"
                 variant="contained"
                 size="large"
                 style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
-                href={googleLoginEndpoint}
+                href={oauthEndpoint}
             >
                 <LinkIcon style={{marginRight: 20}}/>
-                Me connecter avec Google
+                Me connecter avec Reconnect Pro
             </Button>
             <Button
                 color="primary"

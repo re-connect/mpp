@@ -7,7 +7,7 @@ DEPLOYER      = $(BIN)/dep
 
 .PHONY        :
 
-cs: rector stan lint
+cs: rector stan fix test
 
 test:
 	@$(PHPUNIT) tests
@@ -18,9 +18,12 @@ rector:
 stan:
 	@$(PHPSTAN) analyse
 
-lint:
+fix:
 	@$(PHP_CS_FIXER) fix src --allow-risky=yes
 	@$(PHP_CS_FIXER) fix tests --allow-risky=yes
 
 deploy:
 	@$(DEPLOYER) deploy
+
+
+dep: deploy
