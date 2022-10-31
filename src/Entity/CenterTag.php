@@ -41,6 +41,12 @@ class CenterTag implements \Stringable
     #[ORM\ManyToMany(targetEntity: Center::class, inversedBy: 'tags')]
     private Collection $centers;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $color = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $category = null;
+
     public function __toString(): string
     {
         return (string) $this->name;
@@ -86,6 +92,30 @@ class CenterTag implements \Stringable
     public function removeCenter(Center $center): self
     {
         $this->centers->removeElement($center);
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
