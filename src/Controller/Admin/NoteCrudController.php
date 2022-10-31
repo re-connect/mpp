@@ -38,10 +38,14 @@ class NoteCrudController extends ExportableCrudController
         'updatedAt',
         'author',
         'center',
+        'place',
     ];
 
-    public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
-    {
+    public function __construct(
+        readonly ExportService $exportsService,
+        readonly AdminContextProvider $adminContextProvider,
+        readonly FilterFactory $filterFactory
+    ) {
         parent::__construct($exportsService, $adminContextProvider, $filterFactory, self::EXPORT_FIELDS);
     }
 

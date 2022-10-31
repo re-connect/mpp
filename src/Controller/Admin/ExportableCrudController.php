@@ -11,8 +11,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 abstract class ExportableCrudController extends AbstractCrudController
 {
     /** @param string[] $exportFields */
-    public function __construct(private readonly ExportService $exportsService, private readonly AdminContextProvider $adminContextProvider, private readonly FilterFactory $filterFactory, private readonly array $exportFields)
-    {
+    public function __construct(
+        private readonly ExportService $exportsService,
+        private readonly AdminContextProvider $adminContextProvider,
+        private readonly FilterFactory $filterFactory,
+        private readonly array $exportFields
+    ) {
     }
 
     public function export(): StreamedResponse

@@ -1,85 +1,86 @@
+Age Breakpoints: Tranches d'âge
 AgeBreakpoint: Tranches d'âge
 AgeBreakpoints: Tranches d'âge
-Age Breakpoints: Tranches d'âge
 Attendees: Participants
 Author: Créateur
-attendees: Participants
-author: Créateur
 Beneficiaries Notes: Remarques concernant les bénéficiaires
 BeneficiariesNotes: Remarques concernant les bénéficiaires
-beneficiariesNotes: Remarques concernant les bénéficiaires
 Center: Centres
 CenterTag: Label
 Created At: Date de création
 CreatedAt: Date de création
-center: Centre
-createdAt: Date de création
 Date: Date
 Duration: Durée
-date: Date
-EquipmentSuppliers: Equipement fourni par
-EquipmentSupplier: Equipement fourni par
 Equipment Suppliers: Equipement fourni par
-export: Exporter
-field_format_unknown: Format du champ inconnu
+EquipmentSupplier: Equipement fourni par
+EquipmentSuppliers: Equipement fourni par
+Female Count: Nb femmes
 Global Report: Bilan global
 Hours: Heures
-hours: Heures
 ID: Id
-id: Id
 Improvement Axis: Axes d'amélioration
+Male Count: Nb hommes
 Name: Nom
 Nb Beneficiaries Accounts: Nb Comptes Bénef
 Nb Beneficiaries: Nb Bénef
 Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
 Nb Created Notes: Nb de notes créées
-Female Count: Nb femmes
-femaleCount: Nb femmes
-Male Count: Nb hommes
-maleCount: Nb hommes
-No Gender Count: Nb autres
-noGenderCount: Nb autres
 Nb Pro Accounts: Nb Comptes Pro
 Nb Pros: Nb Pros
 Nb Stored Docs: Nb docs stockés
 NbStoredDocs: Nombre de documents stockés
+No Gender Count: Nb autres
 Note: Notes
 Notes: Notes
+Participant Kind: Types de participants
+Participant Kinds: Types de participants
+ParticipantKind: Types de participants
+ParticipantKinds: Types de participants
+Password: Mot de passe
+Permanence: Permanence CFN
+Place: Lieu
+Pro Notes: Remarques concernant les bénéficiaires
+ProNotes: Remarques concernant les bénéficiaires
+Project: Projet
+Reconnect Notes: Remarques concernant Reconnect
+ReconnectNotes: Remarques concernant Reconnect
+Skill: Compétence
+Skills: Compétences
+Tag: Label
+Tags: Labels
+Topic Precision: Précisions sur le thème
+Topic: Thème
+Topics: Thèmes
+Updated At: Date de dernière mise à jour
+UpdatedAt: Date de mise à jour
+Used Equipments: Outils utilisés
+UsedEquipment: Outils utilisés
+UsedEquipments: Outils utilisés
+UsedVault: Utilisation du CFN
+User: Utilisateurs
+Workshop: Accompagnement numérique
+Workshops: Accompagnements numérique
+attendees: Participants
+author: Créateur
+beneficiariesNotes: Remarques concernant les bénéficiaires
+center: Centre
+createdAt: Date de création
+date: Date
+export: Exporter
+femaleCount: Nb femmes
+field_format_unknown: Format du champ inconnu
+hours: Heures
+id: Id
+maleCount: Nb hommes
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
 nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés
 nbStoredDocs: Nombre de documents stockés
-ParticipantKinds: Types de participants
-Participant Kind: Types de participants
-ParticipantKind: Types de participants
-Participant Kinds: Types de participants
-Permanence: Permanence CFN
-Password: Mot de passe
-Place: Lieu
+noGenderCount: Nb autres
+place: Lieu
 proNotes: Remarques concernant les bénéficiaires
-Project: Projet
-Pro Notes: Remarques concernant les bénéficiaires
-ProNotes: Remarques concernant les bénéficiaires
-Reconnect Notes: Remarques concernant Reconnect
-ReconnectNotes: Remarques concernant Reconnect
 reconnectNotes: Remarques concernant Reconnect
-Skill: Compétence
-Skills: Compétences
-Tag: Label
-Tags: Labels
-Topic: Thème
-Topics: Thèmes
-Topic Precision: Précisions sur le thème
-Updated At: Date de dernière mise à jour
-UpdatedAt: Date de mise à jour
-UsedEquipments: Outils utilisés
-UsedEquipment: Outils utilisés
-Used Equipments: Outils utilisés
-UsedVault: Utilisation du CFN
-User: Utilisateurs
 unfilled: Non renseigné
 updatedAt: Date de mise à jour
-Workshop: Accompagnement numérique
-Workshops: Accompagnements numérique
