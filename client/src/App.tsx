@@ -12,22 +12,11 @@ import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 import { Dropdowns } from "./Types/Dropdowns";
 import { BrowserRouter } from "react-router-dom";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import purple from '@mui/material/colors/purple';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
-    // background: {
-    //   default: '#203468',
-    //   paper: '#203468',
-    // },
-    // text: {
-    //   primary: '#eff1f7',
-    //   secondary: '#eff1f7',
-    // },
-    // primary: {
-    //   main: '#eff1f7',
-    //   contrastText: '#677273',
-    // },
+    primary: purple,
   },
 });
 
