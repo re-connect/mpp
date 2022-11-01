@@ -203,7 +203,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
                   }}
                   color='primary'
                 />
-              } label={<span style={{color: 'white'}}>Coffre-fort numérique</span>}/>
+              } label="Coffre-fort numérique"/>
           </FormRow>
           {!values.usedVault ? null : (
             <FormGroup>

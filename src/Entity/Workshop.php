@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     normalizationContext: ['groups' => ['workshop:read']],
     denormalizationContext: ['groups' => ['workshop:write']],
-    order: ['date' => 'DESC']
+    order: ['date' => 'DESC'],
 )]
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['center' => 'exact'])]

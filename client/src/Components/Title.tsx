@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComponentsVariants, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {Variant} from "@mui/material/styles/createTypography";
 
 interface Props {

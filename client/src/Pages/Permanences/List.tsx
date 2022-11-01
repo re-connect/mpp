@@ -1,4 +1,4 @@
-import {Container, Divider} from '@mui/material';
+import {Container} from '@mui/material';
 import React, {useContext} from 'react';
 import {useNumber} from 'react-hanger/array';
 import PermanencesContext from '../../Context/PermanencesContext';
@@ -8,7 +8,6 @@ import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
 import {Center} from '../../Types/Center';
 import {useParams} from 'react-router-dom';
-import Title from "../../Components/Title";
 import CenterHeader from "../../Components/CenterHeader";
 import Stack from "@mui/material/Stack";
 import Page from "../../Components/Page";
@@ -36,11 +35,13 @@ const List = () => {
     <Page>
       <Container maxWidth='sm'>
         <Stack>
-          <CenterHeader center={center}/>
-          <Divider/>
-          <Title text="Permanences CFN" variant="h4"/>
+          <CenterHeader center={center} permanences/>
           {permanences.map((note: any) => <Card note={note} key={note.id}/>)}
-          <Pagination currentPage={currentPage} totalItems={permanencesCount} actions={currentPageActions}/>
+          <Pagination
+            currentPage={currentPage}
+            totalItems={permanencesCount}
+            actions={currentPageActions}
+          />
         </Stack>
       </Container>
     </Page>

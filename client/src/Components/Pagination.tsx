@@ -17,15 +17,17 @@ interface Props {
   actions: UseNumberActions;
 }
 
-const Pagination: React.FC<Props> = ({currentPage, totalItems, actions}) => (
-  <PaginationContainer>
-    <MuiPagination
-      count={Math.ceil(totalItems / paginationCount)}
-      variant="outlined"
-      page={currentPage}
-      onChange={(event: any, value: any) => actions.setValue(value)}
-    />
-  </PaginationContainer>
-);
+const Pagination: React.FC<Props> = ({currentPage, totalItems, actions}) => {
+  return(
+    <PaginationContainer>
+      <MuiPagination
+        count={Math.ceil(totalItems / paginationCount)}
+        variant="outlined"
+        page={currentPage}
+        onChange={(event: any, value: any) => actions.setValue(value)}
+      />
+    </PaginationContainer>
+  );
+}
 
 export default Pagination;
