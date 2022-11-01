@@ -12,8 +12,8 @@ interface Props {
 const Link: React.FC<Props> = ({href, Icon, text}) => (
   <MuiLink component={RouterLink} to={href}>
     <Box mr={2} display="flex" alignItems="start">
+      <span style={{marginRight: '1em'}}>{text}</span>
       <Icon/>
-      <span>{text}</span>
     </Box>
   </MuiLink>
 );

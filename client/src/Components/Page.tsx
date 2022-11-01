@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import Stack from "@mui/material/Stack";
 
 interface Props {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ interface Props {
 const Page: React.FC<Props> = ({children}) => (
   <div>
     <Header/>
-    {children}
+    <Stack pt={2}>
+      {children}
+    </Stack>
   </div>
 );
 
