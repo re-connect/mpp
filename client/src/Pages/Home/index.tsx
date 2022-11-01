@@ -2,20 +2,12 @@ import {TextField} from "@mui/material";
 import Container from "@mui/material/Container";
 import Stack from '@mui/material/Stack';
 import React, {useState} from "react";
-import styled from "styled-components";
 import UseFetchDataEffect from "../../Hooks/UseFetchDataEffect";
 import {centersEndpoint} from "../../Services/requests";
 import CenterCard from "./Components/CenterCard";
 import LabelChips from "./Components/LabelChips";
 import Title from "../../Components/Title";
-import Header from "../../Components/Header";
 import Page from "../../Components/Page";
-
-const StyledContent = styled.div`
-  padding-top: 50px;
-  display: flex;
-  flex-direction: column;
-`;
 
 const Index = () => {
   const [centers, setCenters] = useState<any[]>([]);
@@ -37,16 +29,16 @@ const Index = () => {
   return (
     <Page>
       <Container maxWidth="md">
-        <StyledContent>
+        <Stack flexDirection="column">
           <Title text="Centres"/>
           <LabelChips onClick={onClickTag}/>
-          <TextField id="outlined-basic" label="Rechercher" variant="outlined" onChange={searchCenters}/>
+          <TextField label="Rechercher" variant="outlined" onChange={searchCenters}/>
           <Stack marginTop={3}>
             {!filteredCenters ? null : filteredCenters.map((center: any) =>
               <CenterCard center={center} key={center.id}/>
             )}
           </Stack>
-        </StyledContent>
+        </Stack>
       </Container>
     </Page>
   );
