@@ -16,9 +16,11 @@ const Edit = () => {
   const updatePermanence = UseFetchData(entityUrl, () => {
   }, 'PUT');
 
+  if (!permanence) return null;
+
   return (
     <Container maxWidth='sm'>
-      {null === permanence ? <></> : <Form permanence={permanence} onSubmit={updatePermanence}/>}
+      <Form permanence={permanence} onSubmit={updatePermanence}/>
     </Container>
   )
 }

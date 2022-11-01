@@ -3,9 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import {format} from 'date-fns';
 import React from 'react';
 import {getIdFromIri} from '../../../Services/helpers';
-import {useNavigate} from 'react-router-dom';
 import Link from "../../../Components/Link";
-import Grid2 from "@mui/material/Unstable_Grid2";
 
 interface SectionInterface {
   label: string;
@@ -25,7 +23,6 @@ const Section: React.FC<SectionProps> = ({section: {label, count}}) => (
 );
 
 const Card = (({note}: any) => {
-  const navigate = useNavigate();
   const chips = [
     {label: 'Professionnels rencontrés', count: note.nbPros},
     {label: 'Comptes pro crées', count: note.nbProAccounts},
@@ -40,11 +37,11 @@ const Card = (({note}: any) => {
   ];
 
   return (
-    <MuiCard elevation={6}>
+    <MuiCard elevation={6} style={{marginTop: '1rem'}}>
       <CardContent>
         <CardActions style={{justifyContent: 'flex-end'}}>
           <Link
-            href={`/note/${getIdFromIri(note['@id'])}/edit`}
+            href={`/permanence/${getIdFromIri(note['@id'])}/edit`}
             text="Mettre à jour"
             Icon={EditIcon}
           />

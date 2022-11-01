@@ -1,21 +1,27 @@
 import React from 'react';
-import { Formik, FormikProps } from 'formik';
-import { useBoolean } from 'react-hanger/array';
+import {Formik, FormikProps} from 'formik';
+import {useBoolean} from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
 import FormRow from '../../../Components/FormRow';
 import NumberField from '../../../Components/NumberField';
 import CircularProgress from '@mui/material/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {Permanence} from "../../../Types/Permanence";
 
-const Form = ({note, onSubmit}: any) => {
+interface Props {
+  permanence: Permanence;
+  onSubmit: () => void;
+}
+
+const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
   const [loading, loadingActions] = useBoolean(false);
   const navigate = useNavigate();
 
   return (
     <Formik
-      initialValues={note}
+      initialValues={permanence}
       onSubmit={async (data) => {
         loadingActions.setTrue();
         await onSubmit(data);
@@ -24,7 +30,8 @@ const Form = ({note, onSubmit}: any) => {
           navigate(-1);
         }, 500);
       }}
-      render={({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
+    >
+      {({handleChange, handleSubmit, values, setFieldValue}: FormikProps<any>) => (
         <form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date"
@@ -120,12 +127,12 @@ const Form = ({note, onSubmit}: any) => {
           <FormRow>
             {loading
               ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
-              : <PrimaryButton>{note['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
+              : <PrimaryButton>{permanence['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
             }
           </FormRow>
         </form>
       )}
-    />
+    </Formik>
   );
 }
 

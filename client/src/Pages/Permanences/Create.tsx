@@ -7,7 +7,7 @@ import Form from './Components/Form';
 
 const Create = () => {
   const {centerId} = useParams<{ centerId: string | undefined }>();
-  const note = {
+  const permanence = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),
     hours: 0,
@@ -28,10 +28,9 @@ const Create = () => {
 
   return (
     <Container maxWidth='sm'>
-      <Form note={note} onSubmit={createPermanence}/>
+      <Form permanence={permanence} onSubmit={createPermanence}/>
     </Container>
   )
-
 }
 
 export default Create;
