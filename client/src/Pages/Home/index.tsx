@@ -9,6 +9,7 @@ import CenterCard from "./Components/CenterCard";
 import LabelChips from "./Components/LabelChips";
 import Title from "../../Components/Title";
 import Header from "../../Components/Header";
+import Page from "../../Components/Page";
 
 const StyledContent = styled.div`
   padding-top: 50px;
@@ -34,8 +35,7 @@ const Index = () => {
   ))
 
   return (
-    <>
-      <Header/>
+    <Page>
       <Container maxWidth="md">
         <StyledContent>
           <Title text="Centres"/>
@@ -48,7 +48,7 @@ const Index = () => {
           </Stack>
         </StyledContent>
       </Container>
-    </>
+    </Page>
   );
 };
 
