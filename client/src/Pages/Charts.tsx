@@ -3,27 +3,25 @@ import Container from "@mui/material/Container";
 import 'chartkick/chart.js'
 import React, {useContext} from "react";
 import {LineChart} from "react-chartkick";
-import {useNavigate} from "react-router-dom";
-import NotesContext from "../Context/NotesContext";
-import {notesEndpoint} from "../Services/requests";
+import PermanencesContext from "../Context/PermanencesContext";
+import {permanencesEndpoint} from "../Services/requests";
 import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
 
 const Charts = () => {
-  const navigate = useNavigate();
-  const notesContext = useContext(NotesContext);
+  const permanencesContext = useContext(PermanencesContext);
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('fr', {year: "numeric", month: "short", day: "2-digit"});
   }
 
-  UseFetchDataEffect(`${notesEndpoint}`, (data: any) => {
-    notesContext.setNotes(data['hydra:member']);
+  UseFetchDataEffect(`${permanencesEndpoint}`, (data: any) => {
+    permanencesContext.setPermanences(data['hydra:member']);
   })
 
   let nbProAccountsData = {};
   let nbBeneficiariesAccountsData = {};
   let nbStoredDocsData = {};
 
-  notesContext.notes.forEach((note: any) => {
+  permanencesContext.permanences.forEach((note: any) => {
     nbProAccountsData = {
       [formatDate(note.date)]: note.nbProAccounts,
       ...nbProAccountsData,

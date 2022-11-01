@@ -1,6 +1,6 @@
 import { Entity } from './Entity';
 
-export interface Note extends Entity{
+export interface Permanence extends Entity{
   id?: number;
   content?: string;
   title?: string;

@@ -10,7 +10,7 @@ const StyledCard = styled(Card)`
   margin-bottom: 10px;
 `;
 
-const EditNote = styled(Fab)`
+const EditPermanence = styled(Fab)`
   position: absolute !important;
   right: 10px;
   top: 10px;
@@ -20,20 +20,20 @@ const StyledChip = styled(Chip)`
   margin: 8px;
 `;
 
-const Note = (({note}: any) => {
+const Show = (({note}: any) => {
   const navigate = useNavigate();
 
   return (
     <StyledCard key={note.id} variant={"outlined"}>
       <CardContent style={{position: 'relative', backgroundColor: '#212121'}}>
-        <EditNote
+        <EditPermanence
           size='small'
           color='primary'
           aria-label='add'
           onClick={() => navigate(`/note/${getIdFromIri(note['@id'])}/edit`)}
         >
           <EditIcon/>
-        </EditNote>
+        </EditPermanence>
         <Typography color='textPrimary' gutterBottom>
           Date : {format(new Date(note.date), 'dd-MM-yyyy')}
         </Typography>
@@ -93,4 +93,4 @@ const Note = (({note}: any) => {
   );
 });
 
-export default Note;
+export default Show;

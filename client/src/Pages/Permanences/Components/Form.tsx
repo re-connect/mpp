@@ -9,7 +9,7 @@ import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
 
-const NoteForm = ({note, onSubmit}: any) => {
+const Form = ({note, onSubmit}: any) => {
   const [loading, loadingActions] = useBoolean(false);
   const navigate = useNavigate();
 
@@ -129,4 +129,4 @@ const NoteForm = ({note, onSubmit}: any) => {
   );
 }
 
-export default NoteForm;
+export default Form;
