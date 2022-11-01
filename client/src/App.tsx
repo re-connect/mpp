@@ -11,12 +11,16 @@ import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 import {Dropdowns} from "./Types/Dropdowns";
 import {BrowserRouter} from "react-router-dom";
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
-import purple from '@mui/material/colors/purple';
 import {Permanence} from "./Types/Permanence";
 
 const theme = createTheme({
   palette: {
-    primary: purple,
+    primary: {
+      main: '#f8af29',
+    },
+    secondary: {
+      main: '#0E6F73',
+    },
   },
 });
 

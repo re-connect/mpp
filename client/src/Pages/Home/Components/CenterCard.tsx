@@ -24,7 +24,7 @@ const CenterCard: React.FC<Props> = ({center}) => (
             <Typography textAlign="center">{center.name}</Typography>
           </Stack>
         </Grid>
-        <Grid container direction="column" alignItems="end" justifyContent="center">
+        <Grid item display="flex" flexGrow={1} direction="column" alignItems="end" justifyContent="center">
           {!center.permanence ? null :
             <Link
               href={`/centers/${center.id}/permanences`}

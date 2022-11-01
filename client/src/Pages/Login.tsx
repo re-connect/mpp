@@ -20,61 +20,63 @@ const StyledImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 3rem;
 `;
 
 const Login: React.FC = () => (
-    <div>
-        <Grid container display="flex" justifyContent="end" p={2} pr={5}>
-            <Tooltip title="Voir le code sur Github">
-                <Link href="https://github.com/re-connect/mpp" target="_blank">
-                    <Github/>
-                </Link>
-            </Tooltip>
-        </Grid>
-        <Container maxWidth="sm">
-            <StyledImageContainer>
-                <Typography
-                    variant="h3"
-                    component="h2"
-                    gutterBottom
-                    color="textPrimary"
-                >
-                    Ma petite permanence
-                </Typography>
-                <StyledImage src={logo} alt="logo"/>
-            </StyledImageContainer>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
-                href={googleLoginEndpoint}
-            >
-                <LinkIcon style={{marginRight: 20}}/>
-                Me connecter avec Google
-            </Button>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                style={{marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
-                href={oauthEndpoint}
-            >
-                <LinkIcon style={{marginRight: 20}}/>
-                Me connecter avec Reconnect Pro
-            </Button>
-            <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                style={{marginTop: 50, marginBottom: 100, fontSize: 20, width: '100%', minHeight: '120px'}}
-                href={loginEndpoint}
-            >
-                <LinkIcon style={{marginRight: 20}}/>
-                Me connecter avec username et password
-            </Button>
-        </Container>
-    </div>
+  <div>
+    <Grid container display="flex" justifyContent="end" p={2} pr={5}>
+      <Tooltip title="Voir le code sur Github">
+        <Link href="https://github.com/re-connect/mpp" target="_blank">
+          <Github/>
+        </Link>
+      </Tooltip>
+    </Grid>
+    <Container maxWidth="sm">
+      <StyledImageContainer>
+        <StyledImage src={logo} alt="logo"/>
+      </StyledImageContainer>
+      <Typography
+        variant="h3"
+        component="h2"
+        gutterBottom
+        color="primary"
+        textAlign="center"
+      >
+        Ma petite permanence
+      </Typography>
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        style={{color: 'whitesmoke', marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
+        href={googleLoginEndpoint}
+      >
+        <LinkIcon style={{marginRight: 20}}/>
+        Me connecter avec Google
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        style={{color: 'whitesmoke', marginTop: 50, fontSize: 20, width: '100%', minHeight: '120px'}}
+        href={oauthEndpoint}
+      >
+        <LinkIcon style={{marginRight: 20}}/>
+        Me connecter avec Reconnect Pro
+      </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        size="large"
+        style={{color: 'whitesmoke', marginTop: 50, marginBottom: 100, fontSize: 20, width: '100%', minHeight: '120px'}}
+        href={loginEndpoint}
+      >
+        <LinkIcon style={{marginRight: 20}}/>
+        Me connecter avec username et password
+      </Button>
+    </Container>
+  </div>
 );
 
 export default Login;

@@ -38,7 +38,7 @@ const LabelChips: React.FC<Props> = ({onClick}) => {
                   key={tag.id}
                   label={tag.name}
                   clickable
-                  style={{backgroundColor: tag.color ?? '#9b59b6', color: 'white',}}
+                  style={{backgroundColor: tag.color ?? '#f8af29', color: 'white',}}
                   onClick={onClick(tag.id)}
                 />
               </Grid2>
