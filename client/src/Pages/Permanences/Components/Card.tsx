@@ -63,7 +63,11 @@ const Card = (({note}: any) => {
           </Typography>
         )}
         {chips.map(chip =>
-          <Chip avatar={<Avatar>{chip.count}</Avatar>} label={chip.label} key={chip.label}/>
+          <Chip
+            avatar={<Avatar>{chip.count}</Avatar>}
+            label={chip.label}
+            key={chip.label}
+          />
         )}
         <Typography variant="subtitle1">
           Genres :
@@ -71,7 +75,9 @@ const Card = (({note}: any) => {
         <Typography variant="body2">
           [ Femmes : {note.femaleCount} ] [ Hommes : {note.maleCount} ] [ Autres : {note.noGenderCount} ]
         </Typography>
-        {sections.map((section: SectionInterface) => <Section key={section.label} section={section}/>)}
+        {sections.map((section: SectionInterface) =>
+          <Section key={section.label} section={section}/>
+        )}
       </CardContent>
     </MuiCard>
   );

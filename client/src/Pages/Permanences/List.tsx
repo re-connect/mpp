@@ -36,7 +36,7 @@ const List = () => {
       <Container maxWidth='sm'>
         <Stack>
           <CenterHeader center={center} permanences/>
-          {permanences.map((note: any) => <Card note={note} key={note.id}/>)}
+          {permanences.map((permanence: any) => <Card note={permanence} key={permanence['@id']}/>)}
           <Pagination
             currentPage={currentPage}
             totalItems={permanencesCount}
