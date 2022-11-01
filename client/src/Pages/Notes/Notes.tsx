@@ -1,24 +1,19 @@
-import { Container, Divider, Fab, Typography } from '@mui/material';
+import {Container, Fab} from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import AddIcon from '@mui/icons-material//Add';
-import React, { useContext } from 'react';
-import { useNumber } from 'react-hanger/array';
+import React, {useContext} from 'react';
+import {useNumber} from 'react-hanger/array';
 import styled from 'styled-components';
 import NotesContext from '../../Context/NotesContext';
-import { centersEndpoint, notesEndpoint, paginationCount } from '../../Services/requests';
+import {centersEndpoint, notesEndpoint, paginationCount} from '../../Services/requests';
 import Note from './Note';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseFetchData from '../../Hooks/UseFetchData';
-import { Center } from '../../Types/Center';
-import HomeButton from '../../Components/HomeButton';
-import { useNavigate, useParams } from 'react-router-dom';
-
-const StyledContent = styled.div`
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  color: whitesmoke;
-`;
+import {Center} from '../../Types/Center';
+import {useNavigate, useParams} from 'react-router-dom';
+import Title from "../../Components/Title";
+import CenterHeader from "../../Components/CenterHeader";
+import Stack from "@mui/material/Stack";
 
 const LeftTopContent = styled.div`
   position: absolute;
@@ -31,10 +26,6 @@ const PaginationContainer = styled.div`
   justify-content: center;
   margin-top: 32px;
   margin-bottom: 32px;
-`;
-
-const NotesTitle = styled(Typography)`
-  flex: 1;
 `;
 
 const TopRightIcon = styled(Fab)``;
@@ -59,24 +50,9 @@ const Notes = () => {
 
   return (
     <Container maxWidth='sm'>
-      <LeftTopContent>
-        <HomeButton/>
-      </LeftTopContent>
-      <StyledContent>
-        {!center ? null : (
-          <>
-            <NotesTitle variant='h4' gutterBottom color='textPrimary'>{center.name}</NotesTitle>
-            <Typography>Nb permanences: {!center.notes ? 0 : center.notes.length}</Typography>
-            <Typography>Nb bénef rencontrés: {center.beneficiariesCount}</Typography>
-            <Typography>Nb CFN crées: {center.notesBeneficiariesCount}</Typography>
-            <Typography>Nb docs stockés: {center.notesStoredDocumentsCount}</Typography>
-          </>
-        )}
-        <br/>
-        <Divider/>
-        <NotesTitle variant='h4' gutterBottom color='textPrimary'>
-          Permanences CFN
-        </NotesTitle>
+      <Stack>
+        <CenterHeader center={center}/>
+        <Title text="Permanences CFN" variant="h4"/>
         {center === null ? null : (
           <TopRightIcon
             size='medium'
@@ -98,7 +74,7 @@ const Notes = () => {
         {notes.map((note: any) => (
           <Note note={note} key={note.id}/>
         ))}
-      </StyledContent>
+      </Stack>
     </Container>
   );
 };

@@ -1,12 +1,18 @@
 import React from 'react';
-import {Typography} from "@mui/material";
+import {ComponentsVariants, Typography} from "@mui/material";
+import {Variant} from "@mui/material/styles/createTypography";
 
 interface Props {
   text: string;
+  variant?: Variant;
 }
 
-const Title: React.FC<Props> = ({text}) => (
-  <Typography variant="h2" component="h2" gutterBottom color="textPrimary">
+const Title: React.FC<Props> = ({text, variant}) => (
+  <Typography
+    variant={variant ?? "h2"}
+    gutterBottom
+    color="textPrimary"
+  >
     {text}
   </Typography>
 );

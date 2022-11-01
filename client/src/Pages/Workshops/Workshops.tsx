@@ -1,29 +1,22 @@
-import { Container, Divider, Fab, Typography } from '@mui/material';
+import {Container, Divider, Fab, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Pagination from '@mui/material/Pagination';
-import React, { useContext } from 'react';
-import { useNumber } from 'react-hanger/array';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, {useContext} from 'react';
+import {useNumber} from 'react-hanger/array';
+import {useNavigate, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import WorkshopsContext from '../../Context/WorkshopsContext';
 import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import UseQueryParams from '../../Hooks/UseQueryParams';
-import { centersEndpoint, paginationCount, workshopsEndpoint } from '../../Services/requests';
-import { Center } from '../../Types/Center';
+import {centersEndpoint, paginationCount, workshopsEndpoint} from '../../Services/requests';
+import {Center} from '../../Types/Center';
 import Workshop from './Workshop';
-import HomeButton from '../../Components/HomeButton';
 
 const StyledContent = styled.div`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
   color: whitesmoke;
-`;
-
-const LeftTopContent = styled.div`
-  position: absolute;
-  left: 140px;
-  top: 10px;
 `;
 
 const WorkshopsTitle = styled(Typography)`
@@ -61,9 +54,6 @@ const Workshops = () => {
 
   return (
     <Container maxWidth='sm'>
-      <LeftTopContent>
-        <HomeButton/>
-      </LeftTopContent>
       {center === null ? null : (
         <StyledContent>
           <WorkshopsTitle variant='h4' gutterBottom color='textPrimary'>

@@ -1,21 +1,12 @@
 import Typography from "@mui/material/Typography";
-import Fab from "@mui/material/Fab";
 import Container from "@mui/material/Container";
-import HomeIcon from "@mui/icons-material/Home";
 import 'chartkick/chart.js'
-import React, { useContext } from "react";
-import { LineChart } from "react-chartkick";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import React, {useContext} from "react";
+import {LineChart} from "react-chartkick";
+import {useNavigate} from "react-router-dom";
 import NotesContext from "../Context/NotesContext";
-import { notesEndpoint } from "../Services/requests";
+import {notesEndpoint} from "../Services/requests";
 import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
-
-const HomeButton = styled(Fab)`
-  position: absolute !important;
-  right: 10px;
-  top: 10px;
-`;
 
 const Charts = () => {
   const navigate = useNavigate();
@@ -46,14 +37,6 @@ const Charts = () => {
 
   return (
     <Container maxWidth="sm">
-      <HomeButton
-        size="small"
-        color="primary"
-        aria-label="add"
-        onClick={() => navigate("/")}
-      >
-        <HomeIcon/>
-      </HomeButton>
       <Typography
         variant="h3"
         component="h2"

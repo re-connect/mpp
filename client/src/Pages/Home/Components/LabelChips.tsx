@@ -26,7 +26,10 @@ const LabelChips: React.FC<Props> = ({onClick}) => {
           key={tag.id}
           label={tag.name}
           clickable
-          style={{backgroundColor: tag.color ?? '#9b59b6'}}
+          style={{
+            backgroundColor: tag.color ?? '#9b59b6',
+            color: 'white',
+        }}
           onClick={onClick(tag.id)}
         />
       ))}
