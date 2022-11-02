@@ -5,6 +5,7 @@ import UseFetchDataEffect from '../../Hooks/UseFetchDataEffect';
 import {buildEntityEndpoint, permanencesEndpoint} from '../../Services/requests';
 import UseFetchData from '../../Hooks/UseFetchData';
 import Form from './Components/Form';
+import Page from "../../Components/Page";
 
 const Edit = () => {
   const {permanenceId} = useParams() as { permanenceId: string };
@@ -19,9 +20,11 @@ const Edit = () => {
   if (!permanence) return null;
 
   return (
-    <Container maxWidth='sm'>
-      <Form permanence={permanence} onSubmit={updatePermanence}/>
-    </Container>
+    <Page>
+      <Container maxWidth='sm'>
+        <Form permanence={permanence} onSubmit={updatePermanence}/>
+      </Container>
+    </Page>
   )
 }
 

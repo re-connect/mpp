@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import UseFetchData from '../../Hooks/UseFetchData';
 import Container from '@mui/material/Container';
 import Form from './Components/Form';
+import Page from "../../Components/Page";
 
 const Create = () => {
   const {centerId} = useParams<{ centerId: string | undefined }>();
@@ -27,9 +28,11 @@ const Create = () => {
   }, 'POST');
 
   return (
-    <Container maxWidth='sm'>
-      <Form permanence={permanence} onSubmit={createPermanence}/>
-    </Container>
+    <Page>
+      <Container maxWidth='sm'>
+        <Form permanence={permanence} onSubmit={createPermanence}/>
+      </Container>
+    </Page>
   )
 }
 
