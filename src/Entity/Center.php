@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(),
     ],
     order: ['name' => 'ASC'],
-    paginationItemsPerPage: 100,
+    paginationItemsPerPage: 500,
     security: 'is_granted(\'ROLE_USER\')')
 ]
 #[ORM\Entity]

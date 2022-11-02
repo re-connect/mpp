@@ -203,7 +203,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
                   }}
                   color='primary'
                 />
-              } label={<span style={{color: 'white'}}>Coffre-fort numérique</span>}/>
+              } label="Coffre-fort numérique"/>
           </FormRow>
           {!values.usedVault ? null : (
             <FormGroup>
@@ -219,7 +219,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
                              handleChange={handleChange}/>
                 <NumberField id="nbCreatedContacts" value={values.nbCreatedContacts} label="Contacts ajoutés"
                              handleChange={handleChange}/>
-                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="Notes ajoutées"
+                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="List ajoutées"
                              handleChange={handleChange}/>
               </FormRow>
             </FormGroup>

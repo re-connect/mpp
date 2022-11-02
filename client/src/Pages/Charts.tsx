@@ -1,38 +1,27 @@
 import Typography from "@mui/material/Typography";
-import Fab from "@mui/material/Fab";
 import Container from "@mui/material/Container";
-import HomeIcon from "@mui/icons-material/Home";
 import 'chartkick/chart.js'
-import React, { useContext } from "react";
-import { LineChart } from "react-chartkick";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import NotesContext from "../Context/NotesContext";
-import { notesEndpoint } from "../Services/requests";
+import React, {useContext} from "react";
+import {LineChart} from "react-chartkick";
+import PermanencesContext from "../Context/PermanencesContext";
+import {permanencesEndpoint} from "../Services/requests";
 import UseFetchDataEffect from "../Hooks/UseFetchDataEffect";
 
-const HomeButton = styled(Fab)`
-  position: absolute !important;
-  right: 10px;
-  top: 10px;
-`;
-
 const Charts = () => {
-  const navigate = useNavigate();
-  const notesContext = useContext(NotesContext);
+  const permanencesContext = useContext(PermanencesContext);
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('fr', {year: "numeric", month: "short", day: "2-digit"});
   }
 
-  UseFetchDataEffect(`${notesEndpoint}`, (data: any) => {
-    notesContext.setNotes(data['hydra:member']);
+  UseFetchDataEffect(`${permanencesEndpoint}`, (data: any) => {
+    permanencesContext.setPermanences(data['hydra:member']);
   })
 
   let nbProAccountsData = {};
   let nbBeneficiariesAccountsData = {};
   let nbStoredDocsData = {};
 
-  notesContext.notes.forEach((note: any) => {
+  permanencesContext.permanences.forEach((note: any) => {
     nbProAccountsData = {
       [formatDate(note.date)]: note.nbProAccounts,
       ...nbProAccountsData,
@@ -46,14 +35,6 @@ const Charts = () => {
 
   return (
     <Container maxWidth="sm">
-      <HomeButton
-        size="small"
-        color="primary"
-        aria-label="add"
-        onClick={() => navigate("/")}
-      >
-        <HomeIcon/>
-      </HomeButton>
       <Typography
         variant="h3"
         component="h2"

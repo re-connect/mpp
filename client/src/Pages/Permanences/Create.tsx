@@ -1,13 +1,14 @@
 import React from 'react';
-import { centersEndpoint, notesEndpoint } from '../../Services/requests';
-import { useParams } from 'react-router-dom';
+import {centersEndpoint, permanencesEndpoint} from '../../Services/requests';
+import {useParams} from 'react-router-dom';
 import UseFetchData from '../../Hooks/UseFetchData';
 import Container from '@mui/material/Container';
-import NoteForm from './Components/NoteForm';
+import Form from './Components/Form';
+import Page from "../../Components/Page";
 
-const CreateNote = () => {
+const Create = () => {
   const {centerId} = useParams<{ centerId: string | undefined }>();
-  const note = {
+  const permanence = {
     center: `${centersEndpoint}/${centerId}`,
     date: new Date(),
     hours: 0,
@@ -23,15 +24,16 @@ const CreateNote = () => {
     reconnectNotes: '',
   }
 
-  const createNote = UseFetchData(notesEndpoint, () => {
+  const createPermanence = UseFetchData(permanencesEndpoint, () => {
   }, 'POST');
 
   return (
-    <Container maxWidth='sm'>
-      <NoteForm note={note} onSubmit={createNote}/>
-    </Container>
+    <Page>
+      <Container maxWidth='sm'>
+        <Form permanence={permanence} onSubmit={createPermanence}/>
+      </Container>
+    </Page>
   )
-
 }
 
-export default CreateNote;
+export default Create;
