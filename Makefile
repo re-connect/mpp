@@ -7,7 +7,7 @@ DEPLOYER      = $(BIN)/dep
 
 .PHONY        :
 
-cs: rector stan fix test
+cs: rector fix stan test
 
 test:
 	@$(PHPUNIT) tests

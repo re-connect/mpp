@@ -20,7 +20,6 @@ add('shared_files', [
 add('shared_dirs', [
     'var/oauth',
     'var/log',
-    'client/public',
 ]);
 add('writable_dirs', []);
 
@@ -32,10 +31,14 @@ host('155.133.130.39')
 
 // Tasks
 
+task('deploy:install_frontend', function () {
+    run('cd {{release_path}}/client && npm install');
+});
 task('deploy:build_frontend', function () {
-    run('cd {{release_path}} && cd client && npm install && npm run build');
+    run('cd {{release_path}}/client && npm run build', ['timeout' => null]);
 });
 
+before('deploy:build_frontend', 'deploy:install_frontend');
 before('deploy:cache:clear', 'deploy:build_frontend');
 before('deploy:symlink', 'database:migrate');
 
