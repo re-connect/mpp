@@ -11,7 +11,6 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
-use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -131,7 +130,7 @@ class Permanence implements \Stringable
         return $this->date;
     }
 
-    public function setDate(DateTime $date): void
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
     }
