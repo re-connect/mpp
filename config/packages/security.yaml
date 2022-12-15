@@ -19,7 +19,7 @@ security:
                 enable_csrf: true
                 login_path: login
                 check_path: login
-                default_target_path: home
+                default_target_path: redirect_to_frontend
 
             logout:
                 path: app_logout
