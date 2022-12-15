@@ -7,7 +7,6 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -46,9 +45,9 @@ class SecurityController extends AbstractController
 
     /** @throws \Exception */
     #[Route(path: '/reconnect-pro-login-check', name: 'reconnect_pro_login_check', methods: ['GET'])]
-    public function reconnectProLoginCheck(Request $request, SecurityService $service): Response
+    public function reconnectProLoginCheck(SecurityService $service): Response
     {
-        return $service->authenticateUserFromReconnectPro($request);
+        return $service->authenticateUserFromReconnectPro();
     }
 
     #[Route(path: '/google-login-trigger', name: 'google_login_trigger', methods: ['GET'])]
@@ -60,9 +59,9 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/google-check', name: 'google_login_check', methods: ['GET'])]
-    public function googleLoginCheck(Request $request, SecurityService $service): Response
+    public function googleLoginCheck(SecurityService $service): Response
     {
-        return $service->authenticateUserFromGoogle($request);
+        return $service->authenticateUserFromGoogle();
     }
 
     #[Route(path: '/user-disabled', name: 'user_disabled', methods: ['GET'])]
