@@ -70,4 +70,10 @@ class SecurityController extends AbstractController
     {
         return $this->render('security/user_disabled.html.twig');
     }
+
+    #[Route(path: '/frontend', name: 'redirect_to_frontend', methods: ['GET'])]
+    public function redirectToFrontend(string $frontendUrl): Response
+    {
+        return new RedirectResponse($frontendUrl);
+    }
 }

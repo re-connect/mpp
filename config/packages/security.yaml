@@ -13,8 +13,14 @@ security:
             pattern: ^/_(profiler|wdt)
             security: false
         main:
-            custom_authenticators:
-                - App\Security\LoginFormAuthenticator
+            provider: app_user_provider
+
+            form_login:
+                enable_csrf: true
+                login_path: login
+                check_path: login
+                default_target_path: redirect_to_frontend
+
             logout:
                 path: app_logout
                 # where to redirect after logout
