@@ -219,7 +219,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
                              handleChange={handleChange}/>
                 <NumberField id="nbCreatedContacts" value={values.nbCreatedContacts} label="Contacts ajoutés"
                              handleChange={handleChange}/>
-                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="List ajoutées"
+                <NumberField id="nbCreatedNotes" value={values.nbCreatedNotes} label="Notes ajoutées"
                              handleChange={handleChange}/>
               </FormRow>
             </FormGroup>
