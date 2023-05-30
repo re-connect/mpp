@@ -23,6 +23,7 @@ class WorkshopCrudController extends ExportableCrudController
         'duration',
         'attendees',
         'nbParticipants',
+        'nbNewParticipants',
         'femaleCount',
         'maleCount',
         'noGenderCount',

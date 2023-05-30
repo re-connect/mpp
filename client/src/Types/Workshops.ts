@@ -14,6 +14,7 @@ export interface WorkshopInterface extends Entity {
   center?: string;
   globalReport?: string;
   nbParticipants?: number;
+  nbNewParticipants?: number;
   femaleCount?: number;
   maleCount?: number;
   noGenderCount?: number;
