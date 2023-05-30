@@ -13,7 +13,6 @@ use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
 use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -32,7 +31,7 @@ class SecurityService
     }
 
     /** @throws \Exception */
-    public function authenticateUserFromReconnectPro(Request $request): RedirectResponse
+    public function authenticateUserFromReconnectPro(): RedirectResponse
     {
         try {
             $token = $this->client->getAccessToken();
@@ -52,7 +51,7 @@ class SecurityService
         return $this->authenticateOrCreateUser((string) $email);
     }
 
-    public function authenticateUserFromGoogle(Request $request): RedirectResponse
+    public function authenticateUserFromGoogle(): RedirectResponse
     {
         try {
             /** @var GoogleClient $client */
@@ -71,12 +70,13 @@ class SecurityService
         if ($email) {
             /** @var ?User $user */
             $user = $this->repository->findOneBy(['email' => $email]);
+            if ($user->isDisabled()) {
+                return new RedirectResponse($this->router->generate('user_disabled'));
+            }
             if (!$user && str_ends_with($email, '@reconnect.fr')) {
                 $user = (new User())->setEmail($email)->setPassword('')->addRole('ROLE_USER');
                 $this->em->persist($user);
                 $this->em->flush();
-            } elseif ($user->isDisabled()) {
-                return new RedirectResponse($this->router->generate('user_disabled'));
             }
 
             $this->security->login($user, 'form_login');

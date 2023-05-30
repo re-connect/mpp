@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     order: ['name' => 'ASC'],
     paginationItemsPerPage: 500,
-    security: 'is_granted(\'ROLE_USER\')')
+    security: "is_granted('ROLE_USER')")
 ]
 #[ORM\Entity]
 class Center implements \Stringable
