@@ -46,12 +46,12 @@ class AssociationFilter implements FilterInterface
         foreach ($this->associations as $association) {
             $associationAlias = $association;
             $queryBuilder
-                ->leftJoin($entityAlias.'.'.$association, $associationAlias);
+                ->leftJoin(sprintf('%s.%s', $entityAlias, $association), $associationAlias);
             $entityAlias = $association;
         }
 
         $queryBuilder
-            ->andWhere($associationAlias.'.'.$filterDataDto->getProperty().' = :value')
+            ->andWhere(sprintf('%s.%s = :value', $associationAlias, $filterDataDto->getProperty()))
             ->setParameter('value', $filterDataDto->getValue());
     }
 }
