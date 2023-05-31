@@ -13,7 +13,7 @@ class AssociationFilter implements FilterInterface
 {
     use FilterTrait;
 
-    /** @var array<string> $associations  */
+    /** @var array<string> */
     private array $associations;
 
     public static function new(string $propertyName, string $label = null): self
