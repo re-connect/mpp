@@ -51,6 +51,7 @@ class WorkshopCrudController extends ExportableCrudController
         'author',
         'createdAt',
         'updatedAt',
+        'place',
     ];
 
     public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
