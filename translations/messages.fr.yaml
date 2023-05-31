@@ -75,6 +75,7 @@ id: Id
 maleCount: Nb hommes
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
 nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
+nbNewParticipants: Nombre de nouveaux participants
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés
 nbStoredDocs: Nombre de documents stockés

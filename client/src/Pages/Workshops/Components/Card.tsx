@@ -37,6 +37,9 @@ const WorkshopCard = ({workshop}: any) => (
       <Typography>
         Nombre de participants : {workshop.nbParticipants}
       </Typography>
+      <Typography>
+        Nombre de nouveaux participants : {workshop.nbNewParticipants}
+      </Typography>
       <Typography variant="body2">
         Genres : [ Femmes : {workshop.femaleCount} ] [ Hommes : {workshop.maleCount} ] [ Autres
         : {workshop.noGenderCount} ]

@@ -74,6 +74,15 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           </FormRow>
           <FormRow>
             <NumberField
+              id='nbNewParticipants'
+              value={values.nbNewParticipants}
+              label="Nombre de nouveaux participants"
+              handleChange={handleChange}
+              required={true}
+            />
+          </FormRow>
+          <FormRow>
+            <NumberField
               id='femaleCount'
               value={values.femaleCount}
               label="nb Femmes"

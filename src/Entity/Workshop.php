@@ -152,6 +152,10 @@ class Workshop
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $place = null;
 
+    #[Groups(['workshop:read', 'workshop:write'])]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $nbNewParticipants = null;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -526,6 +530,18 @@ class Workshop
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getNbNewParticipants(): ?int
+    {
+        return $this->nbNewParticipants;
+    }
+
+    public function setNbNewParticipants(?int $nbNewParticipants): self
+    {
+        $this->nbNewParticipants = $nbNewParticipants;
 
         return $this;
     }
