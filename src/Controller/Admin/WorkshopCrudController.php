@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CenterTag;
 use App\Entity\Workshop;
+use App\Filter\AssociationFilter;
 use App\Service\ExportService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -14,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class WorkshopCrudController extends ExportableCrudController
 {
@@ -46,6 +49,7 @@ class WorkshopCrudController extends ExportableCrudController
         'author',
         'createdAt',
         'updatedAt',
+        'place',
     ];
 
     public function __construct(ExportService $exportsService, AdminContextProvider $adminContextProvider, FilterFactory $filterFactory)
@@ -58,6 +62,9 @@ class WorkshopCrudController extends ExportableCrudController
         return Workshop::class;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
@@ -71,7 +78,8 @@ class WorkshopCrudController extends ExportableCrudController
             ->add('usedVault')
             ->add('skills')
             ->add('duration')
-            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
+            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'))
+            ->add(AssociationFilter::new('center.tags.id')->setLabel('tags')->setFormType(EntityType::class)->setFormTypeOption('class', CenterTag::class));
     }
 
     public function configureCrud(Crud $crud): Crud
