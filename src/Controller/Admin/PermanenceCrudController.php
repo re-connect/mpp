@@ -37,6 +37,7 @@ class PermanenceCrudController extends ExportableCrudController
         'createdAt',
         'updatedAt',
         'author',
+        'center.tags',
         'center',
         'place',
     ];

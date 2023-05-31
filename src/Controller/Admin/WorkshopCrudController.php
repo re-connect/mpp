@@ -41,6 +41,7 @@ class WorkshopCrudController extends ExportableCrudController
         'nbCreatedEvents',
         'nbCreatedContacts',
         'nbCreatedNotes',
+        'center.tags',
         'center',
         'author',
         'createdAt',
