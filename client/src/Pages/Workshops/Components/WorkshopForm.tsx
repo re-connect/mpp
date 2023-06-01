@@ -125,6 +125,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
               label='Lieu'
               value={values.place}
               handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>

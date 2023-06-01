@@ -28,6 +28,7 @@ class CenterCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $name = TextField::new('name');
+        $place = TextField::new('place')->setRequired(false)->setEmptyData(Center::PLACE_DEFAULT_VALUE);
         $notes = AssociationField::new('notes');
         $tags = AssociationField::new('tags')->setFormTypeOption('by_reference', false);
         $id = IntegerField::new('id', 'ID');
@@ -35,9 +36,9 @@ class CenterCrudController extends AbstractCrudController
         $permanence = BooleanField::new('permanence');
 
         if (Crud::PAGE_INDEX === $pageName || Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $notes, $tags, $workshop, $permanence];
+            return [$id, $name, $place, $notes, $tags, $workshop, $permanence];
         }
 
-        return [$name, $tags, $workshop, $permanence];
+        return [$name, $place, $tags, $workshop, $permanence];
     }
 }

@@ -92,6 +92,7 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
               label='Lieu (optionnel)'
               value={values.place}
               handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>
