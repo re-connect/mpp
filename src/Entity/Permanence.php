@@ -96,7 +96,7 @@ class Permanence implements \Stringable
     private ?Center $center = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $place = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]

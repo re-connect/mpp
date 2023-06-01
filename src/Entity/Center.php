@@ -31,6 +31,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity]
 class Center implements \Stringable
 {
+    final public const PLACE_DEFAULT_VALUE = 'Non renseigné';
+
     #[Groups(['read', 'write'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
@@ -64,6 +66,10 @@ class Center implements \Stringable
     /** @var Collection<int, Workshop> */
     #[ORM\OneToMany(mappedBy: 'center', targetEntity: Workshop::class)]
     private Collection $workshops;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    private ?string $place = null;
 
     public function __toString(): string
     {
@@ -249,6 +255,18 @@ class Center implements \Stringable
                 $workshop->setCenter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }
