@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CenterTag;
 use App\Entity\Permanence;
+use App\Filter\AssociationFilter;
 use App\Service\ExportService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -15,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PermanenceCrudController extends ExportableCrudController
 {
@@ -58,13 +61,13 @@ class PermanenceCrudController extends ExportableCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('id')
             ->add('date')
             ->add('author')
             ->add('attendees')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'));
+            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'))
+            ->add(AssociationFilter::new('center.tags.id')->setLabel('tags')->setFormType(EntityType::class)->setFormTypeOption('class', CenterTag::class));
     }
 
     public function configureCrud(Crud $crud): Crud
