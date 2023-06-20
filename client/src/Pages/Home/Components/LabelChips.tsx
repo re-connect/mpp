@@ -5,13 +5,6 @@ import UseFetchDataEffect from "../../../Hooks/UseFetchDataEffect";
 import {tagsEndpoint} from "../../../Services/requests";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
-const StyledChipsContainer = styled.div`
-  display: flex;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  justify-content: space-around;
-`;
-
 interface Props {
   onClick: (id: number) => () => void;
 }

@@ -2,7 +2,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
 import  FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import CircularProgress from '@mui/material/CircularProgress';
 import { Formik, FormikProps } from 'formik';
 import React, { useContext } from 'react';
 import DatePickerField from '../../../Components/DatePickerField';
@@ -59,9 +58,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <DatePickerField
               label="Date"
-              handleChange={(datetime: Date) => {
-                setFieldValue('date', datetime.toDateString())
-              }}
+              handleChange={(datetime: Date) => setFieldValue('date', datetime)}
               value={values.date}
             />
             <NumberField
@@ -208,9 +205,9 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
                 <Checkbox
                   style={{marginLeft: 8}}
                   value={values.usedVault}
-                  onChange={(event, value) => {
+                  onChange={(event, value) =>
                     setFieldValue('usedVault', value)
-                  }}
+                  }
                   color='primary'
                 />
               } label="Coffre-fort numérique"/>
@@ -235,10 +232,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             </FormGroup>
           )}
           <FormRow>
-            {loading
-              ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
-              : <PrimaryButton>{workshop['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
-            }
+              <PrimaryButton isLoading={loading}>{workshop['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
           </FormRow>
         </form>
       )}

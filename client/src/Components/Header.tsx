@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import {adminEndpoint, logoutEndpoint, makeRequest} from "../Services/requests";
 import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
-import {Icon, Toolbar} from "@mui/material";
+import {Toolbar} from "@mui/material";
 import colors from "../colors";
 import {AdminPanelSettings as AdminIcon, Logout as LogoutIcon} from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";

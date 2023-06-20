@@ -11,16 +11,13 @@ import UseFetchDataEffect from "./Hooks/UseFetchDataEffect";
 import {Dropdowns} from "./Types/Dropdowns";
 import {BrowserRouter} from "react-router-dom";
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import fr from 'date-fns/locale/fr';
 import {Permanence} from "./Types/Permanence";
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: '#f8af29',
-    },
-    secondary: {
-      main: '#0E6F73',
-    },
+    primary: { main: '#f8af29' },
+    secondary: { main: '#0E6F73' },
   },
 });
 
@@ -37,7 +34,7 @@ const App = () => {
         <PermanencesContext.Provider value={{permanences, setPermanences}}>
           <DropdownsContext.Provider value={{dropdowns, setDropdowns}}>
             <BrowserRouter>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}>
                 <Router/>
               </LocalizationProvider>
             </BrowserRouter>
