@@ -250,7 +250,7 @@ class Permanence implements \Stringable
         return $this->attendees;
     }
 
-    public function setAttendees(?string $attendees = null): void
+    public function setAttendees(string $attendees = null): void
     {
         $this->attendees = $attendees;
     }
