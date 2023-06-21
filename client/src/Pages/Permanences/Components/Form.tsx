@@ -4,7 +4,6 @@ import {useBoolean} from 'react-hanger/array';
 import DatePickerField from '../../../Components/DatePickerField';
 import FormRow from '../../../Components/FormRow';
 import NumberField from '../../../Components/NumberField';
-import CircularProgress from '@mui/material/CircularProgress';
 import FormTextField from '../../../Components/FormTextField';
 import PrimaryButton from '../../../Components/PrimaryButton';
 import {useNavigate} from 'react-router-dom';
@@ -35,10 +34,9 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
         <form onSubmit={handleSubmit}>
           <FormRow>
             <DatePickerField label="Date"
-                             handleChange={(datetime: Date) => {
-                               setFieldValue('date', datetime.toDateString())
-                             }}
-                             value={values.date}/>
+                             handleChange={(datetime: Date) => setFieldValue('date', datetime)}
+                             value={values.date}
+            />
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
@@ -126,10 +124,7 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
             />
           </FormRow>
           <FormRow>
-            {loading
-              ? <PrimaryButton disabled={true}><CircularProgress size={20}/></PrimaryButton>
-              : <PrimaryButton>{permanence['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
-            }
+              <PrimaryButton isLoading={loading}>{permanence['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
           </FormRow>
         </form>
       )}

@@ -1,6 +1,6 @@
-import { Method } from 'axios';
+import {Method} from 'axios';
 import * as React from 'react';
-import { loginEndpoint, makeRequest } from '../Services/requests';
+import {loginEndpoint, makeRequest} from '../Services/requests';
 
 const useFetchData = (endpoint: string, callback: Function = () => {
 }, method: Method = 'GET') => React.useCallback(async (body: Object = {}) => {
