@@ -37,7 +37,7 @@ const Index = () => {
     <Page>
       <Container maxWidth="md">
         <TabContext value={tabNumber}>
-          <Stack flexDirection="column">
+          <Stack>
             <Title text="Centres"/>
             <LabelChips onClick={onClickTag}/>
             <TextField label="Rechercher" variant="outlined" onChange={searchCenters}/>
