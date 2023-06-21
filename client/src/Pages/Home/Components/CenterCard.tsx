@@ -18,13 +18,13 @@ const CenterCard: React.FC<Props> = ({center}) => (
     <Paper elevation={4} key={center.id}>
       <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
         <Grid item xs={4}>
-          <Stack direction="column" justifyContent="center"
+          <Stack justifyContent="center"
                  alignItems="center" spacing={2}>
             <HotelIcon/>
             <Typography textAlign="center">{center.name}</Typography>
           </Stack>
         </Grid>
-        <Grid item display="flex" flexGrow={1} direction="column" alignItems="end" justifyContent="center">
+        <Grid item display="flex" flexGrow={1} flexDirection="column" alignItems="end" justifyContent="center">
           {!center.permanence ? null :
             <Link
               href={`/centers/${center.id}/permanences`}
