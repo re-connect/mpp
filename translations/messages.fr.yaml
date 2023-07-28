@@ -23,7 +23,7 @@ ID: Id
 Improvement Axis: Axes d'amélioration
 Male Count: Nb hommes
 Name: Nom
-Nb Beneficiaries Accounts: Nb Comptes Bénef
+Nb Beneficiaries Accounts: Nb CFN
 Nb Beneficiaries: Nb Bénef
 Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
@@ -74,7 +74,7 @@ hours: Heures
 id: Id
 maleCount: Nb hommes
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
-nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
+nbBeneficiariesAccounts: Nombre de CFN
 nbNewParticipants: Nombre de nouveaux participants
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels rencontrés

@@ -46,7 +46,7 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
             <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés"
                          handleChange={handleChange}/>
             <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts}
-                         label="Nb comptes benef créés" handleChange={handleChange}/>
+                         label="Nb CFN créés" handleChange={handleChange}/>
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
                          handleChange={handleChange}/>
           </FormRow>
