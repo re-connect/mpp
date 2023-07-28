@@ -15,7 +15,6 @@ const Create = () => {
     attendees: '',
     place: '',
     nbPros: 0,
-    nbProAccounts: 0,
     nbBeneficiaries: 0,
     nbBeneficiariesAccounts: 0,
     nbStoredDocs: 0,

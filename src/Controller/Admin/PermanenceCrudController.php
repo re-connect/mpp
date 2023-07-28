@@ -89,7 +89,6 @@ class PermanenceCrudController extends ExportableCrudController
         yield AssociationField::new('author')->hideOnIndex()->setColumns(6);
         yield AssociationField::new('center')->hideOnIndex()->setColumns(6);
         yield IntegerField::new('nbPros')->setColumns(3);
-        yield IntegerField::new('nbProAccounts')->setColumns(3);
         yield IntegerField::new('nbBeneficiaries')->setColumns(3);
         yield IntegerField::new('nbBeneficiariesAccounts')->setColumns(3);
         yield IntegerField::new('nbStoredDocs')->setColumns(3)->hideOnIndex();
