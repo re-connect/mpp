@@ -32,6 +32,8 @@ class PermanenceCrudController extends ExportableCrudController
         'maleCount',
         'noGenderCount',
         'nbBeneficiariesAccounts',
+        'nbUninterestedBeneficiaries',
+        'nbHelpedBeneficiaries',
         'nbStoredDocs',
         'beneficiariesNotes',
         'proNotes',
