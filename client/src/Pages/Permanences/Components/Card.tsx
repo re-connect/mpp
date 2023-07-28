@@ -24,7 +24,7 @@ const Section: React.FC<SectionProps> = ({section: {label, count}}) => (
 
 const Card = (({note}: any) => {
   const chips = [
-    {label: 'Professionnels rencontrés', count: note.nbPros},
+    {label: 'Professionnels présents', count: note.nbPros},
     {label: 'Bénéficiaires rencontrés', count: note.nbBeneficiaries},
     {label: 'CFN créés', count: note.nbBeneficiariesAccounts},
     {label: 'Documents stockés', count: note.nbStoredDocs},
