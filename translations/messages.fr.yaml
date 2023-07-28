@@ -40,7 +40,7 @@ ParticipantKinds: Types de participants
 Password: Mot de passe
 Permanence: Permanence CFN
 Place: Lieu
-Pro Notes: Remarques concernant les bénéficiaires
+Pro Notes: 'Professionnels & Structure : bilan et axes d’amélioration'
 ProNotes: Remarques concernant les bénéficiaires
 Project: Projet
 Reconnect Notes: Remarques concernant Reconnect
@@ -81,7 +81,7 @@ nbPros: Nombre de Professionnels présents
 nbStoredDocs: Nombre de documents stockés
 noGenderCount: Nb autres
 place: Lieu
-proNotes: Remarques concernant les bénéficiaires
+proNotes: 'Professionnels & Structure : bilan et axes d’amélioration'
 reconnectNotes: Remarques concernant Reconnect
 tags: Labels
 unfilled: Non renseigné

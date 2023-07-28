@@ -104,7 +104,7 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
           <FormRow>
             <FormTextField
               id='proNotes'
-              label='Remarques en rapport avec les professionnels'
+              label='Professionnels & Structure : bilan et axes d’amélioration'
               multiline={true}
               rows='4'
               value={values.proNotes}
