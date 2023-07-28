@@ -96,11 +96,12 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
           <FormRow>
             <FormTextField
               id='beneficiariesNotes'
-              label='Remarques en rapport avec les bénéficiaires'
+              label='Bénéficiaires : bilan et axes d’amélioration'
               multiline={true}
               rows='4'
               value={values.beneficiariesNotes}
               handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>
