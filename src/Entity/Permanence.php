@@ -111,6 +111,14 @@ class Permanence implements \Stringable
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $noGenderCount = null;
 
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_uninterested_beneficiaries', type: Types::INTEGER)]
+    private ?int $nbUninterestedBeneficiaries = null;
+
+    #[Groups(['permanence:read', 'permanence:write'])]
+    #[ORM\Column(name: 'nb_helped_beneficiaries', type: Types::INTEGER)]
+    private ?int $nbHelpedBeneficiaries = null;
+
     public function __construct()
     {
     }
@@ -299,6 +307,30 @@ class Permanence implements \Stringable
     public function setNoGenderCount(?int $noGenderCount): self
     {
         $this->noGenderCount = $noGenderCount;
+
+        return $this;
+    }
+
+    public function getNbUninterestedBeneficiaries(): ?int
+    {
+        return $this->nbUninterestedBeneficiaries;
+    }
+
+    public function setNbUninterestedBeneficiaries(?int $nbUninterestedBeneficiaries): self
+    {
+        $this->nbUninterestedBeneficiaries = $nbUninterestedBeneficiaries;
+
+        return $this;
+    }
+
+    public function getNbHelpedBeneficiaries(): ?int
+    {
+        return $this->nbHelpedBeneficiaries;
+    }
+
+    public function setNbHelpedBeneficiaries(?int $nbHelpedBeneficiaries): self
+    {
+        $this->nbHelpedBeneficiaries = $nbHelpedBeneficiaries;
 
         return $this;
     }

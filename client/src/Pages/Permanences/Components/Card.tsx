@@ -28,6 +28,8 @@ const Card = (({note}: any) => {
     {label: 'Comptes pro crées', count: note.nbProAccounts},
     {label: 'Bénéficiaires rencontrés', count: note.nbBeneficiaries},
     {label: 'Comptes bénéficiaires crées', count: note.nbBeneficiariesAccounts},
+    {label: 'Nb benef pas intéressés', count: note.nbUninterestedBeneficiaries},
+    {label: 'Nb bénéf aidés sur le CFN', count: note.nbHelpedBeneficiaries},
     {label: 'Documents stockés', count: note.nbStoredDocs},
   ];
   const sections: Array<SectionInterface> = [

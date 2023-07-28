@@ -92,7 +92,9 @@ class PermanenceCrudController extends ExportableCrudController
         yield IntegerField::new('nbProAccounts')->setColumns(3);
         yield IntegerField::new('nbBeneficiaries')->setColumns(3);
         yield IntegerField::new('nbBeneficiariesAccounts')->setColumns(3);
-        yield IntegerField::new('nbStoredDocs')->setColumns(3)->hideOnIndex();
+        yield IntegerField::new('nbUninterestedBeneficiaries', 'nbUninterestedBeneficiaries')->setColumns(3);
+        yield IntegerField::new('nbHelpedBeneficiaries', 'nbHelpedBeneficiaries')->setColumns(3);
+        yield IntegerField::new('nbStoredDocs')->setColumns(6)->hideOnIndex();
         yield IntegerField::new('maleCount')->setColumns(3)->setRequired(true)->hideOnIndex();
         yield IntegerField::new('femaleCount')->setColumns(3)->setRequired(true)->hideOnIndex();
         yield IntegerField::new('noGenderCount')->setColumns(3)->setRequired(true)->hideOnIndex();
