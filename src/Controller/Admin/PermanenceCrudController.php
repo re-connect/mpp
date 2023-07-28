@@ -97,7 +97,6 @@ class PermanenceCrudController extends ExportableCrudController
         yield IntegerField::new('noGenderCount')->setColumns(3)->setRequired(true)->hideOnIndex();
         yield TextareaField::new('beneficiariesNotes')->hideOnIndex()->setColumns(6);
         yield TextareaField::new('proNotes')->hideOnIndex()->setColumns(6);
-        yield TextareaField::new('reconnectNotes')->hideOnIndex()->setColumns(6);
         yield DateTimeField::new('createdAt')->onlyOnDetail();
         yield DateTimeField::new('updatedAt')->onlyOnDetail();
     }

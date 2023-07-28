@@ -112,16 +112,6 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
             />
           </FormRow>
           <FormRow>
-            <FormTextField
-              id='reconnectNotes'
-              label='Remarques en rapport avec Reconnect'
-              multiline={true}
-              rows='4'
-              value={values.reconnectNotes}
-              handleChange={handleChange}
-            />
-          </FormRow>
-          <FormRow>
               <PrimaryButton isLoading={loading}>{permanence['@id'] ? "Mettre à jour" : "Créer"}</PrimaryButton>
           </FormRow>
         </form>

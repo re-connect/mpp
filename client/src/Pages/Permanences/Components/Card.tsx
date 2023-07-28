@@ -32,7 +32,6 @@ const Card = (({note}: any) => {
   const sections: Array<SectionInterface> = [
     {label: 'Remarques concernant les bénéficiaires :', count: note.beneficiariesNotes},
     {label: 'Remarques concernant les professionnels :', count: note.proNotes},
-    {label: 'Remarques concernant Reconnect :', count: note.reconnectNotes},
   ];
 
   return (

@@ -20,7 +20,6 @@ const Create = () => {
     nbStoredDocs: 0,
     beneficiariesNotes: '',
     proNotes: '',
-    reconnectNotes: '',
   }
 
   const createPermanence = UseFetchData(permanencesEndpoint, () => {
