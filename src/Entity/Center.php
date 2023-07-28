@@ -68,7 +68,7 @@ class Center implements \Stringable
     private Collection $workshops;
 
     #[Groups(['read'])]
-    #[ORM\Column(type: Types::STRING, length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => Center::PLACE_DEFAULT_VALUE])]
     private ?string $place = null;
 
     public function __toString(): string
