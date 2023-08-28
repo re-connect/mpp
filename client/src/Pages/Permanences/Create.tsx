@@ -17,6 +17,8 @@ const Create = () => {
     nbPros: 0,
     nbBeneficiaries: 0,
     nbBeneficiariesAccounts: 0,
+    nbUninterestedBeneficiaries: 0,
+    nbHelpedBeneficiaries: 0,
     nbStoredDocs: 0,
     beneficiariesNotes: '',
     proNotes: '',

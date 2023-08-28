@@ -74,11 +74,13 @@ hours: Heures
 id: Id
 maleCount: Nb hommes
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
-nbBeneficiariesAccounts: Nombre de CFN
+nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
+nbHelpedBeneficiaries: Nb bénéf aidés sur le CFN
 nbNewParticipants: Nombre de nouveaux participants
 nbProAccounts: Nombre de comptes Pro crées
 nbPros: Nombre de Professionnels présents
 nbStoredDocs: Nombre de documents stockés
+nbUninterestedBeneficiaries: Nb benef pas intéressés
 noGenderCount: Nb autres
 place: Lieu
 proNotes: 'Professionnels & Structure : bilan et axes d’amélioration'
