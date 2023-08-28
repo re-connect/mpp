@@ -3,7 +3,7 @@ AgeBreakpoint: Tranches d'âge
 AgeBreakpoints: Tranches d'âge
 Attendees: Participants
 Author: Créateur
-Beneficiaries Notes: Remarques concernant les bénéficiaires
+Beneficiaries Notes: 'Bénéficiaires : bilan et axes d’amélioration'
 BeneficiariesNotes: Remarques concernant les bénéficiaires
 Category: Catégorie
 Center: Centres
@@ -63,7 +63,7 @@ Workshop: Accompagnement numérique
 Workshops: Accompagnements numérique
 attendees: Participants
 author: Créateur
-beneficiariesNotes: Remarques concernant les bénéficiaires
+beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'
 center: Centre
 createdAt: Date de création
 date: Date

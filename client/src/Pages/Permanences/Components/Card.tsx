@@ -30,7 +30,7 @@ const Card = (({note}: any) => {
     {label: 'Documents stockés', count: note.nbStoredDocs},
   ];
   const sections: Array<SectionInterface> = [
-    {label: 'Remarques concernant les bénéficiaires :', count: note.beneficiariesNotes},
+    {label: 'Bénéficiaires : bilan et axes d’amélioration :', count: note.beneficiariesNotes},
     {label: 'Professionnels & Structure : bilan et axes d’amélioration :', count: note.proNotes},
   ];
 
