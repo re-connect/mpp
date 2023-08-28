@@ -207,6 +207,12 @@ class Center implements \Stringable
         return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
     }
 
+    #[Groups('read')]
+    public function getWorkshopParticipantsCount(): int
+    {
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbParticipants(), 0);
+    }
+
     public function hasPermanence(): ?bool
     {
         return $this->permanence;
