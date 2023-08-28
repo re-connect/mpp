@@ -13,4 +13,5 @@ export interface Center {
   storedDocumentsCount?: number,
   workshopsBeneficiariesCount?: number,
   workshopsStoredDocumentsCount?: number,
+  workshopParticipantsCount?: number,
 }

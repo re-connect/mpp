@@ -89,7 +89,6 @@ class PermanenceCrudController extends ExportableCrudController
         yield AssociationField::new('author')->hideOnIndex()->setColumns(6);
         yield AssociationField::new('center')->hideOnIndex()->setColumns(6);
         yield IntegerField::new('nbPros')->setColumns(3);
-        yield IntegerField::new('nbProAccounts')->setColumns(3);
         yield IntegerField::new('nbBeneficiaries')->setColumns(3);
         yield IntegerField::new('nbBeneficiariesAccounts')->setColumns(3);
         yield IntegerField::new('nbStoredDocs')->setColumns(3)->hideOnIndex();
@@ -98,7 +97,6 @@ class PermanenceCrudController extends ExportableCrudController
         yield IntegerField::new('noGenderCount')->setColumns(3)->setRequired(true)->hideOnIndex();
         yield TextareaField::new('beneficiariesNotes')->hideOnIndex()->setColumns(6);
         yield TextareaField::new('proNotes')->hideOnIndex()->setColumns(6);
-        yield TextareaField::new('reconnectNotes')->hideOnIndex()->setColumns(6);
         yield DateTimeField::new('createdAt')->onlyOnDetail();
         yield DateTimeField::new('updatedAt')->onlyOnDetail();
     }

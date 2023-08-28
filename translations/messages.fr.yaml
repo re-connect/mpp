@@ -23,7 +23,7 @@ ID: Id
 Improvement Axis: Axes d'amélioration
 Male Count: Nb hommes
 Name: Nom
-Nb Beneficiaries Accounts: Nb Comptes Bénef
+Nb Beneficiaries Accounts: Nb CFN
 Nb Beneficiaries: Nb Bénef
 Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
@@ -40,7 +40,7 @@ ParticipantKinds: Types de participants
 Password: Mot de passe
 Permanence: Permanence CFN
 Place: Lieu
-Pro Notes: Remarques concernant les bénéficiaires
+Pro Notes: 'Professionnels & Structure : bilan et axes d’amélioration'
 ProNotes: Remarques concernant les bénéficiaires
 Project: Projet
 Reconnect Notes: Remarques concernant Reconnect
@@ -74,14 +74,14 @@ hours: Heures
 id: Id
 maleCount: Nb hommes
 nbBeneficiaries: Nombre de bénéficiaires rencontrés
-nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
+nbBeneficiariesAccounts: Nombre de CFN
 nbNewParticipants: Nombre de nouveaux participants
 nbProAccounts: Nombre de comptes Pro crées
-nbPros: Nombre de Professionnels rencontrés
+nbPros: Nombre de Professionnels présents
 nbStoredDocs: Nombre de documents stockés
 noGenderCount: Nb autres
 place: Lieu
-proNotes: Remarques concernant les bénéficiaires
+proNotes: 'Professionnels & Structure : bilan et axes d’amélioration'
 reconnectNotes: Remarques concernant Reconnect
 tags: Labels
 unfilled: Non renseigné

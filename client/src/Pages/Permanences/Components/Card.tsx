@@ -24,16 +24,14 @@ const Section: React.FC<SectionProps> = ({section: {label, count}}) => (
 
 const Card = (({note}: any) => {
   const chips = [
-    {label: 'Professionnels rencontrés', count: note.nbPros},
-    {label: 'Comptes pro crées', count: note.nbProAccounts},
+    {label: 'Professionnels présents', count: note.nbPros},
     {label: 'Bénéficiaires rencontrés', count: note.nbBeneficiaries},
-    {label: 'Comptes bénéficiaires crées', count: note.nbBeneficiariesAccounts},
+    {label: 'CFN créés', count: note.nbBeneficiariesAccounts},
     {label: 'Documents stockés', count: note.nbStoredDocs},
   ];
   const sections: Array<SectionInterface> = [
     {label: 'Bénéficiaires : bilan et axes d’amélioration :', count: note.beneficiariesNotes},
-    {label: 'Remarques concernant les professionnels :', count: note.proNotes},
-    {label: 'Remarques concernant Reconnect :', count: note.reconnectNotes},
+    {label: 'Professionnels & Structure : bilan et axes d’amélioration :', count: note.proNotes},
   ];
 
   return (

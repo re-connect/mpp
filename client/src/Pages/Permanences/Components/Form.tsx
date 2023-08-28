@@ -40,15 +40,13 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbPros' value={values.nbPros} label="Nb pros rencontrés" handleChange={handleChange}/>
-            <NumberField id='nbProAccounts' value={values.nbProAccounts} label="Nb comptes pros créés"
-                         handleChange={handleChange}/>
+            <NumberField id='nbPros' value={values.nbPros} label="Nb pros présents" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés"
                          handleChange={handleChange}/>
             <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts}
-                         label="Nb comptes benef créés" handleChange={handleChange}/>
+                         label="Nb CFN créés" handleChange={handleChange}/>
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
                          handleChange={handleChange}/>
           </FormRow>
@@ -107,20 +105,10 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
           <FormRow>
             <FormTextField
               id='proNotes'
-              label='Remarques en rapport avec les professionnels'
+              label='Professionnels & Structure : bilan et axes d’amélioration'
               multiline={true}
               rows='4'
               value={values.proNotes}
-              handleChange={handleChange}
-            />
-          </FormRow>
-          <FormRow>
-            <FormTextField
-              id='reconnectNotes'
-              label='Remarques en rapport avec Reconnect'
-              multiline={true}
-              rows='4'
-              value={values.reconnectNotes}
               handleChange={handleChange}
             />
           </FormRow>
