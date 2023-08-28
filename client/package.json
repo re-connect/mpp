@@ -28,11 +28,14 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.0.7",
-    "typescript": "3.*"
+    "typescript": "5.0.2"
+  },
+  "overrides": {
+    "typescript": "5.0.2"
   },
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true HTTPS=true GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
