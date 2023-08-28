@@ -57,7 +57,7 @@ class Permanence implements \Stringable
     private ?int $nbPros = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'nb_pro_accounts', type: Types::INTEGER)]
+    #[ORM\Column(name: 'nb_pro_accounts', type: Types::INTEGER, nullable: true)]
     private ?int $nbProAccounts = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
@@ -81,7 +81,7 @@ class Permanence implements \Stringable
     private ?string $proNotes = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]
-    #[ORM\Column(name: 'reconnect_notes', type: Types::TEXT)]
+    #[ORM\Column(name: 'reconnect_notes', type: Types::TEXT, nullable: true)]
     private ?string $reconnectNotes = null;
 
     #[Groups(['permanence:read', 'permanence:write'])]

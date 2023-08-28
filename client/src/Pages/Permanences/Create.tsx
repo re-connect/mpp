@@ -15,7 +15,6 @@ const Create = () => {
     attendees: '',
     place: '',
     nbPros: 0,
-    nbProAccounts: 0,
     nbBeneficiaries: 0,
     nbBeneficiariesAccounts: 0,
     nbUninterestedBeneficiaries: 0,
@@ -23,7 +22,6 @@ const Create = () => {
     nbStoredDocs: 0,
     beneficiariesNotes: '',
     proNotes: '',
-    reconnectNotes: '',
   }
 
   const createPermanence = UseFetchData(permanencesEndpoint, () => {

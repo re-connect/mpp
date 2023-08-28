@@ -3,7 +3,7 @@ AgeBreakpoint: Tranches d'âge
 AgeBreakpoints: Tranches d'âge
 Attendees: Participants
 Author: Créateur
-Beneficiaries Notes: Remarques concernant les bénéficiaires
+Beneficiaries Notes: 'Bénéficiaires : bilan et axes d’amélioration'
 BeneficiariesNotes: Remarques concernant les bénéficiaires
 Category: Catégorie
 Center: Centres
@@ -23,7 +23,7 @@ ID: Id
 Improvement Axis: Axes d'amélioration
 Male Count: Nb hommes
 Name: Nom
-Nb Beneficiaries Accounts: Nb Comptes Bénef
+Nb Beneficiaries Accounts: Nb CFN
 Nb Beneficiaries: Nb Bénef
 Nb Created Contacts: Nb de contacts créés
 Nb Created Events: Nb d'événements créés
@@ -40,7 +40,7 @@ ParticipantKinds: Types de participants
 Password: Mot de passe
 Permanence: Permanence CFN
 Place: Lieu
-Pro Notes: Remarques concernant les bénéficiaires
+Pro Notes: 'Professionnels & Structure : bilan et axes d’amélioration'
 ProNotes: Remarques concernant les bénéficiaires
 Project: Projet
 Reconnect Notes: Remarques concernant Reconnect
@@ -63,7 +63,7 @@ Workshop: Accompagnement numérique
 Workshops: Accompagnements numérique
 attendees: Participants
 author: Créateur
-beneficiariesNotes: Remarques concernant les bénéficiaires
+beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'
 center: Centre
 createdAt: Date de création
 date: Date
@@ -78,12 +78,12 @@ nbBeneficiariesAccounts: Nombre de comptes bénéficiaires crées
 nbHelpedBeneficiaries: Nb bénéf aidés sur le CFN
 nbNewParticipants: Nombre de nouveaux participants
 nbProAccounts: Nombre de comptes Pro crées
-nbPros: Nombre de Professionnels rencontrés
+nbPros: Nombre de Professionnels présents
 nbStoredDocs: Nombre de documents stockés
 nbUninterestedBeneficiaries: Nb benef pas intéressés
 noGenderCount: Nb autres
 place: Lieu
-proNotes: Remarques concernant les bénéficiaires
+proNotes: 'Professionnels & Structure : bilan et axes d’amélioration'
 reconnectNotes: Remarques concernant Reconnect
 tags: Labels
 unfilled: Non renseigné

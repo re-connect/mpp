@@ -68,7 +68,7 @@ class Center implements \Stringable
     private Collection $workshops;
 
     #[Groups(['read'])]
-    #[ORM\Column(type: Types::STRING, length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => Center::PLACE_DEFAULT_VALUE])]
     private ?string $place = null;
 
     public function __toString(): string
@@ -205,6 +205,12 @@ class Center implements \Stringable
     public function getNotesStoredDocumentsCount(): int
     {
         return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
+    }
+
+    #[Groups('read')]
+    public function getWorkshopParticipantsCount(): int
+    {
+        return array_reduce($this->workshops->toArray(), fn (int $acc, Workshop $workshop) => $acc + $workshop->getNbParticipants(), 0);
     }
 
     public function hasPermanence(): ?bool

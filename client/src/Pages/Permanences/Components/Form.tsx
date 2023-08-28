@@ -40,21 +40,16 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
             <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbPros' value={values.nbPros} label="Nb pros rencontrés" handleChange={handleChange}/>
-            <NumberField id='nbProAccounts' value={values.nbProAccounts} label="Nb comptes pros créés"
-                         handleChange={handleChange}/>
+            <NumberField id='nbPros' value={values.nbPros} label="Nb pros présents" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés"
                          handleChange={handleChange}/>
-            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts}
-                         label="Nb comptes benef créés" handleChange={handleChange}/>
+            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts} label="Nb comptes benef créés" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbUninterestedBeneficiaries' value={values.nbUninterestedBeneficiaries}
-                           label="Nb benef pas intéressés" handleChange={handleChange}/>
-            <NumberField id='nbHelpedBeneficiaries' value={values.nbHelpedBeneficiaries}
-                           label="Nb bénéf aidés sur le CFN" handleChange={handleChange}/>
+            <NumberField id='nbUninterestedBeneficiaries' value={values.nbUninterestedBeneficiaries} label="Nb benef pas intéressés" handleChange={handleChange}/>
+            <NumberField id='nbHelpedBeneficiaries' value={values.nbHelpedBeneficiaries} label="Nb bénéf aidés sur le CFN" handleChange={handleChange}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
@@ -104,30 +99,21 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
           <FormRow>
             <FormTextField
               id='beneficiariesNotes'
-              label='Remarques en rapport avec les bénéficiaires'
+              label='Bénéficiaires : bilan et axes d’amélioration'
               multiline={true}
               rows='4'
               value={values.beneficiariesNotes}
               handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>
             <FormTextField
               id='proNotes'
-              label='Remarques en rapport avec les professionnels'
+              label='Professionnels & Structure : bilan et axes d’amélioration'
               multiline={true}
               rows='4'
               value={values.proNotes}
-              handleChange={handleChange}
-            />
-          </FormRow>
-          <FormRow>
-            <FormTextField
-              id='reconnectNotes'
-              label='Remarques en rapport avec Reconnect'
-              multiline={true}
-              rows='4'
-              value={values.reconnectNotes}
               handleChange={handleChange}
             />
           </FormRow>

@@ -15,6 +15,7 @@ const WorkshopsCenterHeader: React.FC<Props> = ({center}) => (
       <Text text={`Nb d'ateliers : ${!center.workshops ? 0 : center.workshops.length}`}/>
       <Text text={`Nb CFN crées : ${center.workshopsBeneficiariesCount ?? 0}`}/>
       <Text text={`Nb docs stockés : ${center.workshopsStoredDocumentsCount ?? 0}`}/>
+      <Text text={`Nb participants : ${center.workshopParticipantsCount ?? 0}`}/>
     </Grid2>
     <Grid2 flexGrow={1}/>
     <Grid2>
