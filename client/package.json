@@ -27,6 +27,7 @@
     "react-hanger": "^2.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "styled-components": "^6.0.7",
     "typescript": "3.*"
   },
   "scripts": {
