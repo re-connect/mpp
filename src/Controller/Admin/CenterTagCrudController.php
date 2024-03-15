@@ -3,9 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\CenterTag;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class CenterTagCrudController extends AbstractCrudController
+class CenterTagCrudController extends AbstractSuperAdminController
 {
     public static function getEntityFqcn(): string
     {

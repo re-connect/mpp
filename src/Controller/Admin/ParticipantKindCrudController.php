@@ -3,9 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\ParticipantKind;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class ParticipantKindCrudController extends AbstractCrudController
+class ParticipantKindCrudController extends AbstractSuperAdminController
 {
     public static function getEntityFqcn(): string
     {
