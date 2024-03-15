@@ -46,6 +46,8 @@ jobs:
                 run: vendor/bin/php-cs-fixer fix src -v --dry-run --stop-on-violation --using-cache=no
             -   name: Run Php-cs-fixer on tests
                 run: vendor/bin/php-cs-fixer fix tests -v --dry-run --stop-on-violation --using-cache=no
+            -   name: Load fixtures
+                run: php bin/console doctrine:fixtures:load --env=test -n
             -   name: Execute tests (Unit and Feature tests) via PHPUnit
                 run: vendor/bin/simple-phpunit tests
             -   name: Run PhpStan
