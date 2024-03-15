@@ -22,7 +22,8 @@ class CenterCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Center')
             ->setEntityLabelInPlural('Center')
-            ->setSearchFields(['id', 'name']);
+            ->setSearchFields(['id', 'name'])
+            ->setDefaultSort(['id' => 'DESC']);
     }
 
     public function configureFields(string $pageName): iterable
@@ -34,11 +35,12 @@ class CenterCrudController extends AbstractCrudController
         $id = IntegerField::new('id', 'ID');
         $workshop = BooleanField::new('workshop');
         $permanence = BooleanField::new('permanence');
+        $enabled = BooleanField::new('enabled');
 
         if (Crud::PAGE_INDEX === $pageName || Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $place, $notes, $tags, $workshop, $permanence];
+            return [$id, $name, $place, $notes, $tags, $workshop, $permanence, $enabled];
         }
 
-        return [$name, $place, $tags, $workshop, $permanence];
+        return [$name, $place, $tags, $workshop, $permanence, $enabled];
     }
 }
