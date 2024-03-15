@@ -71,6 +71,9 @@ class Center implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => Center::PLACE_DEFAULT_VALUE])]
     private ?string $place = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $enabled = true;
+
     public function __toString(): string
     {
         return (string) $this->name;
@@ -273,6 +276,18 @@ class Center implements \Stringable
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): static
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }
