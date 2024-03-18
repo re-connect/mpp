@@ -3,22 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\ParticipantKind;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class ParticipantKindCrudController extends AbstractSuperAdminController
+class ParticipantKindCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return ParticipantKind::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('participant_kind')
+            ->setEntityLabelInPlural('participant_kinds')
+            ->setSearchFields(['id', 'name']);
     }
-    */
 }

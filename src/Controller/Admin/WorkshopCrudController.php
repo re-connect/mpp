@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -68,58 +70,58 @@ class WorkshopCrudController extends ExportableCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('date')
-            ->add('author')
-            ->add('participantKinds')
-            ->add('topics')
-            ->add('ageBreakpoints')
-            ->add('equipmentSuppliers')
-            ->add('usedEquipments')
-            ->add('usedVault')
-            ->add('skills')
-            ->add('duration')
-            ->add(EntityFilter::new('center')->setFormTypeOption('value_type_options.multiple', 'true'))
-            ->add(AssociationFilter::new('center.tags.id')->setLabel('tags')->setFormType(EntityType::class)->setFormTypeOption('class', CenterTag::class));
+            ->add(DateTimeFilter::new('date', 'date'))
+            ->add(EntityFilter::new('author', 'author'))
+            ->add(EntityFilter::new('participantKinds', 'participant_kinds'))
+            ->add(EntityFilter::new('topics', 'topics'))
+            ->add(EntityFilter::new('ageBreakpoints', 'age_breakpoints'))
+            ->add(EntityFilter::new('equipmentSuppliers', 'equipment_supplier'))
+            ->add(EntityFilter::new('usedEquipments', 'used_equipments'))
+            ->add(BooleanFilter::new('usedVault', 'has_used_vault'))
+            ->add(EntityFilter::new('skills', 'skills'))
+            ->add(EntityFilter::new('duration', 'duration'))
+            ->add(EntityFilter::new('center', 'center')->setFormTypeOption('value_type_options.multiple', 'true'))
+            ->add(AssociationFilter::new('center.tags.id', 'tags')->setFormType(EntityType::class)->setFormTypeOption('class', CenterTag::class));
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Workshop/index.html.twig')
-            ->setEntityLabelInSingular('Workshop')
-            ->setEntityLabelInPlural('Workshops')
+            ->setEntityLabelInSingular('workshop')
+            ->setEntityLabelInPlural('workshops')
             ->setSearchFields(['id', 'date', 'attendees', 'topics.name', 'skills.name', 'participantKinds.name']);
     }
 
     public function configureFields(string $pageName): iterable
     {
         $id = IntegerField::new('id', 'ID');
-        $date = DateField::new('date');
-        $place = TextField::new('place');
-        $topicPrecision = TextField::new('topicPrecision');
-        $nbParticipants = IntegerField::new('nbParticipants');
-        $participantKinds = AssociationField::new('participantKinds');
-        $globalReport = TextField::new('globalReport');
-        $author = AssociationField::new('author');
-        $createdAt = DateTimeField::new('createdAt');
-        $updatedAt = DateTimeField::new('updatedAt');
-        $center = AssociationField::new('center');
-        $topics = AssociationField::new('topics');
-        $ageBreakpoints = AssociationField::new('ageBreakpoints');
-        $equipmentSuppliers = AssociationField::new('equipmentSuppliers');
-        $usedEquipments = AssociationField::new('usedEquipments');
-        $nbBeneficiariesAccounts = IntegerField::new('nbBeneficiariesAccounts');
-        $nbStoredDocs = IntegerField::new('nbStoredDocs');
-        $nbCreatedEvents = IntegerField::new('nbCreatedEvents');
-        $nbCreatedContacts = IntegerField::new('nbCreatedContacts');
-        $nbCreatedNotes = IntegerField::new('nbCreatedNotes');
-        $skills = AssociationField::new('skills');
-        $attendees = TextField::new('attendees');
-        $improvementAxis = TextField::new('improvementAxis');
-        $duration = AssociationField::new('duration');
-        $maleCount = IntegerField::new('maleCount')->setRequired(true);
-        $femaleCount = IntegerField::new('femaleCount')->setRequired(true);
-        $noGenderCount = IntegerField::new('noGenderCount')->setRequired(true);
+        $date = DateField::new('date', 'date');
+        $place = TextField::new('place', 'place');
+        $topicPrecision = TextField::new('topicPrecision', 'topic_precision');
+        $nbParticipants = IntegerField::new('nbParticipants', 'attendees_count');
+        $participantKinds = AssociationField::new('participantKinds', 'participant_kinds');
+        $globalReport = TextField::new('globalReport', 'global_report');
+        $author = AssociationField::new('author', 'author');
+        $createdAt = DateTimeField::new('createdAt', 'created_at');
+        $updatedAt = DateTimeField::new('updatedAt', 'updated_at');
+        $center = AssociationField::new('center', 'center');
+        $topics = AssociationField::new('topics', 'topic');
+        $ageBreakpoints = AssociationField::new('ageBreakpoints', 'age_breakpoints');
+        $equipmentSuppliers = AssociationField::new('equipmentSuppliers', 'equipment_supplier');
+        $usedEquipments = AssociationField::new('usedEquipments', 'used_equipments');
+        $nbBeneficiariesAccounts = IntegerField::new('nbBeneficiariesAccounts', 'beneficiaries_accounts_count');
+        $nbStoredDocs = IntegerField::new('nbStoredDocs', 'stored_docs_count');
+        $nbCreatedEvents = IntegerField::new('nbCreatedEvents', 'created_events_count');
+        $nbCreatedContacts = IntegerField::new('nbCreatedContacts', 'created_contacts_count');
+        $nbCreatedNotes = IntegerField::new('nbCreatedNotes', 'created_notes_count');
+        $skills = AssociationField::new('skills', 'skills');
+        $attendees = TextField::new('attendees', 'attendees');
+        $improvementAxis = TextField::new('improvementAxis', 'improvement_axis');
+        $duration = AssociationField::new('duration', 'duration');
+        $maleCount = IntegerField::new('maleCount', 'male_count')->setRequired(true);
+        $femaleCount = IntegerField::new('femaleCount', 'female_count')->setRequired(true);
+        $noGenderCount = IntegerField::new('noGenderCount', 'no_gender_count')->setRequired(true);
 
         if (Crud::PAGE_DETAIL === $pageName) {
             return [

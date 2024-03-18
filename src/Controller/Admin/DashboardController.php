@@ -50,22 +50,22 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToLogout('Logout', 'fas fa-sign-out-alt text-danger')->setCssClass('text-danger');
         yield MenuItem::section('Interventions');
-        yield MenuItem::linkToCrud('Permanence', 'fas fa-home', Permanence::class);
-        yield MenuItem::linkToCrud('Workshop', 'fas fa-briefcase', Workshop::class);
+        yield MenuItem::linkToCrud('permanences', 'fas fa-home', Permanence::class);
+        yield MenuItem::linkToCrud('workshops', 'fas fa-briefcase', Workshop::class);
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             yield MenuItem::section('Utilisateurs et Centres');
-            yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
-            yield MenuItem::linkToCrud('Center', 'fas fa-home', Center::class);
-            yield MenuItem::linkToCrud('Tag', 'fas fa-tags', CenterTag::class);
+            yield MenuItem::linkToCrud('users', 'fas fa-users', User::class);
+            yield MenuItem::linkToCrud('centers', 'fas fa-home', Center::class);
+            yield MenuItem::linkToCrud('center_tags', 'fas fa-tags', CenterTag::class);
             yield MenuItem::section('Données');
-            yield MenuItem::linkToCrud('Topic', 'fas fa-comment', Topic::class);
-            yield MenuItem::linkToCrud('Skill', 'fas fa-hand-paper', Skill::class);
-            yield MenuItem::linkToCrud('AgeBreakpoint', 'fas fa-birthday-cake', AgeBreakpoint::class);
-            yield MenuItem::linkToCrud('Duration', 'fas fa-clock', Duration::class);
-            yield MenuItem::linkToCrud('ParticipantKind', 'fas fa-users', ParticipantKind::class);
-            yield MenuItem::linkToCrud('EquipmentSupplier', 'fas fa-truck', EquipmentSupplier::class);
-            yield MenuItem::linkToCrud('UsedEquipment', 'fas fa-tools', UsedEquipment::class);
+            yield MenuItem::linkToCrud('topics', 'fas fa-comment', Topic::class);
+            yield MenuItem::linkToCrud('skills', 'fas fa-hand-paper', Skill::class);
+            yield MenuItem::linkToCrud('age_breakpoints', 'fas fa-birthday-cake', AgeBreakpoint::class);
+            yield MenuItem::linkToCrud('durations', 'fas fa-clock', Duration::class);
+            yield MenuItem::linkToCrud('participant_kinds', 'fas fa-users', ParticipantKind::class);
+            yield MenuItem::linkToCrud('equipment_supplier', 'fas fa-truck', EquipmentSupplier::class);
+            yield MenuItem::linkToCrud('used_equipments', 'fas fa-tools', UsedEquipment::class);
         }
     }
 }

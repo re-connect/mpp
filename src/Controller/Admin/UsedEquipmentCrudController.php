@@ -3,22 +3,19 @@
 namespace App\Controller\Admin;
 
 use App\Entity\UsedEquipment;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class UsedEquipmentCrudController extends AbstractSuperAdminController
+class UsedEquipmentCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return UsedEquipment::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('used_equipment')
+            ->setEntityLabelInPlural('used_equipments');
     }
-    */
 }
