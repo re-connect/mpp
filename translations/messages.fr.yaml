@@ -39,7 +39,9 @@ Participant Kinds: Types de participants
 ParticipantKind: Types de participants
 ParticipantKinds: Types de participants
 Password: Mot de passe
-Permanence: Permanence CFN
+permanences_count: Nb Permanences
+Permanence: Permanence
+Permanences: Permanence
 Place: Lieu
 Pro Notes: 'Professionnels & Structure : bilan et axes d’amélioration'
 ProNotes: Remarques concernant les bénéficiaires
@@ -60,8 +62,9 @@ UsedEquipment: Outils utilisés
 UsedEquipments: Outils utilisés
 UsedVault: Utilisation du CFN
 User: Utilisateurs
-Workshop: Accompagnement numérique
-Workshops: Accompagnements numérique
+workshops_count: Nb Ateliers
+Workshop: Atelier
+Workshops: Ateliers
 attendees: Participants
 author: Créateur
 beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'

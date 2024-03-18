@@ -47,7 +47,7 @@ class UserCrudController extends AbstractSuperAdminController
     {
         yield TextField::new('email');
         yield TextField::new('plainPassword', 'Password')->onlyOnForms();
-        yield AssociationField::new('notes')->onlyOnIndex();
+        yield AssociationField::new('permanences')->onlyOnIndex();
         yield AssociationField::new('workshops')->onlyOnIndex();
         yield IntegerField::new('id', 'ID')->onlyOnDetail();
         yield BooleanField::new('disabled', 'disabled');

@@ -77,7 +77,7 @@ class PermanenceCrudController extends ExportableCrudController
         return $crud
             ->overrideTemplate('crud/index', 'bundles/EasyAdminBundle/Permanence/index.html.twig')
             ->setEntityLabelInSingular('Permanence')
-            ->setEntityLabelInPlural('Permanence')
+            ->setEntityLabelInPlural('Permanences')
             ->setSearchFields(['id', 'hours', 'nbPros', 'nbProAccounts', 'nbBeneficiaries', 'nbBeneficiariesAccounts', 'nbStoredDocs', 'beneficiariesNotes', 'proNotes', 'reconnectNotes', 'attendees']);
     }
 

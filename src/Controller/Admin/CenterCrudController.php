@@ -29,7 +29,8 @@ class CenterCrudController extends AbstractSuperAdminController
     {
         $name = TextField::new('name');
         $place = TextField::new('place')->setRequired(false)->setEmptyData(Center::PLACE_DEFAULT_VALUE);
-        $notes = AssociationField::new('notes');
+        $permanences = AssociationField::new('permanences')->setLabel('permanences_count');
+        $workshops = AssociationField::new('workshops')->setLabel('workshops_count');
         $tags = AssociationField::new('tags')->setFormTypeOption('by_reference', false);
         $id = IntegerField::new('id', 'ID');
         $workshop = BooleanField::new('workshop');
@@ -37,7 +38,7 @@ class CenterCrudController extends AbstractSuperAdminController
         $enabled = BooleanField::new('enabled');
 
         if (Crud::PAGE_INDEX === $pageName || Crud::PAGE_DETAIL === $pageName) {
-            return [$id, $name, $place, $notes, $tags, $workshop, $permanence, $enabled];
+            return [$id, $name, $place, $permanences, $workshops, $tags, $permanence, $workshop, $enabled];
         }
 
         return [$name, $place, $tags, $workshop, $permanence, $enabled];

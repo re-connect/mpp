@@ -12,7 +12,7 @@ export const dropdownsEndpoint = `${apiEndpoint}/dropdowns`;
 export const loginEndpoint = `${backendUrl}/login`;
 export const googleLoginEndpoint = `${backendUrl}/google-login-trigger`;
 export const logoutEndpoint = `${backendUrl}/logout`;
-export const permanencesEndpoint = `${apiEndpoint}/notes`;
+export const permanencesEndpoint = `${apiEndpoint}/permanences`;
 export const tagsEndpoint = `${apiEndpoint}/tags`;
 export const workshopsEndpoint = `${apiEndpoint}/workshops`;
 

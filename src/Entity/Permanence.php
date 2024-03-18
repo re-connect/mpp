@@ -17,7 +17,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    shortName: 'notes',
+    shortName: 'permanences',
     operations: [
         new Get(),
         new Put(),
