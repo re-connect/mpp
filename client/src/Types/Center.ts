@@ -1,6 +1,7 @@
 export interface Center {
   id?: number;
   name?: string,
+  enabled?: boolean,
   notes?: string[],
   tags?: string[],
   permanence?: boolean,

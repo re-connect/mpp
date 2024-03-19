@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(),
         new Post(),
     ],
-    order: ['name' => 'ASC'],
+    order: ['enabled' => 'DESC', 'name' => 'ASC'],
     paginationItemsPerPage: 500,
     security: "is_granted('ROLE_USER')")
 ]
@@ -70,6 +70,10 @@ class Center implements \Stringable
     #[Groups(['read'])]
     #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => Center::PLACE_DEFAULT_VALUE])]
     private ?string $place = null;
+
+    #[Groups(['read'])]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $enabled = true;
 
     public function __toString(): string
     {
@@ -273,6 +277,18 @@ class Center implements \Stringable
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): static
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }

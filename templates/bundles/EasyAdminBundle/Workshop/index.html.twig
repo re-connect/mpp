@@ -2,8 +2,5 @@
 
 {% block page_actions %}
     {{ parent() }}
-    <a class="btn btn-success"
-       href="{{ ea_url().setController('App\\Controller\\Admin\\WorkshopCrudController').setAction('export') }}">
-        <i class="fa fa-file-excel mr-1"></i>{{ 'export'|trans }}
-    </a>
+    {{ include('bundles/components/_export_button.html.twig', {controller: 'App\\Controller\\Admin\\WorkshopCrudController'}) }}
 {% endblock %}
