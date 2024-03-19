@@ -26,8 +26,8 @@ class UserCrudController extends AbstractSuperAdminController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('User')
-            ->setEntityLabelInPlural('User')
+            ->setEntityLabelInSingular('user')
+            ->setEntityLabelInPlural('users')
             ->setSearchFields(['id', 'email', 'roles']);
     }
 
@@ -46,9 +46,9 @@ class UserCrudController extends AbstractSuperAdminController
     public function configureFields(string $pageName): \Generator
     {
         yield TextField::new('email');
-        yield TextField::new('plainPassword', 'Password')->onlyOnForms();
-        yield AssociationField::new('notes')->onlyOnIndex();
-        yield AssociationField::new('workshops')->onlyOnIndex();
+        yield TextField::new('plainPassword', 'password')->onlyOnForms();
+        yield AssociationField::new('permanences', 'permanences')->onlyOnIndex();
+        yield AssociationField::new('workshops', 'workshops')->onlyOnIndex();
         yield IntegerField::new('id', 'ID')->onlyOnDetail();
         yield BooleanField::new('disabled', 'disabled');
         yield ChoiceField::new('roles')

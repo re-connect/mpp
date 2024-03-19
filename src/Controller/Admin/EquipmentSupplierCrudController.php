@@ -3,22 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\EquipmentSupplier;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class EquipmentSupplierCrudController extends AbstractSuperAdminController
+class EquipmentSupplierCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return EquipmentSupplier::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('equipment_supplier')
+            ->setEntityLabelInPlural('equipment_supplier')
+            ->setSearchFields(['id', 'name']);
     }
-    */
 }

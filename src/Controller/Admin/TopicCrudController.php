@@ -3,22 +3,19 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Topic;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class TopicCrudController extends AbstractSuperAdminController
+class TopicCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return Topic::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('topic')
+            ->setEntityLabelInPlural('topics');
     }
-    */
 }

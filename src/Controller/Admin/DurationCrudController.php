@@ -3,22 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Duration;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class DurationCrudController extends AbstractSuperAdminController
+class DurationCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return Duration::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('duration')
+            ->setEntityLabelInPlural('durations')
+            ->setSearchFields(['id', 'name']);
     }
-    */
 }

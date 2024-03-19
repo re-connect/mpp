@@ -3,22 +3,19 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AgeBreakpoint;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
-class AgeBreakpointCrudController extends AbstractSuperAdminController
+class AgeBreakpointCrudController extends AbstractSuperAdminWorkshopSectionCrudController
 {
     public static function getEntityFqcn(): string
     {
         return AgeBreakpoint::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('age_breakpoint')
+            ->setEntityLabelInPlural('age_breakpoints');
     }
-    */
 }

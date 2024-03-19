@@ -21,16 +21,16 @@ const Charts = () => {
   let nbBeneficiariesAccountsData = {};
   let nbStoredDocsData = {};
 
-  permanencesContext.permanences.forEach((note: any) => {
+  permanencesContext.permanences.forEach((permanence: any) => {
     nbProAccountsData = {
-      [formatDate(note.date)]: note.nbProAccounts,
+      [formatDate(permanence.date)]: permanence.nbProAccounts,
       ...nbProAccountsData,
     };
     nbBeneficiariesAccountsData = {
-      [formatDate(note.date)]: note.nbBeneficiariesAccounts,
+      [formatDate(permanence.date)]: permanence.nbBeneficiariesAccounts,
       ...nbBeneficiariesAccountsData,
     };
-    nbStoredDocsData = {[formatDate(note.date)]: note.nbStoredDocs, ...nbStoredDocsData};
+    nbStoredDocsData = {[formatDate(permanence.date)]: permanence.nbStoredDocs, ...nbStoredDocsData};
   });
 
   return (

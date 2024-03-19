@@ -1,91 +1,64 @@
-Age Breakpoints: Tranches d'âge
-AgeBreakpoint: Tranches d'âge
-AgeBreakpoints: Tranches d'âge
-Attendees: Participants
-Author: Créateur
-Beneficiaries Notes: 'Bénéficiaires : bilan et axes d’amélioration'
-BeneficiariesNotes: Remarques concernant les bénéficiaires
-Category: Catégorie
-Center: Centres
-CenterTag: Label
-Color: Couleur
-Created At: Date de création
-CreatedAt: Date de création
-Date: Date
-Duration: Durée
-Equipment Suppliers: Equipement fourni par
-EquipmentSupplier: Equipement fourni par
-EquipmentSuppliers: Equipement fourni par
-Enabled: Actif
-Female Count: Nb femmes
-Global Report: Bilan global
-Hours: Heures
 ID: Id
-Improvement Axis: Axes d'amélioration
-Male Count: Nb hommes
-Name: Nom
-Nb Beneficiaries Accounts: Nb CFN
-Nb Beneficiaries: Nb Bénef
-Nb Created Contacts: Nb de contacts créés
-Nb Created Events: Nb d'événements créés
-Nb Created Notes: Nb de notes créées
-Nb Pro Accounts: Nb Comptes Pro
-Nb Pros: Nb Pros
-Nb Stored Docs: Nb docs stockés
-NbStoredDocs: Nombre de documents stockés
-No Gender Count: Nb autres
-Participant Kind: Types de participants
-Participant Kinds: Types de participants
-ParticipantKind: Types de participants
-ParticipantKinds: Types de participants
-Password: Mot de passe
-Permanence: Permanence CFN
-Place: Lieu
-Pro Notes: 'Professionnels & Structure : bilan et axes d’amélioration'
-ProNotes: Remarques concernant les bénéficiaires
-Project: Projet
-Reconnect Notes: Remarques concernant Reconnect
-ReconnectNotes: Remarques concernant Reconnect
-Skill: Compétence
-Skills: Compétences
-Tag: Label
-Tags: Labels
-Topic Precision: Précisions sur le thème
-Topic: Thème
-Topics: Thèmes
-Updated At: Date de dernière mise à jour
-UpdatedAt: Date de mise à jour
-Used Equipments: Outils utilisés
-UsedEquipment: Outils utilisés
-UsedEquipments: Outils utilisés
-UsedVault: Utilisation du CFN
-User: Utilisateurs
-Workshop: Accompagnement numérique
-Workshops: Accompagnements numérique
+age_breakpoint: Tranche d'âge
+age_breakpoints: Tranches d'âges
 attendees: Participants
+attendees_count: nbParticipants
 author: Créateur
+beneficiaries_accounts_count: Nb CFN
+beneficiaries_count: Nombre de Bénéficiaires rencontrés
+beneficiaries_notes: 'Bénéficiaires : bilan et axes d’amélioration'
 beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'
+category: Categorie
 center: Centre
-createdAt: Date de création
+centers: Centres
+center_tag: Label
+center_tags: Labels
+color: Couleur
+created_at: Date de création
+created_contacts_count: Nb de contacts créés
+created_events_count: Nb d'événements créés
+created_notes_count: Nb de notes créées
 date: Date
+duration: Durée
+durations: Durées
+enabled: Actif
+equipment_supplier: Equipement fourni par
 export: Exporter
-femaleCount: Nb femmes
+female_count: Nb femmes
 field_format_unknown: Format du champ inconnu
+global_report: Bilan global
+has_used_vault: Utilisation du CFN
+helped_beneficiaries_count: Nb bénéf aidés sur le CFN
 hours: Heures
 id: Id
-maleCount: Nb hommes
-nbBeneficiaries: Nombre de bénéficiaires rencontrés
+improvement_axis: Axes d'amélioration
+male_count: Nb hommes
+name: Nom
 nbBeneficiariesAccounts: Nombre de CFN
-nbHelpedBeneficiaries: Nb bénéf aidés sur le CFN
-nbNewParticipants: Nombre de nouveaux participants
-nbProAccounts: Nombre de comptes Pro crées
-nbPros: Nombre de Professionnels présents
-nbStoredDocs: Nombre de documents stockés
-nbUninterestedBeneficiaries: Nb benef pas intéressés
-noGenderCount: Nb autres
+no_gender_count: Nb autres
+participant_kind: Type de participant
+participant_kinds: Types de participants
+password: Mot de passe
+permanence: Permanence
+permanences: Permanences
+permanences_count: Nb Permanences
 place: Lieu
-proNotes: 'Professionnels & Structure : bilan et axes d’amélioration'
-reconnectNotes: Remarques concernant Reconnect
+pro_notes: 'Professionnels & Structure : bilan et axes d’amélioration'
+pros_count: Nombre de Professionnels présents
+skill: Compétence
+skills: Compétences
+stored_docs_count: Nb docs stockés
 tags: Labels
+topic: Thème
+topic_precision: Précisions sur le thème
+topics: Thèmes
 unfilled: Non renseigné
-updatedAt: Date de mise à jour
+unintested_beneficiaries_count: Nb benef pas intéressés
+updated_at: Date de mise à jour
+user: Utilisateur
+users: Utilisateurs
+used_equipment: Outil utilisé
+used_equipments: Outils utilisés
+workshops: Ateliers
+workshops_count: Nb Ateliers
+workshop: Atelier

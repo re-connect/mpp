@@ -37,7 +37,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
 
     /** @var Collection<int, Permanence> */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Permanence::class)]
-    private Collection $notes;
+    private Collection $permanences;
 
     private ?string $plainPassword = null;
 
@@ -62,7 +62,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
 
     public function __construct()
     {
-        $this->notes = new ArrayCollection();
+        $this->permanences = new ArrayCollection();
         $this->workshops = new ArrayCollection();
     }
 
@@ -180,26 +180,26 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface, \String
     }
 
     /** @return Collection<int, Permanence> */
-    public function getNotes(): Collection
+    public function getPermanences(): Collection
     {
-        return $this->notes;
+        return $this->permanences;
     }
 
-    public function setNotes(mixed $notes): void
+    public function setPermanences(mixed $permanences): void
     {
-        $this->notes = $notes;
+        $this->permanences = $permanences;
     }
 
-    public function addNote(Permanence $note): static
+    public function addPermanence(Permanence $permanence): static
     {
-        $this->notes[] = $note;
+        $this->permanences[] = $permanence;
 
         return $this;
     }
 
-    public function removeNote(Permanence $note): static
+    public function removePermanence(Permanence $permanence): static
     {
-        $this->notes->removeElement($note);
+        $this->permanences->removeElement($permanence);
 
         return $this;
     }

@@ -46,7 +46,7 @@ class Center implements \Stringable
     /** @var Collection<int, Permanence> */
     #[Groups(['read'])]
     #[ORM\OneToMany(mappedBy: 'center', targetEntity: Permanence::class)]
-    private Collection $notes;
+    private Collection $permanences;
 
     #[Groups(['read'])]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
@@ -82,7 +82,7 @@ class Center implements \Stringable
 
     public function __construct()
     {
-        $this->notes = new ArrayCollection();
+        $this->permanences = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->workshops = new ArrayCollection();
     }
@@ -105,27 +105,27 @@ class Center implements \Stringable
     /**
      * @return Collection<int, Permanence>
      */
-    public function getNotes(): Collection
+    public function getPermanences(): Collection
     {
-        return $this->notes;
+        return $this->permanences;
     }
 
-    /** @param Collection<int, Permanence> $notes */
-    public function setNotes(Collection $notes): void
+    /** @param Collection<int, Permanence> $permanences */
+    public function setPermanences(Collection $permanences): void
     {
-        $this->notes = $notes;
+        $this->permanences = $permanences;
     }
 
-    public function addNote(Permanence $note): self
+    public function addPermanence(Permanence $permanence): self
     {
-        $this->notes->add($note);
+        $this->permanences->add($permanence);
 
         return $this;
     }
 
-    public function removeNote(Permanence $note): self
+    public function removePermanence(Permanence $permanence): self
     {
-        $this->notes->removeElement($note);
+        $this->permanences->removeElement($permanence);
 
         return $this;
     }
@@ -172,19 +172,19 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiaries(), 0);
+        return array_reduce($this->permanences->toArray(), fn (int $acc, Permanence $permanence) => $acc + $permanence->getNbBeneficiaries(), 0);
     }
 
     #[Groups('read')]
     public function getCreatedBeneficiaryCount(): int
     {
-        return $this->getNotesBeneficiariesCount() + $this->getWorkshopsBeneficiariesCount();
+        return $this->getPermanencesBeneficiariesCount() + $this->getWorkshopsBeneficiariesCount();
     }
 
     #[Groups('read')]
-    public function getNotesBeneficiariesCount(): int
+    public function getPermanencesBeneficiariesCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbBeneficiariesAccounts(), 0);
+        return array_reduce($this->permanences->toArray(), fn (int $acc, Permanence $permanence) => $acc + $permanence->getNbBeneficiariesAccounts(), 0);
     }
 
     #[Groups('read')]
@@ -196,7 +196,7 @@ class Center implements \Stringable
     #[Groups('read')]
     public function getStoredDocumentsCount(): int
     {
-        return $this->getWorkshopsStoredDocumentsCount() + $this->getNotesStoredDocumentsCount();
+        return $this->getWorkshopsStoredDocumentsCount() + $this->getPermanencesStoredDocumentsCount();
     }
 
     #[Groups('read')]
@@ -206,9 +206,9 @@ class Center implements \Stringable
     }
 
     #[Groups('read')]
-    public function getNotesStoredDocumentsCount(): int
+    public function getPermanencesStoredDocumentsCount(): int
     {
-        return array_reduce($this->notes->toArray(), fn (int $acc, Permanence $note) => $acc + $note->getNbStoredDocs(), 0);
+        return array_reduce($this->permanences->toArray(), fn (int $acc, Permanence $permanence) => $acc + $permanence->getNbStoredDocs(), 0);
     }
 
     #[Groups('read')]
