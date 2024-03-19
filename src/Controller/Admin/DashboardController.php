@@ -43,7 +43,7 @@ class DashboardController extends AbstractDashboardController
     #[Route(path: '/admin')]
     public function index(): Response
     {
-        return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        return $this->redirect($this->adminUrlGenerator->setController(PermanenceCrudController::class)->generateUrl());
     }
 
     public function configureMenuItems(): iterable
