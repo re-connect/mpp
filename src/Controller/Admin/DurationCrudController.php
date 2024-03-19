@@ -3,9 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Duration;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class DurationCrudController extends AbstractCrudController
+class DurationCrudController extends AbstractSuperAdminController
 {
     public static function getEntityFqcn(): string
     {

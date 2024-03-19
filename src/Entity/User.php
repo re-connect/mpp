@@ -16,7 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements PasswordAuthenticatedUserInterface, UserInterface, \Stringable
 {
-    final public const ROLES = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+    final public const ROLE_ADMIN = 'ROLE_ADMIN';
+    final public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    final public const ROLES = [self::ROLE_ADMIN, self::ROLE_SUPER_ADMIN];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

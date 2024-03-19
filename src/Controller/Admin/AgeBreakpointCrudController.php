@@ -3,9 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AgeBreakpoint;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class AgeBreakpointCrudController extends AbstractCrudController
+class AgeBreakpointCrudController extends AbstractSuperAdminController
 {
     public static function getEntityFqcn(): string
     {

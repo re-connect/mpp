@@ -3,9 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\UsedEquipment;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UsedEquipmentCrudController extends AbstractCrudController
+class UsedEquipmentCrudController extends AbstractSuperAdminController
 {
     public static function getEntityFqcn(): string
     {

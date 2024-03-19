@@ -1,3 +1,5 @@
+SYMFONY       = symfony
+CONSOLE       = $(SYMFONY) console
 BIN     	  = ./vendor/bin
 RECTOR        = $(BIN)/rector
 PHPSTAN       = $(BIN)/phpstan
@@ -8,6 +10,9 @@ DEPLOYER      = $(BIN)/dep
 .PHONY        :
 
 cs: rector fix stan test
+
+fixture:
+	@$(CONSOLE) doctrine:fixtures:load --env=test -n
 
 test:
 	@$(PHPUNIT) tests
