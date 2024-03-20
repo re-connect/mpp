@@ -7,6 +7,7 @@ require 'recipe/symfony.php';
 // Config
 
 set('repository', 'git@github.com:re-connect/mpp.git');
+set('branch', 'master');
 set('symfony_env', 'prod');
 set('env', [
     'SYMFONY_ENV' => get('symfony_env'),
