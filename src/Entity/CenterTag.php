@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
         new GetCollection(),
         new Post(),
     ],
+    paginationEnabled: false,
 )]
 #[ORM\Entity(repositoryClass: CenterTagRepository::class)]
 class CenterTag implements \Stringable
