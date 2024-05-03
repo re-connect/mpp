@@ -66,21 +66,26 @@ const WorkshopCard = ({workshop}: any) => (
         Outils utilisés : <ChipList list={workshop.usedEquipments} dropdownKind="usedEquipments"/>
       </div>
       <div>
-        Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
+        Équipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
       </div>
       <br/>
       <Typography variant="subtitle1">
-        Bilan global :
-      </Typography>
-      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
-        {workshop.globalReport}
-      </Typography>
-      <br/>
-      <Typography variant="subtitle1">
-        Axes d'amélioration :
+        Bilan global et axes d'amélioration :
       </Typography>
       <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
         {workshop.improvementAxis}
+      </Typography>
+      <Typography variant="subtitle1">
+        Proposition de modification (évolution d'une fonctionnalité, d'un site...) :
+      </Typography>
+      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+        {workshop.updateProposal}
+      </Typography>
+      <Typography variant="subtitle1">
+        Proposition d'ajout (nouvelles ressources, exercices, thématiques...) :
+      </Typography>
+      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+        {workshop.addProposal}
       </Typography>
       {!workshop.usedVault ? null : (
         <div>

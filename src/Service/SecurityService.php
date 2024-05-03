@@ -70,7 +70,7 @@ class SecurityService
         if ($email) {
             /** @var ?User $user */
             $user = $this->repository->findOneBy(['email' => $email]);
-            if ($user->isDisabled()) {
+            if ($user?->isDisabled()) {
                 return new RedirectResponse($this->router->generate('user_disabled'));
             }
             if (!$user && str_ends_with($email, '@reconnect.fr')) {

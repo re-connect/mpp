@@ -158,7 +158,7 @@ class Permanence implements \Stringable
         return $this->center;
     }
 
-    public function setCenter(Center $center = null): void
+    public function setCenter(?Center $center = null): void
     {
         $this->center = $center;
     }
@@ -168,7 +168,7 @@ class Permanence implements \Stringable
         return $this->hours;
     }
 
-    public function setHours(int $hours = null): void
+    public function setHours(?int $hours = null): void
     {
         $this->hours = $hours;
     }
@@ -178,7 +178,7 @@ class Permanence implements \Stringable
         return $this->nbPros;
     }
 
-    public function setNbPros(int $nbPros = null): void
+    public function setNbPros(?int $nbPros = null): void
     {
         $this->nbPros = $nbPros;
     }
@@ -188,7 +188,7 @@ class Permanence implements \Stringable
         return $this->nbProAccounts;
     }
 
-    public function setNbProAccounts(int $nbProAccounts = null): void
+    public function setNbProAccounts(?int $nbProAccounts = null): void
     {
         $this->nbProAccounts = $nbProAccounts;
     }
@@ -198,7 +198,7 @@ class Permanence implements \Stringable
         return $this->nbBeneficiaries;
     }
 
-    public function setNbBeneficiaries(int $nbBeneficiaries = null): void
+    public function setNbBeneficiaries(?int $nbBeneficiaries = null): void
     {
         $this->nbBeneficiaries = $nbBeneficiaries;
     }
@@ -208,7 +208,7 @@ class Permanence implements \Stringable
         return $this->nbBeneficiariesAccounts;
     }
 
-    public function setNbBeneficiariesAccounts(int $nbBeneficiariesAccounts = null): void
+    public function setNbBeneficiariesAccounts(?int $nbBeneficiariesAccounts = null): void
     {
         $this->nbBeneficiariesAccounts = $nbBeneficiariesAccounts;
     }
@@ -218,7 +218,7 @@ class Permanence implements \Stringable
         return $this->nbStoredDocs;
     }
 
-    public function setNbStoredDocs(int $nbStoredDocs = null): void
+    public function setNbStoredDocs(?int $nbStoredDocs = null): void
     {
         $this->nbStoredDocs = $nbStoredDocs;
     }
@@ -228,7 +228,7 @@ class Permanence implements \Stringable
         return $this->beneficiariesNotes;
     }
 
-    public function setBeneficiariesNotes(string $beneficiariesNotes = null): void
+    public function setBeneficiariesNotes(?string $beneficiariesNotes = null): void
     {
         $this->beneficiariesNotes = $beneficiariesNotes;
     }
@@ -238,7 +238,7 @@ class Permanence implements \Stringable
         return $this->proNotes;
     }
 
-    public function setProNotes(string $proNotes = null): void
+    public function setProNotes(?string $proNotes = null): void
     {
         $this->proNotes = $proNotes;
     }
@@ -248,7 +248,7 @@ class Permanence implements \Stringable
         return $this->reconnectNotes;
     }
 
-    public function setReconnectNotes(string $reconnectNotes = null): void
+    public function setReconnectNotes(?string $reconnectNotes = null): void
     {
         $this->reconnectNotes = $reconnectNotes;
     }
@@ -258,7 +258,7 @@ class Permanence implements \Stringable
         return $this->attendees;
     }
 
-    public function setAttendees(string $attendees = null): void
+    public function setAttendees(?string $attendees = null): void
     {
         $this->attendees = $attendees;
     }

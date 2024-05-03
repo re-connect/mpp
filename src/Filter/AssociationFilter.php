@@ -16,7 +16,7 @@ class AssociationFilter implements FilterInterface
     /** @var array<string> */
     private array $associations;
 
-    public static function new(string $propertyName, string $label = null): self
+    public static function new(string $propertyName, ?string $label = null): self
     {
         $properties = explode('.', $propertyName);
 

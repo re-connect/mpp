@@ -130,9 +130,6 @@
             ".php-cs-fixer.dist.php"
         ]
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.5"
-    },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.38"
     },
@@ -150,9 +147,6 @@
         "files": [
             "config/packages/knpu_oauth2_client.yaml"
         ]
-    },
-    "laminas/laminas-code": {
-        "version": "4.4.0"
     },
     "monolog/monolog": {
         "version": "2.3.5"
@@ -418,9 +412,6 @@
     },
     "symfony/property-info": {
         "version": "v4.3.4"
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v5.3.4"
     },
     "symfony/routing": {
         "version": "6.2",

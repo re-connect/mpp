@@ -12,7 +12,6 @@ export interface WorkshopInterface extends Entity {
   date?: Date;
   place?: string;
   center?: string;
-  globalReport?: string;
   nbParticipants?: number;
   nbNewParticipants?: number;
   femaleCount?: number;
@@ -27,6 +26,8 @@ export interface WorkshopInterface extends Entity {
   usedVault?: boolean;
   attendees?: string;
   improvementAxis?: string;
+  updateProposal?: string;
+  addProposal?: string;
   duration?: Duration;
   participantKinds?: ParticipantKind[];
   equipmentSuppliers?: EquipmentSupplier[];
