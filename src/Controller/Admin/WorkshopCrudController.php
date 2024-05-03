@@ -39,7 +39,6 @@ class WorkshopCrudController extends ExportableCrudController
         'ageBreakpoints',
         'usedEquipments',
         'equipmentSuppliers',
-        'globalReport',
         'improvementAxis',
         'nbBeneficiariesAccounts',
         'nbStoredDocs',
@@ -101,7 +100,6 @@ class WorkshopCrudController extends ExportableCrudController
         $topicPrecision = TextField::new('topicPrecision', 'topic_precision');
         $nbParticipants = IntegerField::new('nbParticipants', 'attendees_count');
         $participantKinds = AssociationField::new('participantKinds', 'participant_kinds');
-        $globalReport = TextField::new('globalReport', 'global_report');
         $author = AssociationField::new('author', 'author');
         $createdAt = DateTimeField::new('createdAt', 'created_at');
         $updatedAt = DateTimeField::new('updatedAt', 'updated_at');
@@ -138,7 +136,6 @@ class WorkshopCrudController extends ExportableCrudController
                 $ageBreakpoints,
                 $usedEquipments,
                 $equipmentSuppliers,
-                $globalReport,
                 $improvementAxis,
                 $nbBeneficiariesAccounts,
                 $nbStoredDocs,
@@ -167,7 +164,6 @@ class WorkshopCrudController extends ExportableCrudController
                 $ageBreakpoints,
                 $usedEquipments,
                 $equipmentSuppliers,
-                $globalReport,
                 $improvementAxis,
                 $nbBeneficiariesAccounts,
                 $nbStoredDocs,

@@ -60,24 +60,17 @@ const WorkshopCard = ({workshop}: any) => (
         Types de participants : <ChipList list={workshop.participantKinds} dropdownKind="participantKinds"/>
       </div>
       <div>
-        Tranches d'âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
+        Tranches d&#39âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
       </div>
       <div>
         Outils utilisés : <ChipList list={workshop.usedEquipments} dropdownKind="usedEquipments"/>
       </div>
       <div>
-        Equipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
+        Équipement fourni par : <ChipList list={workshop.equipmentSuppliers} dropdownKind="equipmentSuppliers"/>
       </div>
       <br/>
       <Typography variant="subtitle1">
-        Bilan global :
-      </Typography>
-      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
-        {workshop.globalReport}
-      </Typography>
-      <br/>
-      <Typography variant="subtitle1">
-        Axes d'amélioration :
+        Bilan global et axes d&#39amélioration :
       </Typography>
       <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
         {workshop.improvementAxis}

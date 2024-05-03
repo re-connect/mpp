@@ -27,12 +27,11 @@ equipment_supplier: Equipement fourni par
 export: Exporter
 female_count: Nb femmes
 field_format_unknown: Format du champ inconnu
-global_report: Bilan global
 has_used_vault: Utilisation du CFN
 helped_beneficiaries_count: Nb bénéf aidés sur le CFN
 hours: Heures
 id: Id
-improvement_axis: Axes d'amélioration
+improvement_axis: Bilan global et axes d'amélioration
 male_count: Nb hommes
 name: Nom
 nbBeneficiariesAccounts: Nombre de CFN

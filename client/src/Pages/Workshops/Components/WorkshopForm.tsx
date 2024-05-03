@@ -19,7 +19,7 @@ import PrimaryButton from '../../../Components/PrimaryButton';
 
 interface WorkshopFormProps {
   workshop: WorkshopInterface;
-  onSubmit: Function;
+  onSubmit: (data: object) => Promise<void>;
 }
 
 const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
@@ -180,20 +180,9 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           </FormRow>
           <FormRow>
             <FormTextField
-              id='globalReport'
-              value={values.globalReport}
-              label="Bilan global"
-              required={true}
-              multiline
-              rows='4'
-              handleChange={handleChange}
-            />
-          </FormRow>
-          <FormRow>
-            <FormTextField
               id='improvementAxis'
               value={values.improvementAxis}
-              label="Axes d'amélioration"
+              label="Bolan global et axes d'amélioration"
               multiline={true}
               rows='4'
               handleChange={handleChange}
