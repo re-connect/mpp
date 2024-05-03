@@ -1,27 +1,28 @@
 ID: Id
+add_proposal: Proposition d'ajout (nouvelles ressources, exercices, thématiques...)
 age_breakpoint: Tranche d'âge
 age_breakpoints: Tranches d'âges
 attendees: Participants
 attendees_count: nbParticipants
 author: Créateur
+beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'
 beneficiaries_accounts_count: Nb CFN
 beneficiaries_count: Nombre de Bénéficiaires rencontrés
 beneficiaries_notes: 'Bénéficiaires : bilan et axes d’amélioration'
-beneficiariesNotes: 'Bénéficiaires : bilan et axes d’amélioration'
 category: Categorie
 center: Centre
-centers: Centres
 center_tag: Label
 center_tags: Labels
+centers: Centres
 color: Couleur
 created_at: Date de création
 created_contacts_count: Nb de contacts créés
 created_events_count: Nb d'événements créés
 created_notes_count: Nb de notes créées
 date: Date
+disabled: Désactivé
 duration: Durée
 durations: Durées
-disabled: Désactivé
 enabled: Actif
 equipment_supplier: Equipement fourni par
 export: Exporter
@@ -54,11 +55,12 @@ topic_precision: Précisions sur le thème
 topics: Thèmes
 unfilled: Non renseigné
 unintested_beneficiaries_count: Nb benef pas intéressés
+update_proposal: Proposition de modification (évolution d'une fonctionnalité, d'un site...)
 updated_at: Date de mise à jour
-user: Utilisateur
-users: Utilisateurs
 used_equipment: Outil utilisé
 used_equipments: Outils utilisés
+user: Utilisateur
+users: Utilisateurs
+workshop: Atelier
 workshops: Ateliers
 workshops_count: Nb Ateliers
-workshop: Atelier

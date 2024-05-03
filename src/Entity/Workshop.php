@@ -156,6 +156,14 @@ class Workshop
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $nbNewParticipants = null;
 
+    #[Groups(['workshop:read', 'workshop:write'])]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $updateProposal = null;
+
+    #[Groups(['workshop:read', 'workshop:write'])]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $addProposal = null;
+
     public function __construct()
     {
         $this->participantKinds = new ArrayCollection();
@@ -542,6 +550,30 @@ class Workshop
     public function setNbNewParticipants(?int $nbNewParticipants): self
     {
         $this->nbNewParticipants = $nbNewParticipants;
+
+        return $this;
+    }
+
+    public function getUpdateProposal(): ?string
+    {
+        return $this->updateProposal;
+    }
+
+    public function setUpdateProposal(?string $updateProposal): static
+    {
+        $this->updateProposal = $updateProposal;
+
+        return $this;
+    }
+
+    public function getAddProposal(): ?string
+    {
+        return $this->addProposal;
+    }
+
+    public function setAddProposal(?string $addProposal): static
+    {
+        $this->addProposal = $addProposal;
 
         return $this;
     }
