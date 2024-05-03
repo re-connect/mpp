@@ -97,7 +97,7 @@ class Center implements \Stringable
         return $this->name;
     }
 
-    public function setName(string $name = null): void
+    public function setName(?string $name = null): void
     {
         $this->name = $name;
     }

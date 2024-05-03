@@ -26,6 +26,8 @@ export interface WorkshopInterface extends Entity {
   usedVault?: boolean;
   attendees?: string;
   improvementAxis?: string;
+  updateProposal?: string;
+  addProposal?: string;
   duration?: Duration;
   participantKinds?: ParticipantKind[];
   equipmentSuppliers?: EquipmentSupplier[];

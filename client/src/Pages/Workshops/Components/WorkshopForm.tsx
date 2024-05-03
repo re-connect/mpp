@@ -189,6 +189,22 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             />
           </FormRow>
           <FormRow>
+            <FormTextField
+              id='updateProposal'
+              value={values.updateProposal}
+              label="Proposition de modification (évolution d'une fonctionnalité, d'un site...)"
+              handleChange={handleChange}
+            />
+          </FormRow>
+          <FormRow>
+            <FormTextField
+              id='addProposal'
+              value={values.addProposal}
+              label="Proposition d'ajout (nouvelles ressources, exercices, thématiques...)"
+              handleChange={handleChange}
+            />
+          </FormRow>
+          <FormRow>
             <FormControlLabel
               control={
                 <Checkbox

@@ -60,7 +60,7 @@ const WorkshopCard = ({workshop}: any) => (
         Types de participants : <ChipList list={workshop.participantKinds} dropdownKind="participantKinds"/>
       </div>
       <div>
-        Tranches d&#39âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
+        Tranches d'âge : <ChipList list={workshop.ageBreakpoints} dropdownKind="ageBreakpoints"/>
       </div>
       <div>
         Outils utilisés : <ChipList list={workshop.usedEquipments} dropdownKind="usedEquipments"/>
@@ -70,10 +70,22 @@ const WorkshopCard = ({workshop}: any) => (
       </div>
       <br/>
       <Typography variant="subtitle1">
-        Bilan global et axes d&#39amélioration :
+        Bilan global et axes d'amélioration :
       </Typography>
       <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
         {workshop.improvementAxis}
+      </Typography>
+      <Typography variant="subtitle1">
+        Proposition de modification (évolution d'une fonctionnalité, d'un site...) :
+      </Typography>
+      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+        {workshop.updateProposal}
+      </Typography>
+      <Typography variant="subtitle1">
+        Proposition d'ajout (nouvelles ressources, exercices, thématiques...) :
+      </Typography>
+      <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
+        {workshop.addProposal}
       </Typography>
       {!workshop.usedVault ? null : (
         <div>
