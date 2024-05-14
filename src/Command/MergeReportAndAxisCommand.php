@@ -29,7 +29,7 @@ class MergeReportAndAxisCommand extends Command
 
         /** @var Workshop[] $workshopsWithReport */
         $workshopsWithReport = $this->repository->createQueryBuilder('w')
-            ->where('w.report IS NOT NULL')
+            ->where('w.globalReport IS NOT NULL')
             ->getQuery()
             ->getResult();
 

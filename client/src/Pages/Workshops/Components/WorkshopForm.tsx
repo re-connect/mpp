@@ -182,7 +182,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <FormTextField
               id='improvementAxis'
               value={values.improvementAxis}
-              label="Bolan global et axes d'amélioration"
+              label="Bilan global et axes d'amélioration"
               multiline={true}
               rows='4'
               handleChange={handleChange}
