@@ -9,7 +9,9 @@ DEPLOYER      = $(BIN)/dep
 
 .PHONY        :
 
-cs: rector fix stan test
+cs: rector fix stan
+
+ci: rector fix stan test
 
 fixture:
 	@$(CONSOLE) doctrine:fixtures:load --env=test -n
