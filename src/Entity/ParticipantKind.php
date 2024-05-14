@@ -42,7 +42,7 @@ class ParticipantKind implements \Stringable
     private ?string $name = null;
 
     /** @var Collection<int, Workshop> */
-    #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'participantKind')]
+    #[ORM\ManyToMany(targetEntity: Workshop::class, mappedBy: 'participantKinds')]
     private Collection $workshops;
 
     public function __construct()
