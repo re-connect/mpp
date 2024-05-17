@@ -200,7 +200,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
             <FormTextField
               id='addProposal'
               value={values.addProposal}
-              label="Proposition d'ajout (nouvelles ressources, exercices, thématiques...)"
+              label="Suggestion d'ajout par les pro/bénef (sujets, thématiques...)"
               handleChange={handleChange}
             />
           </FormRow>

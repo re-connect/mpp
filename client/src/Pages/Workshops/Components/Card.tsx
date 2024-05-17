@@ -82,7 +82,7 @@ const WorkshopCard = ({workshop}: any) => (
         {workshop.updateProposal}
       </Typography>
       <Typography variant="subtitle1">
-        Proposition d'ajout (nouvelles ressources, exercices, thématiques...) :
+        Suggestion d'ajout par les pro/bénef (sujets, thématiques...) :
       </Typography>
       <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
         {workshop.addProposal}
