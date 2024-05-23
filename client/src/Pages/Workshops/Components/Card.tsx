@@ -73,7 +73,7 @@ const WorkshopCard = ({workshop}: any) => (
         Bilan global et axes d'amélioration :
       </Typography>
       <Typography variant="body2" style={{whiteSpace: "pre-line"}}>
-        {workshop.improvementAxis}
+        {workshop.globalReport}
       </Typography>
       <Typography variant="subtitle1">
         Proposition de modification (évolution d'une fonctionnalité, d'un site...) :
