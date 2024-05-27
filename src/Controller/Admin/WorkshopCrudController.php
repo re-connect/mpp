@@ -117,7 +117,10 @@ class WorkshopCrudController extends ExportableCrudController
         $nbCreatedNotes = IntegerField::new('nbCreatedNotes', 'created_notes_count');
         $skills = AssociationField::new('skills', 'skills');
         $attendees = TextField::new('attendees', 'attendees');
-        $improvementAxis = TextField::new('improvementAxis', 'improvement_axis');
+        $improvementAxis = TextField::new('improvementAxis', 'improvement_axis')->setDisabled();
+        $globalReport = TextField::new('globalReport', 'global_report');
+        $addProposal = TextField::new('addProposal', 'add_proposal');
+        $updateProposal = TextField::new('updateProposal', 'update_proposal');
         $duration = AssociationField::new('duration', 'duration');
         $maleCount = IntegerField::new('maleCount', 'male_count')->setRequired(true);
         $femaleCount = IntegerField::new('femaleCount', 'female_count')->setRequired(true);
@@ -138,7 +141,9 @@ class WorkshopCrudController extends ExportableCrudController
                 $ageBreakpoints,
                 $usedEquipments,
                 $equipmentSuppliers,
-                $improvementAxis,
+                $globalReport,
+                $addProposal,
+                $updateProposal,
                 $nbBeneficiariesAccounts,
                 $nbStoredDocs,
                 $nbCreatedEvents,
@@ -167,6 +172,9 @@ class WorkshopCrudController extends ExportableCrudController
                 $usedEquipments,
                 $equipmentSuppliers,
                 $improvementAxis,
+                $globalReport,
+                $addProposal,
+                $updateProposal,
                 $nbBeneficiariesAccounts,
                 $nbStoredDocs,
                 $nbCreatedEvents,
