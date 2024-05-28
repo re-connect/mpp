@@ -35,7 +35,6 @@ has_used_vault: Utilisation du CFN
 helped_beneficiaries_count: Nb bénéf aidés sur le CFN
 hours: Heures
 id: Id
-improvement_axis: Axe d'amélioration (ancien champ)
 male_count: Nb hommes
 name: Nom
 nbBeneficiariesAccounts: Nombre de CFN
