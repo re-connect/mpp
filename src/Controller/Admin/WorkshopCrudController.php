@@ -117,7 +117,6 @@ class WorkshopCrudController extends ExportableCrudController
         $nbCreatedNotes = IntegerField::new('nbCreatedNotes', 'created_notes_count');
         $skills = AssociationField::new('skills', 'skills');
         $attendees = TextField::new('attendees', 'attendees');
-        $improvementAxis = TextField::new('improvementAxis', 'improvement_axis')->setDisabled();
         $globalReport = TextField::new('globalReport', 'global_report');
         $addProposal = TextField::new('addProposal', 'add_proposal');
         $updateProposal = TextField::new('updateProposal', 'update_proposal');
@@ -171,7 +170,6 @@ class WorkshopCrudController extends ExportableCrudController
                 $ageBreakpoints,
                 $usedEquipments,
                 $equipmentSuppliers,
-                $improvementAxis,
                 $globalReport,
                 $addProposal,
                 $updateProposal,
