@@ -10,7 +10,7 @@ const useFetchData = (endpoint: string, callback: Function = () => {
       callback(response.data);
     }
     if (response.request.responseURL === loginEndpoint && window.location.pathname !== '/login') {
-      window.location.replace('login');
+      window.location.replace('/login');
     }
   } catch (e: any) {
     console.log('Error making http call', endpoint, e.message);

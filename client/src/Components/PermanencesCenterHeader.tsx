@@ -12,11 +12,11 @@ interface Props {
 const PermanencesCenterHeader: React.FC<Props> = ({center}) => (
   <Grid2 container columns={2}>
     <Grid2>
-      <Text text={`Nb permanences: ${!center.notes ? '' : center.notes.length}`}/>
+      <Text text={`Nb permanences: ${!center.permanences ? '' : center.permanences.length}`}/>
       <Text text={`Nb bénef rencontrés: ${!center.beneficiariesCount ? '' : center.beneficiariesCount}`}/>
-      <Text text={`Nb CFN crées: ${!center.notesBeneficiariesCount ? '' : center.notesBeneficiariesCount}`}/>
+      <Text text={`Nb CFN crées: ${!center.permanencesBeneficiariesCount ? '' : center.permanencesBeneficiariesCount}`}/>
       <Text
-        text={`Nb docs stockés: ${!center.notesStoredDocumentsCount ? '' : center.notesStoredDocumentsCount}`}/>
+        text={`Nb docs stockés: ${!center.permanencesStoredDocumentsCount ? '' : center.permanencesStoredDocumentsCount}`}/>
     </Grid2>
     <Grid2 flexGrow={1}/>
     <Grid2>
