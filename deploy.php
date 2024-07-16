@@ -6,12 +6,15 @@ require 'recipe/symfony.php';
 
 // Config
 
+const HOST_ADDRESS = '155.133.130.39';
 set('repository', 'git@github.com:re-connect/mpp.git');
-set('branch', 'prod');
-set('symfony_env', 'prod');
+set('remote_user', 'www-data');
+set('flush_cache_file_name', 'flush-cache.php');
+set('flush_cache_file_path', '{{current_path}}/public/{{flush_cache_file_name}}');
 set('env', [
     'SYMFONY_ENV' => get('symfony_env'),
 ]);
+
 add('shared_files', [
     '.env',
     '.env.local',
@@ -26,12 +29,19 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('155.133.130.39')
-    ->set('remote_user', 'www-data')
+host(HOST_ADDRESS)
+    ->set(['stage' => 'prod'])
+    ->set('branch', 'main')
+    ->set('symfony_env', 'prod')
     ->set('deploy_path', '~/mpp')
-    ->set('flush_cache_file_name', 'flush-cache.php')
-    ->set('flush_cache_file_path', '{{current_path}}/public/{{flush_cache_file_name}}')
     ->set('api_url', 'https://api.mpp.reconnect.fr');
+
+host(HOST_ADDRESS)
+    ->set(['stage' => 'preprod'])
+    ->set('branch', 'dev')
+    ->set('symfony_env', 'preprod')
+    ->set('deploy_path', '~/mpp_pp')
+    ->set('api_url', 'https://preprod.api.mpp.reconnect.fr');
 
 // Tasks
 
