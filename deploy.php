@@ -6,7 +6,6 @@ require 'recipe/symfony.php';
 
 // Config
 
-const HOST_ADDRESS = '155.133.130.39';
 set('repository', 'git@github.com:re-connect/mpp.git');
 set('remote_user', 'www-data');
 set('flush_cache_file_name', 'flush-cache.php');
@@ -19,6 +18,7 @@ add('shared_files', [
     '.env',
     '.env.local',
     '.env.local.php',
+    'client/.env',
     'config/secrets/prod/prod.decrypt.private.php',
 ]);
 add('shared_dirs', [
@@ -29,14 +29,14 @@ add('writable_dirs', []);
 
 // Hosts
 
-host(HOST_ADDRESS)
+host('155.133.130.39')
     ->setLabels(['stage' => 'prod'])
     ->set('branch', 'main')
     ->set('symfony_env', 'prod')
     ->set('deploy_path', '~/mpp')
     ->set('api_url', 'https://api.mpp.reconnect.fr');
 
-host(HOST_ADDRESS)
+host('155.133.130.39')
     ->setLabels(['stage' => 'preprod'])
     ->set('branch', 'dev')
     ->set('symfony_env', 'preprod')
