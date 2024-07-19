@@ -1,8 +1,7 @@
 import axios, {AxiosResponse, Method} from 'axios';
 import {Entity} from '../Types/Entity';
 
-export const backendUrl =
-  process.env.NODE_ENV === 'production' ? 'https://api.mpp.reconnect.fr' : 'https://localhost:8000';
+export const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const oauthEndpoint = `${backendUrl}/reconnect-pro-login-trigger`;
 export const adminEndpoint = `${backendUrl}/admin`;

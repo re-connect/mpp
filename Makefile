@@ -29,8 +29,8 @@ fix:
 	@$(PHP_CS_FIXER) fix src --allow-risky=yes
 	@$(PHP_CS_FIXER) fix tests --allow-risky=yes
 
-deploy:
-	@$(DEPLOYER) deploy
+deploy-preprod:
+	@$(DEPLOYER) deploy stage=preprod
 
-
-dep: deploy
+deploy-prod:
+	@$(DEPLOYER) deploy stage=prod
