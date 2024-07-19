@@ -41,7 +41,7 @@ host('155.133.130.39')
     ->set('branch', 'dev')
     ->set('symfony_env', 'preprod')
     ->set('deploy_path', '~/mpp_pp')
-    ->set('api_url', 'https://preprod.api.mpp.reconnect.fr');
+    ->set('api_url', 'https://api.preprod.mpp.reconnect.fr');
 
 // Tasks
 
