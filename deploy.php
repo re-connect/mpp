@@ -29,14 +29,16 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('155.133.130.39')
+host('prod')
+    ->setHostname('155.133.130.39')
     ->setLabels(['stage' => 'prod'])
     ->set('branch', 'main')
     ->set('symfony_env', 'prod')
     ->set('deploy_path', '~/mpp')
     ->set('api_url', 'https://api.mpp.reconnect.fr');
 
-host('155.133.130.39')
+host('preprod')
+    ->setHostname('155.133.130.39')
     ->setLabels(['stage' => 'preprod'])
     ->set('branch', 'dev')
     ->set('symfony_env', 'preprod')
