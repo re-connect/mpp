@@ -104,7 +104,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <SelectField
               id='duration'
-              label='Durée'
+              label='Durée *'
               value={values.duration}
               setFieldValue={setFieldValue}
               required={true}
@@ -128,7 +128,7 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <MultiSelectField
               id="topics"
-              label="Thèmes"
+              label="Thèmes *"
               value={values.topics}
               required={true}
               setFieldValue={(_id: string, topicIris: string[]) => {
@@ -149,9 +149,10 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <MultiSelectField
               id="participantKinds"
-              label="Types de participants"
+              label="Types de participants *"
               value={values.participantKinds}
               setFieldValue={setFieldValue}
+              required={true}
             />
           </FormRow>
           <FormRow>
@@ -165,27 +166,30 @@ const WorkshopForm: React.FC<WorkshopFormProps> = ({workshop, onSubmit}) => {
           <FormRow>
             <MultiSelectField
               id="usedEquipments"
-              label="Outils utilisés"
+              label="Outils utilisés *"
               value={values.usedEquipments}
               setFieldValue={setFieldValue}
+              required={true}
             />
           </FormRow>
           <FormRow>
             <MultiSelectField
               id="equipmentSuppliers"
-              label="Équipement fourni par"
+              label="Équipement fourni par *"
               value={values.equipmentSuppliers}
               setFieldValue={setFieldValue}
-            />
+              required={true}
+          />
           </FormRow>
           <FormRow>
             <FormTextField
               id='globalReport'
               value={values.globalReport}
-              label="Bilan global et axes d'amélioration"
+              label="Bilan global et axes d'amélioration *"
               multiline={true}
               rows='4'
               handleChange={handleChange}
+              required={true}
             />
           </FormRow>
           <FormRow>
