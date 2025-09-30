@@ -37,23 +37,23 @@ const Form: React.FC<Props> = ({permanence, onSubmit}: any) => {
                              handleChange={(datetime: Date) => setFieldValue('date', datetime)}
                              value={values.date}
             />
-            <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange}/>
+            <NumberField id='hours' value={values.hours} label="Nombre d'heures" handleChange={handleChange} required={true}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbPros' value={values.nbPros} label="Nb pros présents" handleChange={handleChange}/>
+            <NumberField id='nbPros' value={values.nbPros} label="Nb pros présents" handleChange={handleChange} required={true}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbBeneficiaries' value={values.nbBeneficiaries} label="Nb benef rencontrés"
-                         handleChange={handleChange}/>
-            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts} label="Nb CFN créés" handleChange={handleChange}/>
+                         handleChange={handleChange} required={true}/>
+            <NumberField id='nbBeneficiariesAccounts' value={values.nbBeneficiariesAccounts} label="Nb CFN créés" handleChange={handleChange} required={true}/>
           </FormRow>
           <FormRow>
-            <NumberField id='nbUninterestedBeneficiaries' value={values.nbUninterestedBeneficiaries} label="Nb benef pas intéressés" handleChange={handleChange}/>
-            <NumberField id='nbHelpedBeneficiaries' value={values.nbHelpedBeneficiaries} label="Nb bénéf aidés sur le CFN" handleChange={handleChange}/>
+            <NumberField id='nbUninterestedBeneficiaries' value={values.nbUninterestedBeneficiaries} label="Nb benef pas intéressés" handleChange={handleChange} required={true}/>
+            <NumberField id='nbHelpedBeneficiaries' value={values.nbHelpedBeneficiaries} label="Nb bénéf aidés sur le CFN" handleChange={handleChange} required={true}/>
           </FormRow>
           <FormRow>
             <NumberField id='nbStoredDocs' value={values.nbStoredDocs} label="Nb doc stockés"
-                         handleChange={handleChange}/>
+                         handleChange={handleChange} required={true}/>
           </FormRow>
           <FormRow>
             <NumberField
