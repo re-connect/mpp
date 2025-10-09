@@ -28,6 +28,7 @@ To start up run :
 
 ```bash
 symfony composer install
+symfony console assets:install
 symfony console doctrine:migrations:migrate
 symfony server:ca:install
 symfony serve
