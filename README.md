@@ -34,6 +34,21 @@ symfony server:ca:install
 symfony serve
 ```
 
+> ⚠️ Erreur lors de la migration (ou de l’import du dump) :  
+> `SQLSTATE[42501]: Insufficient privilege: 7 ERROR: permission denied for schema public`
+>
+> 💡 Solution : Connectez-vous sur la db `mpp` en tant qu’utilisateur `mpp` (ou `postgres`), puis exécutez les commandes suivantes :
+>
+> ```bash
+> # Connexion à la base
+> psql -U <user> -d mpp
+> ```
+>
+> ```sql
+> GRANT ALL ON SCHEMA public TO mpp;
+> GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO mpp;
+> ```
+
 #### Frontend
 
 It is a React application, so you need:
