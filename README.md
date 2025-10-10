@@ -28,6 +28,7 @@ To start up run :
 
 ```bash
 symfony composer install
+symfony console assets:install
 symfony console doctrine:migrations:migrate
 symfony server:ca:install
 symfony serve
@@ -87,3 +88,32 @@ make lint
 # Or running all at once
 make cs
 ```
+
+---
+
+## Frequent issues
+
+**1.** `SQLSTATE[42501]: Insufficient privilege: 7 ERROR: permission denied for schema public`
+
+This issue often occurs during Doctrine migrations or when importing a SQL dump.
+It means that the user configured in `.env` doesn't have sufficient privileges on the public schema.
+
+**Solution :**
+
+1. Connect to the database :
+   ```bash
+   psql -U <user> -d <database>
+   ```
+
+2. Execute the following commands :
+   ```sql
+   GRANT ALL ON SCHEMA public TO mpb;
+   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO mpb;
+   ```
+
+3. Rerun the migration :
+   ```bash
+   symfony console doctrine:migrations:migrate
+   ```
+
+---
