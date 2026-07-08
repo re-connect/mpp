@@ -25,10 +25,10 @@ readonly class WorkshopListener
     private function getWorkshopLogData(Workshop $workshop): array
     {
         return [
-            'centre' => $workshop->getCenter()->getName(),
+            'centre' => $workshop->getCenter()?->getName(),
             'lieu' => $workshop->getPlace(),
-            'date' => $workshop->getCreatedAt()->format('d/m/Y H:i:s'),
-            'auteur' => $workshop->getAuthor()->getUsername(),
+            'date' => $workshop->getCreatedAt()?->format('d/m/Y H:i:s'),
+            'auteur' => $workshop->getAuthor()?->getUsername(),
         ];
     }
 
