@@ -25,10 +25,10 @@ readonly class PermanenceListener
     private function getPermanenceLogData(Permanence $permanence): array
     {
         return [
-            'centre' => $permanence->getCenter()->getName(),
+            'centre' => $permanence->getCenter()?->getName(),
             'lieu' => $permanence->getPlace(),
-            'date' => $permanence->getCreatedAt()->format('d/m/Y H:i:s'),
-            'auteur' => $permanence->getAuthor()->getUsername(),
+            'date' => $permanence->getCreatedAt()?->format('d/m/Y H:i:s'),
+            'auteur' => $permanence->getAuthor()?->getUsername(),
         ];
     }
 
